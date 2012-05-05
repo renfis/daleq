@@ -13,6 +13,14 @@ public class PropertyContainer {
         this.value = value;
     }
 
+    public PropertyStructure getStructure() {
+        return structure;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
     @Override
     public final int hashCode() {
         return Objects.hashCode(structure, value);
