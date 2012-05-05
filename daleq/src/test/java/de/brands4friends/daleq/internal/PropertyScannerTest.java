@@ -34,7 +34,7 @@ public class PropertyScannerTest {
     }
 
     static class WithNonStatic {
-        public final PropertyDef ID   = pd("id", DataType.INTEGER);
+        public final PropertyDef ID   = pd(DataType.INTEGER);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -43,7 +43,7 @@ public class PropertyScannerTest {
     }
 
     static class WithNonFinal {
-        public static PropertyDef ID   = pd("id", DataType.INTEGER);
+        public static PropertyDef ID   = pd(DataType.INTEGER);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -52,8 +52,8 @@ public class PropertyScannerTest {
     }
 
     static class WithPropertyDefs {
-        public static final PropertyDef ID   = pd("ID", DataType.INTEGER);
-        public static final PropertyDef NAME = pd("NAME", DataType.VARCHAR);
+        public static final PropertyDef ID   = pd(DataType.INTEGER);
+        public static final PropertyDef NAME = pd(DataType.VARCHAR);
     }
 
     @Test
@@ -63,5 +63,17 @@ public class PropertyScannerTest {
                 new PropertyStructure("NAME",DataType.VARCHAR)
         );
         assertThat(scanner.scan(WithPropertyDefs.class), is(expected));
+    }
+
+    static class WithExplicitName {
+        public static final PropertyDef ID = pd("foo",DataType.INTEGER);
+    }
+
+    @Test
+    public void scanningWithExplicitName_should_haveThatName(){
+        final Collection<PropertyStructure> expected = Lists.newArrayList(
+                new PropertyStructure("foo",DataType.INTEGER)
+        );
+        assertThat(scanner.scan(WithExplicitName.class), is(expected));
     }
 }
