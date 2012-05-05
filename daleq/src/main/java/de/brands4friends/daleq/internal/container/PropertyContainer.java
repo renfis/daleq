@@ -6,9 +6,9 @@ import de.brands4friends.daleq.internal.structure.PropertyStructure;
 
 public class PropertyContainer {
     private final PropertyStructure structure;
-    private final Object value;
+    private final String value;
 
-    public PropertyContainer(final PropertyStructure structure, final Object value) {
+    public PropertyContainer(final PropertyStructure structure, final String value) {
         this.structure = structure;
         this.value = value;
     }
@@ -17,7 +17,7 @@ public class PropertyContainer {
         return structure;
     }
 
-    public Object getValue() {
+    public String getValue() {
         return value;
     }
 
