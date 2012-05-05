@@ -9,7 +9,8 @@ import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.PropertyDef;
 
-public class PropertyDefScanner {
+
+public class PropertyScanner {
 
     public <T> Collection<PropertyDef> scan(Class<T> fromClass)  {
 
