@@ -2,17 +2,29 @@ package de.brands4friends.daleq.internal.structure;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
+import com.google.common.base.Function;
 import com.google.common.base.Objects;
+import com.google.common.collect.Maps;
+
+import de.brands4friends.daleq.PropertyDef;
 
 public class TableStructure {
 
     private final String name;
     private final List<PropertyStructure> properties;
+    private final Map<PropertyDef,PropertyStructure> lookupByDef;
 
     public TableStructure(final String name, final List<PropertyStructure> properties) {
         this.name = name;
         this.properties = properties;
+        this.lookupByDef = Maps.uniqueIndex(properties,new Function<PropertyStructure, PropertyDef>() {
+            @Override
+            public PropertyDef apply(final PropertyStructure input) {
+                return input.getOrigin();
+            }
+        });
     }
 
     public TableStructure(final String name, final PropertyStructure ... properties){
@@ -25,6 +37,10 @@ public class TableStructure {
 
     public List<PropertyStructure> getProperties() {
         return properties;
+    }
+
+    public PropertyStructure findStructureByDef(PropertyDef propertyDef){
+        return lookupByDef.get(propertyDef);
     }
 
     @Override
