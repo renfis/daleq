@@ -1,5 +1,6 @@
 package de.brands4friends.daleq.internal.structure;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.common.base.Objects;
@@ -12,6 +13,10 @@ public class TableStructure {
     public TableStructure(final String name, final List<PropertyStructure> properties) {
         this.name = name;
         this.properties = properties;
+    }
+
+    public TableStructure(final String name, final PropertyStructure ... properties){
+        this(name, Arrays.asList(properties));
     }
 
     @Override
@@ -33,6 +38,8 @@ public class TableStructure {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("properties",properties).toString();
+        return Objects.toStringHelper(this)
+                .add("name",name)
+                .add("properties",properties).toString();
     }
 }

@@ -1,8 +1,7 @@
-package de.brands4friends.daleq.internal;
+package de.brands4friends.daleq.internal.structure;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.Collection;
 import java.util.List;
 
 import org.dbunit.dataset.datatype.DataType;
@@ -10,14 +9,13 @@ import org.dbunit.dataset.datatype.DataType;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.PropertyDef;
-import de.brands4friends.daleq.internal.structure.PropertyStructure;
 
 /**
  * Scans classes for PropertyDefs and returns the findings as PropertyStructures
  */
 class PropertyScanner {
 
-    public <T> Collection<PropertyStructure> scan(Class<T> fromClass)  {
+    public <T> List<PropertyStructure> scan(Class<T> fromClass)  {
 
         try {
             final List<PropertyStructure> result = Lists.newArrayList();

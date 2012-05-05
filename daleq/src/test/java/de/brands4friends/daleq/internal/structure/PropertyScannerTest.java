@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.internal;
+package de.brands4friends.daleq.internal.structure;
 
 import static de.brands4friends.daleq.PropertyDef.pd;
 import static org.hamcrest.Matchers.is;
@@ -13,6 +13,7 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.PropertyDef;
+import de.brands4friends.daleq.internal.structure.PropertyScanner;
 import de.brands4friends.daleq.internal.structure.PropertyStructure;
 
 public class PropertyScannerTest {
