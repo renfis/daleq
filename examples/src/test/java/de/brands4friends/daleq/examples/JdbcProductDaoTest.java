@@ -1,6 +1,6 @@
 package de.brands4friends.daleq.examples;
 
-import static de.brands4friends.daleq.common.Range.range;
+import static de.brands4friends.daleq.legacy.common.Range.range;
 import static de.brands4friends.daleq.examples.ProductTable.ID;
 import static de.brands4friends.daleq.examples.ProductTable.TABLE_NAME;
 import static org.hamcrest.Matchers.is;
@@ -12,9 +12,9 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import de.brands4friends.daleq.DaleqSupport;
-import de.brands4friends.daleq.schema.Table;
-import de.brands4friends.daleq.schema.Template;
+import de.brands4friends.daleq.legacy.DaleqSupport;
+import de.brands4friends.daleq.legacy.schema.Table;
+import de.brands4friends.daleq.legacy.schema.Template;
 
 @Ignore
 public class JdbcProductDaoTest {

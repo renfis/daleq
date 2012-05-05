@@ -1,12 +1,12 @@
 package de.brands4friends.daleq.examples;
 
-import static de.brands4friends.daleq.schema.Daleq.pt;
+import static de.brands4friends.daleq.legacy.schema.Daleq.pt;
 
 import org.dbunit.dataset.datatype.DataType;
 
-import de.brands4friends.daleq.schema.Daleq;
-import de.brands4friends.daleq.schema.PropertyType;
-import de.brands4friends.daleq.schema.Template;
+import de.brands4friends.daleq.legacy.schema.Daleq;
+import de.brands4friends.daleq.legacy.schema.PropertyType;
+import de.brands4friends.daleq.legacy.schema.Template;
 
 public class ProductTable {
 
