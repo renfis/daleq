@@ -3,6 +3,9 @@ package de.brands4friends.daleq.internal.structure;
 import com.google.common.base.Objects;
 
 public class TemplateValue {
+
+    public static final TemplateValue DEFAULT = new TemplateValue("${_}");
+
     private final String template;
 
     public TemplateValue(final String template) {

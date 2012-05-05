@@ -58,8 +58,8 @@ public class PropertyScannerTest {
     @Test
     public void scanningAClassWithPropertyDefs_should_extractThosePropertyDefs(){
         final Collection<PropertyStructure> expected = Lists.newArrayList(
-                new PropertyStructure("ID",DataType.INTEGER, null),
-                new PropertyStructure("NAME",DataType.VARCHAR, null)
+                new PropertyStructure("ID",DataType.INTEGER, TemplateValue.DEFAULT),
+                new PropertyStructure("NAME",DataType.VARCHAR, TemplateValue.DEFAULT)
         );
         assertThat(scanner.scan(WithPropertyDefs.class), is(expected));
     }
@@ -71,7 +71,7 @@ public class PropertyScannerTest {
     @Test
     public void scanningWithExplicitName_should_haveThatName(){
         final Collection<PropertyStructure> expected = Lists.newArrayList(
-                new PropertyStructure("foo",DataType.INTEGER, null)
+                new PropertyStructure("foo",DataType.INTEGER, TemplateValue.DEFAULT)
         );
         assertThat(scanner.scan(WithExplicitName.class), is(expected));
     }

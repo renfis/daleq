@@ -40,7 +40,7 @@ class PropertyScanner {
         final PropertyDef propertyDef = (PropertyDef) field.get(null);
         final String name = propertyDef.hasName() ? propertyDef.getName() : field.getName();
         final DataType dataType = propertyDef.getDataType();
-        result.add(new PropertyStructure(name, dataType,null));
+        result.add(new PropertyStructure(name, dataType,TemplateValue.DEFAULT));
     }
 
     private boolean isPropertyDef(final Field field) {
