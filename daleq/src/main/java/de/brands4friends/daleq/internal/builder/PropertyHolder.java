@@ -13,6 +13,14 @@ public class PropertyHolder {
         this.value = value;
     }
 
+    public PropertyDef getPropertyDef() {
+        return propertyDef;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
     @Override
     public final int hashCode() {
         return Objects.hashCode(propertyDef, value);
