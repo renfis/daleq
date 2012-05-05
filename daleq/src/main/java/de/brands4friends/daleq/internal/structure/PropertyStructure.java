@@ -22,6 +22,22 @@ public final class PropertyStructure {
         this.origin = origin;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public DataType getDataType() {
+        return dataType;
+    }
+
+    public TemplateValue getTemplateValue() {
+        return templateValue;
+    }
+
+    public PropertyDef getOrigin() {
+        return origin;
+    }
+
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof PropertyStructure) {
