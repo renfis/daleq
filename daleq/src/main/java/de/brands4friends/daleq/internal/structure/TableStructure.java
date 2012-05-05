@@ -19,6 +19,14 @@ public class TableStructure {
         this(name, Arrays.asList(properties));
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public List<PropertyStructure> getProperties() {
+        return properties;
+    }
+
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof TableStructure) {
