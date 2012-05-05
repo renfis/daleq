@@ -35,4 +35,8 @@ public class PropertyDef {
     public String toString() {
         return Objects.toStringHelper(this).add("name",name).add("dataType",dataType).toString();
     }
+
+    public static PropertyDef pd(final String name,final DataType dataType){
+        return new PropertyDef(name,dataType);
+    }
 }
