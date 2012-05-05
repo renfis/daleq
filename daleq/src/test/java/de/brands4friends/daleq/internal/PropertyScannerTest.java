@@ -13,6 +13,7 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.PropertyDef;
+import de.brands4friends.daleq.internal.structure.PropertyStructure;
 
 public class PropertyScannerTest {
 
@@ -51,13 +52,16 @@ public class PropertyScannerTest {
     }
 
     static class WithPropertyDefs {
-        public static final PropertyDef ID   = pd("id", DataType.INTEGER);
-        public static final PropertyDef NAME = pd("name", DataType.VARCHAR);
+        public static final PropertyDef ID   = pd("ID", DataType.INTEGER);
+        public static final PropertyDef NAME = pd("NAME", DataType.VARCHAR);
     }
 
     @Test
     public void scanningAClassWithPropertyDefs_should_extractThosePropertyDefs(){
-        final Collection<PropertyDef> expected = Lists.newArrayList(WithPropertyDefs.ID,WithPropertyDefs.NAME);
+        final Collection<PropertyStructure> expected = Lists.newArrayList(
+                new PropertyStructure("ID",DataType.INTEGER),
+                new PropertyStructure("NAME",DataType.VARCHAR)
+        );
         assertThat(scanner.scan(WithPropertyDefs.class), is(expected));
     }
 }

@@ -14,6 +14,14 @@ public class PropertyDef {
         this.dataType = dataType;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public DataType getDataType() {
+        return dataType;
+    }
+
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof PropertyDef) {

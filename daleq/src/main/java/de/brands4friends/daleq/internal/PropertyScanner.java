@@ -8,17 +8,21 @@ import java.util.List;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.PropertyDef;
+import de.brands4friends.daleq.internal.structure.PropertyStructure;
 
-
+/**
+ * Scans classes for PropertyDefs and returns the findings as PropertyStructures
+ */
 public class PropertyScanner {
 
-    public <T> Collection<PropertyDef> scan(Class<T> fromClass)  {
+    public <T> Collection<PropertyStructure> scan(Class<T> fromClass)  {
 
         try {
-            final List<PropertyDef> result = Lists.newArrayList();
+            final List<PropertyStructure> result = Lists.newArrayList();
             for(Field field : fromClass.getDeclaredFields()){
                 if(isConstant(field) && isPropertyDef(field)){
-                    result.add((PropertyDef) field.get(null));
+                    final PropertyDef propertyDef = (PropertyDef) field.get(null);
+                    result.add(new PropertyStructure(propertyDef.getName(),propertyDef.getDataType()));
                 }
             }
 
