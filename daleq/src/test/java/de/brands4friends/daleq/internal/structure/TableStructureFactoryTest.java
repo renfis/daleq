@@ -29,7 +29,8 @@ public class TableStructureFactoryTest {
     public void createOfMyTable_should_returnTableStructure(){
 
         final TableStructure tableStructure = factory.create(MyTable.class);
-        final TableStructure expected = new TableStructure("MY_TABLE",new PropertyStructure("ID",DataType.INTEGER, TemplateValue.DEFAULT));
+        final TableStructure expected = new TableStructure("MY_TABLE",
+                new PropertyStructure("ID",DataType.INTEGER, TemplateValue.DEFAULT, MyTable.ID));
 
         assertThat(tableStructure, is(expected));
     }
