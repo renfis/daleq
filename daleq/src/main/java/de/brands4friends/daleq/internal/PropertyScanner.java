@@ -15,7 +15,7 @@ import de.brands4friends.daleq.internal.structure.PropertyStructure;
 /**
  * Scans classes for PropertyDefs and returns the findings as PropertyStructures
  */
-public class PropertyScanner {
+class PropertyScanner {
 
     public <T> Collection<PropertyStructure> scan(Class<T> fromClass)  {
 
