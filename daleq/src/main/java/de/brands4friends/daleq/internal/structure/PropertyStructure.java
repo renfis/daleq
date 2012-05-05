@@ -9,10 +9,12 @@ import com.google.common.base.Objects;
 public final class PropertyStructure {
     private final String name;
     private final DataType dataType;
+    private final TemplateValue templateValue;
 
-    public PropertyStructure(final String name, final DataType dataType) {
+    public PropertyStructure(final String name, final DataType dataType, final TemplateValue templateValue) {
         this.name = name;
         this.dataType = dataType;
+        this.templateValue = templateValue;
     }
 
     @Override
@@ -21,7 +23,8 @@ public final class PropertyStructure {
             final PropertyStructure that = (PropertyStructure) obj;
 
             return Objects.equal(name, that.name)
-                    && Objects.equal(dataType, that.dataType);
+                    && Objects.equal(dataType, that.dataType)
+                    && Objects.equal(templateValue, that.templateValue);
         }
 
         return false;
@@ -29,11 +32,15 @@ public final class PropertyStructure {
 
     @Override
     public final int hashCode() {
-        return Objects.hashCode(name, dataType);
+        return Objects.hashCode(name, dataType, templateValue);
     }
 
     @Override
     public String toString() {
-        return toStringHelper(this).add("name",name).add("dataType",dataType).toString();
+        return toStringHelper(this)
+                .add("name",name)
+                .add("dataType",dataType)
+                .add("templateValue",templateValue)
+                .toString();
     }
 }
