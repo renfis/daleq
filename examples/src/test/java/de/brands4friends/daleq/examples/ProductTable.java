@@ -1,22 +1,15 @@
 package de.brands4friends.daleq.examples;
 
-import static de.brands4friends.daleq.legacy.schema.Daleq.pt;
+import static de.brands4friends.daleq.PropertyDef.pd;
 
 import org.dbunit.dataset.datatype.DataType;
 
-import de.brands4friends.daleq.legacy.schema.Daleq;
-import de.brands4friends.daleq.legacy.schema.PropertyType;
-import de.brands4friends.daleq.legacy.schema.Template;
+import de.brands4friends.daleq.PropertyDef;
+import de.brands4friends.daleq.TableDef;
 
+@TableDef("PRODUCT")
 public class ProductTable {
-
-    public static final String TABLE_NAME = "PRODUCT";
-
-    public static final PropertyType ID    = pt("ID", DataType.INTEGER);
-    public static final PropertyType NAME  = pt("NAME", DataType.VARCHAR);
-    public static final PropertyType PRICE = pt("PRICE", DataType.DECIMAL);
-
-    public static Template template() {
-        return Daleq.template(ID.of("${_}"), NAME.of("product-name-${_}"));
-    }
+    public static final PropertyDef ID    = pd(DataType.INTEGER);
+    public static final PropertyDef NAME  = pd(DataType.VARCHAR);
+    public static final PropertyDef PRICE = pd(DataType.DECIMAL);
 }

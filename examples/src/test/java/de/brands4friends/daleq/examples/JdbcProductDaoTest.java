@@ -1,8 +1,7 @@
 package de.brands4friends.daleq.examples;
 
-import static de.brands4friends.daleq.legacy.common.Range.range;
-import static de.brands4friends.daleq.examples.ProductTable.ID;
-import static de.brands4friends.daleq.examples.ProductTable.TABLE_NAME;
+import static de.brands4friends.daleq.Daleq.aRow;
+import static de.brands4friends.daleq.Daleq.aTable;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -12,16 +11,14 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.legacy.DaleqSupport;
-import de.brands4friends.daleq.legacy.schema.Table;
-import de.brands4friends.daleq.legacy.schema.Template;
 
 @Ignore
 public class JdbcProductDaoTest {
 
     private DaleqSupport daleq;
     private JdbcProductDao productDao;
-    private Template template;
 
     @Before
     public void setUp(){
@@ -29,8 +26,6 @@ public class JdbcProductDaoTest {
 
         daleq = new DaleqSupport(dataSource);
         productDao = new JdbcProductDao(dataSource);
-
-        template = ProductTable.template();
     }
 
     @Test
@@ -38,11 +33,11 @@ public class JdbcProductDaoTest {
 
         final long expectedId = 42l;
 
-        final Table table =
-                template.toTable(TABLE_NAME, range(0, 10))
-                    .concat(template.toRow(11).with(ID.of(expectedId)));
+        final Table table = aTable(ProductTable.class).with(
+                aRow(11).p(ProductTable.ID,expectedId)
+        );
 
-        daleq.insertIntoDatabase(table);
+//        daleq.insertIntoDatabase(table);
 
         final Product product = productDao.findById(expectedId);
         assertThat(product.getId(), is(expectedId));
