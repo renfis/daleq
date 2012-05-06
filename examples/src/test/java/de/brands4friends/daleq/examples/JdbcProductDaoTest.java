@@ -12,7 +12,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import de.brands4friends.daleq.Table;
-import de.brands4friends.daleq.legacy.DaleqSupport;
+import de.brands4friends.daleq.jdbc.DaleqSupport;
+import de.brands4friends.daleq.jdbc.dbunit.DbUnitDaleqSupport;
 
 @Ignore
 public class JdbcProductDaoTest {
@@ -24,7 +25,7 @@ public class JdbcProductDaoTest {
     public void setUp(){
         DataSource dataSource = null;
 
-        daleq = new DaleqSupport(dataSource);
+        daleq = new DbUnitDaleqSupport(dataSource);
         productDao = new JdbcProductDao(dataSource);
     }
 
@@ -37,7 +38,7 @@ public class JdbcProductDaoTest {
                 aRow(11).p(ProductTable.ID,expectedId)
         );
 
-//        daleq.insertIntoDatabase(table);
+        daleq.insertIntoDatabase(table);
 
         final Product product = productDao.findById(expectedId);
         assertThat(product.getId(), is(expectedId));
