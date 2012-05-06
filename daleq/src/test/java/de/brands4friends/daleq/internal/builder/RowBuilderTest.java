@@ -14,7 +14,6 @@ import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.DaleqBuildException;
 import de.brands4friends.daleq.PropertyDef;
-import de.brands4friends.daleq.TableDef;
 import de.brands4friends.daleq.internal.container.PropertyContainer;
 import de.brands4friends.daleq.internal.container.RowContainer;
 import de.brands4friends.daleq.internal.structure.TableStructure;
@@ -35,28 +34,22 @@ public class RowBuilderTest {
     private Context context;
     private TableStructure tableStructure;
 
-    @TableDef("FOO")
-    public static final class RowTable {
-        public static final PropertyDef PROP_A = PropertyDef.pd(DataType.INTEGER);
-        public static final PropertyDef PROP_B = PropertyDef.pd(DataType.INTEGER);
-    }
-
     @Before
     public void setUp() throws Exception {
         context = new SimpleContext();
-        tableStructure = new TableStructureFactory().create(RowTable.class);
+        tableStructure = new TableStructureFactory().create(ExampleTable.class);
     }
 
     @Test
     public void aRowWithJustProvidedProperties_should_beBuild(){
         assertThat(
                 RowBuilder.row(23)
-                        .p(RowTable.PROP_A,"FOO")
-                        .p(RowTable.PROP_B,"BAR")
-                        .build(context,tableStructure),
+                        .p(ExampleTable.PROP_A, "FOO")
+                        .p(ExampleTable.PROP_B, "BAR")
+                        .build(context, tableStructure),
                 is(row(
-                        property(RowTable.PROP_A,"FOO"),
-                        property(RowTable.PROP_B,"BAR")
+                        property(ExampleTable.PROP_A,"FOO"),
+                        property(ExampleTable.PROP_B,"BAR")
                 ))
         );
     }
@@ -66,8 +59,8 @@ public class RowBuilderTest {
         assertThat(
                 RowBuilder.row(23).build(context, tableStructure),
                 is(row(
-                        property(RowTable.PROP_A, "23"),
-                        property(RowTable.PROP_B, "23")
+                        property(ExampleTable.PROP_A, "23"),
+                        property(ExampleTable.PROP_B, "23")
                 ))
         );
     }
