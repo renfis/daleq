@@ -1,7 +1,7 @@
 package de.brands4friends.daleq.legacy.dbunit;
 
+import de.brands4friends.daleq.internal.conversion.TypeConversion;
 import de.brands4friends.daleq.legacy.PropertyWriter;
-import de.brands4friends.daleq.legacy.conversion.TypeConversion;
 
 class ElementPropertyWriter implements PropertyWriter {
 

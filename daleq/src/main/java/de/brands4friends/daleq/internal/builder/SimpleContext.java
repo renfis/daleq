@@ -1,6 +1,6 @@
 package de.brands4friends.daleq.internal.builder;
 
-import de.brands4friends.daleq.legacy.conversion.TypeConversion;
+import de.brands4friends.daleq.internal.conversion.TypeConversion;
 
 public class SimpleContext implements Context {
     private TypeConversion typeConversion = new TypeConversion();

@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.legacy.conversion;
+package de.brands4friends.daleq.internal.conversion;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotSame;
@@ -11,6 +11,8 @@ import java.util.Locale;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
+
+import de.brands4friends.daleq.internal.conversion.DateTypeConverter;
 
 public class DateTypeConverterTest {
 

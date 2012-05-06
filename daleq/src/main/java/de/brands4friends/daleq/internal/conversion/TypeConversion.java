@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.legacy.conversion;
+package de.brands4friends.daleq.internal.conversion;
 
 import java.util.Map;
 

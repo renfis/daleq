@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.legacy.conversion;
+package de.brands4friends.daleq.internal.conversion;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotSame;
@@ -9,6 +9,8 @@ import java.util.Date;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
+
+import de.brands4friends.daleq.internal.conversion.DateTimeTypeConverter;
 
 
 public class DateTimeTypeConverterTest {

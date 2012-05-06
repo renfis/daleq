@@ -14,7 +14,7 @@ import org.dom4j.io.XMLWriter;
 
 import com.google.common.collect.Lists;
 
-import de.brands4friends.daleq.legacy.conversion.TypeConversion;
+import de.brands4friends.daleq.internal.conversion.TypeConversion;
 import de.brands4friends.daleq.legacy.schema.Property;
 import de.brands4friends.daleq.legacy.schema.Row;
 import de.brands4friends.daleq.legacy.schema.Schema;
