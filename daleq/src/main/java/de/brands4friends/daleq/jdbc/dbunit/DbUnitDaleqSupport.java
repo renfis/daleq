@@ -14,7 +14,6 @@ import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.datatype.IDataTypeFactory;
 import org.dbunit.ext.hsqldb.HsqldbDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.springframework.jdbc.datasource.DataSourceUtils;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
@@ -51,12 +50,16 @@ public class DbUnitDaleqSupport implements DaleqSupport {
     private IDatabaseConnection createDatabaseConnection() {
 
         try {
-            final Connection conn = DataSourceUtils.getConnection(dataSource);
+            // TODO this introduces the spring-jdbc dependency. daleq should be free of spring per se.
+//            final Connection conn = DataSourceUtils.getConnection(dataSource);
+            final Connection conn = dataSource.getConnection();
             final DatabaseConnection databaseConnection = new DatabaseConnection(conn);
             databaseConnection.getConfig().setProperty(
                     "http://www.dbunit.org/properties/datatypeFactory", dataTypeFactory);
             return databaseConnection;
         } catch (DatabaseUnitException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
