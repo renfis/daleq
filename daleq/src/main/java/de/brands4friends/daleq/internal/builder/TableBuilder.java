@@ -35,6 +35,7 @@ public class TableBuilder implements Table {
         return this;
     }
 
+    @Override
     public TableContainer build(final Context context){
         List<RowContainer> rowContainers = Lists.transform(rows,new Function<Row, RowContainer>() {
             @Override
