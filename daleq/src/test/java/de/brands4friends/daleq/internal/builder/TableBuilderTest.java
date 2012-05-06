@@ -2,13 +2,14 @@ package de.brands4friends.daleq.internal.builder;
 
 import static de.brands4friends.daleq.Daleq.aRow;
 import static de.brands4friends.daleq.Daleq.aTable;
+import static de.brands4friends.daleq.internal.builder.ExampleTable.PROP_A;
+import static de.brands4friends.daleq.internal.builder.ExampleTable.PROP_B;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import de.brands4friends.daleq.internal.container.TableContainer;
 import de.brands4friends.daleq.internal.structure.TableStructure;
 import de.brands4friends.daleq.internal.structure.TableStructureFactory;
 
@@ -16,25 +17,38 @@ public class TableBuilderTest {
 
     private Context context;
     private TableStructure tableStructure;
+    private StructureBuilder sb;
 
     @Before
     public void setUp() throws Exception {
         context = new SimpleContext();
         tableStructure = new TableStructureFactory().create(ExampleTable.class);
+        sb = new StructureBuilder(tableStructure);
     }
 
     @Test
     public void aTableWithARow_should_beBuilt(){
-        final StructureBuilder sb = new StructureBuilder(tableStructure);
-        final TableContainer table = aTable(ExampleTable.class).with(aRow(42)).build(context);
-
-        final TableContainer expected = sb.table(
-                sb.row(
-                        sb.property(ExampleTable.PROP_A,"42"),
-                        sb.property(ExampleTable.PROP_B,"42")
-                )
+        assertThat(
+                aTable(ExampleTable.class).with(aRow(42)).build(context),
+                is(sb.table(
+                        sb.row(
+                                sb.property(PROP_A, "42"),
+                                sb.property(PROP_B, "42")
+                        )
+                ))
         );
+    }
 
-        assertThat(table, is(expected));
+    @Test
+    public void aTableWithSomeExplicitAddedRow_should_beBuilt(){
+        assertThat(
+                aTable(ExampleTable.class).with(aRow(1),aRow(2),aRow(3)).build(context),
+                is(
+                        sb.table(
+                                sb.row(sb.property(PROP_A,"1"),sb.property(PROP_B,"1")),
+                                sb.row(sb.property(PROP_A,"2"),sb.property(PROP_B,"2")),
+                                sb.row(sb.property(PROP_A,"3"),sb.property(PROP_B,"3"))
+                        ))
+        );
     }
 }
