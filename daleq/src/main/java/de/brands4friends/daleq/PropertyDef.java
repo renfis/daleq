@@ -4,7 +4,7 @@ import org.dbunit.dataset.datatype.DataType;
 
 import com.google.common.base.Objects;
 
-public class PropertyDef {
+public final class PropertyDef {
 
     private final String name;
     private final DataType dataType;
@@ -24,23 +24,6 @@ public class PropertyDef {
 
     public DataType getDataType() {
         return dataType;
-    }
-
-    @Override
-    public final boolean equals(Object obj) {
-        if (obj instanceof PropertyDef) {
-            final PropertyDef that = (PropertyDef) obj;
-
-            return Objects.equal(name, that.name)
-                    && Objects.equal(dataType, that.dataType);
-        }
-
-        return false;
-    }
-
-    @Override
-    public final int hashCode() {
-        return Objects.hashCode(name, dataType);
     }
 
     @Override

@@ -3,12 +3,11 @@ package de.brands4friends.daleq.internal.builder;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import de.brands4friends.daleq.DaleqBuildException;
 import de.brands4friends.daleq.PropertyDef;
 import de.brands4friends.daleq.Row;
 import de.brands4friends.daleq.internal.container.PropertyContainer;
@@ -31,23 +30,42 @@ public class RowBuilder implements Row {
         return this;
     }
 
-    public RowContainer build(Context context, TableStructure tableStructure){
+    @Override
+    public RowContainer build(Context context, final TableStructure tableStructure){
 
-        Map<PropertyStructure,PropertyHolder> structureToHolder = Maps.uniqueIndex(properties, new Function<PropertyHolder, PropertyStructure>() {
-            @Override
-            public PropertyStructure apply(@Nullable final PropertyHolder input) {
-                input.getPropertyDef();
-                return null;
-            }
-        });
+        final Map<PropertyStructure, PropertyHolder> structureToHolder = createStructureToHolderIndex(tableStructure);
 
         final List<PropertyContainer> propertyContainers = Lists.newArrayList();
         for(PropertyStructure propertyStructure : tableStructure.getProperties()){
-
+            final PropertyHolder actualProperty = structureToHolder.get(propertyStructure);
+            if(actualProperty != null) {
+                final String strValue = context.getTypeConversion().convert(actualProperty.getValue());
+                final PropertyContainer container = new PropertyContainer(propertyStructure,strValue);
+                propertyContainers.add(container);
+            }else {
+                // apply template binding to template 
+            }
         }
 
-        RowContainer rowContainer = new RowContainer(tableStructure,propertyContainers);
-        return rowContainer;
+        return new RowContainer(tableStructure,propertyContainers);
+    }
+
+    private Map<PropertyStructure, PropertyHolder> createStructureToHolderIndex(final TableStructure tableStructure) {
+        return Maps.uniqueIndex(properties, new Function<PropertyHolder, PropertyStructure>() {
+            @Override
+            public PropertyStructure apply(final PropertyHolder propertyHolder) {
+                final PropertyStructure propertyStructure = tableStructure.findStructureByDef(propertyHolder.getPropertyDef());
+                if (propertyStructure == null) {
+                    final String msg = String.format(
+                            "The row contains a property '%s', but the table '%s' does not contain such a property definition.",
+                            propertyHolder.getPropertyDef(),
+                            tableStructure.getName()
+                    );
+                    throw new DaleqBuildException(msg);
+                }
+                return propertyStructure;
+            }
+        });
     }
 
     public static RowBuilder row(final Object binding){
