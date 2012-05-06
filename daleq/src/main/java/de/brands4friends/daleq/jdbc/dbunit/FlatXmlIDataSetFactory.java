@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.jdbc;
+package de.brands4friends.daleq.jdbc.dbunit;
 
 import java.io.IOException;
 import java.io.StringReader;

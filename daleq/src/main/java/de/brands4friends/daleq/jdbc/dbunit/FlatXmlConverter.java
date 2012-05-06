@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.jdbc;
+package de.brands4friends.daleq.jdbc.dbunit;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -63,7 +63,7 @@ class FlatXmlConverter {
     private void addRow(Element root, String name, RowContainer row) {
         final Element elem = documentFactory.createElement(name);
         for(final PropertyContainer prop : sortPropertiesByName(row.getProperties())){
-            String value = prepareValue(prop.getName(),prop.getValue());
+            String value = prepareValue(prop.getName(), prop.getValue());
             elem.add(documentFactory.createAttribute(elem, prop.getName(), value));
         }
         root.add(elem);
