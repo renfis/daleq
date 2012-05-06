@@ -45,3 +45,10 @@ project('daleq') {
         testCompile "nl.jqno.equalsverifier:equalsverifier:1.1.3"
     }
 }
+
+project('examples') {
+    dependencies {
+        compile project(':daleq')
+        compile "org.springframework:spring-jdbc:3.1.1.RELEASE"
+    }
+}
