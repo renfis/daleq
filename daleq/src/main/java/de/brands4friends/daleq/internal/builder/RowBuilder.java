@@ -3,6 +3,8 @@ package de.brands4friends.daleq.internal.builder;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -25,29 +27,37 @@ public class RowBuilder implements Row {
         this.properties = Lists.newArrayList();
     }
 
-    public Row p(PropertyDef propertyDef, Object value){
-        properties.add(new PropertyHolder(propertyDef,value));
+    public Row p(PropertyDef propertyDef, Object value) {
+        properties.add(new PropertyHolder(propertyDef, value));
         return this;
     }
 
     @Override
-    public RowContainer build(Context context, final TableStructure tableStructure){
-
+    public RowContainer build(final Context context, final TableStructure tableStructure) {
         final Map<PropertyStructure, PropertyHolder> structureToHolder = createStructureToHolderIndex(tableStructure);
+        final List<PropertyContainer> propertyContainers = mapPropertiesToContainers(context, tableStructure, structureToHolder);
+        return new RowContainer(tableStructure, propertyContainers);
+    }
 
-        final List<PropertyContainer> propertyContainers = Lists.newArrayList();
-        for(PropertyStructure propertyStructure : tableStructure.getProperties()){
-            final PropertyHolder actualProperty = structureToHolder.get(propertyStructure);
-            if(actualProperty != null) {
-                final String strValue = context.getTypeConversion().convert(actualProperty.getValue());
-                final PropertyContainer container = new PropertyContainer(propertyStructure,strValue);
-                propertyContainers.add(container);
-            }else {
-                // apply template binding to template 
+    private List<PropertyContainer> mapPropertiesToContainers(
+            final Context context,
+            final TableStructure tableStructure,
+            final Map<PropertyStructure, PropertyHolder> structureToHolder) {
+
+        return Lists.transform(tableStructure.getProperties(), new Function<PropertyStructure, PropertyContainer>() {
+
+            @Override
+            public PropertyContainer apply(@Nullable final PropertyStructure propertyStructure) {
+                final PropertyHolder actualProperty = structureToHolder.get(propertyStructure);
+                if (actualProperty != null) {
+                    final String strValue = context.getTypeConversion().convert(actualProperty.getValue());
+                    return new PropertyContainer(propertyStructure, strValue);
+                } else {
+                    // apply template binding to template
+                    return null;
+                }
             }
-        }
-
-        return new RowContainer(tableStructure,propertyContainers);
+        });
     }
 
     private Map<PropertyStructure, PropertyHolder> createStructureToHolderIndex(final TableStructure tableStructure) {
@@ -68,7 +78,7 @@ public class RowBuilder implements Row {
         });
     }
 
-    public static RowBuilder row(final Object binding){
+    public static RowBuilder row(final Object binding) {
         return new RowBuilder(binding);
     }
 }
