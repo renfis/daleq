@@ -1,10 +1,15 @@
 package de.brands4friends.daleq.internal.structure;
 
+import org.apache.commons.lang.text.StrSubstitutor;
+
 import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableMap;
 
 public class TemplateValue {
 
-    public static final TemplateValue DEFAULT = new TemplateValue("${_}");
+    private static final String VAR_NAME = "_";
+
+    public static final TemplateValue DEFAULT = new TemplateValue("${" + VAR_NAME + "}");
 
     private final String template;
 
@@ -21,6 +26,10 @@ public class TemplateValue {
         }
 
         return false;
+    }
+
+    public String render(final String value){
+        return StrSubstitutor.replace(this.template, ImmutableMap.of(VAR_NAME,value));
     }
 
     @Override
