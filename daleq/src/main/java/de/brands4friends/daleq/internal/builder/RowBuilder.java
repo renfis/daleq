@@ -3,8 +3,6 @@ package de.brands4friends.daleq.internal.builder;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -16,6 +14,7 @@ import de.brands4friends.daleq.internal.container.PropertyContainer;
 import de.brands4friends.daleq.internal.container.RowContainer;
 import de.brands4friends.daleq.internal.structure.PropertyStructure;
 import de.brands4friends.daleq.internal.structure.TableStructure;
+import de.brands4friends.daleq.internal.structure.TemplateValue;
 
 public class RowBuilder implements Row {
 
@@ -45,19 +44,33 @@ public class RowBuilder implements Row {
             final Map<PropertyStructure, PropertyHolder> structureToHolder) {
 
         return Lists.transform(tableStructure.getProperties(), new Function<PropertyStructure, PropertyContainer>() {
-
             @Override
-            public PropertyContainer apply(@Nullable final PropertyStructure propertyStructure) {
+            public PropertyContainer apply(final PropertyStructure propertyStructure) {
                 final PropertyHolder actualProperty = structureToHolder.get(propertyStructure);
                 if (actualProperty != null) {
-                    final String strValue = context.getTypeConversion().convert(actualProperty.getValue());
-                    return new PropertyContainer(propertyStructure, strValue);
+                    return convertProvidedProperty(propertyStructure, actualProperty, context);
                 } else {
-                    // apply template binding to template
-                    return null;
+                    return convertDefaultProperty(propertyStructure, context);
                 }
             }
         });
+    }
+
+    private PropertyContainer convertDefaultProperty(final PropertyStructure propertyStructure, final Context context) {
+        // apply template binding to template
+        final String coercedBinding = convert(context,binding);
+        final TemplateValue templateValue = propertyStructure.getTemplateValue();
+        final String renderedValue = templateValue.render(coercedBinding);
+        return new PropertyContainer(propertyStructure,renderedValue);
+    }
+
+    private PropertyContainer convertProvidedProperty(final PropertyStructure propertyStructure, final PropertyHolder actualProperty, final Context context) {
+        final String strValue = convert(context, actualProperty.getValue());
+        return new PropertyContainer(propertyStructure, strValue);
+    }
+
+    private String convert(final Context context, final Object valueToConvert) {
+        return context.getTypeConversion().convert(valueToConvert);
     }
 
     private Map<PropertyStructure, PropertyHolder> createStructureToHolderIndex(final TableStructure tableStructure) {

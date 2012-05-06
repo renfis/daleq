@@ -7,7 +7,6 @@ import java.util.Arrays;
 
 import org.dbunit.dataset.datatype.DataType;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.common.base.Function;
@@ -62,7 +61,7 @@ public class RowBuilderTest {
         );
     }
 
-    @Test @Ignore
+    @Test
     public void aRowWithJustDefaults_should_buildThatRow() {
         assertThat(
                 RowBuilder.row(23).build(context, tableStructure),
