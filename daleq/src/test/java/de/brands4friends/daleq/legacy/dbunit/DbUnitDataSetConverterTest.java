@@ -1,6 +1,6 @@
 package de.brands4friends.daleq.legacy.dbunit;
 
-import static de.brands4friends.daleq.legacy.common.Range.range;
+import static de.brands4friends.daleq.internal.common.Range.range;
 import static de.brands4friends.daleq.legacy.schema.Daleq.p;
 import static de.brands4friends.daleq.legacy.schema.Daleq.schema;
 import static de.brands4friends.daleq.legacy.schema.Daleq.template;

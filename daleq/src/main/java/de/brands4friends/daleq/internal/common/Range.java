@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.legacy.common;
+package de.brands4friends.daleq.internal.common;
 
 import java.util.Iterator;
 

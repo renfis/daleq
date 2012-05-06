@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.legacy.common;
+package de.brands4friends.daleq.internal.common;
 
 import com.google.common.collect.Lists;
 import org.junit.Test;
@@ -6,6 +6,8 @@ import org.junit.Test;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+
+import de.brands4friends.daleq.internal.common.Range;
 
 /**
  *

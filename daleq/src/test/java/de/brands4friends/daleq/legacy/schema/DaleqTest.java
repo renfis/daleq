@@ -1,6 +1,6 @@
 package de.brands4friends.daleq.legacy.schema;
 
-import static de.brands4friends.daleq.legacy.common.Range.range;
+import static de.brands4friends.daleq.internal.common.Range.range;
 import static de.brands4friends.daleq.legacy.schema.Daleq.p;
 import static de.brands4friends.daleq.legacy.schema.Daleq.pt;
 import static de.brands4friends.daleq.legacy.schema.Daleq.row;
@@ -15,11 +15,6 @@ import org.dbunit.dataset.datatype.DataType;
 import org.junit.Test;
 
 import com.google.common.collect.Sets;
-
-import de.brands4friends.daleq.legacy.schema.PropertyType;
-import de.brands4friends.daleq.legacy.schema.Row;
-import de.brands4friends.daleq.legacy.schema.SimpleProperty;
-import de.brands4friends.daleq.legacy.schema.Table;
 
 /**
  *
