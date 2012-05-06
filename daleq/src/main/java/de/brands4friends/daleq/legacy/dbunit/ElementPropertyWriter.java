@@ -18,11 +18,6 @@ class ElementPropertyWriter implements PropertyWriter {
     }
 
     @Override
-    public void writePlain(final String name, final String value) {
-        this.result = value;
-    }
-
-    @Override
     public void writeMapped(final String name,final Object value) {
         this.result = typeConversion.convert(value);
     }
