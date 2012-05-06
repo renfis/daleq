@@ -13,6 +13,10 @@ public class PropertyContainer {
         this.value = value;
     }
 
+    public String getName(){
+        return structure.getName();
+    }
+
     public PropertyStructure getStructure() {
         return structure;
     }

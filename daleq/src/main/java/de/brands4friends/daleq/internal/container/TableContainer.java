@@ -16,6 +16,14 @@ public class TableContainer {
         this.rows = rows;
     }
 
+    public String getName(){
+        return tableStructure.getName();
+    }
+
+    public List<RowContainer> getRows() {
+        return rows;
+    }
+
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof TableContainer) {

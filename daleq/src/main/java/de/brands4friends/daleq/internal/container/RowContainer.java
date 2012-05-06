@@ -16,6 +16,10 @@ public class RowContainer {
         this.properties = properties;
     }
 
+    public List<PropertyContainer> getProperties() {
+        return properties;
+    }
+
     @Override
     public final int hashCode() {
         return Objects.hashCode(structure, properties);
