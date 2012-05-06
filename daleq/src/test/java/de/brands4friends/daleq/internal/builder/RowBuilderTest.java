@@ -51,8 +51,14 @@ public class RowBuilderTest {
     @Test
     public void aRowWithJustProvidedProperties_should_beBuild(){
         assertThat(
-                RowBuilder.row(23).p(RowTable.PROP_A,"FOO").p(RowTable.PROP_B,"BAR").build(context,tableStructure),
-                is(row(property(RowTable.PROP_A,"FOO"),property(RowTable.PROP_B,"BAR")))
+                RowBuilder.row(23)
+                        .p(RowTable.PROP_A,"FOO")
+                        .p(RowTable.PROP_B,"BAR")
+                        .build(context,tableStructure),
+                is(row(
+                        property(RowTable.PROP_A,"FOO"),
+                        property(RowTable.PROP_B,"BAR")
+                ))
         );
     }
 
