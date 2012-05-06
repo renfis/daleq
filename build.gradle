@@ -1,0 +1,40 @@
+configure(allprojects) {
+    apply plugin: 'java'
+
+    group = 'de.brands4friends'
+    version = '0.1.0'
+
+    sourceCompatibility = 1.6
+    targetCompatibility = 1.6
+
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+    repositories {
+        mavenCentral()
+    }
+
+//    // workaround for gradle bug. no debug var symbols in grade 1-09m
+//    tasks.withType(Compile) { options.compilerArgs = ["-g:source,lines,vars"] }
+
+    // Define Dependencies
+//    apply from: "${rootProject.projectDir}/gradle/dependencies.gradle"
+
+    test {
+        maxHeapSize '800M'
+//        debug true
+        maxParallelForks 10
+    }
+}
+
+project('daleq') {
+    dependencies {
+        compile "joda-time:joda-time:1.6.2"
+        compile "com.google.guava:guava:12.0.0"
+        compile "commons-lang:commons-lang:2.6"
+        compile "org.dbunit:dbunit:2.4.8"
+        compile "dom4j:dom4j:1.6.1"
+
+        testCompile "org.slf4j:sl4j-simple:1.5.0"
+        testCompile "nl.jqno.equalsverifier:equalsverifier:0.6.4"
+    }
+}
