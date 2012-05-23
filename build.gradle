@@ -50,5 +50,6 @@ project('examples') {
     dependencies {
         compile project(':daleq')
         compile "org.springframework:spring-jdbc:3.1.1.RELEASE"
+        testCompile "org.springframework:spring-test:3.1.1.RELEASE"
     }
 }

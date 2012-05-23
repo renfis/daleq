@@ -2,29 +2,33 @@ package de.brands4friends.daleq.examples;
 
 import static de.brands4friends.daleq.Daleq.aRow;
 import static de.brands4friends.daleq.Daleq.aTable;
+import static de.brands4friends.daleq.examples.ProductTable.ID;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.jdbc.DaleqSupport;
 import de.brands4friends.daleq.jdbc.dbunit.DbUnitDaleqSupport;
 
-@Ignore
-public class JdbcProductDaoTest {
+@ContextConfiguration(classes = TestConfig.class)
+public class JdbcProductDaoTest extends AbstractJUnit4SpringContextTests {
 
     private DaleqSupport daleq;
     private JdbcProductDao productDao;
 
+    @Resource
+    private DataSource dataSource;
+
     @Before
     public void setUp(){
-        DataSource dataSource = null;
-
         daleq = new DbUnitDaleqSupport(dataSource);
         productDao = new JdbcProductDao(dataSource);
     }
@@ -35,7 +39,7 @@ public class JdbcProductDaoTest {
         final long expectedId = 42l;
 
         final Table table = aTable(ProductTable.class).with(
-                aRow(11).p(ProductTable.ID,expectedId)
+                aRow(11).p(ID,expectedId)
         );
 
         daleq.insertIntoDatabase(table);
