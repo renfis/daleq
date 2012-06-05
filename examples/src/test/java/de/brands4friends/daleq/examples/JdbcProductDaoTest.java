@@ -6,31 +6,38 @@ import static de.brands4friends.daleq.examples.ProductTable.ID;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.jdbc.DaleqSupport;
 import de.brands4friends.daleq.jdbc.dbunit.DbUnitDaleqSupport;
 
+@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfig.class)
-public class JdbcProductDaoTest extends AbstractJUnit4SpringContextTests {
+public class JdbcProductDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     private DaleqSupport daleq;
+
+    @Autowired
     private JdbcProductDao productDao;
 
-    @Resource
-    private DataSource dataSource;
+    @Override @Autowired
+    public void setDataSource(final DataSource dataSource) {
+        super.setDataSource(dataSource);
+        daleq = new DbUnitDaleqSupport(dataSource);
+    }
 
     @Before
     public void setUp(){
-        daleq = new DbUnitDaleqSupport(dataSource);
-        productDao = new JdbcProductDao(dataSource);
+
     }
 
     @Test

@@ -1,16 +1,29 @@
 package de.brands4friends.daleq.examples;
 
-import javax.activation.DataSource;
+
+import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 public class TestConfig {
 
     @Bean
     public DataSource dataSource(){
-        // TODO here we go.
-        return null;
+        return new EmbeddedDatabaseBuilder().addScript("schema.sql").build();
+    }
+
+    @Bean
+    public ProductDao productDao(DataSource dataSource){
+        return new JdbcProductDao(dataSource);
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager(DataSource dataSource){
+        return new DataSourceTransactionManager(dataSource);
     }
 }

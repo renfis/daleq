@@ -24,8 +24,9 @@ public class JdbcProductDao extends JdbcDaoSupport implements ProductDao {
                     @Override
                     public Product extractData(final ResultSet rs) throws SQLException, DataAccessException {
 
+                        rs.next();
                         Product p = new Product();
-                        p.setId(rs.getLong("ID"));
+                        p.setId(rs.getLong(1));
                         p.setName(rs.getString("NAME"));
                         p.setSize(rs.getString("SIZE"));
                         p.setPrice(rs.getBigDecimal("PRICE"));
