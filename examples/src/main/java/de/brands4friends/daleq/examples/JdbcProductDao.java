@@ -23,7 +23,7 @@ public class JdbcProductDao extends JdbcDaoSupport implements ProductDao {
                 new ResultSetExtractor<Product>() {
                     @Override
                     public Product extractData(final ResultSet rs) throws SQLException, DataAccessException {
-
+                        // TODO somehow hsqldb fails without rs.next() do we do something wrong?
                         rs.next();
                         Product p = new Product();
                         p.setId(rs.getLong(1));
