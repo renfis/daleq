@@ -26,7 +26,7 @@ public class JdbcProductDao extends JdbcDaoSupport implements ProductDao {
                         // TODO somehow hsqldb fails without rs.next() do we do something wrong?
                         rs.next();
                         Product p = new Product();
-                        p.setId(rs.getLong(1));
+                        p.setId(rs.getLong("ID"));
                         p.setName(rs.getString("NAME"));
                         p.setSize(rs.getString("SIZE"));
                         p.setPrice(rs.getBigDecimal("PRICE"));
