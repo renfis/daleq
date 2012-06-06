@@ -12,6 +12,7 @@ import java.util.Set;
 
 import javax.sql.DataSource;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +42,19 @@ public class JdbcProductDaoTest extends AbstractTransactionalJUnit4SpringContext
 
     private DaleqSupport daleq;
 
-    @Autowired
+    private DataSource dataSource;
     private JdbcProductDao productDao;
 
     @Override @Autowired
     public void setDataSource(final DataSource dataSource) {
         super.setDataSource(dataSource);
+        this.dataSource = dataSource;
+    }
+
+    @Before
+    public void setUp(){
         daleq = new DbUnitDaleqSupport(dataSource);
+        productDao = new JdbcProductDao(dataSource);
     }
 
     @Test

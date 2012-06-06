@@ -18,11 +18,6 @@ public class TestConfig {
     }
 
     @Bean
-    public ProductDao productDao(DataSource dataSource){
-        return new JdbcProductDao(dataSource);
-    }
-
-    @Bean
     public PlatformTransactionManager transactionManager(DataSource dataSource){
         return new DataSourceTransactionManager(dataSource);
     }
