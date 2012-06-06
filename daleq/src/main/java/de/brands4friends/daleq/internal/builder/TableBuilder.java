@@ -6,6 +6,7 @@ import java.util.List;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
+import de.brands4friends.daleq.Daleq;
 import de.brands4friends.daleq.Row;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.internal.container.RowContainer;
@@ -30,8 +31,10 @@ public class TableBuilder implements Table {
     }
 
     @Override
-    public Table withSomeRows(Iterable<Object> substitutes) {
-        // TODO
+    public Table withSomeRows(Iterable<Object> ids) {
+        for(Object id : ids){
+            this.rows.add(Daleq.aRow(id));
+        }
         return this;
     }
 
