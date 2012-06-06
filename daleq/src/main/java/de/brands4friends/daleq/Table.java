@@ -8,6 +8,8 @@ public interface Table {
     Table with(Row ... rows);
     Table withSomeRows(Iterable<Long> ids);
     Table withSomeRows(long ... ids);
+    Table withRowsUntil(long maxId);
+
     TableContainer build(final Context context);
 
 }

@@ -70,13 +70,27 @@ public class TableBuilderTest {
     @Test
     public void aTableWithSomeRowsEllipsis_should_beBuilt() {
         assertThat(
-                        aTable(ExampleTable.class).withSomeRows(1l, 2l, 3l).build(context),
-                        is(
-                                sb.table(
-                                        sb.row(sb.property(PROP_A, "1"), sb.property(PROP_B, "1")),
-                                        sb.row(sb.property(PROP_A, "2"), sb.property(PROP_B, "2")),
-                                        sb.row(sb.property(PROP_A, "3"), sb.property(PROP_B, "3"))
-                                ))
-                );
+                aTable(ExampleTable.class).withSomeRows(1l, 2l, 3l).build(context),
+                is(
+                        sb.table(
+                                sb.row(sb.property(PROP_A, "1"), sb.property(PROP_B, "1")),
+                                sb.row(sb.property(PROP_A, "2"), sb.property(PROP_B, "2")),
+                                sb.row(sb.property(PROP_A, "3"), sb.property(PROP_B, "3"))
+                        ))
+        );
+    }
+
+    @Test
+    public void aTableWithRowsUntil_should_beBuilt(){
+        assertThat(
+                aTable(ExampleTable.class).withRowsUntil(4).build(context),
+                is(
+                        sb.table(
+                                sb.row(sb.property(PROP_A, "0"), sb.property(PROP_B, "0")),
+                                sb.row(sb.property(PROP_A, "1"), sb.property(PROP_B, "1")),
+                                sb.row(sb.property(PROP_A, "2"), sb.property(PROP_B, "2")),
+                                sb.row(sb.property(PROP_A, "3"), sb.property(PROP_B, "3"))
+                        ))
+        );
     }
 }

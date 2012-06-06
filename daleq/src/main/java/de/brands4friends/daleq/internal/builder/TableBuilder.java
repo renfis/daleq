@@ -45,6 +45,14 @@ public class TableBuilder implements Table {
     }
 
     @Override
+    public Table withRowsUntil(final long maxId) {
+        for(long i = 0; i < maxId;i++){
+            this.rows.add(Daleq.aRow(i));
+        }
+        return this;
+    }
+
+    @Override
     public TableContainer build(final Context context){
         List<RowContainer> rowContainers = Lists.transform(rows,new Function<Row, RowContainer>() {
             @Override
