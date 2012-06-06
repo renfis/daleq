@@ -6,7 +6,7 @@ import de.brands4friends.daleq.internal.container.TableContainer;
 public interface Table {
 
     Table with(Row ... rows);
-    Table withSomeRows(Iterable<Object> ids);
+    Table withSomeRows(Iterable<Long> ids);
     TableContainer build(final Context context);
 
 }

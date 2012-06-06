@@ -18,10 +18,10 @@ import de.brands4friends.daleq.internal.structure.TemplateValue;
 
 public class RowBuilder implements Row {
 
-    private final Object binding;
+    private final long binding;
     private final List<PropertyHolder> properties;
 
-    public RowBuilder(final Object binding) {
+    public RowBuilder(final long binding) {
         this.binding = binding;
         this.properties = Lists.newArrayList();
     }
@@ -91,7 +91,7 @@ public class RowBuilder implements Row {
         });
     }
 
-    public static RowBuilder row(final Object binding) {
+    public static RowBuilder row(final long binding) {
         return new RowBuilder(binding);
     }
 }

@@ -9,7 +9,7 @@ public class Daleq {
         return TableBuilder.aTable(fromClass);
     }
 
-    public static Row aRow(Object binding){
-        return RowBuilder.row(binding);
+    public static Row aRow(long id){
+        return RowBuilder.row(id);
     }
 }

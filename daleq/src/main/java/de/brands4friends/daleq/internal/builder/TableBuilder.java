@@ -31,8 +31,8 @@ public class TableBuilder implements Table {
     }
 
     @Override
-    public Table withSomeRows(Iterable<Object> ids) {
-        for(Object id : ids){
+    public Table withSomeRows(Iterable<Long> ids) {
+        for(long id : ids){
             this.rows.add(Daleq.aRow(id));
         }
         return this;

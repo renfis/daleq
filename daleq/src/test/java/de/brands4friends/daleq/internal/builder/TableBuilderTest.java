@@ -57,7 +57,7 @@ public class TableBuilderTest {
     @Test
     public void aTableWithSomeRows_should_beBuilt() {
         assertThat(
-                aTable(ExampleTable.class).withSomeRows(Lists.<Object>newArrayList(1,2,3)).build(context),
+                aTable(ExampleTable.class).withSomeRows(Lists.newArrayList(1l,2l,3l)).build(context),
                 is(
                         sb.table(
                                 sb.row(sb.property(PROP_A, "1"), sb.property(PROP_B, "1")),
