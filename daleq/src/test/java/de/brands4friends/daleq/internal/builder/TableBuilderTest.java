@@ -10,6 +10,8 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.common.collect.Lists;
+
 import de.brands4friends.daleq.internal.structure.TableStructure;
 import de.brands4friends.daleq.internal.structure.TableStructureFactory;
 
@@ -27,7 +29,7 @@ public class TableBuilderTest {
     }
 
     @Test
-    public void aTableWithARow_should_beBuilt(){
+    public void aTableWithARow_should_beBuilt() {
         assertThat(
                 aTable(ExampleTable.class).with(aRow(42)).build(context),
                 is(sb.table(
@@ -40,14 +42,27 @@ public class TableBuilderTest {
     }
 
     @Test
-    public void aTableWithSomeExplicitAddedRow_should_beBuilt(){
+    public void aTableWithSomeExplicitAddedRow_should_beBuilt() {
         assertThat(
-                aTable(ExampleTable.class).with(aRow(1),aRow(2),aRow(3)).build(context),
+                aTable(ExampleTable.class).with(aRow(1), aRow(2), aRow(3)).build(context),
                 is(
                         sb.table(
-                                sb.row(sb.property(PROP_A,"1"),sb.property(PROP_B,"1")),
-                                sb.row(sb.property(PROP_A,"2"),sb.property(PROP_B,"2")),
-                                sb.row(sb.property(PROP_A,"3"),sb.property(PROP_B,"3"))
+                                sb.row(sb.property(PROP_A, "1"), sb.property(PROP_B, "1")),
+                                sb.row(sb.property(PROP_A, "2"), sb.property(PROP_B, "2")),
+                                sb.row(sb.property(PROP_A, "3"), sb.property(PROP_B, "3"))
+                        ))
+        );
+    }
+
+    @Test
+    public void aTableWithSomeRows_should_beBuilt() {
+        assertThat(
+                aTable(ExampleTable.class).withSomeRows(Lists.<Object>newArrayList(1,2,3)).build(context),
+                is(
+                        sb.table(
+                                sb.row(sb.property(PROP_A, "1"), sb.property(PROP_B, "1")),
+                                sb.row(sb.property(PROP_A, "2"), sb.property(PROP_B, "2")),
+                                sb.row(sb.property(PROP_A, "3"), sb.property(PROP_B, "3"))
                         ))
         );
     }
