@@ -7,6 +7,7 @@ public interface Table {
 
     Table with(Row ... rows);
     Table withSomeRows(Iterable<Long> ids);
+    Table withSomeRows(long ... ids);
     TableContainer build(final Context context);
 
 }

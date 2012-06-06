@@ -57,7 +57,7 @@ public class TableBuilderTest {
     @Test
     public void aTableWithSomeRows_should_beBuilt() {
         assertThat(
-                aTable(ExampleTable.class).withSomeRows(Lists.newArrayList(1l,2l,3l)).build(context),
+                aTable(ExampleTable.class).withSomeRows(Lists.newArrayList(1l, 2l, 3l)).build(context),
                 is(
                         sb.table(
                                 sb.row(sb.property(PROP_A, "1"), sb.property(PROP_B, "1")),
@@ -65,5 +65,18 @@ public class TableBuilderTest {
                                 sb.row(sb.property(PROP_A, "3"), sb.property(PROP_B, "3"))
                         ))
         );
+    }
+
+    @Test
+    public void aTableWithSomeRowsEllipsis_should_beBuilt() {
+        assertThat(
+                        aTable(ExampleTable.class).withSomeRows(1l, 2l, 3l).build(context),
+                        is(
+                                sb.table(
+                                        sb.row(sb.property(PROP_A, "1"), sb.property(PROP_B, "1")),
+                                        sb.row(sb.property(PROP_A, "2"), sb.property(PROP_B, "2")),
+                                        sb.row(sb.property(PROP_A, "3"), sb.property(PROP_B, "3"))
+                                ))
+                );
     }
 }

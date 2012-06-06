@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
+import com.google.common.primitives.Longs;
 
 import de.brands4friends.daleq.Daleq;
 import de.brands4friends.daleq.Row;
@@ -36,6 +37,11 @@ public class TableBuilder implements Table {
             this.rows.add(Daleq.aRow(id));
         }
         return this;
+    }
+
+    @Override
+    public Table withSomeRows(final long... ids) {
+        return withSomeRows(Longs.asList(ids));
     }
 
     @Override
