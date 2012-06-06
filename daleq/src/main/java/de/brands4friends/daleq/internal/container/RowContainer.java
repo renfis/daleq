@@ -2,18 +2,20 @@ package de.brands4friends.daleq.internal.container;
 
 import java.util.List;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
 
 import de.brands4friends.daleq.internal.structure.TableStructure;
 
-public class RowContainer {
+public final class RowContainer {
 
     private final TableStructure structure;
     private final List<PropertyContainer> properties;
 
     public RowContainer(final TableStructure structure, final List<PropertyContainer> properties) {
-        this.structure = structure;
-        this.properties = properties;
+        this.structure  = Preconditions.checkNotNull(structure);
+        this.properties = Preconditions.checkNotNull(properties);
     }
 
     public List<PropertyContainer> getProperties() {
@@ -39,6 +41,6 @@ public class RowContainer {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("structure", structure).add("properties", properties).toString();
+        return "[" + Joiner.on(",").join(properties) + "]";
     }
 }

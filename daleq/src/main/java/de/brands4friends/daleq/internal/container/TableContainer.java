@@ -2,18 +2,20 @@ package de.brands4friends.daleq.internal.container;
 
 import java.util.List;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
 
 import de.brands4friends.daleq.internal.structure.TableStructure;
 
-public class TableContainer {
+public final class TableContainer {
     
     private final TableStructure tableStructure;
     private final List<RowContainer> rows;
 
     public TableContainer(final TableStructure tableStructure, final List<RowContainer> rows) {
-        this.tableStructure = tableStructure;
-        this.rows = rows;
+        this.tableStructure = Preconditions.checkNotNull(tableStructure);
+        this.rows = Preconditions.checkNotNull(rows);
     }
 
     public String getName(){
@@ -39,5 +41,10 @@ public class TableContainer {
     @Override
     public final int hashCode() {
         return Objects.hashCode(tableStructure, rows);
+    }
+
+    @Override
+    public String toString() {
+        return "[" + tableStructure.getName() + ":" + Joiner.on(",").join(rows) + "]";
     }
 }

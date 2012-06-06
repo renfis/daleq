@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.common.base.Objects;
 
-public class SchemaContainer {
+public final class SchemaContainer {
 
     private final List<TableContainer> tables;
 

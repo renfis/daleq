@@ -1,16 +1,17 @@
 package de.brands4friends.daleq.internal.container;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
 
 import de.brands4friends.daleq.internal.structure.PropertyStructure;
 
-public class PropertyContainer {
+public final class PropertyContainer {
     private final PropertyStructure structure;
     private final String value;
 
     public PropertyContainer(final PropertyStructure structure, final String value) {
-        this.structure = structure;
-        this.value = value;
+        this.structure = Preconditions.checkNotNull(structure);
+        this.value     = value;
     }
 
     public String getName(){
@@ -44,6 +45,6 @@ public class PropertyContainer {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("structure",structure).add("value",value).toString();
+        return structure.getName() + "=" + value;
     }
 }

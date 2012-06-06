@@ -1,13 +1,15 @@
 package de.brands4friends.daleq.internal.container;
 
+import static nl.jqno.equalsverifier.EqualsVerifier.forClass;
+
 import org.junit.Test;
 
-import de.brands4friends.daleq.test.EqualsAssert;
+import nl.jqno.equalsverifier.Warning;
 
 public class TableContainerTest {
 
     @Test
     public void testHashcodeAndEquals(){
-        EqualsAssert.assertProperEqualsAndHashcode(TableContainer.class);
+        forClass(TableContainer.class).suppress(Warning.NULL_FIELDS).verify();
     }
 }
