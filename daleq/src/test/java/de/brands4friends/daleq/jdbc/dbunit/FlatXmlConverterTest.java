@@ -16,7 +16,7 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
-import de.brands4friends.daleq.PropertyDef;
+import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.internal.builder.Context;
 import de.brands4friends.daleq.internal.builder.SimpleContext;
@@ -28,8 +28,8 @@ public class FlatXmlConverterTest {
 
     @de.brands4friends.daleq.TableDef("table")
     public static final class TheTable {
-        public static final PropertyDef A = PropertyDef.pd("a",DataType.VARCHAR);
-        public static final PropertyDef B = PropertyDef.pd("b",DataType.VARCHAR);
+        public static final FieldDef A = FieldDef.fd("a", DataType.VARCHAR);
+        public static final FieldDef B = FieldDef.fd("b", DataType.VARCHAR);
     }
 
     private static final String NULL_TOKEN = "FOO_NULL";

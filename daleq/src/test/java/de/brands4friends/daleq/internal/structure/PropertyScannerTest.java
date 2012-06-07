@@ -1,6 +1,6 @@
 package de.brands4friends.daleq.internal.structure;
 
-import static de.brands4friends.daleq.PropertyDef.pd;
+import static de.brands4friends.daleq.FieldDef.fd;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
-import de.brands4friends.daleq.PropertyDef;
+import de.brands4friends.daleq.FieldDef;
 
 public class PropertyScannerTest {
 
@@ -33,7 +33,7 @@ public class PropertyScannerTest {
     }
 
     static class WithNonStatic {
-        public final PropertyDef ID   = pd(DataType.INTEGER);
+        public final FieldDef ID   = FieldDef.fd(DataType.INTEGER);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -42,7 +42,7 @@ public class PropertyScannerTest {
     }
 
     static class WithNonFinal {
-        public static PropertyDef ID   = pd(DataType.INTEGER);
+        public static FieldDef ID   = FieldDef.fd(DataType.INTEGER);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -51,8 +51,8 @@ public class PropertyScannerTest {
     }
 
     static class WithPropertyDefs {
-        public static final PropertyDef ID   = pd(DataType.INTEGER);
-        public static final PropertyDef NAME = pd(DataType.VARCHAR);
+        public static final FieldDef ID   = FieldDef.fd(DataType.INTEGER);
+        public static final FieldDef NAME = FieldDef.fd(DataType.VARCHAR);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class PropertyScannerTest {
     }
 
     static class WithExplicitName {
-        public static final PropertyDef ID = pd("foo",DataType.INTEGER);
+        public static final FieldDef ID = fd("foo", DataType.INTEGER);
     }
 
     @Test

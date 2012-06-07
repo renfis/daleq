@@ -5,7 +5,7 @@ import java.util.Arrays;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
-import de.brands4friends.daleq.PropertyDef;
+import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.internal.container.PropertyContainer;
 import de.brands4friends.daleq.internal.container.RowContainer;
 import de.brands4friends.daleq.internal.container.TableContainer;
@@ -15,10 +15,10 @@ public class StructureBuilder {
 
     public final static class PropertyContainerBean {
 
-        PropertyDef propertyDef;
+        FieldDef fieldDef;
         String value;
-        private PropertyContainerBean(final PropertyDef propertyDef, final String value) {
-            this.propertyDef = propertyDef;
+        private PropertyContainerBean(final FieldDef fieldDef, final String value) {
+            this.fieldDef = fieldDef;
             this.value = value;
         }
 
@@ -39,12 +39,12 @@ public class StructureBuilder {
                 new Function<PropertyContainerBean, PropertyContainer>() {
                     @Override
                     public PropertyContainer apply(final PropertyContainerBean input) {
-                        return new PropertyContainer(tableStructure.findStructureByDef(input.propertyDef), input.value);
+                        return new PropertyContainer(tableStructure.findStructureByDef(input.fieldDef), input.value);
                     }
                 }));
     }
 
-    public PropertyContainerBean property(PropertyDef propertyDef, String value) {
-        return new PropertyContainerBean(propertyDef, value);
+    public PropertyContainerBean property(FieldDef fieldDef, String value) {
+        return new PropertyContainerBean(fieldDef, value);
     }
 }

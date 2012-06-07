@@ -8,20 +8,20 @@ import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 
-import de.brands4friends.daleq.PropertyDef;
+import de.brands4friends.daleq.FieldDef;
 
 public class TableStructure {
 
     private final String name;
     private final List<PropertyStructure> properties;
-    private final Map<PropertyDef,PropertyStructure> lookupByDef;
+    private final Map<FieldDef,PropertyStructure> lookupByDef;
 
     public TableStructure(final String name, final List<PropertyStructure> properties) {
         this.name = name;
         this.properties = properties;
-        this.lookupByDef = Maps.uniqueIndex(properties,new Function<PropertyStructure, PropertyDef>() {
+        this.lookupByDef = Maps.uniqueIndex(properties,new Function<PropertyStructure, FieldDef>() {
             @Override
-            public PropertyDef apply(final PropertyStructure input) {
+            public FieldDef apply(final PropertyStructure input) {
                 return input.getOrigin();
             }
         });
@@ -39,8 +39,8 @@ public class TableStructure {
         return properties;
     }
 
-    public PropertyStructure findStructureByDef(PropertyDef propertyDef){
-        return lookupByDef.get(propertyDef);
+    public PropertyStructure findStructureByDef(FieldDef fieldDef){
+        return lookupByDef.get(fieldDef);
     }
 
     @Override

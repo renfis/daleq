@@ -22,7 +22,7 @@ import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.brands4friends.daleq.PropertyDef;
+import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.TableDef;
 
 public class DbUnitDaleqSupportTest extends EasyMockSupport {
@@ -31,8 +31,8 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
 
     @TableDef("FOO")
     public static class MyTable {
-        public static final PropertyDef ID = PropertyDef.pd(DataType.INTEGER);
-        public static final PropertyDef VALUE = PropertyDef.pd(DataType.VARCHAR);
+        public static final FieldDef ID = FieldDef.fd(DataType.INTEGER);
+        public static final FieldDef VALUE = FieldDef.fd(DataType.VARCHAR);
     }
 
     private ConnectionFactory connectionFactory;

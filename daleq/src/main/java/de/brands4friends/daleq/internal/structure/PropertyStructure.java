@@ -6,16 +6,16 @@ import org.dbunit.dataset.datatype.DataType;
 
 import com.google.common.base.Objects;
 
-import de.brands4friends.daleq.PropertyDef;
+import de.brands4friends.daleq.FieldDef;
 
 public final class PropertyStructure {
     private final String name;
     private final DataType dataType;
     private final TemplateValue templateValue;
-    private final PropertyDef origin;
+    private final FieldDef origin;
 
 
-    public PropertyStructure(final String name, final DataType dataType, final TemplateValue templateValue, final PropertyDef origin) {
+    public PropertyStructure(final String name, final DataType dataType, final TemplateValue templateValue, final FieldDef origin) {
         this.name = name;
         this.dataType = dataType;
         this.templateValue = templateValue;
@@ -34,7 +34,7 @@ public final class PropertyStructure {
         return templateValue;
     }
 
-    public PropertyDef getOrigin() {
+    public FieldDef getOrigin() {
         return origin;
     }
 

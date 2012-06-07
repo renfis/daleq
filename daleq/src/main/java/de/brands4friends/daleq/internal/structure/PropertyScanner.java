@@ -8,7 +8,7 @@ import org.dbunit.dataset.datatype.DataType;
 
 import com.google.common.collect.Lists;
 
-import de.brands4friends.daleq.PropertyDef;
+import de.brands4friends.daleq.FieldDef;
 
 /**
  * Scans classes for PropertyDefs and returns the findings as PropertyStructures
@@ -37,14 +37,14 @@ class PropertyScanner {
     }
 
     private void addStructureOfField(final List<PropertyStructure> result, final Field field) throws IllegalAccessException {
-        final PropertyDef propertyDef = (PropertyDef) field.get(null);
-        final String name = propertyDef.hasName() ? propertyDef.getName() : field.getName();
-        final DataType dataType = propertyDef.getDataType();
-        result.add(new PropertyStructure(name, dataType,TemplateValue.DEFAULT, propertyDef));
+        final FieldDef fieldDef = (FieldDef) field.get(null);
+        final String name = fieldDef.hasName() ? fieldDef.getName() : field.getName();
+        final DataType dataType = fieldDef.getDataType();
+        result.add(new PropertyStructure(name, dataType,TemplateValue.DEFAULT, fieldDef));
     }
 
     private boolean isPropertyDef(final Field field) {
-        return field.getType().isAssignableFrom(PropertyDef.class);
+        return field.getType().isAssignableFrom(FieldDef.class);
     }
 
     private boolean isConstant(final Field field) {
