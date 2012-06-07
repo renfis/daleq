@@ -40,7 +40,8 @@ class FieldScanner {
         final FieldDef fieldDef = (FieldDef) field.get(null);
         final String name = fieldDef.hasName() ? fieldDef.getName() : field.getName();
         final DataType dataType = fieldDef.getDataType();
-        result.add(new FieldStructure(name, dataType,TemplateValue.DEFAULT, fieldDef));
+        final TemplateValue templateValue = fieldDef.hasTemplate() ? fieldDef.getTemplate() : TemplateValue.DEFAULT;
+        result.add(new FieldStructure(name, dataType,templateValue, fieldDef));
     }
 
     private boolean isPropertyDef(final Field field) {

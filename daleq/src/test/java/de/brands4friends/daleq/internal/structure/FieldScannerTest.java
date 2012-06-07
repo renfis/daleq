@@ -1,6 +1,7 @@
 package de.brands4friends.daleq.internal.structure;
 
 import static de.brands4friends.daleq.FieldDef.fd;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -74,5 +75,17 @@ public class FieldScannerTest{
                 new FieldStructure("foo",DataType.INTEGER, TemplateValue.DEFAULT, WithExplicitName.ID)
         );
         assertThat(scanner.scan(WithExplicitName.class), is(expected));
+    }
+
+    static class WithExplicitTemplate {
+        public static final FieldDef NAME = fd(DataType.VARCHAR).template("foo");
+    }
+
+    @Test
+    public void scanningWithExplicitTemplate_should_haveTheTemplate(){
+        assertThat(
+                scanner.scan(WithExplicitTemplate.class),
+                contains(new FieldStructure("NAME", DataType.VARCHAR, new TemplateValue("foo"), WithExplicitTemplate.NAME))
+        );
     }
 }
