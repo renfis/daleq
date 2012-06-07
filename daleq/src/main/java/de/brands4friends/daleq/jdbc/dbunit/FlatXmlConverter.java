@@ -14,7 +14,7 @@ import org.dom4j.io.XMLWriter;
 
 import com.google.common.collect.Lists;
 
-import de.brands4friends.daleq.internal.container.PropertyContainer;
+import de.brands4friends.daleq.internal.container.FieldContainer;
 import de.brands4friends.daleq.internal.container.RowContainer;
 import de.brands4friends.daleq.internal.container.SchemaContainer;
 import de.brands4friends.daleq.internal.container.TableContainer;
@@ -62,17 +62,17 @@ class FlatXmlConverter {
 
     private void addRow(Element root, String name, RowContainer row) {
         final Element elem = documentFactory.createElement(name);
-        for(final PropertyContainer prop : sortPropertiesByName(row.getProperties())){
+        for(final FieldContainer prop : sortPropertiesByName(row.getFields())){
             String value = prepareValue(prop.getName(), prop.getValue());
             elem.add(documentFactory.createAttribute(elem, prop.getName(), value));
         }
         root.add(elem);
     }
 
-    private Collection<PropertyContainer> sortPropertiesByName(Collection<PropertyContainer> properties){
-        List<PropertyContainer> newProps = Lists.newArrayList(properties);
-        Collections.sort(newProps, new Comparator<PropertyContainer>() {
-            public int compare(PropertyContainer o1, PropertyContainer o2) {
+    private Collection<FieldContainer> sortPropertiesByName(Collection<FieldContainer> fields){
+        List<FieldContainer> newProps = Lists.newArrayList(fields);
+        Collections.sort(newProps, new Comparator<FieldContainer>() {
+            public int compare(FieldContainer o1, FieldContainer o2) {
                 return o1.getName().compareTo(o2.getName());
             }
         });

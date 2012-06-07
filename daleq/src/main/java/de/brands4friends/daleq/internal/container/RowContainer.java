@@ -11,20 +11,20 @@ import de.brands4friends.daleq.internal.structure.TableStructure;
 public final class RowContainer {
 
     private final TableStructure structure;
-    private final List<PropertyContainer> properties;
+    private final List<FieldContainer> fields;
 
-    public RowContainer(final TableStructure structure, final List<PropertyContainer> properties) {
+    public RowContainer(final TableStructure structure, final List<FieldContainer> fields) {
         this.structure  = Preconditions.checkNotNull(structure);
-        this.properties = Preconditions.checkNotNull(properties);
+        this.fields = Preconditions.checkNotNull(fields);
     }
 
-    public List<PropertyContainer> getProperties() {
-        return properties;
+    public List<FieldContainer> getFields() {
+        return fields;
     }
 
     @Override
     public final int hashCode() {
-        return Objects.hashCode(structure, properties);
+        return Objects.hashCode(structure, fields);
     }
 
     @Override
@@ -33,7 +33,7 @@ public final class RowContainer {
             final RowContainer that = (RowContainer) obj;
 
             return Objects.equal(structure, that.structure)
-                    && Objects.equal(properties, that.properties);
+                    && Objects.equal(fields, that.fields);
         }
 
         return false;
@@ -41,6 +41,6 @@ public final class RowContainer {
 
     @Override
     public String toString() {
-        return "[" + Joiner.on(",").join(properties) + "]";
+        return "[" + Joiner.on(",").join(fields) + "]";
     }
 }

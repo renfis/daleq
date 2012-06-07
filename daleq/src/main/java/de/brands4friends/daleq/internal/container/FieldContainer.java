@@ -5,11 +5,11 @@ import com.google.common.base.Preconditions;
 
 import de.brands4friends.daleq.internal.structure.PropertyStructure;
 
-public final class PropertyContainer {
+public final class FieldContainer{
     private final PropertyStructure structure;
     private final String value;
 
-    public PropertyContainer(final PropertyStructure structure, final String value) {
+    public FieldContainer(final PropertyStructure structure, final String value) {
         this.structure = Preconditions.checkNotNull(structure);
         this.value     = value;
     }
@@ -33,8 +33,8 @@ public final class PropertyContainer {
 
     @Override
     public final boolean equals(Object obj) {
-        if (obj instanceof PropertyContainer) {
-            final PropertyContainer that = (PropertyContainer) obj;
+        if (obj instanceof FieldContainer) {
+            final FieldContainer that = (FieldContainer) obj;
 
             return Objects.equal(structure, that.structure)
                     && Objects.equal(value,that.value);

@@ -10,7 +10,7 @@ import com.google.common.collect.Maps;
 import de.brands4friends.daleq.DaleqBuildException;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.Row;
-import de.brands4friends.daleq.internal.container.PropertyContainer;
+import de.brands4friends.daleq.internal.container.FieldContainer;
 import de.brands4friends.daleq.internal.container.RowContainer;
 import de.brands4friends.daleq.internal.structure.PropertyStructure;
 import de.brands4friends.daleq.internal.structure.TableStructure;
@@ -34,18 +34,18 @@ public class RowBuilder implements Row {
     @Override
     public RowContainer build(final Context context, final TableStructure tableStructure) {
         final Map<PropertyStructure, FieldHolder> structureToHolder = createStructureToHolderIndex(tableStructure);
-        final List<PropertyContainer> propertyContainers = mapPropertiesToContainers(context, tableStructure, structureToHolder);
-        return new RowContainer(tableStructure, propertyContainers);
+        final List<FieldContainer> fieldContainers = mapPropertiesToContainers(context, tableStructure, structureToHolder);
+        return new RowContainer(tableStructure, fieldContainers);
     }
 
-    private List<PropertyContainer> mapPropertiesToContainers(
+    private List<FieldContainer> mapPropertiesToContainers(
             final Context context,
             final TableStructure tableStructure,
             final Map<PropertyStructure, FieldHolder> structureToHolder) {
 
-        return Lists.transform(tableStructure.getProperties(), new Function<PropertyStructure, PropertyContainer>() {
+        return Lists.transform(tableStructure.getProperties(), new Function<PropertyStructure, FieldContainer>() {
             @Override
-            public PropertyContainer apply(final PropertyStructure propertyStructure) {
+            public FieldContainer apply(final PropertyStructure propertyStructure) {
                 final FieldHolder actualField = structureToHolder.get(propertyStructure);
                 if (actualField != null) {
                     return convertProvidedProperty(propertyStructure, actualField, context);
@@ -56,17 +56,17 @@ public class RowBuilder implements Row {
         });
     }
 
-    private PropertyContainer convertDefaultProperty(final PropertyStructure propertyStructure, final Context context) {
+    private FieldContainer convertDefaultProperty(final PropertyStructure propertyStructure, final Context context) {
         // apply template binding to template
         final String coercedBinding = convert(context,binding);
         final TemplateValue templateValue = propertyStructure.getTemplateValue();
         final String renderedValue = templateValue.render(coercedBinding);
-        return new PropertyContainer(propertyStructure,renderedValue);
+        return new FieldContainer(propertyStructure,renderedValue);
     }
 
-    private PropertyContainer convertProvidedProperty(final PropertyStructure propertyStructure, final FieldHolder actualField, final Context context) {
+    private FieldContainer convertProvidedProperty(final PropertyStructure propertyStructure, final FieldHolder actualField, final Context context) {
         final String strValue = convert(context, actualField.getValue());
-        return new PropertyContainer(propertyStructure, strValue);
+        return new FieldContainer(propertyStructure, strValue);
     }
 
     private String convert(final Context context, final Object valueToConvert) {
