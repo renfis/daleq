@@ -14,7 +14,7 @@ public final class FieldDef{
         this.dataType = dataType;
     }
 
-    public boolean hasName(){
+    public boolean hasName() {
         return name != null;
     }
 
@@ -28,14 +28,14 @@ public final class FieldDef{
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("name",name).add("dataType",dataType).toString();
+        return Objects.toStringHelper(this).add("name", name).add("dataType", dataType).toString();
     }
 
-    public static FieldDef fd(final DataType dataType){
-        return new FieldDef(null,dataType);
+    public static FieldDef fd(final DataType dataType) {
+        return new FieldDef(null, dataType);
     }
 
-    public static FieldDef fd(final String name, final DataType dataType){
-        return new FieldDef(name,dataType);
+    public static FieldDef fd(final String name, final DataType dataType) {
+        return new FieldDef(name, dataType);
     }
 }
