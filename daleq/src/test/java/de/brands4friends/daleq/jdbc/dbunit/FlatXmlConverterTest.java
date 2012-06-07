@@ -45,20 +45,20 @@ public class FlatXmlConverterTest {
     @Test
     public void orderedProperties() throws Exception {
         assertWriteTo(
-                aTable(TheTable.class).with(aRow(1).p(A, "1").p(B, "2")),
+                aTable(TheTable.class).with(aRow(1).f(A, "1").f(B, "2")),
                 "<table a=\"1\" b=\"2\"/>");
     }
 
     @Test
     public void writeNull() throws Exception {
         assertWriteTo(
-                aTable(TheTable.class).with(aRow(1).p(A, null)),
+                aTable(TheTable.class).with(aRow(1).f(A, null)),
                 "<table a=\"" + NULL_TOKEN + "\" b=\"1\"/>");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void throwOnNullToken() throws Exception {
-        writeToWriter(aTable(TheTable.class).with(aRow(1).p(A, NULL_TOKEN)));
+        writeToWriter(aTable(TheTable.class).with(aRow(1).f(A, NULL_TOKEN)));
     }
 
     private void assertWriteTo(final Table table,final String expectedTable) throws IOException {

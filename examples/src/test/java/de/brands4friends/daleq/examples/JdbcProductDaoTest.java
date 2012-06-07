@@ -62,7 +62,7 @@ public class JdbcProductDaoTest extends AbstractTransactionalJUnit4SpringContext
         final long expectedId = 42l;
 
         final Table table = aTable(ProductTable.class).with(
-                aRow(11).p(ID,expectedId)
+                aRow(11).f(ID, expectedId)
         );
 
         daleq.insertIntoDatabase(table);
@@ -77,10 +77,10 @@ public class JdbcProductDaoTest extends AbstractTransactionalJUnit4SpringContext
                 aTable(ProductTable.class)
                     .withRowsUntil(10)
                     .with(
-                            aRow(10).p(SIZE, "S"),
-                            aRow(11).p(SIZE, "S"),
-                            aRow(12).p(SIZE, "M"),
-                            aRow(13).p(SIZE, "L")
+                            aRow(10).f(SIZE, "S"),
+                            aRow(11).f(SIZE, "S"),
+                            aRow(12).f(SIZE, "M"),
+                            aRow(13).f(SIZE, "L")
                     )
         );
         final List<Product> products = productDao.findBySize("S");

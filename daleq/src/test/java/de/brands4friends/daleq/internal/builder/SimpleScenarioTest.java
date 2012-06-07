@@ -30,8 +30,8 @@ public class SimpleScenarioTest {
     public void rowsWithProperties() {
         Table table = aTable(MyTable.class)
                 .with(
-                        aRow(42).p(NAME, "foo").p(VALUE, "1"),
-                        aRow(23).p(NAME, "bar")
+                        aRow(42).f(NAME, "foo").f(VALUE, "1"),
+                        aRow(23).f(NAME, "bar")
                 );
     }
 }

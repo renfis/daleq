@@ -29,8 +29,8 @@ public class RowBuilderTest {
     public void aRowWithJustProvidedProperties_should_beBuild(){
         assertThat(
                 RowBuilder.row(23)
-                        .p(ExampleTable.PROP_A, "FOO")
-                        .p(ExampleTable.PROP_B, "BAR")
+                        .f(ExampleTable.PROP_A, "FOO")
+                        .f(ExampleTable.PROP_B, "BAR")
                         .build(context, tableStructure),
                 is(sb.row(
                         sb.property(ExampleTable.PROP_A,"FOO"),
@@ -53,6 +53,6 @@ public class RowBuilderTest {
     @Test(expected = DaleqBuildException.class)
     public void propertyInRowContainsProperyDefNotInTableStructure_should_fail(){
         FieldDef bar = FieldDef.fd(DataType.VARCHAR);
-        RowBuilder.row(42).p(bar,"foo").build(context, tableStructure);
+        RowBuilder.row(42).f(bar, "foo").build(context, tableStructure);
     }
 }

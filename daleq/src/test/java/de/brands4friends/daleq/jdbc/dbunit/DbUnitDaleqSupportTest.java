@@ -58,8 +58,8 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
         replayAll();
         daleqSupport.insertIntoDatabase(
                 aTable(MyTable.class).with(
-                        aRow(0).p(MyTable.VALUE,"val0"),
-                        aRow(1).p(MyTable.VALUE,"val1")
+                        aRow(0).f(MyTable.VALUE, "val0"),
+                        aRow(1).f(MyTable.VALUE, "val1")
                 )
         );
         verifyAll();
