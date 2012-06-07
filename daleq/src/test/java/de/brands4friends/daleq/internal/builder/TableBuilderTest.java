@@ -7,11 +7,15 @@ import static de.brands4friends.daleq.internal.builder.ExampleTable.PROP_B;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+import org.dbunit.dataset.datatype.DataType;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
+import de.brands4friends.daleq.DaleqBuildException;
+import de.brands4friends.daleq.FieldDef;
+import de.brands4friends.daleq.TableDef;
 import de.brands4friends.daleq.internal.structure.TableStructure;
 import de.brands4friends.daleq.internal.structure.TableStructureFactory;
 
@@ -92,5 +96,15 @@ public class TableBuilderTest {
                                 sb.row(sb.field(PROP_A, "3"), sb.field(PROP_B, "3"))
                         ))
         );
+    }
+
+    @TableDef("ANOTHER_TABLE")
+    public static class AnotherTable {
+        public static final FieldDef ANOTHER_FIELD = FieldDef.fd(DataType.INTEGER);
+    }
+
+    @Test(expected = DaleqBuildException.class)
+    public void aTableWithFieldsFromAnotherTable_should_fail(){
+        aTable(ExampleTable.class).with(aRow(1).f(AnotherTable.ANOTHER_FIELD,123)).build(context);
     }
 }
