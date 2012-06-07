@@ -33,8 +33,8 @@ public class RowBuilderTest {
                         .f(ExampleTable.PROP_B, "BAR")
                         .build(context, tableStructure),
                 is(sb.row(
-                        sb.property(ExampleTable.PROP_A,"FOO"),
-                        sb.property(ExampleTable.PROP_B,"BAR")
+                        sb.field(ExampleTable.PROP_A, "FOO"),
+                        sb.field(ExampleTable.PROP_B, "BAR")
                 ))
         );
     }
@@ -44,8 +44,8 @@ public class RowBuilderTest {
         assertThat(
                 RowBuilder.row(23).build(context, tableStructure),
                 is(sb.row(
-                        sb.property(ExampleTable.PROP_A, "23"),
-                        sb.property(ExampleTable.PROP_B, "23")
+                        sb.field(ExampleTable.PROP_A, "23"),
+                        sb.field(ExampleTable.PROP_B, "23")
                 ))
         );
     }

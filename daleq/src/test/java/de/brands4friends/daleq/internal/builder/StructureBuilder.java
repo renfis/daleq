@@ -44,7 +44,7 @@ public class StructureBuilder {
                 }));
     }
 
-    public PropertyContainerBean property(FieldDef fieldDef, String value) {
+    public PropertyContainerBean field(FieldDef fieldDef, String value) {
         return new PropertyContainerBean(fieldDef, value);
     }
 }

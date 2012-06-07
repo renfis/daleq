@@ -34,8 +34,8 @@ public class TableBuilderTest {
                 aTable(ExampleTable.class).with(aRow(42)).build(context),
                 is(sb.table(
                         sb.row(
-                                sb.property(PROP_A, "42"),
-                                sb.property(PROP_B, "42")
+                                sb.field(PROP_A, "42"),
+                                sb.field(PROP_B, "42")
                         )
                 ))
         );
@@ -47,9 +47,9 @@ public class TableBuilderTest {
                 aTable(ExampleTable.class).with(aRow(1), aRow(2), aRow(3)).build(context),
                 is(
                         sb.table(
-                                sb.row(sb.property(PROP_A, "1"), sb.property(PROP_B, "1")),
-                                sb.row(sb.property(PROP_A, "2"), sb.property(PROP_B, "2")),
-                                sb.row(sb.property(PROP_A, "3"), sb.property(PROP_B, "3"))
+                                sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "1")),
+                                sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "2")),
+                                sb.row(sb.field(PROP_A, "3"), sb.field(PROP_B, "3"))
                         ))
         );
     }
@@ -60,9 +60,9 @@ public class TableBuilderTest {
                 aTable(ExampleTable.class).withSomeRows(Lists.newArrayList(1l, 2l, 3l)).build(context),
                 is(
                         sb.table(
-                                sb.row(sb.property(PROP_A, "1"), sb.property(PROP_B, "1")),
-                                sb.row(sb.property(PROP_A, "2"), sb.property(PROP_B, "2")),
-                                sb.row(sb.property(PROP_A, "3"), sb.property(PROP_B, "3"))
+                                sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "1")),
+                                sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "2")),
+                                sb.row(sb.field(PROP_A, "3"), sb.field(PROP_B, "3"))
                         ))
         );
     }
@@ -73,9 +73,9 @@ public class TableBuilderTest {
                 aTable(ExampleTable.class).withSomeRows(1l, 2l, 3l).build(context),
                 is(
                         sb.table(
-                                sb.row(sb.property(PROP_A, "1"), sb.property(PROP_B, "1")),
-                                sb.row(sb.property(PROP_A, "2"), sb.property(PROP_B, "2")),
-                                sb.row(sb.property(PROP_A, "3"), sb.property(PROP_B, "3"))
+                                sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "1")),
+                                sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "2")),
+                                sb.row(sb.field(PROP_A, "3"), sb.field(PROP_B, "3"))
                         ))
         );
     }
@@ -86,10 +86,10 @@ public class TableBuilderTest {
                 aTable(ExampleTable.class).withRowsUntil(4).build(context),
                 is(
                         sb.table(
-                                sb.row(sb.property(PROP_A, "0"), sb.property(PROP_B, "0")),
-                                sb.row(sb.property(PROP_A, "1"), sb.property(PROP_B, "1")),
-                                sb.row(sb.property(PROP_A, "2"), sb.property(PROP_B, "2")),
-                                sb.row(sb.property(PROP_A, "3"), sb.property(PROP_B, "3"))
+                                sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "0")),
+                                sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "1")),
+                                sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "2")),
+                                sb.row(sb.field(PROP_A, "3"), sb.field(PROP_B, "3"))
                         ))
         );
     }
