@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.common.base.Joiner;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 
 import de.brands4friends.daleq.internal.structure.TableStructure;
 
@@ -15,7 +16,7 @@ public final class TableContainer {
 
     public TableContainer(final TableStructure tableStructure, final List<RowContainer> rows) {
         this.tableStructure = Preconditions.checkNotNull(tableStructure);
-        this.rows = Preconditions.checkNotNull(rows);
+        this.rows = ImmutableList.copyOf(Preconditions.checkNotNull(rows));
     }
 
     public String getName(){

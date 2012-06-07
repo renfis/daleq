@@ -3,13 +3,15 @@ package de.brands4friends.daleq.internal.container;
 import java.util.List;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 
 public final class SchemaContainer {
 
     private final List<TableContainer> tables;
 
     public SchemaContainer(final List<TableContainer> tables) {
-        this.tables = tables;
+        this.tables = ImmutableList.copyOf(Preconditions.checkNotNull(tables));
     }
 
     public List<TableContainer> getTables() {
