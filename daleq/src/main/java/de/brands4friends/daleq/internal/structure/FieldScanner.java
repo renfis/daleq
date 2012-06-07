@@ -13,7 +13,7 @@ import de.brands4friends.daleq.FieldDef;
 /**
  * Scans classes for PropertyDefs and returns the findings as PropertyStructures
  */
-class PropertyScanner {
+class FieldScanner {
 
     public <T> List<PropertyStructure> scan(Class<T> fromClass)  {
 

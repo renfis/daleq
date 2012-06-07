@@ -14,13 +14,13 @@ import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldDef;
 
-public class PropertyScannerTest {
+public class FieldScannerTest{
 
-    private PropertyScanner scanner;
+    private FieldScanner scanner;
 
     @Before
     public void setUp() throws Exception {
-        scanner = new PropertyScanner();
+        scanner = new FieldScanner();
     }
 
     static class WithoutPropertyDefs {
