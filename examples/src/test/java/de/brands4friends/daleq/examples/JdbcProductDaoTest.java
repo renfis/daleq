@@ -41,7 +41,6 @@ public class JdbcProductDaoTest extends AbstractTransactionalJUnit4SpringContext
     @Autowired
     private DaleqSupport daleq;
 
-    private DataSource dataSource;
     private JdbcProductDao productDao;
 
     @Override @Autowired
