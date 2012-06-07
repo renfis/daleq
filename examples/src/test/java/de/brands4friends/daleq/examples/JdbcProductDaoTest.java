@@ -12,7 +12,6 @@ import java.util.Set;
 
 import javax.sql.DataSource;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,12 +47,7 @@ public class JdbcProductDaoTest extends AbstractTransactionalJUnit4SpringContext
     @Override @Autowired
     public void setDataSource(final DataSource dataSource) {
         super.setDataSource(dataSource);
-        this.dataSource = dataSource;
-    }
-
-    @Before
-    public void setUp(){
-        productDao = new JdbcProductDao(dataSource);
+        this.productDao = new JdbcProductDao(dataSource);
     }
 
     @Test
