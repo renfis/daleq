@@ -21,12 +21,12 @@ public class TableStructureTest {
     public void findStructureByDefOfExisting_should_returnStructure(){
         DataType integer = DataType.INTEGER;
         FieldDef origin = new FieldDef("propertyDef",integer);
-        PropertyStructure propertyStructure = new PropertyStructure("P NAME", integer, new TemplateValue("bar"), origin);
+        FieldStructure fieldStructure = new FieldStructure("P NAME", integer, new TemplateValue("bar"), origin);
         final TableStructure table =
                 new TableStructure("SOME_NAME",
-                        propertyStructure);
+                        fieldStructure);
 
-        assertThat(table.findStructureByDef(origin), is(propertyStructure));
+        assertThat(table.findStructureByDef(origin), is(fieldStructure));
     }
 
     @Test

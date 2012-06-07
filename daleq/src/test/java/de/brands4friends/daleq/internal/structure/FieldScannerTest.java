@@ -57,9 +57,9 @@ public class FieldScannerTest{
 
     @Test
     public void scanningAClassWithPropertyDefs_should_extractThosePropertyDefs(){
-        final Collection<PropertyStructure> expected = Lists.newArrayList(
-                new PropertyStructure("ID",DataType.INTEGER, TemplateValue.DEFAULT, WithPropertyDefs.ID),
-                new PropertyStructure("NAME",DataType.VARCHAR, TemplateValue.DEFAULT, WithPropertyDefs.NAME)
+        final Collection<FieldStructure> expected = Lists.newArrayList(
+                new FieldStructure("ID",DataType.INTEGER, TemplateValue.DEFAULT, WithPropertyDefs.ID),
+                new FieldStructure("NAME",DataType.VARCHAR, TemplateValue.DEFAULT, WithPropertyDefs.NAME)
         );
         assertThat(scanner.scan(WithPropertyDefs.class), is(expected));
     }
@@ -70,8 +70,8 @@ public class FieldScannerTest{
 
     @Test
     public void scanningWithExplicitName_should_haveThatName(){
-        final Collection<PropertyStructure> expected = Lists.newArrayList(
-                new PropertyStructure("foo",DataType.INTEGER, TemplateValue.DEFAULT, WithExplicitName.ID)
+        final Collection<FieldStructure> expected = Lists.newArrayList(
+                new FieldStructure("foo",DataType.INTEGER, TemplateValue.DEFAULT, WithExplicitName.ID)
         );
         assertThat(scanner.scan(WithExplicitName.class), is(expected));
     }

@@ -15,7 +15,7 @@ public class TableStructureFactory {
             throw new IllegalArgumentException("Expected @TableDef on class '" + fromClass.getCanonicalName() + "'");
         }
 
-        final List<PropertyStructure> properties = fieldScanner.scan(fromClass);
-        return new TableStructure(tableDef.value(),properties);
+        final List<FieldStructure> fields = fieldScanner.scan(fromClass);
+        return new TableStructure(tableDef.value(), fields);
     }
 }

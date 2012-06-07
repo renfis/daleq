@@ -15,10 +15,10 @@ import de.brands4friends.daleq.FieldDef;
  */
 class FieldScanner {
 
-    public <T> List<PropertyStructure> scan(Class<T> fromClass)  {
+    public <T> List<FieldStructure> scan(Class<T> fromClass)  {
 
         try {
-            final List<PropertyStructure> result = Lists.newArrayList();
+            final List<FieldStructure> result = Lists.newArrayList();
             for(Field field : fromClass.getDeclaredFields()){
                 if(isConstant(field) && isPropertyDef(field)){
                     addStructureOfField(result, field);
@@ -36,11 +36,11 @@ class FieldScanner {
         }
     }
 
-    private void addStructureOfField(final List<PropertyStructure> result, final Field field) throws IllegalAccessException {
+    private void addStructureOfField(final List<FieldStructure> result, final Field field) throws IllegalAccessException {
         final FieldDef fieldDef = (FieldDef) field.get(null);
         final String name = fieldDef.hasName() ? fieldDef.getName() : field.getName();
         final DataType dataType = fieldDef.getDataType();
-        result.add(new PropertyStructure(name, dataType,TemplateValue.DEFAULT, fieldDef));
+        result.add(new FieldStructure(name, dataType,TemplateValue.DEFAULT, fieldDef));
     }
 
     private boolean isPropertyDef(final Field field) {
