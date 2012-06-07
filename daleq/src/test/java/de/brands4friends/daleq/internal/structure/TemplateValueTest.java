@@ -34,6 +34,11 @@ public class TemplateValueTest {
         assertRendering("ABC${_}EFGH","D","ABCDEFGH");
     }
 
+    @Test
+    public void null_shouldBe_null(){
+        assertRendering(null,"FOO",null);
+    }
+
     private void assertRendering(final String template, final String binding, final String expectedStr) {
         TemplateValue templateValue = new TemplateValue(template);
         assertThat(templateValue.render(binding), is(expectedStr));
