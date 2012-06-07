@@ -27,7 +27,6 @@ import com.google.common.primitives.Longs;
 
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.jdbc.DaleqSupport;
-import de.brands4friends.daleq.jdbc.dbunit.DbUnitDaleqSupport;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfig.class)
@@ -40,6 +39,7 @@ public class JdbcProductDaoTest extends AbstractTransactionalJUnit4SpringContext
         }
     };
 
+    @Autowired
     private DaleqSupport daleq;
 
     private DataSource dataSource;
@@ -53,7 +53,6 @@ public class JdbcProductDaoTest extends AbstractTransactionalJUnit4SpringContext
 
     @Before
     public void setUp(){
-        daleq = new DbUnitDaleqSupport(dataSource);
         productDao = new JdbcProductDao(dataSource);
     }
 

@@ -9,6 +9,11 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import de.brands4friends.daleq.jdbc.DaleqSupport;
+import de.brands4friends.daleq.jdbc.dbunit.ConnectionFactory;
+import de.brands4friends.daleq.jdbc.dbunit.DbUnitDaleqSupport;
+import de.brands4friends.daleq.jdbc.dbunit.SimpleConnectionFactory;
+
 @Configuration
 public class TestConfig {
 
@@ -20,5 +25,19 @@ public class TestConfig {
     @Bean
     public PlatformTransactionManager transactionManager(DataSource dataSource){
         return new DataSourceTransactionManager(dataSource);
+    }
+
+    @Bean
+    public DaleqSupport daleqSupport(ConnectionFactory connectionFactory){
+        DbUnitDaleqSupport dbUnitDaleqSupport = new DbUnitDaleqSupport();
+        dbUnitDaleqSupport.setConnectionFactory(connectionFactory);
+        return dbUnitDaleqSupport;
+    }
+
+    @Bean
+    public ConnectionFactory connectionFactory(DataSource dataSource){
+        SimpleConnectionFactory connectionFactory = new SimpleConnectionFactory();
+        connectionFactory.setDataSource(dataSource);
+        return connectionFactory;
     }
 }
