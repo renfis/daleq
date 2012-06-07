@@ -38,10 +38,22 @@ class FieldScanner {
 
     private void addStructureOfField(final List<FieldStructure> result, final Field field) throws IllegalAccessException {
         final FieldDef fieldDef = (FieldDef) field.get(null);
-        final String name = fieldDef.hasName() ? fieldDef.getName() : field.getName();
+        result.add(toFieldStructure(field, fieldDef));
+    }
+
+    private FieldStructure toFieldStructure(final Field field, final FieldDef fieldDef) {
+        final String name = toName(field, fieldDef);
         final DataType dataType = fieldDef.getDataType();
-        final TemplateValue templateValue = fieldDef.hasTemplate() ? fieldDef.getTemplate() : TemplateValue.DEFAULT;
-        result.add(new FieldStructure(name, dataType,templateValue, fieldDef));
+        final TemplateValue templateValue = toTemplateValue(fieldDef);
+        return new FieldStructure(name, dataType, templateValue, fieldDef);
+    }
+
+    private TemplateValue toTemplateValue(final FieldDef fieldDef) {
+        return fieldDef.hasTemplate() ? fieldDef.getTemplate() : TemplateValue.DEFAULT;
+    }
+
+    private String toName(final Field field, final FieldDef fieldDef) {
+        return fieldDef.hasName() ? fieldDef.getName() : field.getName();
     }
 
     private boolean isPropertyDef(final Field field) {
