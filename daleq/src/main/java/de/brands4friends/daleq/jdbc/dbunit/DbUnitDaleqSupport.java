@@ -24,6 +24,7 @@ public class DbUnitDaleqSupport implements DaleqSupport {
 
     private IDataSetFactory dataSetFactory = new FlatXmlIDataSetFactory();
     private ConnectionFactory connectionFactory;
+    private DatabaseOperation insertOperation = DatabaseOperation.INSERT;
 
     private Context context = new SimpleContext();
 
@@ -33,6 +34,10 @@ public class DbUnitDaleqSupport implements DaleqSupport {
 
     public void setDataSetFactory(final IDataSetFactory dataSetFactory) {
         this.dataSetFactory = dataSetFactory;
+    }
+
+    public void setInsertOperation(final DatabaseOperation insertOperation) {
+        this.insertOperation = insertOperation;
     }
 
     /**
@@ -76,6 +81,6 @@ public class DbUnitDaleqSupport implements DaleqSupport {
 
     private void insertIntoDatabase(SchemaContainer schema) throws DatabaseUnitException, SQLException {
         final IDataSet dbUnitDataset = dataSetFactory.create(schema);
-        DatabaseOperation.INSERT.execute(createDatabaseConnection(), dbUnitDataset);
+        insertOperation.execute(createDatabaseConnection(), dbUnitDataset);
     }
 }
