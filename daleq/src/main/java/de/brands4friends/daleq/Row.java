@@ -6,6 +6,6 @@ import de.brands4friends.daleq.internal.structure.TableStructure;
 
 public interface Row {
 
-    public Row p(PropertyDef propertyDef, Object value);
+    public Row f(FieldDef fieldDef, Object value);
     RowContainer build(Context context, final TableStructure tableStructure);
 }

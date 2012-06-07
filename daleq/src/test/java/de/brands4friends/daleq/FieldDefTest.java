@@ -7,20 +7,20 @@ import org.junit.Test;
 
 import de.brands4friends.daleq.test.EqualsAssert;
 
-public class PropertyDefTest {
+public class FieldDefTest{
 
     @Test
     public void testHashCodeAndEquals(){
-        EqualsAssert.assertProperEqualsAndHashcode(PropertyDef.class);
+        EqualsAssert.assertProperEqualsAndHashcode(FieldDef.class);
     }
 
     @Test
     public void aPropertyWithName_should_haveName(){
-        Assert.assertThat(PropertyDef.pd("foo", DataType.BIGINT).hasName(), Matchers.is(true));
+        Assert.assertThat(FieldDef.fd("foo", DataType.BIGINT).hasName(), Matchers.is(true));
     }
 
     @Test
     public void aPropertyWithoutName_should_haveName(){
-        Assert.assertThat(PropertyDef.pd(DataType.BIGINT).hasName(), Matchers.is(false));
+        Assert.assertThat(FieldDef.fd(DataType.BIGINT).hasName(), Matchers.is(false));
     }
 }

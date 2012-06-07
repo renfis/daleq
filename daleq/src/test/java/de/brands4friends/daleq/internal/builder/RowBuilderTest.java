@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.brands4friends.daleq.DaleqBuildException;
-import de.brands4friends.daleq.PropertyDef;
+import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.internal.structure.TableStructure;
 import de.brands4friends.daleq.internal.structure.TableStructureFactory;
 
@@ -29,8 +29,8 @@ public class RowBuilderTest {
     public void aRowWithJustProvidedProperties_should_beBuild(){
         assertThat(
                 RowBuilder.row(23)
-                        .p(ExampleTable.PROP_A, "FOO")
-                        .p(ExampleTable.PROP_B, "BAR")
+                        .f(ExampleTable.PROP_A, "FOO")
+                        .f(ExampleTable.PROP_B, "BAR")
                         .build(context, tableStructure),
                 is(sb.row(
                         sb.property(ExampleTable.PROP_A,"FOO"),
@@ -52,7 +52,7 @@ public class RowBuilderTest {
 
     @Test(expected = DaleqBuildException.class)
     public void propertyInRowContainsProperyDefNotInTableStructure_should_fail(){
-        PropertyDef bar = PropertyDef.pd(DataType.VARCHAR);
-        RowBuilder.row(42).p(bar,"foo").build(context, tableStructure);
+        FieldDef bar = FieldDef.fd(DataType.VARCHAR);
+        RowBuilder.row(42).f(bar, "foo").build(context, tableStructure);
     }
 }

@@ -8,39 +8,39 @@ import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 
-import de.brands4friends.daleq.PropertyDef;
+import de.brands4friends.daleq.FieldDef;
 
 public class TableStructure {
 
     private final String name;
-    private final List<PropertyStructure> properties;
-    private final Map<PropertyDef,PropertyStructure> lookupByDef;
+    private final List<FieldStructure> fields;
+    private final Map<FieldDef,FieldStructure> lookupByDef;
 
-    public TableStructure(final String name, final List<PropertyStructure> properties) {
+    public TableStructure(final String name, final List<FieldStructure> fields) {
         this.name = name;
-        this.properties = properties;
-        this.lookupByDef = Maps.uniqueIndex(properties,new Function<PropertyStructure, PropertyDef>() {
+        this.fields = fields;
+        this.lookupByDef = Maps.uniqueIndex(fields,new Function<FieldStructure, FieldDef>() {
             @Override
-            public PropertyDef apply(final PropertyStructure input) {
+            public FieldDef apply(final FieldStructure input) {
                 return input.getOrigin();
             }
         });
     }
 
-    public TableStructure(final String name, final PropertyStructure ... properties){
-        this(name, Arrays.asList(properties));
+    public TableStructure(final String name, final FieldStructure... fields){
+        this(name, Arrays.asList(fields));
     }
 
     public String getName() {
         return name;
     }
 
-    public List<PropertyStructure> getProperties() {
-        return properties;
+    public List<FieldStructure> getFields() {
+        return fields;
     }
 
-    public PropertyStructure findStructureByDef(PropertyDef propertyDef){
-        return lookupByDef.get(propertyDef);
+    public FieldStructure findStructureByDef(FieldDef fieldDef){
+        return lookupByDef.get(fieldDef);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class TableStructure {
             final TableStructure that = (TableStructure) obj;
 
             return Objects.equal(name,that.name)
-                    && Objects.equal(properties, that.properties);
+                    && Objects.equal(fields, that.fields);
         }
 
         return false;
@@ -57,13 +57,13 @@ public class TableStructure {
 
     @Override
     public final int hashCode() {
-        return Objects.hashCode(name,properties);
+        return Objects.hashCode(name, fields);
     }
 
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
                 .add("name",name)
-                .add("properties",properties).toString();
+                .add("properties", fields).toString();
     }
 }

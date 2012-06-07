@@ -6,7 +6,7 @@ import de.brands4friends.daleq.TableDef;
 
 public class TableStructureFactory {
 
-    private final PropertyScanner propertyScanner = new PropertyScanner();
+    private final FieldScanner fieldScanner = new FieldScanner();
 
     public <T> TableStructure create(Class<T> fromClass){
 
@@ -15,7 +15,7 @@ public class TableStructureFactory {
             throw new IllegalArgumentException("Expected @TableDef on class '" + fromClass.getCanonicalName() + "'");
         }
 
-        final List<PropertyStructure> properties = propertyScanner.scan(fromClass);
-        return new TableStructure(tableDef.value(),properties);
+        final List<FieldStructure> fields = fieldScanner.scan(fromClass);
+        return new TableStructure(tableDef.value(), fields);
     }
 }

@@ -4,10 +4,10 @@ import org.junit.Test;
 
 import de.brands4friends.daleq.test.EqualsAssert;
 
-public class PropertyStructureTest {
+public class FieldStructureTest{
 
     @Test
     public void testHashCodeAndEquals(){
-        EqualsAssert.assertProperEqualsAndHashcode(PropertyStructure.class);
+        EqualsAssert.assertProperEqualsAndHashcode(FieldStructure.class);
     }
 }

@@ -6,10 +6,10 @@ import org.junit.Test;
 
 import nl.jqno.equalsverifier.Warning;
 
-public class PropertyContainerTest {
+public class FieldContainerTest{
 
     @Test
     public void testHashcodeAndEquals(){
-        forClass(PropertyContainer.class).suppress(Warning.NULL_FIELDS).verify();
+        forClass(FieldContainer.class).suppress(Warning.NULL_FIELDS).verify();
     }
 }

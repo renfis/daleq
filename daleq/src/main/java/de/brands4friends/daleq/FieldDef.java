@@ -4,17 +4,17 @@ import org.dbunit.dataset.datatype.DataType;
 
 import com.google.common.base.Objects;
 
-public final class PropertyDef {
+public final class FieldDef{
 
     private final String name;
     private final DataType dataType;
 
-    public PropertyDef(final String name, final DataType dataType) {
+    public FieldDef(final String name, final DataType dataType) {
         this.name = name;
         this.dataType = dataType;
     }
 
-    public boolean hasName(){
+    public boolean hasName() {
         return name != null;
     }
 
@@ -28,14 +28,14 @@ public final class PropertyDef {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("name",name).add("dataType",dataType).toString();
+        return Objects.toStringHelper(this).add("name", name).add("dataType", dataType).toString();
     }
 
-    public static PropertyDef pd(final DataType dataType){
-        return new PropertyDef(null,dataType);
+    public static FieldDef fd(final DataType dataType) {
+        return new FieldDef(null, dataType);
     }
 
-    public static PropertyDef pd(final String name,final DataType dataType){
-        return new PropertyDef(name,dataType);
+    public static FieldDef fd(final String name, final DataType dataType) {
+        return new FieldDef(name, dataType);
     }
 }

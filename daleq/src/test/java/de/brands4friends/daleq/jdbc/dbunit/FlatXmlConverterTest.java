@@ -16,7 +16,7 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
-import de.brands4friends.daleq.PropertyDef;
+import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.internal.builder.Context;
 import de.brands4friends.daleq.internal.builder.SimpleContext;
@@ -28,8 +28,8 @@ public class FlatXmlConverterTest {
 
     @de.brands4friends.daleq.TableDef("table")
     public static final class TheTable {
-        public static final PropertyDef A = PropertyDef.pd("a",DataType.VARCHAR);
-        public static final PropertyDef B = PropertyDef.pd("b",DataType.VARCHAR);
+        public static final FieldDef A = FieldDef.fd("a", DataType.VARCHAR);
+        public static final FieldDef B = FieldDef.fd("b", DataType.VARCHAR);
     }
 
     private static final String NULL_TOKEN = "FOO_NULL";
@@ -45,20 +45,20 @@ public class FlatXmlConverterTest {
     @Test
     public void orderedProperties() throws Exception {
         assertWriteTo(
-                aTable(TheTable.class).with(aRow(1).p(A, "1").p(B, "2")),
+                aTable(TheTable.class).with(aRow(1).f(A, "1").f(B, "2")),
                 "<table a=\"1\" b=\"2\"/>");
     }
 
     @Test
     public void writeNull() throws Exception {
         assertWriteTo(
-                aTable(TheTable.class).with(aRow(1).p(A, null)),
+                aTable(TheTable.class).with(aRow(1).f(A, null)),
                 "<table a=\"" + NULL_TOKEN + "\" b=\"1\"/>");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void throwOnNullToken() throws Exception {
-        writeToWriter(aTable(TheTable.class).with(aRow(1).p(A, NULL_TOKEN)));
+        writeToWriter(aTable(TheTable.class).with(aRow(1).f(A, NULL_TOKEN)));
     }
 
     private void assertWriteTo(final Table table,final String expectedTable) throws IOException {

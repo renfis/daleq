@@ -1,6 +1,6 @@
 package de.brands4friends.daleq.internal.structure;
 
-import static de.brands4friends.daleq.PropertyDef.pd;
+import static de.brands4friends.daleq.FieldDef.fd;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -12,15 +12,15 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
-import de.brands4friends.daleq.PropertyDef;
+import de.brands4friends.daleq.FieldDef;
 
-public class PropertyScannerTest {
+public class FieldScannerTest{
 
-    private PropertyScanner scanner;
+    private FieldScanner scanner;
 
     @Before
     public void setUp() throws Exception {
-        scanner = new PropertyScanner();
+        scanner = new FieldScanner();
     }
 
     static class WithoutPropertyDefs {
@@ -33,7 +33,7 @@ public class PropertyScannerTest {
     }
 
     static class WithNonStatic {
-        public final PropertyDef ID   = pd(DataType.INTEGER);
+        public final FieldDef ID   = FieldDef.fd(DataType.INTEGER);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -42,7 +42,7 @@ public class PropertyScannerTest {
     }
 
     static class WithNonFinal {
-        public static PropertyDef ID   = pd(DataType.INTEGER);
+        public static FieldDef ID   = FieldDef.fd(DataType.INTEGER);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -51,27 +51,27 @@ public class PropertyScannerTest {
     }
 
     static class WithPropertyDefs {
-        public static final PropertyDef ID   = pd(DataType.INTEGER);
-        public static final PropertyDef NAME = pd(DataType.VARCHAR);
+        public static final FieldDef ID   = FieldDef.fd(DataType.INTEGER);
+        public static final FieldDef NAME = FieldDef.fd(DataType.VARCHAR);
     }
 
     @Test
     public void scanningAClassWithPropertyDefs_should_extractThosePropertyDefs(){
-        final Collection<PropertyStructure> expected = Lists.newArrayList(
-                new PropertyStructure("ID",DataType.INTEGER, TemplateValue.DEFAULT, WithPropertyDefs.ID),
-                new PropertyStructure("NAME",DataType.VARCHAR, TemplateValue.DEFAULT, WithPropertyDefs.NAME)
+        final Collection<FieldStructure> expected = Lists.newArrayList(
+                new FieldStructure("ID",DataType.INTEGER, TemplateValue.DEFAULT, WithPropertyDefs.ID),
+                new FieldStructure("NAME",DataType.VARCHAR, TemplateValue.DEFAULT, WithPropertyDefs.NAME)
         );
         assertThat(scanner.scan(WithPropertyDefs.class), is(expected));
     }
 
     static class WithExplicitName {
-        public static final PropertyDef ID = pd("foo",DataType.INTEGER);
+        public static final FieldDef ID = fd("foo", DataType.INTEGER);
     }
 
     @Test
     public void scanningWithExplicitName_should_haveThatName(){
-        final Collection<PropertyStructure> expected = Lists.newArrayList(
-                new PropertyStructure("foo",DataType.INTEGER, TemplateValue.DEFAULT, WithExplicitName.ID)
+        final Collection<FieldStructure> expected = Lists.newArrayList(
+                new FieldStructure("foo",DataType.INTEGER, TemplateValue.DEFAULT, WithExplicitName.ID)
         );
         assertThat(scanner.scan(WithExplicitName.class), is(expected));
     }

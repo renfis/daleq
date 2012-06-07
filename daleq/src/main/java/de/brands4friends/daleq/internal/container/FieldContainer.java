@@ -3,13 +3,13 @@ package de.brands4friends.daleq.internal.container;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 
-import de.brands4friends.daleq.internal.structure.PropertyStructure;
+import de.brands4friends.daleq.internal.structure.FieldStructure;
 
-public final class PropertyContainer {
-    private final PropertyStructure structure;
+public final class FieldContainer{
+    private final FieldStructure structure;
     private final String value;
 
-    public PropertyContainer(final PropertyStructure structure, final String value) {
+    public FieldContainer(final FieldStructure structure, final String value) {
         this.structure = Preconditions.checkNotNull(structure);
         this.value     = value;
     }
@@ -18,7 +18,7 @@ public final class PropertyContainer {
         return structure.getName();
     }
 
-    public PropertyStructure getStructure() {
+    public FieldStructure getStructure() {
         return structure;
     }
 
@@ -33,8 +33,8 @@ public final class PropertyContainer {
 
     @Override
     public final boolean equals(Object obj) {
-        if (obj instanceof PropertyContainer) {
-            final PropertyContainer that = (PropertyContainer) obj;
+        if (obj instanceof FieldContainer) {
+            final FieldContainer that = (FieldContainer) obj;
 
             return Objects.equal(structure, that.structure)
                     && Objects.equal(value,that.value);

@@ -1,6 +1,5 @@
 package de.brands4friends.daleq.internal.structure;
 
-import static de.brands4friends.daleq.PropertyDef.pd;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -8,7 +7,7 @@ import org.dbunit.dataset.datatype.DataType;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.brands4friends.daleq.PropertyDef;
+import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.TableDef;
 
 public class TableStructureFactoryTest {
@@ -17,7 +16,7 @@ public class TableStructureFactoryTest {
 
     @TableDef("MY_TABLE")
     static class MyTable {
-        public static final PropertyDef ID = pd(DataType.INTEGER);
+        public static final FieldDef ID = FieldDef.fd(DataType.INTEGER);
     }
 
     @Before
@@ -30,13 +29,13 @@ public class TableStructureFactoryTest {
 
         final TableStructure tableStructure = factory.create(MyTable.class);
         final TableStructure expected = new TableStructure("MY_TABLE",
-                new PropertyStructure("ID",DataType.INTEGER, TemplateValue.DEFAULT, MyTable.ID));
+                new FieldStructure("ID",DataType.INTEGER, TemplateValue.DEFAULT, MyTable.ID));
 
         assertThat(tableStructure, is(expected));
     }
 
     static class WithoutAnnotation {
-        public static final PropertyDef ID = pd(DataType.INTEGER);
+        public static final FieldDef ID = FieldDef.fd(DataType.INTEGER);
     }
 
     @Test(expected = IllegalArgumentException.class)
