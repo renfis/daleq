@@ -10,6 +10,6 @@ public class Daleq {
     }
 
     public static Row aRow(long id){
-        return RowBuilder.row(id);
+        return RowBuilder.aRow(id);
     }
 }

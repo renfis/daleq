@@ -91,7 +91,7 @@ public class RowBuilder implements Row {
         });
     }
 
-    public static RowBuilder row(final long binding) {
+    public static RowBuilder aRow(final long binding) {
         return new RowBuilder(binding);
     }
 }
