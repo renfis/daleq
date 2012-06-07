@@ -2,6 +2,7 @@ package de.brands4friends.daleq.jdbc.dbunit;
 
 import static de.brands4friends.daleq.Daleq.aRow;
 import static de.brands4friends.daleq.Daleq.aTable;
+import static de.brands4friends.daleq.FieldDef.fd;
 import static de.brands4friends.daleq.jdbc.dbunit.FlatXmlConverterTest.TheTable.A;
 import static de.brands4friends.daleq.jdbc.dbunit.FlatXmlConverterTest.TheTable.B;
 import static org.hamcrest.Matchers.is;
@@ -28,8 +29,8 @@ public class FlatXmlConverterTest {
 
     @de.brands4friends.daleq.TableDef("table")
     public static final class TheTable {
-        public static final FieldDef A = FieldDef.fd("a", DataType.VARCHAR);
-        public static final FieldDef B = FieldDef.fd("b", DataType.VARCHAR);
+        public static final FieldDef A = fd(DataType.VARCHAR).name("a");
+        public static final FieldDef B = fd(DataType.VARCHAR).name("b");
     }
 
     private static final String NULL_TOKEN = "FOO_NULL";

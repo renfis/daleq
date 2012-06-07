@@ -3,11 +3,12 @@ package de.brands4friends.daleq;
 import org.dbunit.dataset.datatype.DataType;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
 
 public final class FieldDef{
 
-    private final String name;
-    private final DataType dataType;
+    private String name;
+    private DataType dataType;
 
     public FieldDef(final String name, final DataType dataType) {
         this.name = name;
@@ -26,6 +27,12 @@ public final class FieldDef{
         return dataType;
     }
 
+    // fluent mutators
+    public FieldDef name(final String name){
+        this.name = Preconditions.checkNotNull(name);
+        return this;
+    }
+
     @Override
     public String toString() {
         return Objects.toStringHelper(this).add("name", name).add("dataType", dataType).toString();
@@ -33,9 +40,5 @@ public final class FieldDef{
 
     public static FieldDef fd(final DataType dataType) {
         return new FieldDef(null, dataType);
-    }
-
-    public static FieldDef fd(final String name, final DataType dataType) {
-        return new FieldDef(name, dataType);
     }
 }

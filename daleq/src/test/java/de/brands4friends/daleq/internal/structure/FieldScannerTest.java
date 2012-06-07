@@ -65,7 +65,7 @@ public class FieldScannerTest{
     }
 
     static class WithExplicitName {
-        public static final FieldDef ID = fd("foo", DataType.INTEGER);
+        public static final FieldDef ID = fd(DataType.INTEGER).name("foo");
     }
 
     @Test

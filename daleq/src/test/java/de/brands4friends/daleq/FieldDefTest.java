@@ -5,18 +5,19 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
 
-import de.brands4friends.daleq.test.EqualsAssert;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 public class FieldDefTest{
 
     @Test
     public void testHashCodeAndEquals(){
-        EqualsAssert.assertProperEqualsAndHashcode(FieldDef.class);
+        EqualsVerifier.forClass(FieldDef.class).suppress(Warning.NONFINAL_FIELDS).verify();
     }
 
     @Test
     public void aPropertyWithName_should_haveName(){
-        Assert.assertThat(FieldDef.fd("foo", DataType.BIGINT).hasName(), Matchers.is(true));
+        Assert.assertThat(FieldDef.fd(DataType.BIGINT).name("foo").hasName(), Matchers.is(true));
     }
 
     @Test
