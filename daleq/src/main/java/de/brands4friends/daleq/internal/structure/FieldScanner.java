@@ -51,10 +51,6 @@ class FieldScanner {
         return new FieldStructure(name, dataType, templateValue, fieldDef);
     }
 
-    private TemplateValue toTemplateValue(final FieldDef fieldDef) {
-        return fieldDef.hasTemplate() ? fieldDef.getTemplate() : SubstitutingTemplateValue.DEFAULT;
-    }
-
     private String toName(final Field field, final FieldDef fieldDef) {
         return fieldDef.hasName() ? fieldDef.getName() : field.getName();
     }
