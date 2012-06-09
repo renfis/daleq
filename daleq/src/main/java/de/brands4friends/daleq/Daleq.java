@@ -5,6 +5,11 @@ import de.brands4friends.daleq.internal.builder.TableBuilder;
 
 public class Daleq {
 
+    private Daleq(){
+
+    }
+
+
     public static <T> Table aTable(Class<T> fromClass){
         return TableBuilder.aTable(fromClass);
     }
