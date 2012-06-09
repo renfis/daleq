@@ -51,14 +51,14 @@ public class RowBuilder implements Row {
             public FieldContainer apply(final FieldStructure fieldStructure) {
                 final FieldHolder actualField = structureToHolder.get(fieldStructure);
                 if (actualField == null) {
-                    return convertDefaultField(fieldStructure, context);
+                    return convertDefaultField(fieldStructure);
                 }
                 return convertProvidedField(fieldStructure, actualField, context);
             }
         });
     }
 
-    private FieldContainer convertDefaultField(final FieldStructure fieldStructure, final Context context) {
+    private FieldContainer convertDefaultField(final FieldStructure fieldStructure) {
         // apply template binding to template
         final TemplateValue templateValue = fieldStructure.getTemplateValue();
         final String renderedValue = templateValue.render(binding);
