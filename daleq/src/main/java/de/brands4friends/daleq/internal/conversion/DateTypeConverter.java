@@ -2,6 +2,7 @@ package de.brands4friends.daleq.internal.conversion;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class DateTypeConverter implements TypeConverter {
 
@@ -18,6 +19,6 @@ public class DateTypeConverter implements TypeConverter {
     }
 
     private static String createXMLDateTime(final Date date) {
-        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(date);
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault()).format(date);
     }
 }
