@@ -15,8 +15,8 @@ public class StructureBuilder {
 
     public static final class PropertyContainerBean {
 
-        FieldDef fieldDef;
-        String value;
+        private final FieldDef fieldDef;
+        private final String value;
 
         private PropertyContainerBean(final FieldDef fieldDef, final String value) {
             this.fieldDef = fieldDef;
