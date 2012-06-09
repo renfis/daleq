@@ -122,7 +122,7 @@ public final class TemplateValueDefaultProvider {
         if (dataType.equals(DataType.TIME) || dataType.equals(DataType.TIMESTAMP)) {
             return TIMESTAMP_TO_TEMPLATE;
         }
-        if(dataType.equals(BOOLEAN) || dataType.equals(BIT)) {
+        if (dataType.equals(BOOLEAN) || dataType.equals(BIT)) {
             return MOD2_TO_TEMPLATE;
         }
         return STRING_TO_TEMPLATE;
