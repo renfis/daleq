@@ -3,7 +3,7 @@ package de.brands4friends.daleq;
 import de.brands4friends.daleq.internal.builder.RowBuilder;
 import de.brands4friends.daleq.internal.builder.TableBuilder;
 
-public class Daleq {
+public final class Daleq {
 
     private Daleq(){
 
