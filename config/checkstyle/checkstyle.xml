@@ -714,13 +714,13 @@
         </module>
         !-->
 
-        <!-- Checks correct indentation of Java Code. !-->
-        <!-- See http://checkstyle.sf.net/config_misc.html !-->
-        <module name="Indentation">
-            <property name="basicOffset"     value="4"/>
-            <property name="braceAdjustment" value="0"/>
-            <property name="caseIndent"      value="4"/>
-        </module>
+        <!--&lt;!&ndash; Checks correct indentation of Java Code. !&ndash;&gt;-->
+        <!--&lt;!&ndash; See http://checkstyle.sf.net/config_misc.html !&ndash;&gt;-->
+        <!--<module name="Indentation">-->
+            <!--<property name="basicOffset"     value="4"/>-->
+            <!--<property name="braceAdjustment" value="0"/>-->
+            <!--<property name="caseIndent"      value="4"/>-->
+        <!--</module>-->
 
         <!-- Checks that the outer type name and the file name match. !-->
         <!-- See http://checkstyle.sourceforge.net/config_misc.html#OuterTypeFilename !-->
