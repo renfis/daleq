@@ -24,6 +24,7 @@ public class LocalDateConverter implements TypeConverter {
         return LocalDate.class;
     }
 
-    private static String createXMLDateTime(final LocalDate date) {
+    public static String createXMLDateTime(final LocalDate date) {
         return FORMATTER.print(date);
-    }}
+    }
+}
