@@ -62,6 +62,22 @@ public class TemplateValueDefaultProvider {
         }
     };
 
+    private static final DateTemplateValue DATE_TEMPLATE_VALUE = new DateTemplateValue();
+    private static ToTemplate DATE_TO_TEMPLATE = new ToTemplate() {
+        @Override
+        public TemplateValue map(final String fieldName, final String variable) {
+            return DATE_TEMPLATE_VALUE;
+        }
+    };
+
+    private static final TimestampTemplateValue TIMESTAMP_TEMPLATE_VALUE = new TimestampTemplateValue();
+    private static ToTemplate TIMESTAMP_TO_TEMPLATE = new ToTemplate() {
+        @Override
+        public TemplateValue map(final String fieldName, final String variable) {
+            return TIMESTAMP_TEMPLATE_VALUE;
+        }
+    };
+
     private final Map<DataType, ToTemplate> mapping;
 
     private TemplateValueDefaultProvider(final Map<DataType, ToTemplate> mapping) {
@@ -93,12 +109,10 @@ public class TemplateValueDefaultProvider {
             return NUMBER_TO_TEMPLATE;
         }
         if (dataType.equals(DataType.DATE)) {
-            // TODO
-            return null;
+            return DATE_TO_TEMPLATE;
         }
         if (dataType.equals(DataType.TIME) || dataType.equals(DataType.TIMESTAMP)) {
-            // TODO
-            return null;
+            return TIMESTAMP_TO_TEMPLATE;
         }
         return STRING_TO_TEMPLATE;
     }
