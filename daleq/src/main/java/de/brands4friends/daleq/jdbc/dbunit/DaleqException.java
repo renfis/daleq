@@ -2,9 +2,6 @@ package de.brands4friends.daleq.jdbc.dbunit;
 
 public class DaleqException extends RuntimeException {
 
-    public DaleqException() {
-    }
-
     public DaleqException(final String message) {
         super(message);
     }
