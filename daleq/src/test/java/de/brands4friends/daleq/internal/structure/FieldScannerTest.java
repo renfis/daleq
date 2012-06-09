@@ -43,7 +43,7 @@ public class FieldScannerTest{
     }
 
     static class WithNonFinal {
-        public static FieldDef ID   = FieldDef.fd(DataType.INTEGER);
+        public static FieldDef xID   = FieldDef.fd(DataType.INTEGER);
     }
 
     @Test(expected = IllegalArgumentException.class)
