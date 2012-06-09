@@ -16,15 +16,15 @@ public class DateTimeTypeConverterTest {
     private DateTimeTypeConverter dateTimeTypeConverter;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         dateTimeTypeConverter = new DateTimeTypeConverter();
     }
 
     @Test
-    public void testConvert(){
-        final DateTime date = new DateTime(2000,12,24,1,2,3,4);
+    public void testConvert() {
+        final DateTime date = new DateTime(2000, 12, 24, 1, 2, 3, 4);
         final String result = (String) dateTimeTypeConverter.convert(date);
-        assertThat(result,is("2000-12-24 01:02:03.004"));
+        assertThat(result, is("2000-12-24 01:02:03.004"));
     }
 
     @Test(expected = IllegalArgumentException.class)

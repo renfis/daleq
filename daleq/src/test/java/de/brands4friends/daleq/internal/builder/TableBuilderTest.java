@@ -84,7 +84,7 @@ public class TableBuilderTest {
     }
 
     @Test
-    public void aTableWithRowsUntil_should_beBuilt(){
+    public void aTableWithRowsUntil_should_beBuilt() {
         assertThat(
                 aTable(ExampleTable.class).withRowsUntil(4).build(context),
                 is(
@@ -103,7 +103,7 @@ public class TableBuilderTest {
     }
 
     @Test(expected = DaleqBuildException.class)
-    public void aTableWithFieldsFromAnotherTable_should_fail(){
-        aTable(ExampleTable.class).with(aRow(1).f(AnotherTable.ANOTHER_FIELD,123)).build(context);
+    public void aTableWithFieldsFromAnotherTable_should_fail() {
+        aTable(ExampleTable.class).with(aRow(1).f(AnotherTable.ANOTHER_FIELD, 123)).build(context);
     }
 }

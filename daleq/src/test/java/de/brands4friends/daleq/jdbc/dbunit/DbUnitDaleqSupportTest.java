@@ -67,9 +67,9 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
         final IDataSet dataSet = capturedDataset.getValue();
         assertThat(dataSet.getTableNames(), arrayContaining("FOO"));
         final ITable table = dataSet.getTable("FOO");
-        assertThat(table.getValue(0,"ID"), Matchers.is((Object) "0"));
-        assertThat(table.getValue(0,"VALUE"), Matchers.is((Object) "val0"));
-        assertThat(table.getValue(1,"ID"), Matchers.is((Object) "1"));
-        assertThat(table.getValue(1,"VALUE"), Matchers.is((Object) "val1"));
+        assertThat(table.getValue(0, "ID"), Matchers.is((Object) "0"));
+        assertThat(table.getValue(0, "VALUE"), Matchers.is((Object) "val0"));
+        assertThat(table.getValue(1, "ID"), Matchers.is((Object) "1"));
+        assertThat(table.getValue(1, "VALUE"), Matchers.is((Object) "val1"));
     }
 }

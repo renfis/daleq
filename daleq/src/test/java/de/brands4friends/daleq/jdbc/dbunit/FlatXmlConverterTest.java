@@ -38,7 +38,7 @@ public class FlatXmlConverterTest {
     private StringWriter writer;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         converter = new FlatXmlConverter(NULL_TOKEN);
         writer = new StringWriter();
     }
@@ -62,7 +62,7 @@ public class FlatXmlConverterTest {
         writeToWriter(aTable(TheTable.class).with(aRow(1).f(A, NULL_TOKEN)));
     }
 
-    private void assertWriteTo(final Table table,final String expectedTable) throws IOException {
+    private void assertWriteTo(final Table table, final String expectedTable) throws IOException {
         final String expected = asXml(expectedTable);
         writeToWriter(table);
         final String actual = writer.toString();
@@ -73,7 +73,7 @@ public class FlatXmlConverterTest {
         final Context context = new SimpleContext();
         final TableContainer tableContainer = table.build(context);
         final SchemaContainer schemaContainer = new SchemaContainer(Lists.newArrayList(tableContainer));
-        converter.writeTo(schemaContainer,writer);
+        converter.writeTo(schemaContainer, writer);
     }
 
     private String asXml(final String table) {

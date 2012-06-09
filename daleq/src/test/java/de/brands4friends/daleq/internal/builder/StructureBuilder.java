@@ -13,24 +13,26 @@ import de.brands4friends.daleq.internal.structure.TableStructure;
 
 public class StructureBuilder {
 
-    public final static class PropertyContainerBean {
+    public static final class PropertyContainerBean {
 
         FieldDef fieldDef;
         String value;
+
         private PropertyContainerBean(final FieldDef fieldDef, final String value) {
             this.fieldDef = fieldDef;
             this.value = value;
         }
 
     }
+
     private final TableStructure tableStructure;
 
     public StructureBuilder(final TableStructure tableStructure) {
         this.tableStructure = tableStructure;
     }
 
-    public TableContainer table(final RowContainer ... rowContainers){
-        return new TableContainer(tableStructure,Arrays.asList(rowContainers));
+    public TableContainer table(final RowContainer... rowContainers) {
+        return new TableContainer(tableStructure, Arrays.asList(rowContainers));
     }
 
     public RowContainer row(final PropertyContainerBean... props) {
@@ -45,7 +47,7 @@ public class StructureBuilder {
     }
 
     @SuppressWarnings("PMD.AccessorClassGeneration") // its the intention of this test helper to act like a factory.
-                                                     // if this method would be static, it would also be awkward.
+    // if this method would be static, it would also be awkward.
     public PropertyContainerBean field(final FieldDef fieldDef, final String value) {
         return new PropertyContainerBean(fieldDef, value);
     }
