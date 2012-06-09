@@ -51,14 +51,14 @@ public class RowBuilder implements Row {
             public FieldContainer apply(final FieldStructure fieldStructure) {
                 final FieldHolder actualField = structureToHolder.get(fieldStructure);
                 if (actualField == null) {
-                    return convertDefaultProperty(fieldStructure, context);
+                    return convertDefaultField(fieldStructure, context);
                 }
-                return convertProvidedProperty(fieldStructure, actualField, context);
+                return convertProvidedField(fieldStructure, actualField, context);
             }
         });
     }
 
-    private FieldContainer convertDefaultProperty(final FieldStructure fieldStructure, final Context context) {
+    private FieldContainer convertDefaultField(final FieldStructure fieldStructure, final Context context) {
         // apply template binding to template
         final String coercedBinding = convert(context, binding);
         final TemplateValue templateValue = fieldStructure.getTemplateValue();
@@ -66,7 +66,7 @@ public class RowBuilder implements Row {
         return new FieldContainer(fieldStructure, renderedValue);
     }
 
-    private FieldContainer convertProvidedProperty(
+    private FieldContainer convertProvidedField(
             final FieldStructure fieldStructure,
             final FieldHolder actualField,
             final Context context) {
@@ -85,8 +85,8 @@ public class RowBuilder implements Row {
                 final FieldStructure fieldStructure = tableStructure.findStructureByDef(fieldHolder.getFieldDef());
                 if (fieldStructure == null) {
                     final String msg = String.format(
-                            "The row contains a property '%s', " +
-                                    "but the table '%s' does not contain such a property definition.",
+                            "The row contains a field '%s', " +
+                                    "but the table '%s' does not contain such a field definition.",
                             fieldHolder.getFieldDef(),
                             tableStructure.getName()
                     );
