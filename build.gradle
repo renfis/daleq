@@ -36,9 +36,8 @@ configure(allprojects) {
     }
 
     checkstyle {
-        def checkstyleXml = file("${rootProject.projectDir}/config/checkstyle/checkstyle.xml")
-        configFile checkstyleXml
-        configProperties.checkstyleConfigDir = checkstyleXml.parentFile
+        configFile file("${rootProject.projectDir}/config/checkstyle/checkstyle.xml")
+        configProperties.checkstyleConfigDir = configFile.parentFile
     }
 
     pmd {
