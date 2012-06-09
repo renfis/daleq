@@ -273,7 +273,7 @@
 
         <!-- Check nested (internal) classes/interfaces are declared at the bottom of the class after all method and field declarations. !-->
         <!-- See http://checkstyle.sourceforge.net/config_design.html#InnerTypeLast !-->
-        <module name="InnerTypeLast"/>
+        <!--<module name="InnerTypeLast"/>-->
 
         <!-- Implements Bloch, Effective Java, Item 17 - Use Interfaces only to define types. !-->
         <!-- See http://checkstyle.sf.net/config_design.html !-->
@@ -323,11 +323,11 @@
 
         <!-- Checks declaration order according to Code Conventions for the Java Programming Language. !-->
         <!-- See http://checkstyle.sf.net/config_coding.html !-->
-        <module name="DeclarationOrder">
-            <property name="ignoreConstructors" value="false"/>
-            <property name="ignoreMethods"      value="false"/>
-            <property name="ignoreModifiers"    value="false"/>
-        </module>
+        <!--<module name="DeclarationOrder">-->
+            <!--<property name="ignoreConstructors" value="false"/>-->
+            <!--<property name="ignoreMethods"      value="false"/>-->
+            <!--<property name="ignoreModifiers"    value="false"/>-->
+        <!--</module>-->
 
         <!-- Check that the default is after all the cases in a switch statement. !-->
         <!-- See http://checkstyle.sf.net/config_coding.html !-->
@@ -469,11 +469,11 @@
 
         <!-- Checks for multiple occurrences of the same string literal within a single file. !-->
         <!-- See http://checkstyle.sourceforge.net/config_coding.html#MultipleStringLiterals !-->
-        <!--<module name="MultipleStringLiterals">-->
-            <!--<property name="allowedDuplicates"       value="1"/>-->
-            <!--<property name="ignoreStringsRegexp"     value='^""$'/>-->
-            <!--<property name="ignoreOccurrenceContext" value="ANNOTATION"/>-->
-        <!--</module>-->
+        <module name="MultipleStringLiterals">
+            <property name="allowedDuplicates"       value="1"/>
+            <property name="ignoreStringsRegexp"     value='^""$'/>
+            <property name="ignoreOccurrenceContext" value="ANNOTATION"/>
+        </module>
 
         <!-- Checks that each variable declaration is in its own statement and on its own line. !-->
         <!-- See http://checkstyle.sf.net/config_coding.html !-->
@@ -522,12 +522,12 @@
         <!-- Checks for redundant exceptions declared in throws clause such as duplicates, !-->
         <!-- unchecked exceptions or subclasses of another declared exception. !-->
         <!-- See http://checkstyle.sf.net/config_coding.html !-->
-        <module name="RedundantThrows">
-            <property name="allowUnchecked"     value="false"/>
-            <property name="allowSubclasses"    value="false"/>
-            <property name="logLoadErrors"      value="true"/>
-            <property name="suppressLoadErrors" value="false"/>
-        </module>
+        <!--<module name="RedundantThrows">-->
+            <!--<property name="allowUnchecked"     value="false"/>-->
+            <!--<property name="allowSubclasses"    value="false"/>-->
+            <!--<property name="logLoadErrors"      value="true"/>-->
+            <!--<property name="suppressLoadErrors" value="false"/>-->
+        <!--</module>-->
 
         <!-- Checks that code doesn't rely on the "this." default. !-->
         <!-- See http://checkstyle.sf.net/config_coding.html !-->
@@ -1051,6 +1051,10 @@
             <property name="allowEmptyMethods"      value="false"/>
         </module>
 
+    </module>
+
+    <module name="SuppressionFilter">
+        <property name="file" value="config/checkstyle/suppressions.xml" />
     </module>
 
 </module>
