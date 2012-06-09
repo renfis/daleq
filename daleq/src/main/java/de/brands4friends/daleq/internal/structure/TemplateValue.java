@@ -29,7 +29,7 @@ public class TemplateValue {
         return false;
     }
 
-    public String render(final String value) {
+    public String render(final long value) {
         return StrSubstitutor.replace(this.template, ImmutableMap.of(VAR_NAME, value));
     }
 

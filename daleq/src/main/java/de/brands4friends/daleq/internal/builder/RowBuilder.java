@@ -60,9 +60,8 @@ public class RowBuilder implements Row {
 
     private FieldContainer convertDefaultField(final FieldStructure fieldStructure, final Context context) {
         // apply template binding to template
-        final String coercedBinding = convert(context, binding);
         final TemplateValue templateValue = fieldStructure.getTemplateValue();
-        final String renderedValue = templateValue.render(coercedBinding);
+        final String renderedValue = templateValue.render(binding);
         return new FieldContainer(fieldStructure, renderedValue);
     }
 
