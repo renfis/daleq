@@ -39,7 +39,7 @@ public final class FieldStructure{
     }
 
     @Override
-    public final boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (obj instanceof FieldStructure) {
             final FieldStructure that = (FieldStructure) obj;
 
@@ -52,7 +52,7 @@ public final class FieldStructure{
     }
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         return Objects.hashCode(name, dataType, templateValue);
     }
 

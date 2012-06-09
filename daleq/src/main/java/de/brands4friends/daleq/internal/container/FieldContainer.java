@@ -27,12 +27,12 @@ public final class FieldContainer{
     }
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         return Objects.hashCode(structure, value);
     }
 
     @Override
-    public final boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (obj instanceof FieldContainer) {
             final FieldContainer that = (FieldContainer) obj;
 

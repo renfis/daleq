@@ -24,12 +24,12 @@ public final class RowContainer {
     }
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         return Objects.hashCode(structure, fields);
     }
 
     @Override
-    public final boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (obj instanceof RowContainer) {
             final RowContainer that = (RowContainer) obj;
 

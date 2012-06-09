@@ -28,7 +28,7 @@ public final class TableContainer {
     }
 
     @Override
-    public final boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (obj instanceof TableContainer) {
             final TableContainer that = (TableContainer) obj;
 
@@ -40,7 +40,7 @@ public final class TableContainer {
     }
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         return Objects.hashCode(tableStructure, rows);
     }
 

@@ -19,7 +19,7 @@ public final class SchemaContainer {
     }
 
     @Override
-    public final boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (obj instanceof SchemaContainer) {
             final SchemaContainer that = (SchemaContainer) obj;
 
@@ -30,7 +30,7 @@ public final class SchemaContainer {
     }
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         return Objects.hashCode(tables);
     }
 }
