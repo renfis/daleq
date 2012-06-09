@@ -13,7 +13,7 @@ public class DateTimeTypeConverter implements TypeConverter {
 
     public String convert(final Object valueToConvert) {
         if(!(valueToConvert instanceof DateTime)) {
-            throw new IllegalArgumentException("DateTimeTypeConverter tried to convert value [" + valueToConvert + "] of type: [" + (valueToConvert != null ? valueToConvert.getClass() : null) + "]");
+            throw new IllegalArgumentException("DateTimeTypeConverter tried to convert value [" + valueToConvert + "] of type: [" + (valueToConvert == null ? null : valueToConvert.getClass()) + "]");
         }
 
         return createXMLDateTime((DateTime)valueToConvert);

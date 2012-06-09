@@ -47,11 +47,10 @@ public class RowBuilder implements Row {
             @Override
             public FieldContainer apply(final FieldStructure fieldStructure) {
                 final FieldHolder actualField = structureToHolder.get(fieldStructure);
-                if (actualField != null) {
-                    return convertProvidedProperty(fieldStructure, actualField, context);
-                } else {
+                if (actualField == null) {
                     return convertDefaultProperty(fieldStructure, context);
                 }
+                return convertProvidedProperty(fieldStructure, actualField, context);
             }
         });
     }

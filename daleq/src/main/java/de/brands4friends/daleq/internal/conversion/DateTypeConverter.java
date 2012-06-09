@@ -8,7 +8,7 @@ public class DateTypeConverter implements TypeConverter {
 
     public String convert(final Object valueToConvert) {
         if(! (valueToConvert instanceof Date)) {
-            throw new IllegalArgumentException("DateTypeConverter tried to convert value [" + valueToConvert + "] of type: [" + (valueToConvert != null ? valueToConvert.getClass() : null) + "]");
+            throw new IllegalArgumentException("DateTypeConverter tried to convert value [" + valueToConvert + "] of type: [" + (valueToConvert == null ? null : valueToConvert.getClass()) + "]");
         }
 
         return createXMLDateTime((Date)valueToConvert);
