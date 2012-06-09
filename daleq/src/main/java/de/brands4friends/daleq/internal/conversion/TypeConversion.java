@@ -11,10 +11,12 @@ public class TypeConversion {
     private static Map<Class<?>, TypeConverter> buildMap() {
         final DateTypeConverter dateTypeConverter = new DateTypeConverter();
         final DateTimeTypeConverter dateTimeTypeConverter = new DateTimeTypeConverter();
+        final LocalDateConverter localDateConverter = new LocalDateConverter();
 
         return new ImmutableMap.Builder<Class<?>, TypeConverter>()
                 .put(dateTypeConverter.getResponsibleFor(), dateTypeConverter)
                 .put(dateTimeTypeConverter.getResponsibleFor(), dateTimeTypeConverter)
+                .put(localDateConverter.getResponsibleFor(), localDateConverter)
                 .build();
     }
 
