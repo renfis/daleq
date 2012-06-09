@@ -63,9 +63,9 @@ public class FlatXmlConverterTest {
     }
 
     private void assertWriteTo(final Table table,final String expectedTable) throws IOException {
-        String expected = asXml(expectedTable);
+        final String expected = asXml(expectedTable);
         writeToWriter(table);
-        String actual = writer.toString();
+        final String actual = writer.toString();
         assertThat(expected, is(actual));
     }
 

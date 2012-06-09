@@ -82,8 +82,8 @@ public class JdbcProductDaoTest extends AbstractTransactionalJUnit4SpringContext
     }
 
     private void assertProductsWithIds(final List<Product> products, final long ... expectedIds) {
-        Set<Long> ids = Sets.newHashSet(Iterables.transform(products, TO_ID));
-        Set<Long> expected = Sets.newHashSet(Longs.asList(expectedIds));
+        final Set<Long> ids = Sets.newHashSet(Iterables.transform(products, TO_ID));
+        final Set<Long> expected = Sets.newHashSet(Longs.asList(expectedIds));
         assertThat(ids, is(expected));
     }
 }

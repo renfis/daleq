@@ -23,12 +23,12 @@ public class SimpleScenarioTest {
 
     @Test
     public void justTwoRows() {
-        Table table = aTable(MyTable.class).with(aRow(1),aRow(2));
+        final Table table = aTable(MyTable.class).with(aRow(1),aRow(2));
     }
 
     @Test
     public void rowsWithProperties() {
-        Table table = aTable(MyTable.class)
+        final Table table = aTable(MyTable.class)
                 .with(
                         aRow(42).f(NAME, "foo").f(VALUE, "1"),
                         aRow(23).f(NAME, "bar")

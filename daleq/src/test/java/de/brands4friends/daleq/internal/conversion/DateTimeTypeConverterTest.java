@@ -10,8 +10,6 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.brands4friends.daleq.internal.conversion.DateTimeTypeConverter;
-
 
 public class DateTimeTypeConverterTest {
 
@@ -24,8 +22,8 @@ public class DateTimeTypeConverterTest {
 
     @Test
     public void testConvert(){
-        DateTime date = new DateTime(2000,12,24,1,2,3,4);
-        String result = (String) dateTimeTypeConverter.convert(date);
+        final DateTime date = new DateTime(2000,12,24,1,2,3,4);
+        final String result = (String) dateTimeTypeConverter.convert(date);
         assertThat(result,is("2000-12-24 01:02:03.004"));
     }
 

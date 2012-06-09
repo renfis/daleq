@@ -52,7 +52,7 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
     @Test
     public void inserIntoDatabase_should_insertAnIDataSetWithDbUnit() throws SQLException, DatabaseUnitException {
         expect(connectionFactory.createConnection()).andReturn(connection);
-        Capture<IDataSet> capturedDataset = new Capture<IDataSet>();
+        final Capture<IDataSet> capturedDataset = new Capture<IDataSet>();
         insertOperation.execute(eq(connection), capture(capturedDataset));
 
         replayAll();
@@ -64,9 +64,9 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
         );
         verifyAll();
 
-        IDataSet dataSet = capturedDataset.getValue();
+        final IDataSet dataSet = capturedDataset.getValue();
         assertThat(dataSet.getTableNames(), arrayContaining("FOO"));
-        ITable table = dataSet.getTable("FOO");
+        final ITable table = dataSet.getTable("FOO");
         assertThat(table.getValue(0,"ID"), Matchers.is((Object) "0"));
         assertThat(table.getValue(0,"VALUE"), Matchers.is((Object) "val0"));
         assertThat(table.getValue(1,"ID"), Matchers.is((Object) "1"));

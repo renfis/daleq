@@ -40,7 +40,7 @@ public class TemplateValueTest {
     }
 
     private void assertRendering(final String template, final String binding, final String expectedStr) {
-        TemplateValue templateValue = new TemplateValue(template);
+        final TemplateValue templateValue = new TemplateValue(template);
         assertThat(templateValue.render(binding), is(expectedStr));
     }
 }

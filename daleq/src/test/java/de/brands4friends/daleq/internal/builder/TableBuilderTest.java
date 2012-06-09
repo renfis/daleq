@@ -27,7 +27,7 @@ public class TableBuilderTest {
     @Before
     public void setUp() throws Exception {
         context = new SimpleContext();
-        TableStructure tableStructure = new TableStructureFactory().create(ExampleTable.class);
+        final TableStructure tableStructure = new TableStructureFactory().create(ExampleTable.class);
         sb = new StructureBuilder(tableStructure);
     }
 

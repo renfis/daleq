@@ -52,7 +52,7 @@ public class RowBuilderTest {
 
     @Test(expected = DaleqBuildException.class)
     public void propertyInRowContainsProperyDefNotInTableStructure_should_fail(){
-        FieldDef bar = FieldDef.fd(DataType.VARCHAR);
+        final FieldDef bar = FieldDef.fd(DataType.VARCHAR);
         RowBuilder.aRow(42).f(bar, "foo").build(context, tableStructure);
     }
 }

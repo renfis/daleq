@@ -29,11 +29,11 @@ public class StructureBuilder {
         this.tableStructure = tableStructure;
     }
 
-    public TableContainer table(RowContainer ... rowContainers){
+    public TableContainer table(final RowContainer ... rowContainers){
         return new TableContainer(tableStructure,Arrays.asList(rowContainers));
     }
 
-    public RowContainer row(PropertyContainerBean... props) {
+    public RowContainer row(final PropertyContainerBean... props) {
         return new RowContainer(tableStructure, Lists.transform(
                 Arrays.asList(props),
                 new Function<PropertyContainerBean, FieldContainer>() {
@@ -46,7 +46,7 @@ public class StructureBuilder {
 
     @SuppressWarnings("PMD.AccessorClassGeneration") // its the intention of this test helper to act like a factory.
                                                      // if this method would be static, it would also be awkward.
-    public PropertyContainerBean field(FieldDef fieldDef, String value) {
+    public PropertyContainerBean field(final FieldDef fieldDef, final String value) {
         return new PropertyContainerBean(fieldDef, value);
     }
 }

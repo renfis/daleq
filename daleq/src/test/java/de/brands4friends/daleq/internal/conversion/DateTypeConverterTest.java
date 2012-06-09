@@ -12,8 +12,6 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.brands4friends.daleq.internal.conversion.DateTypeConverter;
-
 public class DateTypeConverterTest {
 
     private DateTypeConverter dateTypeConverter;
@@ -26,8 +24,8 @@ public class DateTypeConverterTest {
     @Test
     public void testConversion()throws Exception{
 
-        Date date = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.SSS", Locale.US).parse("24-Feb-1998 17:39:35.123");
-        String formatted = (String) dateTypeConverter.convert(date);
+        final Date date = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.SSS", Locale.US).parse("24-Feb-1998 17:39:35.123");
+        final String formatted = (String) dateTypeConverter.convert(date);
         assertThat(formatted, is("1998-02-24 17:39:35.123"));
     }
 
