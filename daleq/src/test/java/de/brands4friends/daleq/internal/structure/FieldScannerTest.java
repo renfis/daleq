@@ -86,7 +86,13 @@ public class FieldScannerTest {
     public void scanningWithExplicitTemplate_should_haveTheTemplate() {
         assertThat(
                 scanner.scan(WithExplicitTemplate.class),
-                contains(new FieldStructure("NAME", DataType.VARCHAR, new TemplateValue("some template"), WithExplicitTemplate.NAME))
+                contains(
+                        new FieldStructure(
+                                "NAME",
+                                DataType.VARCHAR,
+                                new TemplateValue("some template"),
+                                WithExplicitTemplate.NAME)
+                )
         );
     }
 }
