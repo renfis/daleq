@@ -39,12 +39,12 @@ public class TableStructure {
         return fields;
     }
 
-    public FieldStructure findStructureByDef(FieldDef fieldDef){
+    public FieldStructure findStructureByDef(final FieldDef fieldDef){
         return lookupByDef.get(fieldDef);
     }
 
     @Override
-    public final boolean equals(Object obj) {
+    public final boolean equals(final Object obj) {
         if (obj instanceof TableStructure) {
             final TableStructure that = (TableStructure) obj;
 

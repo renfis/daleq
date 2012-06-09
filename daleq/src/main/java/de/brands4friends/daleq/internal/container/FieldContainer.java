@@ -32,7 +32,7 @@ public final class FieldContainer{
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj instanceof FieldContainer) {
             final FieldContainer that = (FieldContainer) obj;
 

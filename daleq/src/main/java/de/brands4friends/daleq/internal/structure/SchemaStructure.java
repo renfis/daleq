@@ -13,7 +13,7 @@ public class SchemaStructure {
     }
 
     @Override
-    public final boolean equals(Object obj) {
+    public final boolean equals(final Object obj) {
         if (obj instanceof SchemaStructure) {
             final SchemaStructure that = (SchemaStructure) obj;
 

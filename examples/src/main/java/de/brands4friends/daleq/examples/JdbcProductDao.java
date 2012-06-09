@@ -24,7 +24,7 @@ public class JdbcProductDao extends JdbcDaoSupport implements ProductDao {
         }
     };
 
-    public JdbcProductDao(DataSource dataSource) {
+    public JdbcProductDao(final DataSource dataSource) {
         super();
         setDataSource(dataSource);
     }

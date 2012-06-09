@@ -8,7 +8,7 @@ public class TableStructureFactory {
 
     private final FieldScanner fieldScanner = new FieldScanner();
 
-    public <T> TableStructure create(Class<T> fromClass){
+    public <T> TableStructure create(final Class<T> fromClass){
 
         final TableDef tableDef  =  fromClass.getAnnotation(TableDef.class);
         if(tableDef == null){

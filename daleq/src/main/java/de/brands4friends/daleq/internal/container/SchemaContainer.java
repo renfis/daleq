@@ -19,7 +19,7 @@ public final class SchemaContainer {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj instanceof SchemaContainer) {
             final SchemaContainer that = (SchemaContainer) obj;
 

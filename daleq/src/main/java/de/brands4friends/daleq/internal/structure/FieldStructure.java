@@ -39,7 +39,7 @@ public final class FieldStructure{
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj instanceof FieldStructure) {
             final FieldStructure that = (FieldStructure) obj;
 

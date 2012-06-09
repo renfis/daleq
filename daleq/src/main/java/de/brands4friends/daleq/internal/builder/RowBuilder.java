@@ -26,7 +26,7 @@ public class RowBuilder implements Row {
         this.fields = Lists.newArrayList();
     }
 
-    public Row f(FieldDef fieldDef, Object value) {
+    public Row f(final FieldDef fieldDef, final Object value) {
         fields.add(new FieldHolder(fieldDef, value));
         return this;
     }

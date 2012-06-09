@@ -29,7 +29,7 @@ public final class RowContainer {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj instanceof RowContainer) {
             final RowContainer that = (RowContainer) obj;
 

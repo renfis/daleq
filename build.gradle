@@ -40,7 +40,7 @@ configure(allprojects) {
     }
 
     pmd {
-        ruleSets = ['basic','design','braces','codesize','clone','strings']
+        ruleSets = ['basic','design','braces','codesize','clone','strings','optimizations']
         ruleSetFiles = files("${rootProject.projectDir}/config/pmd/ruleset.xml")
     }
 }

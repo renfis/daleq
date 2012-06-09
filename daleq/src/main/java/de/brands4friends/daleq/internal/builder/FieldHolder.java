@@ -27,7 +27,7 @@ public class FieldHolder{
     }
 
     @Override
-    public final boolean equals(Object obj) {
+    public final boolean equals(final Object obj) {
         if (obj instanceof FieldHolder) {
             final FieldHolder that = (FieldHolder) obj;
 

@@ -15,7 +15,7 @@ import de.brands4friends.daleq.FieldDef;
  */
 class FieldScanner {
 
-    public <T> List<FieldStructure> scan(Class<T> fromClass)  {
+    public <T> List<FieldStructure> scan(final Class<T> fromClass)  {
 
         try {
             final List<FieldStructure> result = Lists.newArrayList();

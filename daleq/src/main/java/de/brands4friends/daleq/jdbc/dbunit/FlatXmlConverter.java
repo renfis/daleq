@@ -39,7 +39,7 @@ class FlatXmlConverter {
      * @param writer the destination, where the XML file is written to
      * @throws java.io.IOException if the writer encounters IO problems.
      */
-    public void writeTo(SchemaContainer schema, Writer writer) throws IOException {
+    public void writeTo(final SchemaContainer schema, final Writer writer) throws IOException {
 
         Document doc = documentFactory.createDocument();
         Element root = documentFactory.createElement("dataset");
@@ -53,14 +53,14 @@ class FlatXmlConverter {
         xmlWriter.write(doc);
     }
 
-    private void addDataList(TableContainer list,Element root){
+    private void addDataList(final TableContainer list,final Element root){
         String name = list.getName();
         for(RowContainer row : list.getRows()){
             addRow(root,name,row);
         }
     }
 
-    private void addRow(Element root, String name, RowContainer row) {
+    private void addRow(final Element root, final String name, final RowContainer row) {
         final Element elem = documentFactory.createElement(name);
         for(final FieldContainer prop : sortPropertiesByName(row.getFields())){
             String value = prepareValue(prop.getName(), prop.getValue());
@@ -69,10 +69,10 @@ class FlatXmlConverter {
         root.add(elem);
     }
 
-    private Collection<FieldContainer> sortPropertiesByName(Collection<FieldContainer> fields){
+    private Collection<FieldContainer> sortPropertiesByName(final Collection<FieldContainer> fields){
         List<FieldContainer> newProps = Lists.newArrayList(fields);
         Collections.sort(newProps, new Comparator<FieldContainer>() {
-            public int compare(FieldContainer o1, FieldContainer o2) {
+            public int compare(final FieldContainer o1, final FieldContainer o2) {
                 return o1.getName().compareTo(o2.getName());
             }
         });

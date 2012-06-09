@@ -62,7 +62,7 @@ public class DbUnitDaleqSupport implements DaleqSupport {
      * are properly roled back.
      */
     @Override
-    public final void insertIntoDatabase(Table... tables) {
+    public final void insertIntoDatabase(final Table... tables) {
         try {
             final List<TableContainer> tableContainers = Lists.transform(Arrays.asList(tables), new Function<Table, TableContainer>() {
                 @Override
@@ -79,7 +79,7 @@ public class DbUnitDaleqSupport implements DaleqSupport {
         }
     }
 
-    private void insertIntoDatabase(SchemaContainer schema) throws DatabaseUnitException, SQLException {
+    private void insertIntoDatabase(final SchemaContainer schema) throws DatabaseUnitException, SQLException {
         final IDataSet dbUnitDataset = dataSetFactory.create(schema);
         insertOperation.execute(createDatabaseConnection(), dbUnitDataset);
     }

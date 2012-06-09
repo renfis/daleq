@@ -26,7 +26,7 @@ public class FlatXmlIDataSetFactory implements IDataSetFactory{
      *
      * @throws org.dbunit.dataset.DataSetException
      */
-    public IDataSet create(SchemaContainer schema) throws DataSetException {
+    public IDataSet create(final SchemaContainer schema) throws DataSetException {
         try {
             StringWriter stringWriter = new StringWriter();
             new FlatXmlConverter(NULL_TOKEN).writeTo(schema,stringWriter);
@@ -43,7 +43,7 @@ public class FlatXmlIDataSetFactory implements IDataSetFactory{
 
     }
 
-    private IDataSet decorateWithReplacement(IDataSet dataset) {
+    private IDataSet decorateWithReplacement(final IDataSet dataset) {
         ReplacementDataSet repDataset = new ReplacementDataSet(dataset);
         repDataset.addReplacementObject(NULL_TOKEN,null);
         return repDataset;

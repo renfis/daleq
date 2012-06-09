@@ -26,13 +26,13 @@ public class TableBuilder implements Table {
     }
 
     @Override
-    public Table with(Row... rows) {
+    public Table with(final Row... rows) {
         this.rows.addAll(Arrays.asList(rows));
         return this;
     }
 
     @Override
-    public Table withSomeRows(Iterable<Long> ids) {
+    public Table withSomeRows(final Iterable<Long> ids) {
         for(long id : ids){
             this.rows.add(Daleq.aRow(id));
         }
@@ -63,7 +63,7 @@ public class TableBuilder implements Table {
         return new TableContainer(tableStructure, rowContainers);
     }
 
-    public static <T> TableBuilder aTable(Class<T> fromClass) {
+    public static <T> TableBuilder aTable(final Class<T> fromClass) {
         final TableStructure tableStructure = new TableStructureFactory().create(fromClass);
         return new TableBuilder(tableStructure);
     }

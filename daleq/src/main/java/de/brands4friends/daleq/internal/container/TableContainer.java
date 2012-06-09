@@ -28,7 +28,7 @@ public final class TableContainer {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj instanceof TableContainer) {
             final TableContainer that = (TableContainer) obj;
 

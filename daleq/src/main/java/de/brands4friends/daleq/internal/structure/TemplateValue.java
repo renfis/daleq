@@ -18,7 +18,7 @@ public class TemplateValue {
     }
 
     @Override
-    public final boolean equals(Object obj) {
+    public final boolean equals(final Object obj) {
         if (obj instanceof TemplateValue) {
             final TemplateValue that = (TemplateValue) obj;
 
