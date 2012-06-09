@@ -70,6 +70,14 @@ public final class TemplateValueDefaultProvider {
         }
     };
 
+    private static final ModuloTemplateValue MOD2_TEMPLATE_VALUE = new ModuloTemplateValue(2);
+    private static final ToTemplate MOD2_TO_TEMPLATE = new ToTemplate() {
+        @Override
+        public TemplateValue map(final String fieldName, final String variable) {
+            return MOD2_TEMPLATE_VALUE;
+        }
+    };
+
     private static final TimestampTemplateValue TIMESTAMP_TEMPLATE_VALUE = new TimestampTemplateValue();
     private static final ToTemplate TIMESTAMP_TO_TEMPLATE = new ToTemplate() {
         @Override
@@ -113,6 +121,9 @@ public final class TemplateValueDefaultProvider {
         }
         if (dataType.equals(DataType.TIME) || dataType.equals(DataType.TIMESTAMP)) {
             return TIMESTAMP_TO_TEMPLATE;
+        }
+        if(dataType.equals(BOOLEAN) || dataType.equals(BIT)) {
+            return MOD2_TO_TEMPLATE;
         }
         return STRING_TO_TEMPLATE;
     }
