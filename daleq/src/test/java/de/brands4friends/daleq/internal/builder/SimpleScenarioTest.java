@@ -9,7 +9,6 @@ import org.dbunit.dataset.datatype.DataType;
 import org.junit.Test;
 
 import de.brands4friends.daleq.FieldDef;
-import de.brands4friends.daleq.Table;
 
 public class SimpleScenarioTest {
 
@@ -23,12 +22,12 @@ public class SimpleScenarioTest {
 
     @Test
     public void justTwoRows() {
-        final Table table = aTable(MyTable.class).with(aRow(1),aRow(2));
+        aTable(MyTable.class).with(aRow(1),aRow(2));
     }
 
     @Test
     public void rowsWithProperties() {
-        final Table table = aTable(MyTable.class)
+        aTable(MyTable.class)
                 .with(
                         aRow(42).f(NAME, "foo").f(VALUE, "1"),
                         aRow(23).f(NAME, "bar")
