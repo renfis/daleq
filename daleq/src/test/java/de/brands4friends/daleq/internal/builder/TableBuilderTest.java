@@ -22,13 +22,12 @@ import de.brands4friends.daleq.internal.structure.TableStructureFactory;
 public class TableBuilderTest {
 
     private Context context;
-    private TableStructure tableStructure;
     private StructureBuilder sb;
 
     @Before
     public void setUp() throws Exception {
         context = new SimpleContext();
-        tableStructure = new TableStructureFactory().create(ExampleTable.class);
+        TableStructure tableStructure = new TableStructureFactory().create(ExampleTable.class);
         sb = new StructureBuilder(tableStructure);
     }
 

@@ -44,6 +44,8 @@ public class StructureBuilder {
                 }));
     }
 
+    @SuppressWarnings("PMD.AccessorClassGeneration") // its the intention of this test helper to act like a factory.
+                                                     // if this method would be static, it would also be awkward.
     public PropertyContainerBean field(FieldDef fieldDef, String value) {
         return new PropertyContainerBean(fieldDef, value);
     }
