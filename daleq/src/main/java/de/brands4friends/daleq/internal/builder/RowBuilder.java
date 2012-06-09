@@ -52,25 +52,28 @@ public class RowBuilder implements Row {
             public FieldContainer apply(final FieldStructure fieldStructure) {
                 final FieldHolder actualField = structureToHolder.get(fieldStructure);
                 if (actualField == null) {
-                    return convertDefaultField(fieldStructure);
+                    return convertDefaultField(fieldStructure, context);
                 }
                 return convertProvidedField(fieldStructure, actualField, context);
             }
         });
     }
 
-    private FieldContainer convertDefaultField(final FieldStructure fieldStructure) {
+    private FieldContainer convertDefaultField(final FieldStructure fieldStructure, final Context context) {
         // apply template binding to template
-        final TemplateValue templateValue;
-        if (fieldStructure.hasTemplateValue()) {
-            templateValue = fieldStructure.getTemplateValue();
-        } else {
-            // TODO read from context
-            templateValue = TemplateValueDefaultProvider.create().toDefault(fieldStructure.getDataType(), fieldStructure.getName());
-        }
+        final TemplateValue templateValue = toTemplate(fieldStructure, context);
 
         final String renderedValue = templateValue.render(binding);
         return new FieldContainer(fieldStructure, renderedValue);
+    }
+
+    private TemplateValue toTemplate(final FieldStructure fieldStructure, final Context context) {
+        if (fieldStructure.hasTemplateValue()) {
+            return fieldStructure.getTemplateValue();
+        } else {
+            final TemplateValueDefaultProvider defaultProvider = context.getTemplateValueDefaultProvider();
+            return defaultProvider.toDefault(fieldStructure.getDataType(), fieldStructure.getName());
+        }
     }
 
     private FieldContainer convertProvidedField(
