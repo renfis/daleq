@@ -36,7 +36,10 @@ class FieldScanner {
         }
     }
 
-    private void addStructureOfField(final List<FieldStructure> result, final Field field) throws IllegalAccessException {
+    private void addStructureOfField(
+            final List<FieldStructure> result,
+            final Field field
+    ) throws IllegalAccessException {
         final FieldDef fieldDef = (FieldDef) field.get(null);
         result.add(toFieldStructure(field, fieldDef));
     }

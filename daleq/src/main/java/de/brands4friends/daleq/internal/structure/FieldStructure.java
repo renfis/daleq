@@ -15,7 +15,11 @@ public final class FieldStructure{
     private final FieldDef origin;
 
 
-    public FieldStructure(final String name, final DataType dataType, final TemplateValue templateValue, final FieldDef origin) {
+    public FieldStructure(
+            final String name,
+            final DataType dataType,
+            final TemplateValue templateValue,
+            final FieldDef origin) {
         this.name = name;
         this.dataType = dataType;
         this.templateValue = templateValue;

@@ -20,7 +20,7 @@ import de.brands4friends.daleq.internal.container.SchemaContainer;
 import de.brands4friends.daleq.internal.container.TableContainer;
 import de.brands4friends.daleq.jdbc.DaleqSupport;
 
-public class DbUnitDaleqSupport implements DaleqSupport {
+public class DbUnitDaleqSupport implements DaleqSupport{
 
     private IDataSetFactory dataSetFactory = new FlatXmlIDataSetFactory();
     private ConnectionFactory connectionFactory;
@@ -51,7 +51,7 @@ public class DbUnitDaleqSupport implements DaleqSupport {
      * @throws DaleqException if DbUnit denies the creation of the IDatabaseConnection
      */
     private IDatabaseConnection createDatabaseConnection() {
-        Preconditions.checkNotNull(connectionFactory,"connectionFactory is null.");
+        Preconditions.checkNotNull(connectionFactory, "connectionFactory is null.");
         return connectionFactory.createConnection();
     }
 
@@ -64,12 +64,14 @@ public class DbUnitDaleqSupport implements DaleqSupport {
     @Override
     public final void insertIntoDatabase(final Table... tables) {
         try {
-            final List<TableContainer> tableContainers = Lists.transform(Arrays.asList(tables), new Function<Table, TableContainer>() {
-                @Override
-                public TableContainer apply(final Table table) {
-                    return table.build(context);
-                }
-            });
+            final List<TableContainer> tableContainers = Lists.transform(
+                    Arrays.asList(tables),
+                    new Function<Table, TableContainer>(){
+                        @Override
+                        public TableContainer apply(final Table table) {
+                            return table.build(context);
+                        }
+                    });
             insertIntoDatabase(new SchemaContainer(tableContainers));
 
         } catch (DatabaseUnitException e) {

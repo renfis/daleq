@@ -34,7 +34,10 @@ public class RowBuilder implements Row {
     @Override
     public RowContainer build(final Context context, final TableStructure tableStructure) {
         final Map<FieldStructure, FieldHolder> structureToHolder = createStructureToHolderIndex(tableStructure);
-        final List<FieldContainer> fieldContainers = mapPropertiesToContainers(context, tableStructure, structureToHolder);
+
+        final List<FieldContainer> fieldContainers =
+                mapPropertiesToContainers(context, tableStructure, structureToHolder);
+
         return new RowContainer(tableStructure, fieldContainers);
     }
 
@@ -63,7 +66,10 @@ public class RowBuilder implements Row {
         return new FieldContainer(fieldStructure,renderedValue);
     }
 
-    private FieldContainer convertProvidedProperty(final FieldStructure fieldStructure, final FieldHolder actualField, final Context context) {
+    private FieldContainer convertProvidedProperty(
+            final FieldStructure fieldStructure,
+            final FieldHolder actualField,
+            final Context context) {
         final String strValue = convert(context, actualField.getValue());
         return new FieldContainer(fieldStructure, strValue);
     }
@@ -79,7 +85,8 @@ public class RowBuilder implements Row {
                 final FieldStructure fieldStructure = tableStructure.findStructureByDef(fieldHolder.getFieldDef());
                 if (fieldStructure == null) {
                     final String msg = String.format(
-                            "The row contains a property '%s', but the table '%s' does not contain such a property definition.",
+                            "The row contains a property '%s', " +
+                                    "but the table '%s' does not contain such a property definition.",
                             fieldHolder.getFieldDef(),
                             tableStructure.getName()
                     );
