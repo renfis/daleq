@@ -42,7 +42,6 @@ configure(allprojects) {
     pmd {
         ruleSets = ['basic','design']
         ruleSetFiles = files("${rootProject.projectDir}/config/pmd/ruleset.xml")
-        excludes = ['UncommentedEmptyConstructor']
     }
 }
 
