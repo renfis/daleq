@@ -14,13 +14,13 @@ public class DateTimeTypeConverter implements TypeConverter {
             .toFormatter();
 
     public String convert(final Object valueToConvert) {
-        if(!(valueToConvert instanceof DateTime)) {
+        if (!(valueToConvert instanceof DateTime)) {
             final String targetType = (valueToConvert == null) ? "null" : valueToConvert.getClass().getCanonicalName();
             final String msg = "DateTimeTypeConverter tried to convert value [";
             throw new IllegalArgumentException(msg + valueToConvert + "] of type: [" + targetType + "]");
         }
 
-        return createXMLDateTime((DateTime)valueToConvert);
+        return createXMLDateTime((DateTime) valueToConvert);
     }
 
     public Class<?> getResponsibleFor() {

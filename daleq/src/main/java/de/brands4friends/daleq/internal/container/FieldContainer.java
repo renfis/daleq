@@ -5,16 +5,16 @@ import com.google.common.base.Preconditions;
 
 import de.brands4friends.daleq.internal.structure.FieldStructure;
 
-public final class FieldContainer{
+public final class FieldContainer {
     private final FieldStructure structure;
     private final String value;
 
     public FieldContainer(final FieldStructure structure, final String value) {
         this.structure = Preconditions.checkNotNull(structure);
-        this.value     = value;
+        this.value = value;
     }
 
-    public String getName(){
+    public String getName() {
         return structure.getName();
     }
 
@@ -37,7 +37,7 @@ public final class FieldContainer{
             final FieldContainer that = (FieldContainer) obj;
 
             return Objects.equal(structure, that.structure)
-                    && Objects.equal(value,that.value);
+                    && Objects.equal(value, that.value);
         }
 
         return false;

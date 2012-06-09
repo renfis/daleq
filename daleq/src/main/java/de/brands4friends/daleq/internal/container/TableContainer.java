@@ -10,7 +10,7 @@ import com.google.common.collect.ImmutableList;
 import de.brands4friends.daleq.internal.structure.TableStructure;
 
 public final class TableContainer {
-    
+
     private final TableStructure tableStructure;
     private final List<RowContainer> rows;
 
@@ -19,7 +19,7 @@ public final class TableContainer {
         this.rows = ImmutableList.copyOf(Preconditions.checkNotNull(rows));
     }
 
-    public String getName(){
+    public String getName() {
         return tableStructure.getName();
     }
 
@@ -33,7 +33,7 @@ public final class TableContainer {
             final TableContainer that = (TableContainer) obj;
 
             return Objects.equal(tableStructure, that.tableStructure)
-                    && Objects.equal(rows,that.rows);
+                    && Objects.equal(rows, that.rows);
         }
 
         return false;

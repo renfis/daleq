@@ -15,17 +15,17 @@ import de.brands4friends.daleq.FieldDef;
  */
 class FieldScanner {
 
-    public <T> List<FieldStructure> scan(final Class<T> fromClass)  {
+    public <T> List<FieldStructure> scan(final Class<T> fromClass) {
 
         try {
             final List<FieldStructure> result = Lists.newArrayList();
-            for(Field field : fromClass.getDeclaredFields()){
-                if(isConstant(field) && isPropertyDef(field)){
+            for (Field field : fromClass.getDeclaredFields()) {
+                if (isConstant(field) && isPropertyDef(field)) {
                     addStructureOfField(result, field);
                 }
             }
 
-            if(result.isEmpty()){
+            if (result.isEmpty()) {
                 throw new IllegalArgumentException(
                         "No PropertyType Definitions in class '" + fromClass.getSimpleName() + "'");
             }
@@ -66,7 +66,7 @@ class FieldScanner {
     private boolean isConstant(final Field field) {
         final int modifiers = field.getModifiers();
         return Modifier.isStatic(modifiers)
-           && Modifier.isFinal(modifiers)
-           && Modifier.isPublic(modifiers);
+                && Modifier.isFinal(modifiers)
+                && Modifier.isPublic(modifiers);
     }
 }

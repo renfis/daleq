@@ -8,7 +8,7 @@ import com.google.common.base.Objects;
 
 import de.brands4friends.daleq.FieldDef;
 
-public final class FieldStructure{
+public final class FieldStructure {
     private final String name;
     private final DataType dataType;
     private final TemplateValue templateValue;
@@ -63,9 +63,9 @@ public final class FieldStructure{
     @Override
     public String toString() {
         return toStringHelper(this)
-                .add("name",name)
-                .add("dataType",dataType)
-                .add("templateValue",templateValue)
+                .add("name", name)
+                .add("dataType", dataType)
+                .add("templateValue", templateValue)
                 .toString();
     }
 }

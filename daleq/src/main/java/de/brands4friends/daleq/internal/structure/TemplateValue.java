@@ -28,8 +28,8 @@ public class TemplateValue {
         return false;
     }
 
-    public String render(final String value){
-        return StrSubstitutor.replace(this.template, ImmutableMap.of(VAR_NAME,value));
+    public String render(final String value) {
+        return StrSubstitutor.replace(this.template, ImmutableMap.of(VAR_NAME, value));
     }
 
     @Override
@@ -39,6 +39,6 @@ public class TemplateValue {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("template",template).toString();
+        return Objects.toStringHelper(this).add("template", template).toString();
     }
 }

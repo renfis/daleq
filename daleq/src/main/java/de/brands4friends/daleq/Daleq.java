@@ -5,16 +5,16 @@ import de.brands4friends.daleq.internal.builder.TableBuilder;
 
 public final class Daleq {
 
-    private Daleq(){
+    private Daleq() {
 
     }
 
 
-    public static <T> Table aTable(final Class<T> fromClass){
+    public static <T> Table aTable(final Class<T> fromClass) {
         return TableBuilder.aTable(fromClass);
     }
 
-    public static Row aRow(final long id){
+    public static Row aRow(final long id) {
         return RowBuilder.aRow(id);
     }
 }

@@ -33,7 +33,7 @@ public class TableBuilder implements Table {
 
     @Override
     public Table withSomeRows(final Iterable<Long> ids) {
-        for(long id : ids){
+        for (long id : ids) {
             this.rows.add(Daleq.aRow(id));
         }
         return this;
@@ -46,18 +46,18 @@ public class TableBuilder implements Table {
 
     @Override
     public Table withRowsUntil(final long maxId) {
-        for(long i = 0; i < maxId;i++){
+        for (long i = 0; i < maxId; i++) {
             this.rows.add(Daleq.aRow(i));
         }
         return this;
     }
 
     @Override
-    public TableContainer build(final Context context){
-        final List<RowContainer> rowContainers = Lists.transform(rows,new Function<Row, RowContainer>() {
+    public TableContainer build(final Context context) {
+        final List<RowContainer> rowContainers = Lists.transform(rows, new Function<Row, RowContainer>() {
             @Override
             public RowContainer apply(final Row row) {
-                return row.build(context,tableStructure);
+                return row.build(context, tableStructure);
             }
         });
         return new TableContainer(tableStructure, rowContainers);

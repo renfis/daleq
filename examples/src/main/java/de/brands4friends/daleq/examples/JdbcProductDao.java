@@ -38,6 +38,6 @@ public class JdbcProductDao extends JdbcDaoSupport implements ProductDao {
 
     @Override
     public List<Product> findBySize(final String size) {
-        return getJdbcTemplate().query("select ID,NAME,SIZE,PRICE from PRODUCT where SIZE = ?",PRODUCT_ROW_MAPPER,size);
+        return getJdbcTemplate().query("select ID,NAME,SIZE,PRICE from PRODUCT where SIZE = ?", PRODUCT_ROW_MAPPER, size);
     }
 }

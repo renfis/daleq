@@ -60,10 +60,10 @@ public class RowBuilder implements Row {
 
     private FieldContainer convertDefaultProperty(final FieldStructure fieldStructure, final Context context) {
         // apply template binding to template
-        final String coercedBinding = convert(context,binding);
+        final String coercedBinding = convert(context, binding);
         final TemplateValue templateValue = fieldStructure.getTemplateValue();
         final String renderedValue = templateValue.render(coercedBinding);
-        return new FieldContainer(fieldStructure,renderedValue);
+        return new FieldContainer(fieldStructure, renderedValue);
     }
 
     private FieldContainer convertProvidedProperty(

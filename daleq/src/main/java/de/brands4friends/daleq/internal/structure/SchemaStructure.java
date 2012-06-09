@@ -30,6 +30,6 @@ public class SchemaStructure {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("tables",tables).toString();
+        return Objects.toStringHelper(this).add("tables", tables).toString();
     }
 }

@@ -12,24 +12,24 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 
 import de.brands4friends.daleq.internal.container.SchemaContainer;
 
-public class FlatXmlIDataSetFactory implements IDataSetFactory{
+public class FlatXmlIDataSetFactory implements IDataSetFactory {
 
     private static final String NULL_TOKEN = "[NULL]";
 
     /**
      * Converts a Schema into DbUnit's IDataSet.
-     *
+     * <p/>
      * Nulls could be added eplixitly by filling "[NULL]" into the property values.
      *
      * @param schema the schema to be converted
      * @return a DbUnit dataset containing the data from the given Schema.
-     *
      * @throws org.dbunit.dataset.DataSetException
+     *
      */
     public IDataSet create(final SchemaContainer schema) throws DataSetException {
         try {
             final StringWriter stringWriter = new StringWriter();
-            new FlatXmlConverter(NULL_TOKEN).writeTo(schema,stringWriter);
+            new FlatXmlConverter(NULL_TOKEN).writeTo(schema, stringWriter);
             final String doc = stringWriter.toString();
             final FlatXmlDataSetBuilder flatXmlDataSetBuilder = new FlatXmlDataSetBuilder();
 
@@ -45,7 +45,7 @@ public class FlatXmlIDataSetFactory implements IDataSetFactory{
 
     private IDataSet decorateWithReplacement(final IDataSet dataset) {
         final ReplacementDataSet repDataset = new ReplacementDataSet(dataset);
-        repDataset.addReplacementObject(NULL_TOKEN,null);
+        repDataset.addReplacementObject(NULL_TOKEN, null);
         return repDataset;
     }
 }
