@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 import org.dbunit.dataset.datatype.DataType;
 import org.junit.Test;
 
+import de.brands4friends.daleq.internal.structure.SubstitutingTemplateValue;
 import de.brands4friends.daleq.internal.structure.TemplateValue;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
@@ -42,6 +43,7 @@ public class FieldDefTest {
 
     @Test
     public void aFieldTemplate_should_beCorrect() {
-        assertThat(FieldDef.fd(DataType.INTEGER).template(TEMPLATE).getTemplate(), is(new TemplateValue(TEMPLATE)));
+        TemplateValue expected = new SubstitutingTemplateValue(TEMPLATE);
+        assertThat(FieldDef.fd(DataType.INTEGER).template(TEMPLATE).getTemplate(), is(expected));
     }
 }

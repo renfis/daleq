@@ -51,14 +51,14 @@ public class TemplateValueDefaultProvider {
     private static final ToTemplate STRING_TO_TEMPLATE = new ToTemplate() {
         @Override
         public TemplateValue map(final String fieldName, final String variable) {
-            return new TemplateValue(fieldName + "-" + variable);
+            return new SubstitutingTemplateValue(fieldName + "-" + variable);
         }
     };
 
     private static ToTemplate NUMBER_TO_TEMPLATE = new ToTemplate() {
         @Override
         public TemplateValue map(final String fieldName, final String variable) {
-            return new TemplateValue(variable);
+            return new SubstitutingTemplateValue(variable);
         }
     };
 
@@ -77,7 +77,7 @@ public class TemplateValueDefaultProvider {
             );
             throw new DaleqBuildException(msg);
         }
-        return toTemplate.map(fieldName, TemplateValue.VAR);
+        return toTemplate.map(fieldName, SubstitutingTemplateValue.VAR);
     }
 
     public static TemplateValueDefaultProvider create() {

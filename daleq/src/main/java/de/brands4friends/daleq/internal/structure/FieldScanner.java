@@ -52,7 +52,7 @@ class FieldScanner {
     }
 
     private TemplateValue toTemplateValue(final FieldDef fieldDef) {
-        return fieldDef.hasTemplate() ? fieldDef.getTemplate() : TemplateValue.DEFAULT;
+        return fieldDef.hasTemplate() ? fieldDef.getTemplate() : SubstitutingTemplateValue.DEFAULT;
     }
 
     private String toName(final Field field, final FieldDef fieldDef) {
