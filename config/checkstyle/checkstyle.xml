@@ -1054,7 +1054,7 @@
     </module>
 
     <module name="SuppressionFilter">
-        <property name="file" value="config/checkstyle/suppressions.xml" />
+        <property name="file" value="${checkstyleConfigDir}/suppressions.xml" />
     </module>
 
 </module>
