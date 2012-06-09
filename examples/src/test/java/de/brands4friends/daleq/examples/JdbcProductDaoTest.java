@@ -53,7 +53,7 @@ public class JdbcProductDaoTest extends AbstractTransactionalJUnit4SpringContext
     @Test
     public void findById_should_returnExistingProduct() {
 
-        final long expectedId = 42l;
+        final long expectedId = 42L;
 
         final Table table = aTable(ProductTable.class).with(
                 aRow(11).f(ID, expectedId)
@@ -79,7 +79,7 @@ public class JdbcProductDaoTest extends AbstractTransactionalJUnit4SpringContext
         );
         final List<Product> products = productDao.findBySize("S");
 
-        assertProductsWithIds(products, 10l, 11l);
+        assertProductsWithIds(products, 10L, 11L);
     }
 
     private void assertProductsWithIds(final List<Product> products, final long... expectedIds) {
