@@ -7,7 +7,6 @@ import org.dbunit.dataset.datatype.DataType;
 import org.junit.Before;
 import org.junit.Test;
 
-@SuppressWarnings("PMD.TooManyMethods")
 public class TemplateValueDefaultProviderTest {
 
     private TemplateValueDefaultProvider defaultProvider;
