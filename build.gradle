@@ -3,6 +3,7 @@ configure(allprojects) {
     apply plugin: 'idea'
     apply plugin: 'checkstyle'
     apply plugin: 'pmd'
+    apply plugin: 'findbugs'
 
     group = 'de.brands4friends.daleq'
     version = '0.1.0'
