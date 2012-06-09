@@ -38,6 +38,10 @@ public final class FieldStructure {
         return templateValue;
     }
 
+    public boolean hasTemplateValue() {
+        return templateValue != null;
+    }
+
     public FieldDef getOrigin() {
         return origin;
     }

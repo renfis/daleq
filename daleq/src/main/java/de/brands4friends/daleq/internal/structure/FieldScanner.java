@@ -47,7 +47,7 @@ class FieldScanner {
     private FieldStructure toFieldStructure(final Field field, final FieldDef fieldDef) {
         final String name = toName(field, fieldDef);
         final DataType dataType = fieldDef.getDataType();
-        final TemplateValue templateValue = toTemplateValue(fieldDef);
+        final TemplateValue templateValue = fieldDef.getTemplate();
         return new FieldStructure(name, dataType, templateValue, fieldDef);
     }
 

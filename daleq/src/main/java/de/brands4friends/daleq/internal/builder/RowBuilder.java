@@ -15,6 +15,7 @@ import de.brands4friends.daleq.internal.container.RowContainer;
 import de.brands4friends.daleq.internal.structure.FieldStructure;
 import de.brands4friends.daleq.internal.structure.TableStructure;
 import de.brands4friends.daleq.internal.structure.TemplateValue;
+import de.brands4friends.daleq.internal.structure.TemplateValueDefaultProvider;
 
 public class RowBuilder implements Row {
 
@@ -60,7 +61,14 @@ public class RowBuilder implements Row {
 
     private FieldContainer convertDefaultField(final FieldStructure fieldStructure) {
         // apply template binding to template
-        final TemplateValue templateValue = fieldStructure.getTemplateValue();
+        final TemplateValue templateValue;
+        if (fieldStructure.hasTemplateValue()) {
+            templateValue = fieldStructure.getTemplateValue();
+        } else {
+            // TODO read from context
+            templateValue = TemplateValueDefaultProvider.create().toDefault(fieldStructure.getDataType(), fieldStructure.getName());
+        }
+
         final String renderedValue = templateValue.render(binding);
         return new FieldContainer(fieldStructure, renderedValue);
     }

@@ -29,7 +29,7 @@ public class TableStructureFactoryTest {
 
         final TableStructure tableStructure = factory.create(MyTable.class);
         final TableStructure expected = new TableStructure("MY_TABLE",
-                new FieldStructure("ID", DataType.INTEGER, SubstitutingTemplateValue.DEFAULT, MyTable.ID));
+                new FieldStructure("ID", DataType.INTEGER, null, MyTable.ID));
 
         assertThat(tableStructure, is(expected));
     }

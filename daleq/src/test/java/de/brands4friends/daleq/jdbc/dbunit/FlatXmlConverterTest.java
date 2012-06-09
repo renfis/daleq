@@ -54,7 +54,7 @@ public class FlatXmlConverterTest {
     public void writeNull() throws IOException {
         assertWriteTo(
                 aTable(TheTable.class).with(aRow(1).f(A, null)),
-                "<table a=\"" + NULL_TOKEN + "\" b=\"1\"/>");
+                "<table a=\"" + NULL_TOKEN + "\" b=\"b-1\"/>");
     }
 
     @Test(expected = IllegalArgumentException.class)
