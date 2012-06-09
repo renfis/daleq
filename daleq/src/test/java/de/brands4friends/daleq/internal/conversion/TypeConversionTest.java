@@ -21,27 +21,27 @@ public class TypeConversionTest {
     }
 
     @Test
-    public void dateConverter_should_beRegistered(){
+    public void dateConverter_should_beRegistered() {
         assertThat(conversion.convert(new Date(1234)), is(notNullValue()));
     }
 
     @Test
-    public void localDateConverter_should_beRegistered(){
-        assertThat(conversion.convert(new LocalDate(1234l)),is(notNullValue()));
+    public void localDateConverter_should_beRegistered() {
+        assertThat(conversion.convert(new LocalDate(1234L)), is(notNullValue()));
     }
 
     @Test
-    public void dateTimeConverter_should_beRegistered(){
-        assertThat(conversion.convert(new DateTime(1234)),is(notNullValue()));
+    public void dateTimeConverter_should_beRegistered() {
+        assertThat(conversion.convert(new DateTime(1234)), is(notNullValue()));
     }
 
     @Test
-    public void aNonRegisteredConversion_should_returnToString(){
-        assertThat(conversion.convert(new Object(){
+    public void aNonRegisteredConversion_should_returnToString() {
+        assertThat(conversion.convert(new Object() {
             @Override
             public String toString() {
                 return "hallo";
             }
-        }),is("hallo"));
+        }), is("hallo"));
     }
 }

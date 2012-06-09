@@ -28,7 +28,7 @@ public class LocalDateConverterTest {
     }
 
     @Test
-    public void converter_should_beResponsibleForLocalDate(){
+    public void converter_should_beResponsibleForLocalDate() {
         assertThat(converter.getResponsibleFor(), Is.is(LocalDate.class.getClass()));
     }
 

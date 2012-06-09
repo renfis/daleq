@@ -21,7 +21,12 @@ public class TableStructureTest {
     public void findStructureByDefOfExisting_should_returnStructure() {
         final DataType integer = DataType.INTEGER;
         final FieldDef origin = new FieldDef("propertyDef", integer);
-        final FieldStructure fieldStructure = new FieldStructure("P NAME", integer, new SubstitutingTemplateValue("bar"), origin);
+        final FieldStructure fieldStructure = new FieldStructure(
+                "P NAME",
+                integer,
+                new SubstitutingTemplateValue("bar"),
+                origin
+        );
         final TableStructure table =
                 new TableStructure("SOME_NAME",
                         fieldStructure);

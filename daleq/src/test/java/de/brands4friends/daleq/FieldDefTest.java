@@ -43,7 +43,7 @@ public class FieldDefTest {
 
     @Test
     public void aFieldTemplate_should_beCorrect() {
-        TemplateValue expected = new SubstitutingTemplateValue(TEMPLATE);
+        final TemplateValue expected = new SubstitutingTemplateValue(TEMPLATE);
         assertThat(FieldDef.fd(DataType.INTEGER).template(TEMPLATE).getTemplate(), is(expected));
     }
 }

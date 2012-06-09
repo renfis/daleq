@@ -16,12 +16,12 @@ public class TimestampTemplateValueTest {
     }
 
     @Test
-    public void should_render_a_datetime(){
+    public void should_render_a_datetime() {
         assertThat(templateValue.render(0), is("1970-01-01 01:00:00.000"));
     }
 
     @Test
-    public void should_render_increment_time(){
+    public void should_render_increment_time() {
         assertThat(templateValue.render(100), is("1970-01-01 01:01:40.000"));
     }
 }
