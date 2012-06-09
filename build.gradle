@@ -1,6 +1,9 @@
 configure(allprojects) {
     apply plugin: 'java'
     apply plugin: 'idea'
+    apply plugin: 'checkstyle'
+    apply plugin: 'pmd'
+    apply plugin: 'findbugs'
 
     group = 'de.brands4friends.daleq'
     version = '0.1.0'
@@ -31,6 +34,16 @@ configure(allprojects) {
         maxHeapSize '800M'
 //        debug true
         maxParallelForks 10
+    }
+
+    checkstyle {
+        configFile file("${rootProject.projectDir}/config/checkstyle/checkstyle.xml")
+        configProperties.checkstyleConfigDir = configFile.parentFile
+    }
+
+    pmd {
+        ruleSets = ['basic','design','braces','codesize','clone','strings','optimizations','strictexception','typeresolution','unusedcode','coupling']
+        ruleSetFiles = files("${rootProject.projectDir}/config/pmd/ruleset.xml")
     }
 }
 

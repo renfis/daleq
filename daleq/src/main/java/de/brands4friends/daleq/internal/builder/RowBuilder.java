@@ -26,7 +26,7 @@ public class RowBuilder implements Row {
         this.fields = Lists.newArrayList();
     }
 
-    public Row f(FieldDef fieldDef, Object value) {
+    public Row f(final FieldDef fieldDef, final Object value) {
         fields.add(new FieldHolder(fieldDef, value));
         return this;
     }
@@ -34,7 +34,10 @@ public class RowBuilder implements Row {
     @Override
     public RowContainer build(final Context context, final TableStructure tableStructure) {
         final Map<FieldStructure, FieldHolder> structureToHolder = createStructureToHolderIndex(tableStructure);
-        final List<FieldContainer> fieldContainers = mapPropertiesToContainers(context, tableStructure, structureToHolder);
+
+        final List<FieldContainer> fieldContainers =
+                mapPropertiesToContainers(context, tableStructure, structureToHolder);
+
         return new RowContainer(tableStructure, fieldContainers);
     }
 
@@ -47,24 +50,26 @@ public class RowBuilder implements Row {
             @Override
             public FieldContainer apply(final FieldStructure fieldStructure) {
                 final FieldHolder actualField = structureToHolder.get(fieldStructure);
-                if (actualField != null) {
-                    return convertProvidedProperty(fieldStructure, actualField, context);
-                } else {
+                if (actualField == null) {
                     return convertDefaultProperty(fieldStructure, context);
                 }
+                return convertProvidedProperty(fieldStructure, actualField, context);
             }
         });
     }
 
     private FieldContainer convertDefaultProperty(final FieldStructure fieldStructure, final Context context) {
         // apply template binding to template
-        final String coercedBinding = convert(context,binding);
+        final String coercedBinding = convert(context, binding);
         final TemplateValue templateValue = fieldStructure.getTemplateValue();
         final String renderedValue = templateValue.render(coercedBinding);
-        return new FieldContainer(fieldStructure,renderedValue);
+        return new FieldContainer(fieldStructure, renderedValue);
     }
 
-    private FieldContainer convertProvidedProperty(final FieldStructure fieldStructure, final FieldHolder actualField, final Context context) {
+    private FieldContainer convertProvidedProperty(
+            final FieldStructure fieldStructure,
+            final FieldHolder actualField,
+            final Context context) {
         final String strValue = convert(context, actualField.getValue());
         return new FieldContainer(fieldStructure, strValue);
     }
@@ -80,7 +85,8 @@ public class RowBuilder implements Row {
                 final FieldStructure fieldStructure = tableStructure.findStructureByDef(fieldHolder.getFieldDef());
                 if (fieldStructure == null) {
                     final String msg = String.format(
-                            "The row contains a property '%s', but the table '%s' does not contain such a property definition.",
+                            "The row contains a property '%s', " +
+                                    "but the table '%s' does not contain such a property definition.",
                             fieldHolder.getFieldDef(),
                             tableStructure.getName()
                     );

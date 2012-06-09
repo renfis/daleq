@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset>
+  <description>Custom rules no included by gradle with the PMD bundled rulesets</description>
+  <rule ref="rulesets/naming.xml/SuspiciousEqualsMethodName">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/naming.xml/SuspiciousHashcodeMethodName">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/naming.xml/ClassNamingConventions">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/controversial.xml/DontImportSun">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/imports.xml/DontImportJavaLang">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/naming.xml/MethodWithSameNameAsEnclosingClass">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/naming.xml/SuspiciousConstantFieldName">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/codesize.xml/NcssTypeCount">
+    <priority>3</priority>
+    <properties>
+      <property name="minimum" value="800"/>
+    </properties>
+  </rule>
+  <rule ref="rulesets/design.xml/AvoidInstanceofChecksInCatchClause">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/migrating.xml/IntegerInstantiation">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/naming.xml/AvoidDollarSigns">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/migrating.xml/AvoidAssertAsIdentifier">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/finalizers.xml/AvoidCallingFinalize">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/finalizers.xml/EmptyFinalizer">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/finalizers.xml/FinalizeDoesNotCallSuperFinalize">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/migrating.xml/AvoidEnumAsIdentifier">
+    <priority>3</priority>
+  </rule>
+</ruleset>

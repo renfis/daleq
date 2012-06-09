@@ -26,14 +26,14 @@ public class TableBuilder implements Table {
     }
 
     @Override
-    public Table with(Row... rows) {
+    public Table with(final Row... rows) {
         this.rows.addAll(Arrays.asList(rows));
         return this;
     }
 
     @Override
-    public Table withSomeRows(Iterable<Long> ids) {
-        for(long id : ids){
+    public Table withSomeRows(final Iterable<Long> ids) {
+        for (long id : ids) {
             this.rows.add(Daleq.aRow(id));
         }
         return this;
@@ -46,24 +46,24 @@ public class TableBuilder implements Table {
 
     @Override
     public Table withRowsUntil(final long maxId) {
-        for(long i = 0; i < maxId;i++){
+        for (long i = 0; i < maxId; i++) {
             this.rows.add(Daleq.aRow(i));
         }
         return this;
     }
 
     @Override
-    public TableContainer build(final Context context){
-        List<RowContainer> rowContainers = Lists.transform(rows,new Function<Row, RowContainer>() {
+    public TableContainer build(final Context context) {
+        final List<RowContainer> rowContainers = Lists.transform(rows, new Function<Row, RowContainer>() {
             @Override
             public RowContainer apply(final Row row) {
-                return row.build(context,tableStructure);
+                return row.build(context, tableStructure);
             }
         });
         return new TableContainer(tableStructure, rowContainers);
     }
 
-    public static <T> TableBuilder aTable(Class<T> fromClass) {
+    public static <T> TableBuilder aTable(final Class<T> fromClass) {
         final TableStructure tableStructure = new TableStructureFactory().create(fromClass);
         return new TableBuilder(tableStructure);
     }

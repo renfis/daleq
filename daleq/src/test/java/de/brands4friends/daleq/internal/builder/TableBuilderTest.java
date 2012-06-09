@@ -22,13 +22,12 @@ import de.brands4friends.daleq.internal.structure.TableStructureFactory;
 public class TableBuilderTest {
 
     private Context context;
-    private TableStructure tableStructure;
     private StructureBuilder sb;
 
     @Before
     public void setUp() throws Exception {
         context = new SimpleContext();
-        tableStructure = new TableStructureFactory().create(ExampleTable.class);
+        final TableStructure tableStructure = new TableStructureFactory().create(ExampleTable.class);
         sb = new StructureBuilder(tableStructure);
     }
 
@@ -61,7 +60,7 @@ public class TableBuilderTest {
     @Test
     public void aTableWithSomeRows_should_beBuilt() {
         assertThat(
-                aTable(ExampleTable.class).withSomeRows(Lists.newArrayList(1l, 2l, 3l)).build(context),
+                aTable(ExampleTable.class).withSomeRows(Lists.newArrayList(1L, 2L, 3L)).build(context),
                 is(
                         sb.table(
                                 sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "1")),
@@ -74,7 +73,7 @@ public class TableBuilderTest {
     @Test
     public void aTableWithSomeRowsEllipsis_should_beBuilt() {
         assertThat(
-                aTable(ExampleTable.class).withSomeRows(1l, 2l, 3l).build(context),
+                aTable(ExampleTable.class).withSomeRows(1L, 2L, 3L).build(context),
                 is(
                         sb.table(
                                 sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "1")),
@@ -85,7 +84,7 @@ public class TableBuilderTest {
     }
 
     @Test
-    public void aTableWithRowsUntil_should_beBuilt(){
+    public void aTableWithRowsUntil_should_beBuilt() {
         assertThat(
                 aTable(ExampleTable.class).withRowsUntil(4).build(context),
                 is(
@@ -104,7 +103,7 @@ public class TableBuilderTest {
     }
 
     @Test(expected = DaleqBuildException.class)
-    public void aTableWithFieldsFromAnotherTable_should_fail(){
-        aTable(ExampleTable.class).with(aRow(1).f(AnotherTable.ANOTHER_FIELD,123)).build(context);
+    public void aTableWithFieldsFromAnotherTable_should_fail() {
+        aTable(ExampleTable.class).with(aRow(1).f(AnotherTable.ANOTHER_FIELD, 123)).build(context);
     }
 }

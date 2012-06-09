@@ -10,37 +10,37 @@ import de.brands4friends.daleq.test.EqualsAssert;
 public class TemplateValueTest {
 
     @Test
-    public void testHashCodeAndEquals(){
+    public void testHashCodeAndEquals() {
         EqualsAssert.assertProperEqualsAndHashcode(TemplateValue.class);
     }
 
     @Test
-    public void renderATemplateWithAString_should_returnSubstitutedValue(){
+    public void renderATemplateWithAString_should_returnSubstitutedValue() {
         assertRendering("${_}", "FOO", "FOO");
     }
 
     @Test
-    public void renderingATemplateWithoutVar_should_returnTemplateStr(){
-        assertRendering("FOOBAR","BAZ","FOOBAR");
+    public void renderingATemplateWithoutVar_should_returnTemplateStr() {
+        assertRendering("FOOBAR", "BAZ", "FOOBAR");
     }
 
     @Test
-    public void anEscapedVar_should_returnTheVar(){
-        assertRendering("$${_}","BAR","${_}");
+    public void anEscapedVar_should_returnTheVar() {
+        assertRendering("$${_}", "BAR", "${_}");
     }
 
     @Test
-    public void replacingAVarInAstring_should_returnTheReplacedStr(){
-        assertRendering("ABC${_}EFGH","D","ABCDEFGH");
+    public void replacingAVarInAstring_should_returnTheReplacedStr() {
+        assertRendering("ABC${_}EFGH", "D", "ABCDEFGH");
     }
 
     @Test
-    public void null_shouldBe_null(){
-        assertRendering(null,"FOO",null);
+    public void null_shouldBe_null() {
+        assertRendering(null, "FOO", null);
     }
 
     private void assertRendering(final String template, final String binding, final String expectedStr) {
-        TemplateValue templateValue = new TemplateValue(template);
+        final TemplateValue templateValue = new TemplateValue(template);
         assertThat(templateValue.render(binding), is(expectedStr));
     }
 }

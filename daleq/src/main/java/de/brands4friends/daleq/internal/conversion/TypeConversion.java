@@ -6,20 +6,20 @@ import com.google.common.collect.ImmutableMap;
 
 public class TypeConversion {
 
-private static final Map<Class<?>,TypeConverter> TYPE_CONVERTER_BY_CLASSNAME = buildMap();
+    private static final Map<Class<?>, TypeConverter> TYPE_CONVERTER_BY_CLASSNAME = buildMap();
 
     private static Map<Class<?>, TypeConverter> buildMap() {
         final DateTypeConverter dateTypeConverter = new DateTypeConverter();
         final DateTimeTypeConverter dateTimeTypeConverter = new DateTimeTypeConverter();
 
-        return new ImmutableMap.Builder<Class<?>,TypeConverter>()
+        return new ImmutableMap.Builder<Class<?>, TypeConverter>()
                 .put(dateTypeConverter.getResponsibleFor(), dateTypeConverter)
                 .put(dateTimeTypeConverter.getResponsibleFor(), dateTimeTypeConverter)
                 .build();
     }
 
-    public String convert(final Object value){
-        if(value == null) {
+    public String convert(final Object value) {
+        if (value == null) {
             return null;
         }
         if (TYPE_CONVERTER_BY_CLASSNAME.containsKey(value.getClass())) {

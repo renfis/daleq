@@ -18,25 +18,25 @@ import de.brands4friends.daleq.jdbc.dbunit.SimpleConnectionFactory;
 public class TestConfig {
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder().addScript("schema.sql").build();
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager(DataSource dataSource){
+    public PlatformTransactionManager transactionManager(final DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 
     @Bean
-    public DaleqSupport daleqSupport(ConnectionFactory connectionFactory){
-        DbUnitDaleqSupport dbUnitDaleqSupport = new DbUnitDaleqSupport();
+    public DaleqSupport daleqSupport(final ConnectionFactory connectionFactory) {
+        final DbUnitDaleqSupport dbUnitDaleqSupport = new DbUnitDaleqSupport();
         dbUnitDaleqSupport.setConnectionFactory(connectionFactory);
         return dbUnitDaleqSupport;
     }
 
     @Bean
-    public ConnectionFactory connectionFactory(DataSource dataSource){
-        SimpleConnectionFactory connectionFactory = new SimpleConnectionFactory();
+    public ConnectionFactory connectionFactory(final DataSource dataSource) {
+        final SimpleConnectionFactory connectionFactory = new SimpleConnectionFactory();
         connectionFactory.setDataSource(dataSource);
         return connectionFactory;
     }

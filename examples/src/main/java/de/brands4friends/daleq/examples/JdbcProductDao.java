@@ -14,7 +14,7 @@ public class JdbcProductDao extends JdbcDaoSupport implements ProductDao {
     private static final RowMapper<Product> PRODUCT_ROW_MAPPER = new RowMapper<Product>() {
         @Override
         public Product mapRow(final ResultSet rs, final int rowNum) throws SQLException {
-            Product p = new Product();
+            final Product p = new Product();
             p.setId(rs.getLong("ID"));
             p.setName(rs.getString("NAME"));
             p.setSize(rs.getString("SIZE"));
@@ -24,7 +24,7 @@ public class JdbcProductDao extends JdbcDaoSupport implements ProductDao {
         }
     };
 
-    public JdbcProductDao(DataSource dataSource) {
+    public JdbcProductDao(final DataSource dataSource) {
         super();
         setDataSource(dataSource);
     }
@@ -38,6 +38,9 @@ public class JdbcProductDao extends JdbcDaoSupport implements ProductDao {
 
     @Override
     public List<Product> findBySize(final String size) {
-        return getJdbcTemplate().query("select ID,NAME,SIZE,PRICE from PRODUCT where SIZE = ?",PRODUCT_ROW_MAPPER,size);
+        return getJdbcTemplate().query(
+                "select ID,NAME,SIZE,PRICE from PRODUCT where SIZE = ?",
+                PRODUCT_ROW_MAPPER, size
+        );
     }
 }

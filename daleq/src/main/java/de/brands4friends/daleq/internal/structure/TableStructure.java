@@ -14,12 +14,12 @@ public class TableStructure {
 
     private final String name;
     private final List<FieldStructure> fields;
-    private final Map<FieldDef,FieldStructure> lookupByDef;
+    private final Map<FieldDef, FieldStructure> lookupByDef;
 
     public TableStructure(final String name, final List<FieldStructure> fields) {
         this.name = name;
         this.fields = fields;
-        this.lookupByDef = Maps.uniqueIndex(fields,new Function<FieldStructure, FieldDef>() {
+        this.lookupByDef = Maps.uniqueIndex(fields, new Function<FieldStructure, FieldDef>() {
             @Override
             public FieldDef apply(final FieldStructure input) {
                 return input.getOrigin();
@@ -27,7 +27,7 @@ public class TableStructure {
         });
     }
 
-    public TableStructure(final String name, final FieldStructure... fields){
+    public TableStructure(final String name, final FieldStructure... fields) {
         this(name, Arrays.asList(fields));
     }
 
@@ -39,16 +39,16 @@ public class TableStructure {
         return fields;
     }
 
-    public FieldStructure findStructureByDef(FieldDef fieldDef){
+    public FieldStructure findStructureByDef(final FieldDef fieldDef) {
         return lookupByDef.get(fieldDef);
     }
 
     @Override
-    public final boolean equals(Object obj) {
+    public final boolean equals(final Object obj) {
         if (obj instanceof TableStructure) {
             final TableStructure that = (TableStructure) obj;
 
-            return Objects.equal(name,that.name)
+            return Objects.equal(name, that.name)
                     && Objects.equal(fields, that.fields);
         }
 
@@ -63,7 +63,7 @@ public class TableStructure {
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
-                .add("name",name)
+                .add("name", name)
                 .add("properties", fields).toString();
     }
 }

@@ -39,40 +39,40 @@ class FlatXmlConverter {
      * @param writer the destination, where the XML file is written to
      * @throws java.io.IOException if the writer encounters IO problems.
      */
-    public void writeTo(SchemaContainer schema, Writer writer) throws IOException {
+    public void writeTo(final SchemaContainer schema, final Writer writer) throws IOException {
 
-        Document doc = documentFactory.createDocument();
-        Element root = documentFactory.createElement("dataset");
+        final Document doc = documentFactory.createDocument();
+        final Element root = documentFactory.createElement("dataset");
         doc.setRootElement(root);
 
-        for(TableContainer list : schema.getTables()){
-            addDataList(list,root);
+        for (TableContainer list : schema.getTables()) {
+            addDataList(list, root);
         }
 
-        XMLWriter xmlWriter = new XMLWriter(writer);
+        final XMLWriter xmlWriter = new XMLWriter(writer);
         xmlWriter.write(doc);
     }
 
-    private void addDataList(TableContainer list,Element root){
-        String name = list.getName();
-        for(RowContainer row : list.getRows()){
-            addRow(root,name,row);
+    private void addDataList(final TableContainer list, final Element root) {
+        final String name = list.getName();
+        for (RowContainer row : list.getRows()) {
+            addRow(root, name, row);
         }
     }
 
-    private void addRow(Element root, String name, RowContainer row) {
+    private void addRow(final Element root, final String name, final RowContainer row) {
         final Element elem = documentFactory.createElement(name);
-        for(final FieldContainer prop : sortPropertiesByName(row.getFields())){
-            String value = prepareValue(prop.getName(), prop.getValue());
+        for (final FieldContainer prop : sortPropertiesByName(row.getFields())) {
+            final String value = prepareValue(prop.getName(), prop.getValue());
             elem.add(documentFactory.createAttribute(elem, prop.getName(), value));
         }
         root.add(elem);
     }
 
-    private Collection<FieldContainer> sortPropertiesByName(Collection<FieldContainer> fields){
-        List<FieldContainer> newProps = Lists.newArrayList(fields);
+    private Collection<FieldContainer> sortPropertiesByName(final Collection<FieldContainer> fields) {
+        final List<FieldContainer> newProps = Lists.newArrayList(fields);
         Collections.sort(newProps, new Comparator<FieldContainer>() {
-            public int compare(FieldContainer o1, FieldContainer o2) {
+            public int compare(final FieldContainer o1, final FieldContainer o2) {
                 return o1.getName().compareTo(o2.getName());
             }
         });
@@ -80,12 +80,12 @@ class FlatXmlConverter {
         return newProps;
     }
 
-    private String prepareValue(final String name,final String value) {
-        if(value == null){
+    private String prepareValue(final String name, final String value) {
+        if (value == null) {
             return nullToken;
         }
 
-        if(value.equals(nullToken)){
+        if (value.equals(nullToken)) {
             throw new IllegalArgumentException(
                     "The Property '" + name + "' contains the value '" + nullToken + "', " +
                             "although this is the implicitly inserted nullToken. " +

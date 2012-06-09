@@ -4,6 +4,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertThat;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -12,22 +13,20 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.brands4friends.daleq.internal.conversion.DateTypeConverter;
-
 public class DateTypeConverterTest {
 
     private DateTypeConverter dateTypeConverter;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         dateTypeConverter = new DateTypeConverter();
     }
 
     @Test
-    public void testConversion()throws Exception{
+    public void testConversion() throws ParseException {
 
-        Date date = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.SSS", Locale.US).parse("24-Feb-1998 17:39:35.123");
-        String formatted = (String) dateTypeConverter.convert(date);
+        final Date date = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.SSS", Locale.US).parse("24-Feb-1998 17:39:35.123");
+        final String formatted = (String) dateTypeConverter.convert(date);
         assertThat(formatted, is("1998-02-24 17:39:35.123"));
     }
 

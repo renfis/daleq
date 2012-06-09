@@ -3,7 +3,7 @@ package de.brands4friends.daleq.internal.builder;
 import de.brands4friends.daleq.internal.conversion.TypeConversion;
 
 public class SimpleContext implements Context {
-    private TypeConversion typeConversion = new TypeConversion();
+    private final TypeConversion typeConversion = new TypeConversion();
 
     @Override
     public TypeConversion getTypeConversion() {

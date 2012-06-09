@@ -4,7 +4,7 @@ import com.google.common.base.Objects;
 
 import de.brands4friends.daleq.FieldDef;
 
-public class FieldHolder{
+public class FieldHolder {
     private final FieldDef fieldDef;
     private final Object value;
 
@@ -27,7 +27,7 @@ public class FieldHolder{
     }
 
     @Override
-    public final boolean equals(Object obj) {
+    public final boolean equals(final Object obj) {
         if (obj instanceof FieldHolder) {
             final FieldHolder that = (FieldHolder) obj;
 

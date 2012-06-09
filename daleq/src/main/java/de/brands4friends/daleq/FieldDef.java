@@ -7,10 +7,10 @@ import com.google.common.base.Preconditions;
 
 import de.brands4friends.daleq.internal.structure.TemplateValue;
 
-public final class FieldDef{
+public final class FieldDef {
 
     private String name;
-    private DataType dataType;
+    private final DataType dataType;
     private TemplateValue template;
 
     public FieldDef(final String name, final DataType dataType) {
@@ -39,12 +39,12 @@ public final class FieldDef{
     }
 
     // fluent mutators
-    public FieldDef name(final String name){
+    public FieldDef name(final String name) {
         this.name = Preconditions.checkNotNull(name);
         return this;
     }
 
-    public FieldDef template(final String template){
+    public FieldDef template(final String template) {
         this.template = new TemplateValue(template);
         return this;
     }

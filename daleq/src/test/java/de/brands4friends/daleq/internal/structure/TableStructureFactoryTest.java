@@ -25,11 +25,11 @@ public class TableStructureFactoryTest {
     }
 
     @Test
-    public void createOfMyTable_should_returnTableStructure(){
+    public void createOfMyTable_should_returnTableStructure() {
 
         final TableStructure tableStructure = factory.create(MyTable.class);
         final TableStructure expected = new TableStructure("MY_TABLE",
-                new FieldStructure("ID",DataType.INTEGER, TemplateValue.DEFAULT, MyTable.ID));
+                new FieldStructure("ID", DataType.INTEGER, TemplateValue.DEFAULT, MyTable.ID));
 
         assertThat(tableStructure, is(expected));
     }
@@ -39,17 +39,17 @@ public class TableStructureFactoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void createWithoutAnnotation_should_fail(){
+    public void createWithoutAnnotation_should_fail() {
         factory.create(WithoutAnnotation.class);
     }
 
     @TableDef("MY_TABLE")
     static class WithoutPropertyDefs {
-        
+
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void createWithoutPropertyDefs_should_fail(){
+    public void createWithoutPropertyDefs_should_fail() {
         factory.create(WithoutPropertyDefs.class);
     }
 }

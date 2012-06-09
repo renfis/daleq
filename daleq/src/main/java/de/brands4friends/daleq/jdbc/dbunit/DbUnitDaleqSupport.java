@@ -26,7 +26,7 @@ public class DbUnitDaleqSupport implements DaleqSupport {
     private ConnectionFactory connectionFactory;
     private DatabaseOperation insertOperation = DatabaseOperation.INSERT;
 
-    private Context context = new SimpleContext();
+    private final Context context = new SimpleContext();
 
     public void setConnectionFactory(final ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
@@ -51,7 +51,7 @@ public class DbUnitDaleqSupport implements DaleqSupport {
      * @throws DaleqException if DbUnit denies the creation of the IDatabaseConnection
      */
     private IDatabaseConnection createDatabaseConnection() {
-        Preconditions.checkNotNull(connectionFactory,"connectionFactory is null.");
+        Preconditions.checkNotNull(connectionFactory, "connectionFactory is null.");
         return connectionFactory.createConnection();
     }
 
@@ -62,14 +62,16 @@ public class DbUnitDaleqSupport implements DaleqSupport {
      * are properly roled back.
      */
     @Override
-    public final void insertIntoDatabase(Table... tables) {
+    public final void insertIntoDatabase(final Table... tables) {
         try {
-            final List<TableContainer> tableContainers = Lists.transform(Arrays.asList(tables), new Function<Table, TableContainer>() {
-                @Override
-                public TableContainer apply(final Table table) {
-                    return table.build(context);
-                }
-            });
+            final List<TableContainer> tableContainers = Lists.transform(
+                    Arrays.asList(tables),
+                    new Function<Table, TableContainer>() {
+                        @Override
+                        public TableContainer apply(final Table table) {
+                            return table.build(context);
+                        }
+                    });
             insertIntoDatabase(new SchemaContainer(tableContainers));
 
         } catch (DatabaseUnitException e) {
@@ -79,7 +81,7 @@ public class DbUnitDaleqSupport implements DaleqSupport {
         }
     }
 
-    private void insertIntoDatabase(SchemaContainer schema) throws DatabaseUnitException, SQLException {
+    private void insertIntoDatabase(final SchemaContainer schema) throws DatabaseUnitException, SQLException {
         final IDataSet dbUnitDataset = dataSetFactory.create(schema);
         insertOperation.execute(createDatabaseConnection(), dbUnitDataset);
     }

@@ -38,34 +38,34 @@ public class FlatXmlConverterTest {
     private StringWriter writer;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         converter = new FlatXmlConverter(NULL_TOKEN);
         writer = new StringWriter();
     }
 
     @Test
-    public void orderedProperties() throws Exception {
+    public void orderedProperties() throws IOException {
         assertWriteTo(
                 aTable(TheTable.class).with(aRow(1).f(A, "1").f(B, "2")),
                 "<table a=\"1\" b=\"2\"/>");
     }
 
     @Test
-    public void writeNull() throws Exception {
+    public void writeNull() throws IOException {
         assertWriteTo(
                 aTable(TheTable.class).with(aRow(1).f(A, null)),
                 "<table a=\"" + NULL_TOKEN + "\" b=\"1\"/>");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void throwOnNullToken() throws Exception {
+    public void throwOnNullToken() throws IOException {
         writeToWriter(aTable(TheTable.class).with(aRow(1).f(A, NULL_TOKEN)));
     }
 
-    private void assertWriteTo(final Table table,final String expectedTable) throws IOException {
-        String expected = asXml(expectedTable);
+    private void assertWriteTo(final Table table, final String expectedTable) throws IOException {
+        final String expected = asXml(expectedTable);
         writeToWriter(table);
-        String actual = writer.toString();
+        final String actual = writer.toString();
         assertThat(expected, is(actual));
     }
 
@@ -73,7 +73,7 @@ public class FlatXmlConverterTest {
         final Context context = new SimpleContext();
         final TableContainer tableContainer = table.build(context);
         final SchemaContainer schemaContainer = new SchemaContainer(Lists.newArrayList(tableContainer));
-        converter.writeTo(schemaContainer,writer);
+        converter.writeTo(schemaContainer, writer);
     }
 
     private String asXml(final String table) {
