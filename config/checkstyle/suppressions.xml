@@ -8,6 +8,7 @@
     <suppress files=".+Test\.java" checks="MultipleStringLiterals"/>
     <suppress files=".+Test\.java" checks="MethodName"/>
     <suppress files=".+Test\.java" checks="MagicNumber"/>
+    <suppress files=".+Test\.java" checks="VisibilityModifier"/>
 
     <suppress files=".+Table\.java" checks="HideUtilityClassConstructor"/>
 </suppressions>
