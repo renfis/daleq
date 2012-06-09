@@ -34,7 +34,7 @@ import com.google.common.collect.Maps;
 
 import de.brands4friends.daleq.DaleqBuildException;
 
-public class TemplateValueDefaultProvider {
+public final class TemplateValueDefaultProvider {
 
     private static final DataType[] REGISTERED_DATA_TYPES = {
             DataType.VARCHAR, CHAR, LONGVARCHAR, NCHAR, NVARCHAR, LONGNVARCHAR, CLOB, NUMERIC, DECIMAL, BOOLEAN, BIT,
@@ -55,7 +55,7 @@ public class TemplateValueDefaultProvider {
         }
     };
 
-    private static ToTemplate NUMBER_TO_TEMPLATE = new ToTemplate() {
+    private static final ToTemplate NUMBER_TO_TEMPLATE = new ToTemplate() {
         @Override
         public TemplateValue map(final String fieldName, final String variable) {
             return new SubstitutingTemplateValue(variable);
@@ -63,7 +63,7 @@ public class TemplateValueDefaultProvider {
     };
 
     private static final DateTemplateValue DATE_TEMPLATE_VALUE = new DateTemplateValue();
-    private static ToTemplate DATE_TO_TEMPLATE = new ToTemplate() {
+    private static final ToTemplate DATE_TO_TEMPLATE = new ToTemplate() {
         @Override
         public TemplateValue map(final String fieldName, final String variable) {
             return DATE_TEMPLATE_VALUE;
@@ -71,7 +71,7 @@ public class TemplateValueDefaultProvider {
     };
 
     private static final TimestampTemplateValue TIMESTAMP_TEMPLATE_VALUE = new TimestampTemplateValue();
-    private static ToTemplate TIMESTAMP_TO_TEMPLATE = new ToTemplate() {
+    private static final ToTemplate TIMESTAMP_TO_TEMPLATE = new ToTemplate() {
         @Override
         public TemplateValue map(final String fieldName, final String variable) {
             return TIMESTAMP_TEMPLATE_VALUE;
@@ -87,7 +87,7 @@ public class TemplateValueDefaultProvider {
     public TemplateValue toDefault(final DataType dataType, final String fieldName) {
         final ToTemplate toTemplate = mapping.get(dataType);
         if (toTemplate == null) {
-            String msg = String.format(
+            final String msg = String.format(
                     "Cannot create a default TemplateValue for field %s, because the DataType %s is unknown.",
                     fieldName, dataType
             );
