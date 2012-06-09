@@ -27,7 +27,7 @@ public class SimpleConnectionFactory implements ConnectionFactory {
         this.dataTypeFactory = dataTypeFactory;
     }
 
-    @Override
+    @Override @SuppressWarnings("PMD.CloseResource") // this is a factory. it will not close the resource for sure!
     public IDatabaseConnection createConnection() {
         Preconditions.checkNotNull(dataSource,"dataSource is null.");
         try {
