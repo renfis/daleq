@@ -26,7 +26,7 @@ public class DbUnitDaleqSupport implements DaleqSupport {
     private ConnectionFactory connectionFactory;
     private DatabaseOperation insertOperation = DatabaseOperation.INSERT;
 
-    private Context context = new SimpleContext();
+    private final Context context = new SimpleContext();
 
     public void setConnectionFactory(final ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;

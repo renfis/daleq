@@ -10,7 +10,7 @@ import de.brands4friends.daleq.internal.structure.TemplateValue;
 public final class FieldDef{
 
     private String name;
-    private DataType dataType;
+    private final DataType dataType;
     private TemplateValue template;
 
     public FieldDef(final String name, final DataType dataType) {
