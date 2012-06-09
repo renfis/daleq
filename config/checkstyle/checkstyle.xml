@@ -311,7 +311,7 @@
          !-->
         <!-- Checks that array initialization contains a trailing comma. !-->
         <!-- See http://checkstyle.sf.net/config_coding.html !-->
-        <module name="ArrayTrailingComma"/>
+        <!--<module name="ArrayTrailingComma"/>-->
 
         <!-- Detects inline conditionals. !-->
         <!-- See http://checkstyle.sf.net/config_coding.html !-->
