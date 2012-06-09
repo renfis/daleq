@@ -17,6 +17,7 @@ import de.brands4friends.daleq.FieldDef;
 
 public class FieldScannerTest{
 
+    public static final String NAME = "some name";
     private FieldScanner scanner;
 
     @Before
@@ -66,26 +67,26 @@ public class FieldScannerTest{
     }
 
     static class WithExplicitName {
-        public static final FieldDef ID = fd(DataType.INTEGER).name("foo");
+        public static final FieldDef ID = fd(DataType.INTEGER).name(NAME);
     }
 
     @Test
     public void scanningWithExplicitName_should_haveThatName(){
         final Collection<FieldStructure> expected = Lists.newArrayList(
-                new FieldStructure("foo",DataType.INTEGER, TemplateValue.DEFAULT, WithExplicitName.ID)
+                new FieldStructure(NAME,DataType.INTEGER, TemplateValue.DEFAULT, WithExplicitName.ID)
         );
         assertThat(scanner.scan(WithExplicitName.class), is(expected));
     }
 
     static class WithExplicitTemplate {
-        public static final FieldDef NAME = fd(DataType.VARCHAR).template("foo");
+        public static final FieldDef NAME = fd(DataType.VARCHAR).template("some template");
     }
 
     @Test
     public void scanningWithExplicitTemplate_should_haveTheTemplate(){
         assertThat(
                 scanner.scan(WithExplicitTemplate.class),
-                contains(new FieldStructure("NAME", DataType.VARCHAR, new TemplateValue("foo"), WithExplicitTemplate.NAME))
+                contains(new FieldStructure("NAME", DataType.VARCHAR, new TemplateValue("some template"), WithExplicitTemplate.NAME))
         );
     }
 }

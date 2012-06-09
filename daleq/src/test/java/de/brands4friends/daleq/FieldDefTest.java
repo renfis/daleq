@@ -12,6 +12,9 @@ import nl.jqno.equalsverifier.Warning;
 
 public class FieldDefTest{
 
+    public static final String NAME = "foo";
+    public static final String TEMPLATE = "foo";
+
     @Test
     public void testHashCodeAndEquals(){
         EqualsVerifier.forClass(FieldDef.class).suppress(Warning.NONFINAL_FIELDS).verify();
@@ -19,7 +22,7 @@ public class FieldDefTest{
 
     @Test
     public void aFieldWithName_should_haveName(){
-        assertThat(FieldDef.fd(DataType.BIGINT).name("foo").hasName(), is(true));
+        assertThat(FieldDef.fd(DataType.BIGINT).name(NAME).hasName(), is(true));
     }
 
     @Test
@@ -29,7 +32,7 @@ public class FieldDefTest{
 
     @Test
     public void aFieldWithTemplate_should_haveATempalte(){
-        assertThat(FieldDef.fd(DataType.INTEGER).template("foo").hasTemplate(), is(true));
+        assertThat(FieldDef.fd(DataType.INTEGER).template(TEMPLATE).hasTemplate(), is(true));
     }
 
     @Test
@@ -39,6 +42,6 @@ public class FieldDefTest{
 
     @Test
     public void aFieldTemplate_should_beCorrect(){
-        assertThat(FieldDef.fd(DataType.INTEGER).template("foo").getTemplate(),is(new TemplateValue("foo")));
+        assertThat(FieldDef.fd(DataType.INTEGER).template(TEMPLATE).getTemplate(),is(new TemplateValue(TEMPLATE)));
     }
 }
