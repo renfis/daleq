@@ -27,7 +27,7 @@ public class DateTimeTypeConverter implements TypeConverter {
         return DateTime.class;
     }
 
-    private static String createXMLDateTime(final DateTime date) {
+    public static String createXMLDateTime(final DateTime date) {
         return DATE_TIME_FORMATTER.print(date);
     }
 }
