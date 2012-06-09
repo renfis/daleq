@@ -34,7 +34,7 @@ public class JdbcProductDaoTest extends AbstractTransactionalJUnit4SpringContext
     public static final Function<Product, Long> TO_ID = new Function<Product, Long>() {
         @Override
         public Long apply(final Product input) {
-            return input.getId();
+            return input == null ? null : input.getId();
         }
     };
 
