@@ -28,12 +28,12 @@ public class FlatXmlIDataSetFactory implements IDataSetFactory{
      */
     public IDataSet create(final SchemaContainer schema) throws DataSetException {
         try {
-            StringWriter stringWriter = new StringWriter();
+            final StringWriter stringWriter = new StringWriter();
             new FlatXmlConverter(NULL_TOKEN).writeTo(schema,stringWriter);
-            String doc = stringWriter.toString();
-            FlatXmlDataSetBuilder flatXmlDataSetBuilder = new FlatXmlDataSetBuilder();
+            final String doc = stringWriter.toString();
+            final FlatXmlDataSetBuilder flatXmlDataSetBuilder = new FlatXmlDataSetBuilder();
 
-            FlatXmlDataSet dataset = flatXmlDataSetBuilder.build(new StringReader(doc));
+            final FlatXmlDataSet dataset = flatXmlDataSetBuilder.build(new StringReader(doc));
             return decorateWithReplacement(dataset);
 
         } catch (IOException e) {
@@ -44,7 +44,7 @@ public class FlatXmlIDataSetFactory implements IDataSetFactory{
     }
 
     private IDataSet decorateWithReplacement(final IDataSet dataset) {
-        ReplacementDataSet repDataset = new ReplacementDataSet(dataset);
+        final ReplacementDataSet repDataset = new ReplacementDataSet(dataset);
         repDataset.addReplacementObject(NULL_TOKEN,null);
         return repDataset;
     }
