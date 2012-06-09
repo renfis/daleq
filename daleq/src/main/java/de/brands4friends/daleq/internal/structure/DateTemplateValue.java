@@ -8,7 +8,7 @@ public class DateTemplateValue implements TemplateValue {
 
     @Override
     public String render(final long value) {
-        LocalDate localDate = new LocalDate(0).plusDays((int) value);
+        final LocalDate localDate = new LocalDate(0).plusDays((int) value);
         return LocalDateConverter.createXMLDateTime(localDate);
     }
 }
