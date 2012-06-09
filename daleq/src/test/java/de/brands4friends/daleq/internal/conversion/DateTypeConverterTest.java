@@ -18,7 +18,7 @@ public class DateTypeConverterTest {
     private DateTypeConverter dateTypeConverter;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         dateTypeConverter = new DateTypeConverter();
     }
 

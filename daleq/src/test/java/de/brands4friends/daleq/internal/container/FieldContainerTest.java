@@ -6,10 +6,10 @@ import org.junit.Test;
 
 import nl.jqno.equalsverifier.Warning;
 
-public class FieldContainerTest{
+public class FieldContainerTest {
 
     @Test
-    public void testHashcodeAndEquals(){
+    public void testHashcodeAndEquals() {
         forClass(FieldContainer.class).suppress(Warning.NULL_FIELDS).verify();
     }
 }

@@ -4,10 +4,10 @@ import org.junit.Test;
 
 import de.brands4friends.daleq.test.EqualsAssert;
 
-public class FieldHolderTest{
+public class FieldHolderTest {
 
     @Test
-    public void testHashCodeAndEquals(){
+    public void testHashCodeAndEquals() {
         EqualsAssert.assertProperEqualsAndHashcode(FieldHolder.class);
     }
 }

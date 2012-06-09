@@ -7,7 +7,7 @@ import de.brands4friends.daleq.test.EqualsAssert;
 public class SchemaContainerTest {
 
     @Test
-    public void testHashCodeAndEquals(){
+    public void testHashCodeAndEquals() {
         EqualsAssert.assertProperEqualsAndHashcode(SchemaContainer.class);
     }
 }

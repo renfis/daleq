@@ -9,7 +9,7 @@ import nl.jqno.equalsverifier.Warning;
 public class TableContainerTest {
 
     @Test
-    public void testHashcodeAndEquals(){
+    public void testHashcodeAndEquals() {
         forClass(TableContainer.class).suppress(Warning.NULL_FIELDS).verify();
     }
 }

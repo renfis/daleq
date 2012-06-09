@@ -5,7 +5,7 @@ import nl.jqno.equalsverifier.Warning;
 
 public final class EqualsAssert {
 
-    private EqualsAssert(){
+    private EqualsAssert() {
     }
 
     public static <T> void assertProperEqualsAndHashcode(final Class<T> clazz) {
