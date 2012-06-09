@@ -117,12 +117,12 @@ public class TemplateValueDefaultProviderTest {
 
     @Test
     public void defaultTemplate_of_TIME() {
-        assertRendering(DataType.TIME,"1970-01-01 01:00:13.000");
+        assertRendering(DataType.TIME, "1970-01-01 01:00:13.000");
     }
 
     @Test
     public void defaultTemplate_of_TIMESTAMP() {
-        assertRendering(DataType.TIME,"1970-01-01 01:00:13.000");
+        assertRendering(DataType.TIME, "1970-01-01 01:00:13.000");
     }
 
     @Test
