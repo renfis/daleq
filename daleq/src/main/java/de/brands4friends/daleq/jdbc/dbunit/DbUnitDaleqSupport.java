@@ -5,8 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.dbunit.DatabaseUnitException;
+import org.dbunit.assertion.DbUnitAssert;
 import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.ITable;
 import org.dbunit.operation.DatabaseOperation;
 
 import com.google.common.base.Function;
@@ -27,6 +30,7 @@ public class DbUnitDaleqSupport implements DaleqSupport {
     private DatabaseOperation insertOperation = DatabaseOperation.INSERT;
 
     private final Context context = new SimpleContext();
+    private final DbUnitAssert dbUnitAssert = new DbUnitAssert();
 
     public void setConnectionFactory(final ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
@@ -64,19 +68,46 @@ public class DbUnitDaleqSupport implements DaleqSupport {
     @Override
     public final void insertIntoDatabase(final Table... tables) {
         try {
-            final List<TableContainer> tableContainers = Lists.transform(
-                    Arrays.asList(tables),
-                    new Function<Table, TableContainer>() {
-                        @Override
-                        public TableContainer apply(final Table table) {
-                            return table.build(context);
-                        }
-                    });
-            insertIntoDatabase(new SchemaContainer(tableContainers));
+            insertIntoDatabase(toSchemaContainer(tables));
 
         } catch (DatabaseUnitException e) {
             throw new DaleqException(e);
         } catch (SQLException e) {
+            throw new DaleqException(e);
+        }
+    }
+
+    private SchemaContainer toSchemaContainer(final Table... tables) {
+        final List<TableContainer> tableContainers = Lists.transform(
+                Arrays.asList(tables),
+                new Function<Table, TableContainer>() {
+                    @Override
+                    public TableContainer apply(final Table table) {
+                        return table.build(context);
+                    }
+                });
+        return new SchemaContainer(tableContainers);
+    }
+
+    @Override
+    public void assertTableInDatabase(final Table table) {
+        Preconditions.checkNotNull(table);
+        try {
+            final SchemaContainer schemaContainer = toSchemaContainer(table);
+            final String tableName = schemaContainer.getTables().get(0).getName();
+
+            final IDataSet expectedDataSet = dataSetFactory.create(schemaContainer);
+            final ITable expectedTable = expectedDataSet.getTable(tableName);
+            final IDataSet actualDataSet = createDatabaseConnection().createDataSet();
+            final ITable actualTable = actualDataSet.getTable(tableName);
+
+            dbUnitAssert.assertEquals(expectedTable, actualTable);
+
+        } catch (DataSetException e) {
+            throw new DaleqException(e);
+        } catch (SQLException e) {
+            throw new DaleqException(e);
+        } catch (DatabaseUnitException e) {
             throw new DaleqException(e);
         }
     }
