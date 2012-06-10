@@ -9,13 +9,13 @@ import de.brands4friends.daleq.internal.template.StringTemplateValue;
 
 public final class FieldDef {
 
-    private String name;
     private final DataType dataType;
+    private String name;
     private final TemplateValue template;
 
-    private FieldDef(final String name, final DataType dataType, final TemplateValue template) {
-        this.name = name;
+    private FieldDef(final DataType dataType, final String name, final TemplateValue template) {
         this.dataType = Preconditions.checkNotNull(dataType);
+        this.name = name;
         this.template = template;
     }
 
@@ -46,7 +46,7 @@ public final class FieldDef {
     }
 
     public FieldDef template(final String template) {
-        return new FieldDef(this.name, this.dataType, new StringTemplateValue(template));
+        return new FieldDef(this.dataType, this.name, new StringTemplateValue(template));
     }
 
     @Override
@@ -56,6 +56,6 @@ public final class FieldDef {
 
     public static FieldDef fd(final DataType dataType) {
         Preconditions.checkNotNull(dataType);
-        return new FieldDef(null, dataType, null);
+        return new FieldDef(dataType, null, null);
     }
 }
