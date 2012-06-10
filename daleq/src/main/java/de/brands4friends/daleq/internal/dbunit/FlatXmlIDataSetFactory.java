@@ -14,7 +14,7 @@ import de.brands4friends.daleq.container.SchemaContainer;
 
 public class FlatXmlIDataSetFactory implements IDataSetFactory {
 
-    private static final String NULL_TOKEN = "[NULL]";
+    private static final String NULL_TOKEN = "[___NULL___]";
 
     /**
      * Converts a Schema into DbUnit's IDataSet.
