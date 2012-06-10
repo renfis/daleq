@@ -37,7 +37,7 @@ public class StructureBuilder {
     }
 
     public RowContainer row(final PropertyContainerBean... props) {
-        return new RowContainer(tableStructure, Lists.transform(
+        return new RowContainer(Lists.transform(
                 Arrays.asList(props),
                 new Function<PropertyContainerBean, FieldContainer>() {
                     @Override

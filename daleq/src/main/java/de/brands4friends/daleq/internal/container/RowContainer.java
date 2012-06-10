@@ -7,15 +7,11 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
-import de.brands4friends.daleq.internal.structure.TableStructure;
-
 public final class RowContainer {
 
-    private final TableStructure structure;
     private final List<FieldContainer> fields;
 
-    public RowContainer(final TableStructure structure, final List<FieldContainer> fields) {
-        this.structure  = Preconditions.checkNotNull(structure);
+    public RowContainer(final List<FieldContainer> fields) {
         this.fields = ImmutableList.copyOf(Preconditions.checkNotNull(fields));
     }
 
@@ -25,7 +21,7 @@ public final class RowContainer {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(structure, fields);
+        return Objects.hashCode(fields);
     }
 
     @Override
@@ -33,8 +29,7 @@ public final class RowContainer {
         if (obj instanceof RowContainer) {
             final RowContainer that = (RowContainer) obj;
 
-            return Objects.equal(structure, that.structure)
-                    && Objects.equal(fields, that.fields);
+            return Objects.equal(fields, that.fields);
         }
 
         return false;

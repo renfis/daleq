@@ -39,7 +39,7 @@ public class RowBuilder implements Row {
         final List<FieldContainer> fieldContainers =
                 mapPropertiesToContainers(context, tableStructure, structureToHolder);
 
-        return new RowContainer(tableStructure, fieldContainers);
+        return new RowContainer(fieldContainers);
     }
 
     private List<FieldContainer> mapPropertiesToContainers(
