@@ -8,9 +8,9 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.brands4friends.daleq.Daleq;
+import de.brands4friends.daleq.DaleqSupport;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.integration.IntegrationConfig;
-import de.brands4friends.daleq.jdbc.DaleqSupport;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = IntegrationConfig.class)

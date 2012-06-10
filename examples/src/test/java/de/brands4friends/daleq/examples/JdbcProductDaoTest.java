@@ -24,8 +24,8 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 import com.google.common.primitives.Longs;
 
+import de.brands4friends.daleq.DaleqSupport;
 import de.brands4friends.daleq.Table;
-import de.brands4friends.daleq.jdbc.DaleqSupport;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfig.class)

@@ -1,9 +1,8 @@
-package de.brands4friends.daleq.jdbc;
-
-import de.brands4friends.daleq.Table;
+package de.brands4friends.daleq;
 
 public interface DaleqSupport {
 
     void insertIntoDatabase(Table... tables);
+
     void assertTableInDatabase(Table table);
 }

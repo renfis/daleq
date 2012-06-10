@@ -9,7 +9,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import de.brands4friends.daleq.jdbc.DaleqSupport;
+import de.brands4friends.daleq.DaleqSupport;
 import de.brands4friends.daleq.jdbc.dbunit.ConnectionFactory;
 import de.brands4friends.daleq.jdbc.dbunit.DbUnitDaleqSupport;
 import de.brands4friends.daleq.jdbc.dbunit.SimpleConnectionFactory;

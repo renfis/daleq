@@ -17,11 +17,11 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.Context;
+import de.brands4friends.daleq.DaleqSupport;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.container.SchemaContainer;
 import de.brands4friends.daleq.container.TableContainer;
 import de.brands4friends.daleq.internal.builder.SimpleContext;
-import de.brands4friends.daleq.jdbc.DaleqSupport;
 
 public class DbUnitDaleqSupport implements DaleqSupport {
 
