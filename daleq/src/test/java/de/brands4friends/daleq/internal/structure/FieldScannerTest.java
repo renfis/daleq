@@ -14,7 +14,7 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldDef;
-import de.brands4friends.daleq.internal.template.SubstitutingTemplateValue;
+import de.brands4friends.daleq.internal.template.StringTemplateValue;
 
 public class FieldScannerTest {
 
@@ -91,7 +91,7 @@ public class FieldScannerTest {
                         new FieldStructure(
                                 "NAME",
                                 DataType.VARCHAR,
-                                new SubstitutingTemplateValue("some template"),
+                                new StringTemplateValue("some template"),
                                 WithExplicitTemplate.NAME)
                 )
         );

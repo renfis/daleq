@@ -5,7 +5,7 @@ import org.dbunit.dataset.datatype.DataType;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 
-import de.brands4friends.daleq.internal.template.SubstitutingTemplateValue;
+import de.brands4friends.daleq.internal.template.StringTemplateValue;
 import de.brands4friends.daleq.internal.template.TemplateValue;
 
 public final class FieldDef {
@@ -46,7 +46,7 @@ public final class FieldDef {
     }
 
     public FieldDef template(final String template) {
-        this.template = new SubstitutingTemplateValue(template);
+        this.template = new StringTemplateValue(template);
         return this;
     }
 

@@ -7,11 +7,11 @@ import org.junit.Test;
 
 import de.brands4friends.daleq.test.EqualsAssert;
 
-public class SubstitutingTemplateValueTest {
+public class StringTemplateValueTest {
 
     @Test
     public void testHashCodeAndEquals() {
-        EqualsAssert.assertProperEqualsAndHashcode(SubstitutingTemplateValue.class);
+        EqualsAssert.assertProperEqualsAndHashcode(StringTemplateValue.class);
     }
 
     @Test
@@ -40,7 +40,7 @@ public class SubstitutingTemplateValueTest {
     }
 
     private void assertRendering(final String template, final long binding, final String expectedStr) {
-        final TemplateValue templateValue = new SubstitutingTemplateValue(template);
+        final TemplateValue templateValue = new StringTemplateValue(template);
         assertThat(templateValue.render(binding), is(expectedStr));
     }
 }

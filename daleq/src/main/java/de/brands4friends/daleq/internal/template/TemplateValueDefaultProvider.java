@@ -48,7 +48,7 @@ public final class TemplateValueDefaultProvider {
 
         @Override
         public TemplateValue map(final String fieldName, final String variable) {
-            return new SubstitutingTemplateValue(fieldName + "-" + variable);
+            return new StringTemplateValue(fieldName + "-" + variable);
         }
     };
 
@@ -60,7 +60,7 @@ public final class TemplateValueDefaultProvider {
 
         @Override
         public TemplateValue map(final String fieldName, final String variable) {
-            return new SubstitutingTemplateValue(variable);
+            return new StringTemplateValue(variable);
         }
     };
 
@@ -144,7 +144,7 @@ public final class TemplateValueDefaultProvider {
             );
             throw new DaleqBuildException(msg);
         }
-        return toTemplate.map(fieldName, SubstitutingTemplateValue.VAR);
+        return toTemplate.map(fieldName, StringTemplateValue.VAR);
     }
 
     public static TemplateValueDefaultProvider create() {
