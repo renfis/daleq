@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.internal.template;
+package de.brands4friends.daleq;
 
 import org.dbunit.dataset.datatype.DataType;
 

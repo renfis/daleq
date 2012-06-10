@@ -6,7 +6,6 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 
 import de.brands4friends.daleq.internal.template.StringTemplateValue;
-import de.brands4friends.daleq.internal.template.TemplateValue;
 
 public final class FieldDef {
 

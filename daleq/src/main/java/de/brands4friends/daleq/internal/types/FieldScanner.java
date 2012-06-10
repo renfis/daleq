@@ -9,7 +9,7 @@ import org.dbunit.dataset.datatype.DataType;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldDef;
-import de.brands4friends.daleq.internal.template.TemplateValue;
+import de.brands4friends.daleq.TemplateValue;
 
 /**
  * Scans classes for PropertyDefs and returns the findings as PropertyStructures

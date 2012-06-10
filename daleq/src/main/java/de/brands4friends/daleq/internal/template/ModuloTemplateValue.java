@@ -2,6 +2,8 @@ package de.brands4friends.daleq.internal.template;
 
 import com.google.common.base.Objects;
 
+import de.brands4friends.daleq.TemplateValue;
+
 final class ModuloTemplateValue implements TemplateValue {
 
     private final long modulus;

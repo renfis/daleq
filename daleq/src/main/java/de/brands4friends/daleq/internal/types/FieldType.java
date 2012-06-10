@@ -7,7 +7,7 @@ import org.dbunit.dataset.datatype.DataType;
 import com.google.common.base.Objects;
 
 import de.brands4friends.daleq.FieldDef;
-import de.brands4friends.daleq.internal.template.TemplateValue;
+import de.brands4friends.daleq.TemplateValue;
 
 public final class FieldType {
     private final String name;

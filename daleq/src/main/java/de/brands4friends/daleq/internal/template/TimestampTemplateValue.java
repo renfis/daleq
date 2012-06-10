@@ -2,6 +2,7 @@ package de.brands4friends.daleq.internal.template;
 
 import org.joda.time.DateTime;
 
+import de.brands4friends.daleq.TemplateValue;
 import de.brands4friends.daleq.internal.conversion.DateTimeTypeConverter;
 
 final class TimestampTemplateValue implements TemplateValue {

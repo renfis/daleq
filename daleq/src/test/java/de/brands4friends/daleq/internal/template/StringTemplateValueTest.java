@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
+import de.brands4friends.daleq.TemplateValue;
 import de.brands4friends.daleq.test.EqualsAssert;
 
 public class StringTemplateValueTest {

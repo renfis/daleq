@@ -7,6 +7,8 @@ import org.dbunit.dataset.datatype.DataType;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.brands4friends.daleq.TemplateValueFactory;
+
 public class TemplateValueFactoryImplTest {
 
     private TemplateValueFactory factory;

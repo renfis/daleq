@@ -5,6 +5,8 @@ import org.apache.commons.lang.text.StrSubstitutor;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 
+import de.brands4friends.daleq.TemplateValue;
+
 public final class StringTemplateValue implements TemplateValue {
 
     private static final String VAR_NAME = "_";

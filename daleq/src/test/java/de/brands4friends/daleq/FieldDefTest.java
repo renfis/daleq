@@ -7,7 +7,6 @@ import org.dbunit.dataset.datatype.DataType;
 import org.junit.Test;
 
 import de.brands4friends.daleq.internal.template.StringTemplateValue;
-import de.brands4friends.daleq.internal.template.TemplateValue;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 

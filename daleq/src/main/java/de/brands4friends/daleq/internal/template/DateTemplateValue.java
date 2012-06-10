@@ -2,6 +2,7 @@ package de.brands4friends.daleq.internal.template;
 
 import org.joda.time.LocalDate;
 
+import de.brands4friends.daleq.TemplateValue;
 import de.brands4friends.daleq.internal.conversion.LocalDateConverter;
 
 final class DateTemplateValue implements TemplateValue {

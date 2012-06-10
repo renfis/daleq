@@ -12,6 +12,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import de.brands4friends.daleq.DaleqBuildException;
+import de.brands4friends.daleq.TemplateValue;
+import de.brands4friends.daleq.TemplateValueFactory;
 
 public final class TemplateValueFactoryImpl implements TemplateValueFactory {
 

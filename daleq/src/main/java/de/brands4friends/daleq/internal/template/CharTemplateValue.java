@@ -1,5 +1,7 @@
 package de.brands4friends.daleq.internal.template;
 
+import de.brands4friends.daleq.TemplateValue;
+
 final class CharTemplateValue implements TemplateValue {
     @Override
     public String render(final long value) {
