@@ -10,7 +10,7 @@ import org.dbunit.dataset.ReplacementDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 
-import de.brands4friends.daleq.container.SchemaContainer;
+import de.brands4friends.daleq.SchemaContainer;
 
 public class FlatXmlIDataSetFactory implements IDataSetFactory {
 

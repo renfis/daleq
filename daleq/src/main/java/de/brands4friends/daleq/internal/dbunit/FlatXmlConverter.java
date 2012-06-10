@@ -14,10 +14,10 @@ import org.dom4j.io.XMLWriter;
 
 import com.google.common.collect.Lists;
 
-import de.brands4friends.daleq.container.FieldContainer;
-import de.brands4friends.daleq.container.RowContainer;
-import de.brands4friends.daleq.container.SchemaContainer;
-import de.brands4friends.daleq.container.TableContainer;
+import de.brands4friends.daleq.FieldContainer;
+import de.brands4friends.daleq.RowContainer;
+import de.brands4friends.daleq.SchemaContainer;
+import de.brands4friends.daleq.TableContainer;
 
 /**
  * Converts DataSets to XML File satisfying DbUnit's FlatXml Requirements.

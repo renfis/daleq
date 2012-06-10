@@ -5,13 +5,10 @@ import java.util.Arrays;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
+import de.brands4friends.daleq.FieldContainer;
 import de.brands4friends.daleq.FieldDef;
-import de.brands4friends.daleq.container.FieldContainer;
-import de.brands4friends.daleq.container.FieldContainerImpl;
-import de.brands4friends.daleq.container.RowContainer;
-import de.brands4friends.daleq.container.RowContainerImpl;
-import de.brands4friends.daleq.container.TableContainer;
-import de.brands4friends.daleq.container.TableContainerImpl;
+import de.brands4friends.daleq.RowContainer;
+import de.brands4friends.daleq.TableContainer;
 import de.brands4friends.daleq.internal.types.FieldType;
 import de.brands4friends.daleq.internal.types.TableType;
 

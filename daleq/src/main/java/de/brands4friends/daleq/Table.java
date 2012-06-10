@@ -1,7 +1,5 @@
 package de.brands4friends.daleq;
 
-import de.brands4friends.daleq.container.TableContainer;
-
 public interface Table {
 
     Table with(Row... rows);

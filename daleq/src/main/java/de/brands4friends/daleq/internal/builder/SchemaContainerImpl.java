@@ -1,10 +1,13 @@
-package de.brands4friends.daleq.container;
+package de.brands4friends.daleq.internal.builder;
 
 import java.util.List;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
+
+import de.brands4friends.daleq.SchemaContainer;
+import de.brands4friends.daleq.TableContainer;
 
 public final class SchemaContainerImpl implements SchemaContainer {
 

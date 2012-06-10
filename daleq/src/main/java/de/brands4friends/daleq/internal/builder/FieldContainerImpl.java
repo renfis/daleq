@@ -1,7 +1,9 @@
-package de.brands4friends.daleq.container;
+package de.brands4friends.daleq.internal.builder;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
+
+import de.brands4friends.daleq.FieldContainer;
 
 public final class FieldContainerImpl implements FieldContainer {
     private final String name;

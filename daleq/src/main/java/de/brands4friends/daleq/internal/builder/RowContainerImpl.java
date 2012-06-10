@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.container;
+package de.brands4friends.daleq.internal.builder;
 
 import java.util.List;
 
@@ -6,6 +6,9 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
+
+import de.brands4friends.daleq.FieldContainer;
+import de.brands4friends.daleq.RowContainer;
 
 public final class RowContainerImpl implements RowContainer {
 

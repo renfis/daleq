@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.container;
+package de.brands4friends.daleq;
 
 import java.util.List;
 
