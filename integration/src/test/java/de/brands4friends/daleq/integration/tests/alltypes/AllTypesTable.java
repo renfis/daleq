@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.integration.tests;
+package de.brands4friends.daleq.integration.tests.alltypes;
 
 import static de.brands4friends.daleq.FieldDef.fd;
 

@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.integration.tests;
+package de.brands4friends.daleq.integration.tests.alltypes;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
