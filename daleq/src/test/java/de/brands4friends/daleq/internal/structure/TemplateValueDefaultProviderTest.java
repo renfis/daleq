@@ -23,7 +23,7 @@ public class TemplateValueDefaultProviderTest {
 
     @Test
     public void defaultTemplate_of_CHAR() {
-        assertRendering(DataType.CHAR, "N");
+        assertCharFieldRendering();
     }
 
     @Test
@@ -33,7 +33,7 @@ public class TemplateValueDefaultProviderTest {
 
     @Test
     public void defaultTemplate_of_NCHAR() {
-        assertStringFieldRendering(DataType.NCHAR);
+        assertCharFieldRendering();
     }
 
     @Test
@@ -160,6 +160,10 @@ public class TemplateValueDefaultProviderTest {
 
     private void assertBase64FieldRendering() {
         assertRendering(DataType.VARBINARY, "AAAAAAAAAA0=");
+    }
+
+    private void assertCharFieldRendering() {
+        assertRendering(DataType.CHAR, "N");
     }
 
 }
