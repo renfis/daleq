@@ -12,6 +12,7 @@ import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
 import org.dom4j.io.XMLWriter;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldContainer;
@@ -80,12 +81,12 @@ class FlatXmlConverter {
         return newProps;
     }
 
-    private String prepareValue(final String name, final String value) {
-        if (value == null) {
+    private String prepareValue(final String name, final Optional<String> value) {
+        if (!value.isPresent()) {
             return nullToken;
         }
 
-        if (value.equals(nullToken)) {
+        if (nullToken.equals(value.get())) {
             throw new IllegalArgumentException(
                     "The Property '" + name + "' contains the value '" + nullToken + "', " +
                             "although this is the implicitly inserted nullToken. " +
@@ -93,7 +94,7 @@ class FlatXmlConverter {
                             "Do this, by simply creating a property, having a value with null like 'p(myName,null)'.");
         }
 
-        return value;
+        return value.get();
     }
 
 }

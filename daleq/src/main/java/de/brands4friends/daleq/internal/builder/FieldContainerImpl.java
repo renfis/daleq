@@ -1,17 +1,20 @@
 package de.brands4friends.daleq.internal.builder;
 
+import javax.annotation.Nullable;
+
 import com.google.common.base.Objects;
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
 import de.brands4friends.daleq.FieldContainer;
 
 public final class FieldContainerImpl implements FieldContainer {
     private final String name;
-    private final String value;
+    private final Optional<String> value;
 
-    public FieldContainerImpl(final String name, final String value) {
+    public FieldContainerImpl(final String name, @Nullable final String value) {
         this.name = Preconditions.checkNotNull(name);
-        this.value = value;
+        this.value = Optional.fromNullable(value);
     }
 
     @Override
@@ -20,7 +23,7 @@ public final class FieldContainerImpl implements FieldContainer {
     }
 
     @Override
-    public String getValue() {
+    public Optional<String> getValue() {
         return value;
     }
 
