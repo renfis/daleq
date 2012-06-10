@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.jdbc.dbunit;
+package de.brands4friends.daleq.internal.dbunit;
 
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;

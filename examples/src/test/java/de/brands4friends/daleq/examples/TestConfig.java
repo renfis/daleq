@@ -10,9 +10,9 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import de.brands4friends.daleq.DaleqSupport;
-import de.brands4friends.daleq.jdbc.dbunit.ConnectionFactory;
-import de.brands4friends.daleq.jdbc.dbunit.DbUnitDaleqSupport;
-import de.brands4friends.daleq.jdbc.dbunit.SimpleConnectionFactory;
+import de.brands4friends.daleq.internal.dbunit.ConnectionFactory;
+import de.brands4friends.daleq.internal.dbunit.DbUnitDaleqSupport;
+import de.brands4friends.daleq.internal.dbunit.SimpleConnectionFactory;
 
 @Configuration
 public class TestConfig {

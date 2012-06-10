@@ -1,10 +1,10 @@
-package de.brands4friends.daleq.jdbc.dbunit;
+package de.brands4friends.daleq.internal.dbunit;
 
 import static de.brands4friends.daleq.Daleq.aRow;
 import static de.brands4friends.daleq.Daleq.aTable;
 import static de.brands4friends.daleq.FieldDef.fd;
-import static de.brands4friends.daleq.jdbc.dbunit.FlatXmlConverterTest.TheTable.A;
-import static de.brands4friends.daleq.jdbc.dbunit.FlatXmlConverterTest.TheTable.B;
+import static de.brands4friends.daleq.internal.dbunit.FlatXmlConverterTest.TheTable.A;
+import static de.brands4friends.daleq.internal.dbunit.FlatXmlConverterTest.TheTable.B;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 

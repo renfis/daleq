@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.jdbc.dbunit;
+package de.brands4friends.daleq.internal.dbunit;
 
 import java.io.IOException;
 import java.io.Writer;

@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.jdbc.dbunit;
+package de.brands4friends.daleq.internal.dbunit;
 
 import java.sql.Connection;
 import java.sql.SQLException;

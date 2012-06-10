@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.jdbc.dbunit;
+package de.brands4friends.daleq.internal.dbunit;
 
 import static de.brands4friends.daleq.Daleq.aRow;
 import static de.brands4friends.daleq.Daleq.aTable;
