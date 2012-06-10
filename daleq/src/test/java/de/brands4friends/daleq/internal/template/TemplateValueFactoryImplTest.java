@@ -7,13 +7,13 @@ import org.dbunit.dataset.datatype.DataType;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TemplateValueFactoryTest {
+public class TemplateValueFactoryImplTest {
 
     private TemplateValueFactory factory;
 
     @Before
     public void setUp() throws Exception {
-        factory = TemplateValueFactory.getInstance();
+        factory = TemplateValueFactoryImpl.getInstance();
     }
 
     @Test
