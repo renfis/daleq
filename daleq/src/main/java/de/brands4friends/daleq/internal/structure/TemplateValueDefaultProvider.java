@@ -94,6 +94,13 @@ public final class TemplateValueDefaultProvider {
         }
     };
 
+    private static final Base64TemplateValue BASE64_TEMPLATE_VALUE = new Base64TemplateValue();
+    private static final ToTemplate BASE64_TO_TEMPLATE = new ToTemplate() {
+        @Override
+        public TemplateValue map(final String fieldName, final String variable) {
+            return BASE64_TEMPLATE_VALUE;
+        }
+    };
 
     private final Map<DataType, ToTemplate> mapping;
 
@@ -134,6 +141,11 @@ public final class TemplateValueDefaultProvider {
         if (dataType.equals(CHAR)) {
             return CHAR_TO_TEMPLATE;
         }
+
+        if (dataType.equals(VARBINARY) || dataType.equals(BINARY) || dataType.equals(LONGVARBINARY) || dataType.equals(BLOB)) {
+            return BASE64_TO_TEMPLATE;
+        }
+
         if (dataType.isNumber()) {
             return NUMBER_TO_TEMPLATE;
         }

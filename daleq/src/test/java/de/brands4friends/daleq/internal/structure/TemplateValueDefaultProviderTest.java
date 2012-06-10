@@ -127,22 +127,22 @@ public class TemplateValueDefaultProviderTest {
 
     @Test
     public void defaultTemplate_of_VARBINARY() {
-        assertStringFieldRendering(DataType.VARBINARY);
+        assertBase64FieldRendering();
     }
 
     @Test
     public void defaultTemplate_of_BINARY() {
-        assertStringFieldRendering(DataType.BINARY);
+        assertBase64FieldRendering();
     }
 
     @Test
     public void defaultTemplate_of_LONGVARBINARY() {
-        assertStringFieldRendering(DataType.LONGVARBINARY);
+        assertBase64FieldRendering();
     }
 
     @Test
     public void defaultTemplate_of_BLOB() {
-        assertStringFieldRendering(DataType.BLOB);
+        assertBase64FieldRendering();
     }
 
     @Test
@@ -156,6 +156,10 @@ public class TemplateValueDefaultProviderTest {
 
     private void assertRendering(final DataType dataType, final String expected) {
         assertThat(defaultProvider.toDefault(dataType, "theField").render(13L), is(expected));
+    }
+
+    private void assertBase64FieldRendering() {
+        assertRendering(DataType.VARBINARY, "AAAAAAAAAA0=");
     }
 
 }
