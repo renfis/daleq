@@ -12,10 +12,10 @@ import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.Row;
 import de.brands4friends.daleq.container.FieldContainer;
 import de.brands4friends.daleq.container.RowContainer;
-import de.brands4friends.daleq.internal.structure.FieldStructure;
-import de.brands4friends.daleq.internal.structure.TableStructure;
 import de.brands4friends.daleq.internal.template.TemplateValue;
 import de.brands4friends.daleq.internal.template.TemplateValueFactory;
+import de.brands4friends.daleq.internal.types.FieldType;
+import de.brands4friends.daleq.internal.types.TableType;
 
 public class RowBuilder implements Row {
 
@@ -33,76 +33,76 @@ public class RowBuilder implements Row {
     }
 
     @Override
-    public RowContainer build(final Context context, final TableStructure tableStructure) {
-        final Map<FieldStructure, FieldHolder> structureToHolder = createStructureToHolderIndex(tableStructure);
+    public RowContainer build(final Context context, final TableType tableType) {
+        final Map<FieldType, FieldHolder> structureToHolder = createStructureToHolderIndex(tableType);
 
         final List<FieldContainer> fieldContainers =
-                mapPropertiesToContainers(context, tableStructure, structureToHolder);
+                mapPropertiesToContainers(context, tableType, structureToHolder);
 
         return new RowContainer(fieldContainers);
     }
 
     private List<FieldContainer> mapPropertiesToContainers(
             final Context context,
-            final TableStructure tableStructure,
-            final Map<FieldStructure, FieldHolder> structureToHolder) {
+            final TableType tableType,
+            final Map<FieldType, FieldHolder> structureToHolder) {
 
-        return Lists.transform(tableStructure.getFields(), new Function<FieldStructure, FieldContainer>() {
+        return Lists.transform(tableType.getFields(), new Function<FieldType, FieldContainer>() {
             @Override
-            public FieldContainer apply(final FieldStructure fieldStructure) {
-                final FieldHolder actualField = structureToHolder.get(fieldStructure);
+            public FieldContainer apply(final FieldType fieldType) {
+                final FieldHolder actualField = structureToHolder.get(fieldType);
                 if (actualField == null) {
-                    return convertDefaultField(fieldStructure, context);
+                    return convertDefaultField(fieldType, context);
                 }
-                return convertProvidedField(fieldStructure, actualField, context);
+                return convertProvidedField(fieldType, actualField, context);
             }
         });
     }
 
-    private FieldContainer convertDefaultField(final FieldStructure fieldStructure, final Context context) {
+    private FieldContainer convertDefaultField(final FieldType fieldType, final Context context) {
         // apply template binding to template
-        final TemplateValue templateValue = toTemplate(fieldStructure, context);
+        final TemplateValue templateValue = toTemplate(fieldType, context);
 
         final String renderedValue = templateValue.render(binding);
-        return new FieldContainer(fieldStructure.getName(), renderedValue);
+        return new FieldContainer(fieldType.getName(), renderedValue);
     }
 
-    private TemplateValue toTemplate(final FieldStructure fieldStructure, final Context context) {
-        if (fieldStructure.hasTemplateValue()) {
-            return fieldStructure.getTemplateValue();
+    private TemplateValue toTemplate(final FieldType fieldType, final Context context) {
+        if (fieldType.hasTemplateValue()) {
+            return fieldType.getTemplateValue();
         } else {
             final TemplateValueFactory factory = context.getTemplateValueFactory();
-            return factory.create(fieldStructure.getDataType(), fieldStructure.getName());
+            return factory.create(fieldType.getDataType(), fieldType.getName());
         }
     }
 
     private FieldContainer convertProvidedField(
-            final FieldStructure fieldStructure,
+            final FieldType fieldType,
             final FieldHolder actualField,
             final Context context) {
         final String strValue = convert(context, actualField.getValue());
-        return new FieldContainer(fieldStructure.getName(), strValue);
+        return new FieldContainer(fieldType.getName(), strValue);
     }
 
     private String convert(final Context context, final Object valueToConvert) {
         return context.getTypeConversion().convert(valueToConvert);
     }
 
-    private Map<FieldStructure, FieldHolder> createStructureToHolderIndex(final TableStructure tableStructure) {
-        return Maps.uniqueIndex(fields, new Function<FieldHolder, FieldStructure>() {
+    private Map<FieldType, FieldHolder> createStructureToHolderIndex(final TableType tableType) {
+        return Maps.uniqueIndex(fields, new Function<FieldHolder, FieldType>() {
             @Override
-            public FieldStructure apply(final FieldHolder fieldHolder) {
-                final FieldStructure fieldStructure = tableStructure.findStructureByDef(fieldHolder.getFieldDef());
-                if (fieldStructure == null) {
+            public FieldType apply(final FieldHolder fieldHolder) {
+                final FieldType fieldType = tableType.findStructureByDef(fieldHolder.getFieldDef());
+                if (fieldType == null) {
                     final String msg = String.format(
                             "The row contains a field '%s', " +
                                     "but the table '%s' does not contain such a field definition.",
                             fieldHolder.getFieldDef(),
-                            tableStructure.getName()
+                            tableType.getName()
                     );
                     throw new DaleqBuildException(msg);
                 }
-                return fieldStructure;
+                return fieldType;
             }
         });
     }

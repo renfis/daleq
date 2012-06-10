@@ -9,20 +9,20 @@ import org.junit.Test;
 
 import de.brands4friends.daleq.DaleqBuildException;
 import de.brands4friends.daleq.FieldDef;
-import de.brands4friends.daleq.internal.structure.TableStructure;
-import de.brands4friends.daleq.internal.structure.TableStructureFactory;
+import de.brands4friends.daleq.internal.types.TableType;
+import de.brands4friends.daleq.internal.types.TableTypeFactory;
 
 public class RowBuilderTest {
 
     private Context context;
-    private TableStructure tableStructure;
+    private TableType tableType;
     private StructureBuilder sb;
 
     @Before
     public void setUp() throws Exception {
         context = new SimpleContext();
-        tableStructure = new TableStructureFactory().create(ExampleTable.class);
-        sb = new StructureBuilder(tableStructure);
+        tableType = new TableTypeFactory().create(ExampleTable.class);
+        sb = new StructureBuilder(tableType);
     }
 
     @Test
@@ -31,7 +31,7 @@ public class RowBuilderTest {
                 RowBuilder.aRow(23)
                         .f(ExampleTable.PROP_A, "FOO")
                         .f(ExampleTable.PROP_B, "BAR")
-                        .build(context, tableStructure),
+                        .build(context, tableType),
                 is(sb.row(
                         sb.field(ExampleTable.PROP_A, "FOO"),
                         sb.field(ExampleTable.PROP_B, "BAR")
@@ -42,7 +42,7 @@ public class RowBuilderTest {
     @Test
     public void aRowWithJustDefaults_should_buildThatRow() {
         assertThat(
-                RowBuilder.aRow(23).build(context, tableStructure),
+                RowBuilder.aRow(23).build(context, tableType),
                 is(sb.row(
                         sb.field(ExampleTable.PROP_A, "23"),
                         sb.field(ExampleTable.PROP_B, "23")
@@ -53,6 +53,6 @@ public class RowBuilderTest {
     @Test(expected = DaleqBuildException.class)
     public void propertyInRowContainsProperyDefNotInTableStructure_should_fail() {
         final FieldDef bar = FieldDef.fd(DataType.VARCHAR);
-        RowBuilder.aRow(42).f(bar, "foo").build(context, tableStructure);
+        RowBuilder.aRow(42).f(bar, "foo").build(context, tableType);
     }
 }

@@ -12,16 +12,16 @@ import de.brands4friends.daleq.Row;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.container.RowContainer;
 import de.brands4friends.daleq.container.TableContainer;
-import de.brands4friends.daleq.internal.structure.TableStructure;
-import de.brands4friends.daleq.internal.structure.TableStructureFactory;
+import de.brands4friends.daleq.internal.types.TableType;
+import de.brands4friends.daleq.internal.types.TableTypeFactory;
 
 public class TableBuilder implements Table {
 
-    private final TableStructure tableStructure;
+    private final TableType tableType;
     private final List<Row> rows;
 
-    public TableBuilder(final TableStructure tableStructure) {
-        this.tableStructure = tableStructure;
+    public TableBuilder(final TableType tableType) {
+        this.tableType = tableType;
         this.rows = Lists.newArrayList();
     }
 
@@ -57,14 +57,14 @@ public class TableBuilder implements Table {
         final List<RowContainer> rowContainers = Lists.transform(rows, new Function<Row, RowContainer>() {
             @Override
             public RowContainer apply(final Row row) {
-                return row.build(context, tableStructure);
+                return row.build(context, tableType);
             }
         });
-        return new TableContainer(tableStructure.getName(), rowContainers);
+        return new TableContainer(tableType.getName(), rowContainers);
     }
 
     public static <T> TableBuilder aTable(final Class<T> fromClass) {
-        final TableStructure tableStructure = new TableStructureFactory().create(fromClass);
-        return new TableBuilder(tableStructure);
+        final TableType tableType = new TableTypeFactory().create(fromClass);
+        return new TableBuilder(tableType);
     }
 }

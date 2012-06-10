@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.internal.structure;
+package de.brands4friends.daleq.internal.types;
 
 import static com.google.common.base.Objects.toStringHelper;
 
@@ -9,14 +9,14 @@ import com.google.common.base.Objects;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.internal.template.TemplateValue;
 
-public final class FieldStructure {
+public final class FieldType {
     private final String name;
     private final DataType dataType;
     private final TemplateValue templateValue;
     private final FieldDef origin;
 
 
-    public FieldStructure(
+    public FieldType(
             final String name,
             final DataType dataType,
             final TemplateValue templateValue,
@@ -49,8 +49,8 @@ public final class FieldStructure {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof FieldStructure) {
-            final FieldStructure that = (FieldStructure) obj;
+        if (obj instanceof FieldType) {
+            final FieldType that = (FieldType) obj;
 
             return Objects.equal(name, that.name)
                     && Objects.equal(dataType, that.dataType)

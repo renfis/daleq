@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.internal.structure;
+package de.brands4friends.daleq.internal.types;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -16,10 +16,10 @@ import de.brands4friends.daleq.internal.template.TemplateValue;
  */
 class FieldScanner {
 
-    public <T> List<FieldStructure> scan(final Class<T> fromClass) {
+    public <T> List<FieldType> scan(final Class<T> fromClass) {
 
         try {
-            final List<FieldStructure> result = Lists.newArrayList();
+            final List<FieldType> result = Lists.newArrayList();
             for (Field field : fromClass.getDeclaredFields()) {
                 if (isConstant(field) && isPropertyDef(field)) {
                     addStructureOfField(result, field);
@@ -38,18 +38,18 @@ class FieldScanner {
     }
 
     private void addStructureOfField(
-            final List<FieldStructure> result,
+            final List<FieldType> result,
             final Field field
     ) throws IllegalAccessException {
         final FieldDef fieldDef = (FieldDef) field.get(null);
         result.add(toFieldStructure(field, fieldDef));
     }
 
-    private FieldStructure toFieldStructure(final Field field, final FieldDef fieldDef) {
+    private FieldType toFieldStructure(final Field field, final FieldDef fieldDef) {
         final String name = toName(field, fieldDef);
         final DataType dataType = fieldDef.getDataType();
         final TemplateValue templateValue = fieldDef.getTemplate();
-        return new FieldStructure(name, dataType, templateValue, fieldDef);
+        return new FieldType(name, dataType, templateValue, fieldDef);
     }
 
     private String toName(final Field field, final FieldDef fieldDef) {

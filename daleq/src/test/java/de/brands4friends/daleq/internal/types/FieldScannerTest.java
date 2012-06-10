@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.internal.structure;
+package de.brands4friends.daleq.internal.types;
 
 import static de.brands4friends.daleq.FieldDef.fd;
 import static org.hamcrest.Matchers.contains;
@@ -60,9 +60,9 @@ public class FieldScannerTest {
 
     @Test
     public void scanningAClassWithPropertyDefs_should_extractThosePropertyDefs() {
-        final Collection<FieldStructure> expected = Lists.newArrayList(
-                new FieldStructure("ID", DataType.INTEGER, null, WithPropertyDefs.ID),
-                new FieldStructure("NAME", DataType.VARCHAR, null, WithPropertyDefs.NAME)
+        final Collection<FieldType> expected = Lists.newArrayList(
+                new FieldType("ID", DataType.INTEGER, null, WithPropertyDefs.ID),
+                new FieldType("NAME", DataType.VARCHAR, null, WithPropertyDefs.NAME)
         );
         assertThat(scanner.scan(WithPropertyDefs.class), is(expected));
     }
@@ -73,8 +73,8 @@ public class FieldScannerTest {
 
     @Test
     public void scanningWithExplicitName_should_haveThatName() {
-        final Collection<FieldStructure> expected = Lists.newArrayList(
-                new FieldStructure(NAME, DataType.INTEGER, null, WithExplicitName.ID)
+        final Collection<FieldType> expected = Lists.newArrayList(
+                new FieldType(NAME, DataType.INTEGER, null, WithExplicitName.ID)
         );
         assertThat(scanner.scan(WithExplicitName.class), is(expected));
     }
@@ -88,7 +88,7 @@ public class FieldScannerTest {
         assertThat(
                 scanner.scan(WithExplicitTemplate.class),
                 contains(
-                        new FieldStructure(
+                        new FieldType(
                                 "NAME",
                                 DataType.VARCHAR,
                                 new StringTemplateValue("some template"),

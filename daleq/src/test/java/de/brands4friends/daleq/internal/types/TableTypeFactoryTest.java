@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.internal.structure;
+package de.brands4friends.daleq.internal.types;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -10,9 +10,9 @@ import org.junit.Test;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.TableDef;
 
-public class TableStructureFactoryTest {
+public class TableTypeFactoryTest {
 
-    private TableStructureFactory factory;
+    private TableTypeFactory factory;
 
     @TableDef("MY_TABLE")
     static class MyTable {
@@ -21,17 +21,17 @@ public class TableStructureFactoryTest {
 
     @Before
     public void setUp() throws Exception {
-        factory = new TableStructureFactory();
+        factory = new TableTypeFactory();
     }
 
     @Test
     public void createOfMyTable_should_returnTableStructure() {
 
-        final TableStructure tableStructure = factory.create(MyTable.class);
-        final TableStructure expected = new TableStructure("MY_TABLE",
-                new FieldStructure("ID", DataType.INTEGER, null, MyTable.ID));
+        final TableType tableType = factory.create(MyTable.class);
+        final TableType expected = new TableType("MY_TABLE",
+                new FieldType("ID", DataType.INTEGER, null, MyTable.ID));
 
-        assertThat(tableStructure, is(expected));
+        assertThat(tableType, is(expected));
     }
 
     static class WithoutAnnotation {

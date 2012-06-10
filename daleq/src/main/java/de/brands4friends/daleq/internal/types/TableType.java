@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.internal.structure;
+package de.brands4friends.daleq.internal.types;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,24 +10,24 @@ import com.google.common.collect.Maps;
 
 import de.brands4friends.daleq.FieldDef;
 
-public class TableStructure {
+public class TableType {
 
     private final String name;
-    private final List<FieldStructure> fields;
-    private final Map<FieldDef, FieldStructure> lookupByDef;
+    private final List<FieldType> fields;
+    private final Map<FieldDef, FieldType> lookupByDef;
 
-    public TableStructure(final String name, final List<FieldStructure> fields) {
+    public TableType(final String name, final List<FieldType> fields) {
         this.name = name;
         this.fields = fields;
-        this.lookupByDef = Maps.uniqueIndex(fields, new Function<FieldStructure, FieldDef>() {
+        this.lookupByDef = Maps.uniqueIndex(fields, new Function<FieldType, FieldDef>() {
             @Override
-            public FieldDef apply(final FieldStructure input) {
+            public FieldDef apply(final FieldType input) {
                 return input.getOrigin();
             }
         });
     }
 
-    public TableStructure(final String name, final FieldStructure... fields) {
+    public TableType(final String name, final FieldType... fields) {
         this(name, Arrays.asList(fields));
     }
 
@@ -35,18 +35,18 @@ public class TableStructure {
         return name;
     }
 
-    public List<FieldStructure> getFields() {
+    public List<FieldType> getFields() {
         return fields;
     }
 
-    public FieldStructure findStructureByDef(final FieldDef fieldDef) {
+    public FieldType findStructureByDef(final FieldDef fieldDef) {
         return lookupByDef.get(fieldDef);
     }
 
     @Override
     public final boolean equals(final Object obj) {
-        if (obj instanceof TableStructure) {
-            final TableStructure that = (TableStructure) obj;
+        if (obj instanceof TableType) {
+            final TableType that = (TableType) obj;
 
             return Objects.equal(name, that.name)
                     && Objects.equal(fields, that.fields);

@@ -1,21 +1,21 @@
-package de.brands4friends.daleq.internal.structure;
+package de.brands4friends.daleq.internal.types;
 
 import java.util.List;
 
 import com.google.common.base.Objects;
 
-public class SchemaStructure {
+public class SchemaType {
 
-    private final List<TableStructure> tables;
+    private final List<TableType> tables;
 
-    public SchemaStructure(final List<TableStructure> tables) {
+    public SchemaType(final List<TableType> tables) {
         this.tables = tables;
     }
 
     @Override
     public final boolean equals(final Object obj) {
-        if (obj instanceof SchemaStructure) {
-            final SchemaStructure that = (SchemaStructure) obj;
+        if (obj instanceof SchemaType) {
+            final SchemaType that = (SchemaType) obj;
 
             return Objects.equal(tables, that.tables);
         }

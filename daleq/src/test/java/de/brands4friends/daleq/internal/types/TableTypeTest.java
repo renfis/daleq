@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.internal.structure;
+package de.brands4friends.daleq.internal.types;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
@@ -11,34 +11,34 @@ import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.internal.template.StringTemplateValue;
 import de.brands4friends.daleq.test.EqualsAssert;
 
-public class TableStructureTest {
+public class TableTypeTest {
 
     @Test
     public void testHashcodeAndEquals() {
-        EqualsAssert.assertProperEqualsAndHashcode(TableStructure.class);
+        EqualsAssert.assertProperEqualsAndHashcode(TableType.class);
     }
 
     @Test
     public void findStructureByDefOfExisting_should_returnStructure() {
         final DataType integer = DataType.INTEGER;
         final FieldDef origin = new FieldDef("propertyDef", integer);
-        final FieldStructure fieldStructure = new FieldStructure(
+        final FieldType fieldType = new FieldType(
                 "P NAME",
                 integer,
                 new StringTemplateValue("bar"),
                 origin
         );
-        final TableStructure table =
-                new TableStructure("SOME_NAME",
-                        fieldStructure);
+        final TableType table =
+                new TableType("SOME_NAME",
+                        fieldType);
 
-        assertThat(table.findStructureByDef(origin), is(fieldStructure));
+        assertThat(table.findStructureByDef(origin), is(fieldType));
     }
 
     @Test
     public void findStructureByDefOfNonExisting_should_notReturnStructure() {
         final FieldDef origin = new FieldDef("propertyDef", DataType.INTEGER);
-        final TableStructure table = new TableStructure("SOME_NAME");
+        final TableType table = new TableType("SOME_NAME");
         assertThat(table.findStructureByDef(origin), is(nullValue()));
     }
 }

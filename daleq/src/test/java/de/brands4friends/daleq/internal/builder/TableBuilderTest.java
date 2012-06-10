@@ -16,8 +16,8 @@ import com.google.common.collect.Lists;
 import de.brands4friends.daleq.DaleqBuildException;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.TableDef;
-import de.brands4friends.daleq.internal.structure.TableStructure;
-import de.brands4friends.daleq.internal.structure.TableStructureFactory;
+import de.brands4friends.daleq.internal.types.TableType;
+import de.brands4friends.daleq.internal.types.TableTypeFactory;
 
 public class TableBuilderTest {
 
@@ -27,8 +27,8 @@ public class TableBuilderTest {
     @Before
     public void setUp() throws Exception {
         context = new SimpleContext();
-        final TableStructure tableStructure = new TableStructureFactory().create(ExampleTable.class);
-        sb = new StructureBuilder(tableStructure);
+        final TableType tableType = new TableTypeFactory().create(ExampleTable.class);
+        sb = new StructureBuilder(tableType);
     }
 
     @Test

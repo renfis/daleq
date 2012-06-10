@@ -9,8 +9,8 @@ import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.container.FieldContainer;
 import de.brands4friends.daleq.container.RowContainer;
 import de.brands4friends.daleq.container.TableContainer;
-import de.brands4friends.daleq.internal.structure.FieldStructure;
-import de.brands4friends.daleq.internal.structure.TableStructure;
+import de.brands4friends.daleq.internal.types.FieldType;
+import de.brands4friends.daleq.internal.types.TableType;
 
 public class StructureBuilder {
 
@@ -26,14 +26,14 @@ public class StructureBuilder {
 
     }
 
-    private final TableStructure tableStructure;
+    private final TableType tableType;
 
-    public StructureBuilder(final TableStructure tableStructure) {
-        this.tableStructure = tableStructure;
+    public StructureBuilder(final TableType tableType) {
+        this.tableType = tableType;
     }
 
     public TableContainer table(final RowContainer... rowContainers) {
-        return new TableContainer(tableStructure.getName(), Arrays.asList(rowContainers));
+        return new TableContainer(tableType.getName(), Arrays.asList(rowContainers));
     }
 
     public RowContainer row(final PropertyContainerBean... props) {
@@ -42,8 +42,8 @@ public class StructureBuilder {
                 new Function<PropertyContainerBean, FieldContainer>() {
                     @Override
                     public FieldContainer apply(final PropertyContainerBean input) {
-                        final FieldStructure fieldStructure = tableStructure.findStructureByDef(input.fieldDef);
-                        return new FieldContainer(fieldStructure.getName(), input.value);
+                        final FieldType fieldType = tableType.findStructureByDef(input.fieldDef);
+                        return new FieldContainer(fieldType.getName(), input.value);
                     }
                 }));
     }
