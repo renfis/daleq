@@ -13,7 +13,7 @@ public final class FieldDef {
     private final DataType dataType;
     private final TemplateValue template;
 
-    public FieldDef(final String name, final DataType dataType, final TemplateValue template) {
+    private FieldDef(final String name, final DataType dataType, final TemplateValue template) {
         this.name = name;
         this.dataType = Preconditions.checkNotNull(dataType);
         this.template = template;
