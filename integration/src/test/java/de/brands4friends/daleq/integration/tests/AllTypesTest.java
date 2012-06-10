@@ -20,8 +20,8 @@ public class AllTypesTest extends AbstractTransactionalJUnit4SpringContextTests 
     private DaleqSupport daleq;
 
     @Test
-    public void test() {
-        final Table table = Daleq.aTable(AllTypesTable.class).withRowsUntil(1000);
+    public void everyDataType_should_beInsertedIntoTheDatabase() {
+        final Table table = Daleq.aTable(AllTypesTable.class).withRowsUntil(2000);
         daleq.insertIntoDatabase(table);
     }
 
