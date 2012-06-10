@@ -13,7 +13,7 @@ import com.google.common.collect.Maps;
 
 import de.brands4friends.daleq.DaleqBuildException;
 
-public final class TemplateValueDefaultProvider {
+public final class TemplateValueFactory {
 
     private static final Set<DataType> STRING_TYPES =
             of(DataType.VARCHAR, DataType.LONGVARCHAR, DataType.NVARCHAR, DataType.LONGNVARCHAR, DataType.CLOB);
@@ -131,11 +131,11 @@ public final class TemplateValueDefaultProvider {
 
     private final Map<DataType, ToTemplate> mapping;
 
-    private TemplateValueDefaultProvider(final Map<DataType, ToTemplate> mapping) {
+    private TemplateValueFactory(final Map<DataType, ToTemplate> mapping) {
         this.mapping = mapping;
     }
 
-    public TemplateValue toDefault(final DataType dataType, final String fieldName) {
+    public TemplateValue create(final DataType dataType, final String fieldName) {
         final ToTemplate toTemplate = mapping.get(dataType);
         if (toTemplate == null) {
             final String msg = String.format(
@@ -147,7 +147,7 @@ public final class TemplateValueDefaultProvider {
         return toTemplate.map(fieldName, StringTemplateValue.VAR);
     }
 
-    public static TemplateValueDefaultProvider create() {
+    public static TemplateValueFactory getInstance() {
         final Map<DataType, ToTemplate> mapping = Maps.newHashMap();
 
         final Collection<ToTemplate> toTemplates = Lists.newArrayList(
@@ -160,6 +160,6 @@ public final class TemplateValueDefaultProvider {
                 mapping.put(dataType, toTemplate);
             }
         }
-        return new TemplateValueDefaultProvider(mapping);
+        return new TemplateValueFactory(mapping);
     }
 }

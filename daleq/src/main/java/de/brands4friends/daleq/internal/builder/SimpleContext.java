@@ -1,11 +1,11 @@
 package de.brands4friends.daleq.internal.builder;
 
 import de.brands4friends.daleq.internal.conversion.TypeConversion;
-import de.brands4friends.daleq.internal.template.TemplateValueDefaultProvider;
+import de.brands4friends.daleq.internal.template.TemplateValueFactory;
 
 public class SimpleContext implements Context {
     private final TypeConversion typeConversion = new TypeConversion();
-    private final TemplateValueDefaultProvider templateValueDefaultProvider = TemplateValueDefaultProvider.create();
+    private final TemplateValueFactory templateValueFactory = TemplateValueFactory.getInstance();
 
     @Override
     public TypeConversion getTypeConversion() {
@@ -13,7 +13,7 @@ public class SimpleContext implements Context {
     }
 
     @Override
-    public TemplateValueDefaultProvider getTemplateValueDefaultProvider() {
-        return templateValueDefaultProvider;
+    public TemplateValueFactory getTemplateValueFactory() {
+        return templateValueFactory;
     }
 }

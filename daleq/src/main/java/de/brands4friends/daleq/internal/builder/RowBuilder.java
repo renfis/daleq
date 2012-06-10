@@ -15,7 +15,7 @@ import de.brands4friends.daleq.container.RowContainer;
 import de.brands4friends.daleq.internal.structure.FieldStructure;
 import de.brands4friends.daleq.internal.structure.TableStructure;
 import de.brands4friends.daleq.internal.template.TemplateValue;
-import de.brands4friends.daleq.internal.template.TemplateValueDefaultProvider;
+import de.brands4friends.daleq.internal.template.TemplateValueFactory;
 
 public class RowBuilder implements Row {
 
@@ -71,8 +71,8 @@ public class RowBuilder implements Row {
         if (fieldStructure.hasTemplateValue()) {
             return fieldStructure.getTemplateValue();
         } else {
-            final TemplateValueDefaultProvider defaultProvider = context.getTemplateValueDefaultProvider();
-            return defaultProvider.toDefault(fieldStructure.getDataType(), fieldStructure.getName());
+            final TemplateValueFactory factory = context.getTemplateValueFactory();
+            return factory.create(fieldStructure.getDataType(), fieldStructure.getName());
         }
     }
 

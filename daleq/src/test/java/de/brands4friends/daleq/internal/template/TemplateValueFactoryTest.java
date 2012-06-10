@@ -7,13 +7,13 @@ import org.dbunit.dataset.datatype.DataType;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TemplateValueDefaultProviderTest {
+public class TemplateValueFactoryTest {
 
-    private TemplateValueDefaultProvider defaultProvider;
+    private TemplateValueFactory factory;
 
     @Before
     public void setUp() throws Exception {
-        defaultProvider = TemplateValueDefaultProvider.create();
+        factory = TemplateValueFactory.getInstance();
     }
 
     @Test
@@ -155,7 +155,7 @@ public class TemplateValueDefaultProviderTest {
     }
 
     private void assertRendering(final DataType dataType, final String expected) {
-        assertThat(defaultProvider.toDefault(dataType, "theField").render(13L), is(expected));
+        assertThat(factory.create(dataType, "theField").render(13L), is(expected));
     }
 
     private void assertBase64FieldRendering() {
