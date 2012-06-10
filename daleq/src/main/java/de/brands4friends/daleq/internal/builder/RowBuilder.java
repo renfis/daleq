@@ -12,7 +12,9 @@ import de.brands4friends.daleq.DaleqBuildException;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.Row;
 import de.brands4friends.daleq.container.FieldContainer;
+import de.brands4friends.daleq.container.FieldContainerImpl;
 import de.brands4friends.daleq.container.RowContainer;
+import de.brands4friends.daleq.container.RowContainerImpl;
 import de.brands4friends.daleq.internal.template.TemplateValue;
 import de.brands4friends.daleq.internal.template.TemplateValueFactory;
 import de.brands4friends.daleq.internal.types.FieldType;
@@ -40,7 +42,7 @@ public class RowBuilder implements Row {
         final List<FieldContainer> fieldContainers =
                 mapPropertiesToContainers(context, tableType, structureToHolder);
 
-        return new RowContainer(fieldContainers);
+        return new RowContainerImpl(fieldContainers);
     }
 
     private List<FieldContainer> mapPropertiesToContainers(
@@ -65,7 +67,7 @@ public class RowBuilder implements Row {
         final TemplateValue templateValue = toTemplate(fieldType, context);
 
         final String renderedValue = templateValue.render(binding);
-        return new FieldContainer(fieldType.getName(), renderedValue);
+        return new FieldContainerImpl(fieldType.getName(), renderedValue);
     }
 
     private TemplateValue toTemplate(final FieldType fieldType, final Context context) {
@@ -82,7 +84,7 @@ public class RowBuilder implements Row {
             final FieldHolder actualField,
             final Context context) {
         final String strValue = convert(context, actualField.getValue());
-        return new FieldContainer(fieldType.getName(), strValue);
+        return new FieldContainerImpl(fieldType.getName(), strValue);
     }
 
     private String convert(final Context context, final Object valueToConvert) {

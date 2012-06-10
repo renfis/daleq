@@ -8,6 +8,6 @@ public class SchemaContainerTest {
 
     @Test
     public void testHashCodeAndEquals() {
-        EqualsAssert.assertProperEqualsAndHashcode(SchemaContainer.class);
+        EqualsAssert.assertProperEqualsAndHashcode(SchemaContainerImpl.class);
     }
 }

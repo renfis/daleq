@@ -20,6 +20,7 @@ import de.brands4friends.daleq.Context;
 import de.brands4friends.daleq.DaleqSupport;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.container.SchemaContainer;
+import de.brands4friends.daleq.container.SchemaContainerImpl;
 import de.brands4friends.daleq.container.TableContainer;
 import de.brands4friends.daleq.internal.builder.SimpleContext;
 
@@ -86,7 +87,7 @@ public class DbUnitDaleqSupport implements DaleqSupport {
                         return table.build(context);
                     }
                 });
-        return new SchemaContainer(tableContainers);
+        return new SchemaContainerImpl(tableContainers);
     }
 
     @Override

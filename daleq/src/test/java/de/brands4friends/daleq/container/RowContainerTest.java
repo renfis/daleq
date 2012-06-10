@@ -10,6 +10,6 @@ public class RowContainerTest {
 
     @Test
     public void testHashcodeAndEquals() {
-        forClass(RowContainer.class).suppress(Warning.NULL_FIELDS).verify();
+        forClass(RowContainerImpl.class).suppress(Warning.NULL_FIELDS).verify();
     }
 }

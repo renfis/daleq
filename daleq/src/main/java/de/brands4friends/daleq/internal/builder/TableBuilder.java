@@ -13,6 +13,7 @@ import de.brands4friends.daleq.Row;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.container.RowContainer;
 import de.brands4friends.daleq.container.TableContainer;
+import de.brands4friends.daleq.container.TableContainerImpl;
 import de.brands4friends.daleq.internal.types.TableType;
 import de.brands4friends.daleq.internal.types.TableTypeFactory;
 
@@ -61,7 +62,7 @@ public class TableBuilder implements Table {
                 return row.build(context, tableType);
             }
         });
-        return new TableContainer(tableType.getName(), rowContainers);
+        return new TableContainerImpl(tableType.getName(), rowContainers);
     }
 
     public static <T> TableBuilder aTable(final Class<T> fromClass) {

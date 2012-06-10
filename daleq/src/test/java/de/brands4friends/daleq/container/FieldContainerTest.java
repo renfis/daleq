@@ -10,6 +10,6 @@ public class FieldContainerTest {
 
     @Test
     public void testHashcodeAndEquals() {
-        forClass(FieldContainer.class).suppress(Warning.NULL_FIELDS).verify();
+        forClass(FieldContainerImpl.class).suppress(Warning.NULL_FIELDS).verify();
     }
 }
