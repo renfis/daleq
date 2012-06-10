@@ -1,6 +1,7 @@
 package de.brands4friends.daleq.internal.builder;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
 
 import de.brands4friends.daleq.FieldDef;
 
@@ -9,7 +10,7 @@ public class FieldHolder {
     private final Object value;
 
     public FieldHolder(final FieldDef fieldDef, final Object value) {
-        this.fieldDef = fieldDef;
+        this.fieldDef = Preconditions.checkNotNull(fieldDef);
         this.value = value;
     }
 
