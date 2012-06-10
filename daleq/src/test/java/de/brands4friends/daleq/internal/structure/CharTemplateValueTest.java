@@ -34,4 +34,9 @@ public class CharTemplateValueTest {
     public void shouldBe_A_again() {
         assertThat(templateValue.render(58), is("A"));
     }
+
+    @Test
+    public void a141_shouldBe_Z() {
+        assertThat(templateValue.render(141), is("Z"));
+    }
 }
