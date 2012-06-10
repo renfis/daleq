@@ -12,6 +12,7 @@ import java.sql.SQLException;
 
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.datatype.DataType;
@@ -19,15 +20,23 @@ import org.dbunit.operation.DatabaseOperation;
 import org.easymock.Capture;
 import org.easymock.EasyMockSupport;
 import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.common.collect.Lists;
+
 import de.brands4friends.daleq.FieldDef;
+import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.TableDef;
+import de.brands4friends.daleq.internal.builder.SimpleContext;
+import de.brands4friends.daleq.internal.container.SchemaContainer;
+import junit.framework.ComparisonFailure;
 
 public class DbUnitDaleqSupportTest extends EasyMockSupport {
 
     private IDatabaseConnection connection;
+    private IDataSetFactory dataSetFactory;
 
     @TableDef("FOO")
     public static class MyTable {
@@ -47,11 +56,12 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
         daleqSupport.setConnectionFactory(connectionFactory);
         daleqSupport.setInsertOperation(insertOperation);
         connection = createMock(IDatabaseConnection.class);
+        dataSetFactory = new FlatXmlIDataSetFactory();
     }
 
     @Test
     public void inserIntoDatabase_should_insertAnIDataSetWithDbUnit() throws SQLException, DatabaseUnitException {
-        expect(connectionFactory.createConnection()).andReturn(connection);
+        expectConnection();
         final Capture<IDataSet> capturedDataset = new Capture<IDataSet>();
         insertOperation.execute(eq(connection), capture(capturedDataset));
 
@@ -71,5 +81,42 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
         assertThat(table.getValue(0, "VALUE"), Matchers.is((Object) "val0"));
         assertThat(table.getValue(1, "ID"), Matchers.is((Object) "1"));
         assertThat(table.getValue(1, "VALUE"), Matchers.is((Object) "val1"));
+    }
+
+    @Test
+    public void assertTable_should_beAsserted() throws DataSetException, SQLException {
+        final Table table = aTable(MyTable.class).with(aRow(0));
+        final IDataSet dataSetFromDb = dataSetFactory.create(toSchemaContainer(table));
+
+        expectConnection();
+        expect(connection.createDataSet()).andReturn(dataSetFromDb);
+
+        replayAll();
+        daleqSupport.assertTableInDatabase(table);
+        verifyAll();
+    }
+
+    @Test(expected = ComparisonFailure.class)
+    public void assertTable_should_failOnFailingAssertion() throws DataSetException, SQLException {
+        final Table table = aTable(MyTable.class).with(aRow(0));
+        final Table differentTable = aTable(MyTable.class).with(aRow(1));
+        final IDataSet dataSetFromDb = dataSetFactory.create(toSchemaContainer(table));
+
+        expectConnection();
+        expect(connection.createDataSet()).andReturn(dataSetFromDb);
+
+        replayAll();
+
+        daleqSupport.assertTableInDatabase(differentTable);
+        Assert.fail("The test should have failed, since we compare two different tables.");
+
+    }
+
+    private void expectConnection() {
+        expect(connectionFactory.createConnection()).andReturn(connection);
+    }
+
+    private SchemaContainer toSchemaContainer(final Table table) {
+        return new SchemaContainer(Lists.newArrayList(table.build(new SimpleContext())));
     }
 }
