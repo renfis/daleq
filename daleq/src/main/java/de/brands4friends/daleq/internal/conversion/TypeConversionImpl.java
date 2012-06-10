@@ -4,6 +4,8 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 
+import de.brands4friends.daleq.TypeConversion;
+
 public class TypeConversionImpl implements TypeConversion {
 
     private static final Map<Class<?>, TypeConverter> TYPE_CONVERTER_BY_CLASSNAME = buildMap();

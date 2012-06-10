@@ -11,6 +11,8 @@ import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.brands4friends.daleq.TypeConversion;
+
 public class TypeConversionImplTest {
 
     private TypeConversion conversion;
