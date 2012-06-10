@@ -7,6 +7,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Longs;
 
+import de.brands4friends.daleq.Context;
 import de.brands4friends.daleq.Daleq;
 import de.brands4friends.daleq.Row;
 import de.brands4friends.daleq.Table;

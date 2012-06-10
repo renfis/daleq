@@ -17,11 +17,11 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
+import de.brands4friends.daleq.Context;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.container.SchemaContainer;
 import de.brands4friends.daleq.container.TableContainer;
-import de.brands4friends.daleq.internal.builder.Context;
 import de.brands4friends.daleq.internal.builder.SimpleContext;
 
 

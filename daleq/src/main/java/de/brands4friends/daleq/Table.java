@@ -1,7 +1,6 @@
 package de.brands4friends.daleq;
 
 import de.brands4friends.daleq.container.TableContainer;
-import de.brands4friends.daleq.internal.builder.Context;
 
 public interface Table {
 
