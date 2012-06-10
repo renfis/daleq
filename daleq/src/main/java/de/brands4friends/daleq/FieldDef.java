@@ -56,6 +56,7 @@ public final class FieldDef {
     }
 
     public static FieldDef fd(final DataType dataType) {
+        Preconditions.checkNotNull(dataType);
         return new FieldDef(null, dataType);
     }
 }
