@@ -3,6 +3,7 @@ package de.brands4friends.daleq;
 import org.dbunit.dataset.datatype.DataType;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
 import de.brands4friends.daleq.internal.template.StringTemplateValue;
@@ -10,20 +11,16 @@ import de.brands4friends.daleq.internal.template.StringTemplateValue;
 public final class FieldDef {
 
     private final DataType dataType;
-    private String name;
-    private final TemplateValue template;
+    private final Optional<String> name;
+    private final Optional<TemplateValue> template;
 
-    private FieldDef(final DataType dataType, final String name, final TemplateValue template) {
+    private FieldDef(final DataType dataType, final Optional<String> name, final Optional<TemplateValue> template) {
         this.dataType = Preconditions.checkNotNull(dataType);
-        this.name = name;
-        this.template = template;
+        this.name = Preconditions.checkNotNull(name);
+        this.template = Preconditions.checkNotNull(template);
     }
 
-    public boolean hasName() {
-        return name != null;
-    }
-
-    public String getName() {
+    public Optional<String> getName() {
         return name;
     }
 
@@ -31,22 +28,20 @@ public final class FieldDef {
         return dataType;
     }
 
-    public TemplateValue getTemplate() {
+    public Optional<TemplateValue> getTemplate() {
         return template;
     }
 
-    public boolean hasTemplate() {
-        return template != null;
-    }
-
-    // fluent mutators
     public FieldDef name(final String name) {
-        this.name = Preconditions.checkNotNull(name);
-        return this;
+        return new FieldDef(this.dataType, Optional.of(name), this.template);
     }
 
     public FieldDef template(final String template) {
-        return new FieldDef(this.dataType, this.name, new StringTemplateValue(template));
+        return new FieldDef(
+                this.dataType,
+                Optional.<String>absent(),
+                Optional.<TemplateValue>of(new StringTemplateValue(template))
+        );
     }
 
     @Override
@@ -56,6 +51,6 @@ public final class FieldDef {
 
     public static FieldDef fd(final DataType dataType) {
         Preconditions.checkNotNull(dataType);
-        return new FieldDef(dataType, null, null);
+        return new FieldDef(dataType, Optional.<String>absent(), Optional.<TemplateValue>absent());
     }
 }

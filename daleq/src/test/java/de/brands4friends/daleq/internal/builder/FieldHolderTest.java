@@ -1,13 +1,21 @@
 package de.brands4friends.daleq.internal.builder;
 
+import static nl.jqno.equalsverifier.EqualsVerifier.forClass;
+
 import org.junit.Test;
 
-import de.brands4friends.daleq.test.EqualsAssert;
+import com.google.common.base.Optional;
+
+import nl.jqno.equalsverifier.Warning;
 
 public class FieldHolderTest {
 
     @Test
     public void testHashCodeAndEquals() {
-        EqualsAssert.assertProperEqualsAndHashcode(FieldHolder.class);
+        forClass(FieldHolder.class)
+                .withPrefabValues(Optional.class, Optional.of(new Object()), Optional.of(new Object()))
+                .suppress(Warning.STRICT_INHERITANCE)
+                .verify();
+
     }
 }

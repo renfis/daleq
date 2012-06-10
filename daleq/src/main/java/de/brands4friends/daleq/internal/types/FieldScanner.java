@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.dbunit.dataset.datatype.DataType;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldDef;
@@ -46,14 +47,15 @@ class FieldScanner {
     }
 
     private FieldType toFieldStructure(final Field field, final FieldDef fieldDef) {
-        final String name = toName(field, fieldDef);
+        final String name = fieldDef.getName().or(field.getName());
         final DataType dataType = fieldDef.getDataType();
-        final TemplateValue templateValue = fieldDef.getTemplate();
+        // TODO
+        final TemplateValue templateValue = fieldDef.getTemplate().orNull();
         return new FieldType(name, dataType, templateValue, fieldDef);
     }
 
-    private String toName(final Field field, final FieldDef fieldDef) {
-        return fieldDef.hasName() ? fieldDef.getName() : field.getName();
+    private String toName(final Field field, final Optional<String> nameOnFieldDef) {
+        return nameOnFieldDef.or(field.getName());
     }
 
     private boolean isPropertyDef(final Field field) {

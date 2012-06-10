@@ -6,6 +6,8 @@ import static org.junit.Assert.assertThat;
 import org.dbunit.dataset.datatype.DataType;
 import org.junit.Test;
 
+import com.google.common.base.Optional;
+
 import de.brands4friends.daleq.internal.template.StringTemplateValue;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
@@ -17,32 +19,36 @@ public class FieldDefTest {
 
     @Test
     public void testHashCodeAndEquals() {
-        EqualsVerifier.forClass(FieldDef.class).suppress(Warning.NONFINAL_FIELDS).verify();
+        EqualsVerifier
+                .forClass(FieldDef.class)
+                .withPrefabValues(Optional.class, Optional.of("a"), Optional.of("b"))
+                .suppress(Warning.NONFINAL_FIELDS)
+                .verify();
     }
 
     @Test
     public void aFieldWithName_should_haveName() {
-        assertThat(FieldDef.fd(DataType.BIGINT).name(NAME).hasName(), is(true));
+        assertThat(FieldDef.fd(DataType.BIGINT).name(NAME).getName().isPresent(), is(true));
     }
 
     @Test
     public void aFieldWithoutName_should_haveName() {
-        assertThat(FieldDef.fd(DataType.BIGINT).hasName(), is(false));
+        assertThat(FieldDef.fd(DataType.BIGINT).getName().isPresent(), is(false));
     }
 
     @Test
     public void aFieldWithTemplate_should_haveATempalte() {
-        assertThat(FieldDef.fd(DataType.INTEGER).template(TEMPLATE).hasTemplate(), is(true));
+        assertThat(FieldDef.fd(DataType.INTEGER).template(TEMPLATE).getTemplate().isPresent(), is(true));
     }
 
     @Test
     public void aFieldWithoutTemplate_should_haveNoTemplate() {
-        assertThat(FieldDef.fd(DataType.INTEGER).hasTemplate(), is(false));
+        assertThat(FieldDef.fd(DataType.INTEGER).getTemplate().isPresent(), is(false));
     }
 
     @Test
     public void aFieldTemplate_should_beCorrect() {
         final TemplateValue expected = new StringTemplateValue(TEMPLATE);
-        assertThat(FieldDef.fd(DataType.INTEGER).template(TEMPLATE).getTemplate(), is(expected));
+        assertThat(FieldDef.fd(DataType.INTEGER).template(TEMPLATE).getTemplate().get(), is(expected));
     }
 }
