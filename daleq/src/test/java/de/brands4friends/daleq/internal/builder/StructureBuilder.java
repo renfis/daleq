@@ -33,7 +33,7 @@ public class StructureBuilder {
     }
 
     public TableContainer table(final RowContainer... rowContainers) {
-        return new TableContainer(tableStructure, Arrays.asList(rowContainers));
+        return new TableContainer(tableStructure.getName(), Arrays.asList(rowContainers));
     }
 
     public RowContainer row(final PropertyContainerBean... props) {

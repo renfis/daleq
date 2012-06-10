@@ -60,7 +60,7 @@ public class TableBuilder implements Table {
                 return row.build(context, tableStructure);
             }
         });
-        return new TableContainer(tableStructure, rowContainers);
+        return new TableContainer(tableStructure.getName(), rowContainers);
     }
 
     public static <T> TableBuilder aTable(final Class<T> fromClass) {

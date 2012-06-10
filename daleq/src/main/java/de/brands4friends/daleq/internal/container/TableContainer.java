@@ -7,20 +7,18 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
-import de.brands4friends.daleq.internal.structure.TableStructure;
-
 public final class TableContainer {
 
-    private final TableStructure tableStructure;
+    private final String name;
     private final List<RowContainer> rows;
 
-    public TableContainer(final TableStructure tableStructure, final List<RowContainer> rows) {
-        this.tableStructure = Preconditions.checkNotNull(tableStructure);
+    public TableContainer(final String name, final List<RowContainer> rows) {
+        this.name = Preconditions.checkNotNull(name);
         this.rows = ImmutableList.copyOf(Preconditions.checkNotNull(rows));
     }
 
     public String getName() {
-        return tableStructure.getName();
+        return name;
     }
 
     public List<RowContainer> getRows() {
@@ -32,7 +30,7 @@ public final class TableContainer {
         if (obj instanceof TableContainer) {
             final TableContainer that = (TableContainer) obj;
 
-            return Objects.equal(tableStructure, that.tableStructure)
+            return Objects.equal(name, that.name)
                     && Objects.equal(rows, that.rows);
         }
 
@@ -41,11 +39,11 @@ public final class TableContainer {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(tableStructure, rows);
+        return Objects.hashCode(name, rows);
     }
 
     @Override
     public String toString() {
-        return "[" + tableStructure.getName() + ":" + Joiner.on(",").join(rows) + "]";
+        return "[" + name + ":" + Joiner.on(",").join(rows) + "]";
     }
 }
