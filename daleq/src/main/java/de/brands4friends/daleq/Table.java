@@ -1,15 +1,17 @@
 package de.brands4friends.daleq;
 
+import com.sun.istack.internal.NotNull;
+
 public interface Table {
 
-    Table with(Row... rows);
+    Table with(@NotNull Row... rows);
 
-    Table withSomeRows(Iterable<Long> ids);
+    Table withSomeRows(@NotNull Iterable<Long> ids);
 
-    Table withSomeRows(long... ids);
+    Table withSomeRows(@NotNull long... ids);
 
     Table withRowsUntil(long maxId);
 
-    TableContainer build(final Context context);
+    TableContainer build(@NotNull final Context context);
 
 }

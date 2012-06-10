@@ -1,5 +1,7 @@
 package de.brands4friends.daleq;
 
+import com.sun.istack.internal.NotNull;
+
 import de.brands4friends.daleq.internal.builder.RowBuilder;
 import de.brands4friends.daleq.internal.builder.TableBuilder;
 
@@ -10,7 +12,7 @@ public final class Daleq {
     }
 
 
-    public static <T> Table aTable(final Class<T> fromClass) {
+    public static <T> Table aTable(@NotNull final Class<T> fromClass) {
         return TableBuilder.aTable(fromClass);
     }
 
