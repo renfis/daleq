@@ -23,7 +23,7 @@ public class TemplateValueDefaultProviderTest {
 
     @Test
     public void defaultTemplate_of_CHAR() {
-        assertStringFieldRendering(DataType.CHAR);
+        assertRendering(DataType.CHAR, "N");
     }
 
     @Test

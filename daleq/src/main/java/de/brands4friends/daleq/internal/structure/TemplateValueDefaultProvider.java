@@ -86,6 +86,15 @@ public final class TemplateValueDefaultProvider {
         }
     };
 
+    private static final CharTemplateValue CHAR_TEMPLATE_VALUE = new CharTemplateValue();
+    private static final ToTemplate CHAR_TO_TEMPLATE = new ToTemplate() {
+        @Override
+        public TemplateValue map(final String fieldName, final String variable) {
+            return CHAR_TEMPLATE_VALUE;
+        }
+    };
+
+
     private final Map<DataType, ToTemplate> mapping;
 
     private TemplateValueDefaultProvider(final Map<DataType, ToTemplate> mapping) {
@@ -113,9 +122,6 @@ public final class TemplateValueDefaultProvider {
     }
 
     private static ToTemplate map(final DataType dataType) {
-        if (dataType.isNumber()) {
-            return NUMBER_TO_TEMPLATE;
-        }
         if (dataType.equals(DataType.DATE)) {
             return DATE_TO_TEMPLATE;
         }
@@ -124,6 +130,12 @@ public final class TemplateValueDefaultProvider {
         }
         if (dataType.equals(BOOLEAN) || dataType.equals(BIT)) {
             return MOD2_TO_TEMPLATE;
+        }
+        if (dataType.equals(CHAR)) {
+            return CHAR_TO_TEMPLATE;
+        }
+        if (dataType.isNumber()) {
+            return NUMBER_TO_TEMPLATE;
         }
         return STRING_TO_TEMPLATE;
     }
