@@ -5,7 +5,7 @@ import org.apache.commons.lang.text.StrSubstitutor;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 
-public class SubstitutingTemplateValue implements TemplateValue {
+public final class SubstitutingTemplateValue implements TemplateValue {
 
     private static final String VAR_NAME = "_";
     public static final String VAR = "${" + VAR_NAME + "}";
@@ -19,7 +19,7 @@ public class SubstitutingTemplateValue implements TemplateValue {
     }
 
     @Override
-    public final boolean equals(final Object obj) {
+    public boolean equals(final Object obj) {
         if (obj instanceof SubstitutingTemplateValue) {
             final SubstitutingTemplateValue that = (SubstitutingTemplateValue) obj;
 
@@ -30,13 +30,13 @@ public class SubstitutingTemplateValue implements TemplateValue {
     }
 
     @Override
-    public String render(final long value) {
-        return StrSubstitutor.replace(this.template, ImmutableMap.of(VAR_NAME, value));
+    public int hashCode() {
+        return Objects.hashCode(template);
     }
 
     @Override
-    public final int hashCode() {
-        return Objects.hashCode(template);
+    public String render(final long value) {
+        return StrSubstitutor.replace(this.template, ImmutableMap.of(VAR_NAME, value));
     }
 
     @Override

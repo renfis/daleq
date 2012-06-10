@@ -4,7 +4,7 @@ import org.joda.time.LocalDate;
 
 import de.brands4friends.daleq.internal.conversion.LocalDateConverter;
 
-public class DateTemplateValue implements TemplateValue {
+final class DateTemplateValue implements TemplateValue {
 
     @Override
     public String render(final long value) {

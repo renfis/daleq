@@ -1,6 +1,6 @@
 package de.brands4friends.daleq.internal.template;
 
-public class CharTemplateValue implements TemplateValue {
+final class CharTemplateValue implements TemplateValue {
     @Override
     public String render(final long value) {
         final int posz = 'z';
