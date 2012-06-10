@@ -11,13 +11,13 @@ import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TypeConversionTest {
+public class TypeConversionImplTest {
 
     private TypeConversion conversion;
 
     @Before
     public void setUp() throws Exception {
-        conversion = new TypeConversion();
+        conversion = new TypeConversionImpl();
     }
 
     @Test
