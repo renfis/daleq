@@ -21,10 +21,10 @@ public class AssertTableTest extends AbstractTransactionalJUnit4SpringContextTes
 
     @Test
     public void inserting_build_asserting() {
-        Table toBeInserted = Daleq.aTable(AssertTableTable.class).withRowsUntil(100);
+        final Table toBeInserted = Daleq.aTable(AssertTableTable.class).withRowsUntil(100);
         daleq.insertIntoDatabase(toBeInserted);
 
-        Table toBeCompared = Daleq.aTable(AssertTableTable.class).withRowsUntil(100);
+        final Table toBeCompared = Daleq.aTable(AssertTableTable.class).withRowsUntil(100);
         daleq.assertTableInDatabase(toBeCompared);
     }
 }
