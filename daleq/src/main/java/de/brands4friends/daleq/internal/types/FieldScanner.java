@@ -9,7 +9,6 @@ import org.dbunit.dataset.datatype.DataType;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldDef;
-import de.brands4friends.daleq.TemplateValue;
 
 /**
  * Scans classes for PropertyDefs and returns the findings as PropertyStructures
@@ -48,9 +47,7 @@ class FieldScanner {
     private FieldType toFieldStructure(final Field field, final FieldDef fieldDef) {
         final String name = fieldDef.getName().or(field.getName());
         final DataType dataType = fieldDef.getDataType();
-        // TODO
-        final TemplateValue templateValue = fieldDef.getTemplate().orNull();
-        return new FieldType(name, dataType, templateValue, fieldDef);
+        return new FieldType(name, dataType, fieldDef.getTemplate(), fieldDef);
     }
 
     private boolean isPropertyDef(final Field field) {

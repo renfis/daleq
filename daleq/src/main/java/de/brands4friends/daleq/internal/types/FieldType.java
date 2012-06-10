@@ -5,6 +5,8 @@ import static com.google.common.base.Objects.toStringHelper;
 import org.dbunit.dataset.datatype.DataType;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.TemplateValue;
@@ -12,19 +14,19 @@ import de.brands4friends.daleq.TemplateValue;
 public final class FieldType {
     private final String name;
     private final DataType dataType;
-    private final TemplateValue templateValue;
+    private final Optional<TemplateValue> templateValue;
     private final FieldDef origin;
 
 
     public FieldType(
             final String name,
             final DataType dataType,
-            final TemplateValue templateValue,
+            final Optional<TemplateValue> templateValue,
             final FieldDef origin) {
-        this.name = name;
-        this.dataType = dataType;
-        this.templateValue = templateValue;
-        this.origin = origin;
+        this.name = Preconditions.checkNotNull(name);
+        this.dataType = Preconditions.checkNotNull(dataType);
+        this.templateValue = Preconditions.checkNotNull(templateValue);
+        this.origin = Preconditions.checkNotNull(origin);
     }
 
     public String getName() {
@@ -35,12 +37,8 @@ public final class FieldType {
         return dataType;
     }
 
-    public TemplateValue getTemplateValue() {
+    public Optional<TemplateValue> getTemplateValue() {
         return templateValue;
-    }
-
-    public boolean hasTemplateValue() {
-        return templateValue != null;
     }
 
     public FieldDef getOrigin() {

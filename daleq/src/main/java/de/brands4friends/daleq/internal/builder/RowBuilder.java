@@ -69,8 +69,8 @@ public class RowBuilder implements Row {
     }
 
     private TemplateValue toTemplate(final FieldType fieldType, final Context context) {
-        if (fieldType.hasTemplateValue()) {
-            return fieldType.getTemplateValue();
+        if (fieldType.getTemplateValue().isPresent()) {
+            return fieldType.getTemplateValue().get();
         } else {
             final TemplateValueFactory factory = context.getTemplateValueFactory();
             return factory.create(fieldType.getDataType(), fieldType.getName());

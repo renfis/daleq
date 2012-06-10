@@ -7,8 +7,11 @@ import org.dbunit.dataset.datatype.DataType;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.common.base.Optional;
+
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.TableDef;
+import de.brands4friends.daleq.TemplateValue;
 
 public class TableTypeFactoryTest {
 
@@ -29,7 +32,7 @@ public class TableTypeFactoryTest {
 
         final TableType tableType = factory.create(MyTable.class);
         final TableType expected = new TableType("MY_TABLE",
-                new FieldType("ID", DataType.INTEGER, null, MyTable.ID));
+                new FieldType("ID", DataType.INTEGER, Optional.<TemplateValue>absent(), MyTable.ID));
 
         assertThat(tableType, is(expected));
     }

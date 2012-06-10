@@ -7,7 +7,10 @@ import static org.junit.Assert.assertThat;
 import org.dbunit.dataset.datatype.DataType;
 import org.junit.Test;
 
+import com.google.common.base.Optional;
+
 import de.brands4friends.daleq.FieldDef;
+import de.brands4friends.daleq.TemplateValue;
 import de.brands4friends.daleq.internal.template.StringTemplateValue;
 import de.brands4friends.daleq.test.EqualsAssert;
 
@@ -25,7 +28,7 @@ public class TableTypeTest {
         final FieldType fieldType = new FieldType(
                 "P NAME",
                 integer,
-                new StringTemplateValue("bar"),
+                Optional.<TemplateValue>of(new StringTemplateValue("bar")),
                 origin
         );
         final TableType table =

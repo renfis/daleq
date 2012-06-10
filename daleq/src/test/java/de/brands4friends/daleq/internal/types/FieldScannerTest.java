@@ -11,9 +11,11 @@ import org.dbunit.dataset.datatype.DataType;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldDef;
+import de.brands4friends.daleq.TemplateValue;
 import de.brands4friends.daleq.internal.template.StringTemplateValue;
 
 public class FieldScannerTest {
@@ -61,8 +63,8 @@ public class FieldScannerTest {
     @Test
     public void scanningAClassWithPropertyDefs_should_extractThosePropertyDefs() {
         final Collection<FieldType> expected = Lists.newArrayList(
-                new FieldType("ID", DataType.INTEGER, null, WithPropertyDefs.ID),
-                new FieldType("NAME", DataType.VARCHAR, null, WithPropertyDefs.NAME)
+                new FieldType("ID", DataType.INTEGER, Optional.<TemplateValue>absent(), WithPropertyDefs.ID),
+                new FieldType("NAME", DataType.VARCHAR, Optional.<TemplateValue>absent(), WithPropertyDefs.NAME)
         );
         assertThat(scanner.scan(WithPropertyDefs.class), is(expected));
     }
@@ -74,7 +76,7 @@ public class FieldScannerTest {
     @Test
     public void scanningWithExplicitName_should_haveThatName() {
         final Collection<FieldType> expected = Lists.newArrayList(
-                new FieldType(NAME, DataType.INTEGER, null, WithExplicitName.ID)
+                new FieldType(NAME, DataType.INTEGER, Optional.<TemplateValue>absent(), WithExplicitName.ID)
         );
         assertThat(scanner.scan(WithExplicitName.class), is(expected));
     }
@@ -91,7 +93,7 @@ public class FieldScannerTest {
                         new FieldType(
                                 "NAME",
                                 DataType.VARCHAR,
-                                new StringTemplateValue("some template"),
+                                Optional.<TemplateValue>of(new StringTemplateValue("some template")),
                                 WithExplicitTemplate.NAME)
                 )
         );
