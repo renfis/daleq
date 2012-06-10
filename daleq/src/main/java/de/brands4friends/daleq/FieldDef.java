@@ -5,8 +5,8 @@ import org.dbunit.dataset.datatype.DataType;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 
-import de.brands4friends.daleq.internal.structure.SubstitutingTemplateValue;
-import de.brands4friends.daleq.internal.structure.TemplateValue;
+import de.brands4friends.daleq.internal.template.SubstitutingTemplateValue;
+import de.brands4friends.daleq.internal.template.TemplateValue;
 
 public final class FieldDef {
 

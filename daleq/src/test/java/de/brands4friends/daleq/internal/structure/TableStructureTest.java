@@ -8,6 +8,7 @@ import org.dbunit.dataset.datatype.DataType;
 import org.junit.Test;
 
 import de.brands4friends.daleq.FieldDef;
+import de.brands4friends.daleq.internal.template.SubstitutingTemplateValue;
 import de.brands4friends.daleq.test.EqualsAssert;
 
 public class TableStructureTest {

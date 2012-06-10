@@ -6,8 +6,8 @@ import static org.junit.Assert.assertThat;
 import org.dbunit.dataset.datatype.DataType;
 import org.junit.Test;
 
-import de.brands4friends.daleq.internal.structure.SubstitutingTemplateValue;
-import de.brands4friends.daleq.internal.structure.TemplateValue;
+import de.brands4friends.daleq.internal.template.SubstitutingTemplateValue;
+import de.brands4friends.daleq.internal.template.TemplateValue;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 

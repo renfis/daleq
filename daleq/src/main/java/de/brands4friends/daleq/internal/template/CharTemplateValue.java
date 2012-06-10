@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.internal.structure;
+package de.brands4friends.daleq.internal.template;
 
 public class CharTemplateValue implements TemplateValue {
     @Override

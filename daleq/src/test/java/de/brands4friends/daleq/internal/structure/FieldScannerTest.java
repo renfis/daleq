@@ -14,6 +14,7 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldDef;
+import de.brands4friends.daleq.internal.template.SubstitutingTemplateValue;
 
 public class FieldScannerTest {
 

@@ -14,8 +14,8 @@ import de.brands4friends.daleq.container.FieldContainer;
 import de.brands4friends.daleq.container.RowContainer;
 import de.brands4friends.daleq.internal.structure.FieldStructure;
 import de.brands4friends.daleq.internal.structure.TableStructure;
-import de.brands4friends.daleq.internal.structure.TemplateValue;
-import de.brands4friends.daleq.internal.structure.TemplateValueDefaultProvider;
+import de.brands4friends.daleq.internal.template.TemplateValue;
+import de.brands4friends.daleq.internal.template.TemplateValueDefaultProvider;
 
 public class RowBuilder implements Row {
 

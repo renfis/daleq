@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.internal.structure;
+package de.brands4friends.daleq.internal.template;
 
 import static com.google.common.collect.ImmutableSet.of;
 
