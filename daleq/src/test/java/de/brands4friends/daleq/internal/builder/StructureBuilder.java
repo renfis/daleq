@@ -9,6 +9,7 @@ import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.internal.container.FieldContainer;
 import de.brands4friends.daleq.internal.container.RowContainer;
 import de.brands4friends.daleq.internal.container.TableContainer;
+import de.brands4friends.daleq.internal.structure.FieldStructure;
 import de.brands4friends.daleq.internal.structure.TableStructure;
 
 public class StructureBuilder {
@@ -41,7 +42,8 @@ public class StructureBuilder {
                 new Function<PropertyContainerBean, FieldContainer>() {
                     @Override
                     public FieldContainer apply(final PropertyContainerBean input) {
-                        return new FieldContainer(tableStructure.findStructureByDef(input.fieldDef), input.value);
+                        final FieldStructure fieldStructure = tableStructure.findStructureByDef(input.fieldDef);
+                        return new FieldContainer(fieldStructure.getName(), input.value);
                     }
                 }));
     }

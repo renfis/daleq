@@ -64,7 +64,7 @@ public class RowBuilder implements Row {
         final TemplateValue templateValue = toTemplate(fieldStructure, context);
 
         final String renderedValue = templateValue.render(binding);
-        return new FieldContainer(fieldStructure, renderedValue);
+        return new FieldContainer(fieldStructure.getName(), renderedValue);
     }
 
     private TemplateValue toTemplate(final FieldStructure fieldStructure, final Context context) {
@@ -81,7 +81,7 @@ public class RowBuilder implements Row {
             final FieldHolder actualField,
             final Context context) {
         final String strValue = convert(context, actualField.getValue());
-        return new FieldContainer(fieldStructure, strValue);
+        return new FieldContainer(fieldStructure.getName(), strValue);
     }
 
     private String convert(final Context context, final Object valueToConvert) {
