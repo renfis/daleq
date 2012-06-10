@@ -18,10 +18,6 @@ public final class FieldContainer {
         return structure.getName();
     }
 
-    public FieldStructure getStructure() {
-        return structure;
-    }
-
     public String getValue() {
         return value;
     }
