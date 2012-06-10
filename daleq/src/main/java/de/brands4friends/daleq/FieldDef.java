@@ -11,11 +11,12 @@ public final class FieldDef {
 
     private String name;
     private final DataType dataType;
-    private TemplateValue template;
+    private final TemplateValue template;
 
-    public FieldDef(final String name, final DataType dataType) {
+    public FieldDef(final String name, final DataType dataType, final TemplateValue template) {
         this.name = name;
         this.dataType = Preconditions.checkNotNull(dataType);
+        this.template = template;
     }
 
     public boolean hasName() {
@@ -45,8 +46,7 @@ public final class FieldDef {
     }
 
     public FieldDef template(final String template) {
-        this.template = new StringTemplateValue(template);
-        return this;
+        return new FieldDef(this.name, this.dataType, new StringTemplateValue(template));
     }
 
     @Override
@@ -56,6 +56,6 @@ public final class FieldDef {
 
     public static FieldDef fd(final DataType dataType) {
         Preconditions.checkNotNull(dataType);
-        return new FieldDef(null, dataType);
+        return new FieldDef(null, dataType, null);
     }
 }

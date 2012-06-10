@@ -21,7 +21,7 @@ public class TableTypeTest {
     @Test
     public void findStructureByDefOfExisting_should_returnStructure() {
         final DataType integer = DataType.INTEGER;
-        final FieldDef origin = new FieldDef("propertyDef", integer);
+        final FieldDef origin = new FieldDef("propertyDef", integer, null);
         final FieldType fieldType = new FieldType(
                 "P NAME",
                 integer,
@@ -37,7 +37,7 @@ public class TableTypeTest {
 
     @Test
     public void findStructureByDefOfNonExisting_should_notReturnStructure() {
-        final FieldDef origin = new FieldDef("propertyDef", DataType.INTEGER);
+        final FieldDef origin = new FieldDef("propertyDef", DataType.INTEGER, null);
         final TableType table = new TableType("SOME_NAME");
         assertThat(table.findStructureByDef(origin), is(nullValue()));
     }
