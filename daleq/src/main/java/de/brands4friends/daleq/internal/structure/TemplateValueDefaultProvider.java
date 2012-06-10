@@ -62,19 +62,19 @@ public final class TemplateValueDefaultProvider {
         }
     };
 
-    private static final DateTemplateValue DATE_TEMPLATE_VALUE = new DateTemplateValue();
-    private static final ToTemplate DATE_TO_TEMPLATE = new ToTemplate() {
-        @Override
-        public TemplateValue map(final String fieldName, final String variable) {
-            return DATE_TEMPLATE_VALUE;
-        }
-    };
-
     private static final ModuloTemplateValue MOD2_TEMPLATE_VALUE = new ModuloTemplateValue(2);
     private static final ToTemplate MOD2_TO_TEMPLATE = new ToTemplate() {
         @Override
         public TemplateValue map(final String fieldName, final String variable) {
             return MOD2_TEMPLATE_VALUE;
+        }
+    };
+
+    private static final DateTemplateValue DATE_TEMPLATE_VALUE = new DateTemplateValue();
+    private static final ToTemplate DATE_TO_TEMPLATE = new ToTemplate() {
+        @Override
+        public TemplateValue map(final String fieldName, final String variable) {
+            return DATE_TEMPLATE_VALUE;
         }
     };
 
