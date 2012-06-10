@@ -15,7 +15,7 @@ public final class FieldDef {
 
     public FieldDef(final String name, final DataType dataType) {
         this.name = name;
-        this.dataType = dataType;
+        this.dataType = Preconditions.checkNotNull(dataType);
     }
 
     public boolean hasName() {
