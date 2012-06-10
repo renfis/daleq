@@ -29,8 +29,8 @@ import com.google.common.collect.Lists;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.TableDef;
+import de.brands4friends.daleq.container.SchemaContainer;
 import de.brands4friends.daleq.internal.builder.SimpleContext;
-import de.brands4friends.daleq.internal.container.SchemaContainer;
 import junit.framework.ComparisonFailure;
 
 public class DbUnitDaleqSupportTest extends EasyMockSupport {

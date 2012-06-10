@@ -6,9 +6,9 @@ import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldDef;
-import de.brands4friends.daleq.internal.container.FieldContainer;
-import de.brands4friends.daleq.internal.container.RowContainer;
-import de.brands4friends.daleq.internal.container.TableContainer;
+import de.brands4friends.daleq.container.FieldContainer;
+import de.brands4friends.daleq.container.RowContainer;
+import de.brands4friends.daleq.container.TableContainer;
 import de.brands4friends.daleq.internal.structure.FieldStructure;
 import de.brands4friends.daleq.internal.structure.TableStructure;
 

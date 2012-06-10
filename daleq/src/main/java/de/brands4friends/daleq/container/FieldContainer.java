@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.internal.container;
+package de.brands4friends.daleq.container;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;

@@ -19,10 +19,10 @@ import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.Table;
+import de.brands4friends.daleq.container.SchemaContainer;
+import de.brands4friends.daleq.container.TableContainer;
 import de.brands4friends.daleq.internal.builder.Context;
 import de.brands4friends.daleq.internal.builder.SimpleContext;
-import de.brands4friends.daleq.internal.container.SchemaContainer;
-import de.brands4friends.daleq.internal.container.TableContainer;
 
 
 public class FlatXmlConverterTest {

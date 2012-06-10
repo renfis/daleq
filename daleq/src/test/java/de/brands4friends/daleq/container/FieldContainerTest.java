@@ -1,4 +1,4 @@
-package de.brands4friends.daleq.internal.container;
+package de.brands4friends.daleq.container;
 
 import static nl.jqno.equalsverifier.EqualsVerifier.forClass;
 
@@ -6,10 +6,10 @@ import org.junit.Test;
 
 import nl.jqno.equalsverifier.Warning;
 
-public class TableContainerTest {
+public class FieldContainerTest {
 
     @Test
     public void testHashcodeAndEquals() {
-        forClass(TableContainer.class).suppress(Warning.NULL_FIELDS).verify();
+        forClass(FieldContainer.class).suppress(Warning.NULL_FIELDS).verify();
     }
 }

@@ -10,8 +10,8 @@ import com.google.common.primitives.Longs;
 import de.brands4friends.daleq.Daleq;
 import de.brands4friends.daleq.Row;
 import de.brands4friends.daleq.Table;
-import de.brands4friends.daleq.internal.container.RowContainer;
-import de.brands4friends.daleq.internal.container.TableContainer;
+import de.brands4friends.daleq.container.RowContainer;
+import de.brands4friends.daleq.container.TableContainer;
 import de.brands4friends.daleq.internal.structure.TableStructure;
 import de.brands4friends.daleq.internal.structure.TableStructureFactory;
 
