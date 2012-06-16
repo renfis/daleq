@@ -63,7 +63,7 @@ configure(allprojects) {
     }
 }
 
-project('daleq') {
+project('daleq-core') {
     dependencies {
         compile deps.jodaTime
         compile deps.guava
@@ -78,7 +78,7 @@ project('daleq') {
 
 project('integration') {
     dependencies {
-        compile project(':daleq')
+        compile project(':daleq-core')
         compile deps.springJdbc
 
         testCompile deps.springTest
@@ -88,7 +88,7 @@ project('integration') {
 
 project('examples') {
     dependencies {
-        compile project(':daleq')
+        compile project(':daleq-core')
         compile deps.springJdbc
 
         testCompile deps.springTest
