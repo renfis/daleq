@@ -154,6 +154,19 @@ public class TableBuilderTest {
         );
     }
 
+    @Test(expected = DaleqBuildException.class)
+    public void allHaving_withFieldDefNotInTable_should_fail() {
+        aTable(ExampleTable.class)
+                .withRowsUntil(1)
+                .allHaving(FieldDef.fd(DataType.CHAR).name("foo"), "bar")
+                .build(context);
+    }
+
+    @Test
+    public void allHaving_onEmptyTable_should_doNothing() {
+        assertThat(aTable(ExampleTable.class).allHaving(PROP_A, "FOO").build(context), is(sb.table()));
+    }
+
     @Test
     public void having_withEmptyValues_should_leaveTheFieldsAsTheyAre() {
         assertThat(
@@ -244,9 +257,12 @@ public class TableBuilderTest {
         );
     }
 
-    @Test
-    public void allHaving_onEmptyTable_should_doNothing() {
-        assertThat(aTable(ExampleTable.class).allHaving(PROP_A, "FOO").build(context), is(sb.table()));
+    @Test(expected = DaleqBuildException.class)
+    public void having_withFieldDefNotInTable_should_fail() {
+        aTable(ExampleTable.class)
+                .withRowsUntil(1)
+                .having(FieldDef.fd(DataType.CHAR).name("foo"), Lists.<Object>newArrayList("bar"))
+                .build(context);
     }
 
     @TableDef("ANOTHER_TABLE")
