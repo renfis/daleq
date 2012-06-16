@@ -43,12 +43,8 @@ configure(allprojects) {
         testCompile deps.sl4jSimple
     }
 
-//    // workaround for gradle bug. no debug var symbols in grade 1-09m
-//    tasks.withType(Compile) { options.compilerArgs = ["-g:source,lines,vars"] }
-
     test {
         maxHeapSize '400M'
-//        debug true
         maxParallelForks 10
     }
 
