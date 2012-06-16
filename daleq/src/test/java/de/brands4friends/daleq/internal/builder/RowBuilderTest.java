@@ -72,4 +72,18 @@ public class RowBuilderTest {
         final FieldDef bar = FieldDef.fd(DataType.VARCHAR);
         RowBuilder.aRow(42).f(bar, "foo").build(context, tableType);
     }
+
+    @Test
+    public void addingAFieldTwice_should_takeTheLastOne() {
+        assertThat(
+                RowBuilder.aRow(23)
+                        .f(ExampleTable.PROP_B, "FOO")
+                        .f(ExampleTable.PROP_B, "BAR")
+                        .build(context, tableType),
+                is(sb.row(
+                        sb.field(ExampleTable.PROP_A, "23"),
+                        sb.field(ExampleTable.PROP_B, "BAR")
+                ))
+        );
+    }
 }
