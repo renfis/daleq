@@ -39,7 +39,7 @@ public class DateTimeTypeConverterTest {
     @Test
     public void testConvert() {
         final DateTime date = new DateTime(2000, 12, 24, 1, 2, 3, 4);
-        final String result = (String) dateTimeTypeConverter.convert(date);
+        final String result = dateTimeTypeConverter.convert(date);
         assertThat(result, is("2000-12-24 01:02:03.004"));
     }
 

@@ -42,7 +42,7 @@ public class DateTypeConverterTest {
     public void testConversion() throws ParseException {
 
         final Date date = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.SSS", Locale.US).parse("24-Feb-1998 17:39:35.123");
-        final String formatted = (String) dateTypeConverter.convert(date);
+        final String formatted = dateTypeConverter.convert(date);
         assertThat(formatted, is("1998-02-24 17:39:35.123"));
     }
 
