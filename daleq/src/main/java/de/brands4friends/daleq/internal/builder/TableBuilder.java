@@ -17,11 +17,13 @@
 package de.brands4friends.daleq.internal.builder;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
 import com.google.common.base.Function;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Longs;
 
@@ -76,6 +78,19 @@ public class TableBuilder implements Table {
     public Table allHaving(final FieldDef fieldDef, @Nullable final Object value) {
         for (Row row : rows) {
             row.f(fieldDef, value);
+        }
+        return this;
+    }
+
+    @Override
+    public Table having(final FieldDef fieldDef, final Iterable<Object> values) {
+        Preconditions.checkNotNull(values);
+        final Iterator<Object> iter = values.iterator();
+        for (Row row : rows) {
+            if (!iter.hasNext()) {
+                return this;
+            }
+            row.f(fieldDef, iter.next());
         }
         return this;
     }

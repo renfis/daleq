@@ -30,6 +30,8 @@ public interface Table {
 
     Table allHaving(FieldDef fieldDef, @Nullable Object value);
 
+    Table having(FieldDef fieldDef, Iterable<Object> values);
+
     TableContainer build(final Context context);
 
 }
