@@ -18,18 +18,24 @@ ext {
     def springVersion = "3.1.1.RELEASE"
 
     deps = [
-            jodaTime : "joda-time:joda-time:1.6.2",
-            guava : "com.google.guava:guava:12.0",
-            commonsLang : "commons-lang:commons-lang:2.6",
-            commonsCodec : "commons-codec:commons-codec:1.6",
-            dbUnit : "org.dbunit:dbunit:2.4.8",
-            dom4j : "dom4j:dom4j:1.6.1",
+            junit: "junit:junit:4.8.2",
+            hamcrest: "org.hamcrest:hamcrest-library:1.3.RC2",
+            easymock: "org.easymock:easymock:3.1",
+            sl4jSimple: "org.slf4j:slf4j-simple:1.5.6",
 
-            equalsverifier : "nl.jqno.equalsverifier:equalsverifier:1.1.3",
 
-            springJdbc : "org.springframework:spring-jdbc:${springVersion}",
-            springTest : "org.springframework:spring-test:${springVersion}",
-            hsqldb : "org.hsqldb:hsqldb:2.2.8"
+            jodaTime: "joda-time:joda-time:1.6.2",
+            guava: "com.google.guava:guava:12.0",
+            commonsLang: "commons-lang:commons-lang:2.6",
+            commonsCodec: "commons-codec:commons-codec:1.6",
+            dbUnit: "org.dbunit:dbunit:2.4.8",
+            dom4j: "dom4j:dom4j:1.6.1",
+
+            equalsverifier: "nl.jqno.equalsverifier:equalsverifier:1.1.3",
+
+            springJdbc: "org.springframework:spring-jdbc:${springVersion}",
+            springTest: "org.springframework:spring-test:${springVersion}",
+            hsqldb: "org.hsqldb:hsqldb:2.2.8"
 
     ]
 }
