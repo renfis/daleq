@@ -55,7 +55,7 @@ public final class FieldDef {
     public FieldDef template(final String template) {
         return new FieldDef(
                 this.dataType,
-                Optional.<String>absent(),
+                this.name,
                 Optional.<TemplateValue>of(new StringTemplateValue(template))
         );
     }

@@ -67,4 +67,12 @@ public class FieldDefTest {
         final TemplateValue expected = new StringTemplateValue(TEMPLATE);
         assertThat(FieldDef.fd(DataType.INTEGER).template(TEMPLATE).getTemplate().get(), is(expected));
     }
+
+    @Test
+    public void chainNameAndTemplate_should_haveBoth() {
+        final FieldDef fd = FieldDef.fd(DataType.INTEGER).name("new name").template(TEMPLATE);
+        assertThat(fd.getName().get(), is("new name"));
+        final TemplateValue expected = new StringTemplateValue(TEMPLATE);
+        assertThat(fd.getTemplate().get(), is(expected));
+    }
 }
