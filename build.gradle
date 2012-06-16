@@ -21,6 +21,9 @@ configure(allprojects) {
     apply plugin: 'pmd'
     apply plugin: 'findbugs'
 
+    // Define Dependencies
+    apply from: "${rootProject.projectDir}/gradle/dependencies.gradle"
+
     group = 'de.brands4friends.daleq'
     version = '0.1.0'
 
@@ -43,9 +46,6 @@ configure(allprojects) {
 //    // workaround for gradle bug. no debug var symbols in grade 1-09m
 //    tasks.withType(Compile) { options.compilerArgs = ["-g:source,lines,vars"] }
 
-    // Define Dependencies
-//    apply from: "${rootProject.projectDir}/gradle/dependencies.gradle"
-
     test {
         maxHeapSize '800M'
 //        debug true
@@ -65,31 +65,33 @@ configure(allprojects) {
 
 project('daleq') {
     dependencies {
-        compile "joda-time:joda-time:1.6.2"
-        compile "com.google.guava:guava:12.0"
-        compile "commons-lang:commons-lang:2.6"
-        compile "commons-codec:commons-codec:1.6"
-        compile "org.dbunit:dbunit:2.4.8"
-        compile "dom4j:dom4j:1.6.1"
+        compile deps.jodaTime
+        compile deps.guava
+        compile deps.commonsLang
+        compile deps.commonsCodec
+        compile deps.dbUnit
+        compile deps.dom4j
 
-        testCompile "nl.jqno.equalsverifier:equalsverifier:1.1.3"
+        testCompile deps.equalsverifier
     }
 }
 
 project('integration') {
     dependencies {
         compile project(':daleq')
-        compile "org.springframework:spring-jdbc:3.1.1.RELEASE"
-        testCompile "org.springframework:spring-test:3.1.1.RELEASE"
-        testCompile "org.hsqldb:hsqldb:2.2.8"
+        compile deps.springJdbc
+
+        testCompile deps.springTest
+        testCompile deps.hsqldb
     }
 }
 
 project('examples') {
     dependencies {
         compile project(':daleq')
-        compile "org.springframework:spring-jdbc:3.1.1.RELEASE"
-        testCompile "org.springframework:spring-test:3.1.1.RELEASE"
-        testCompile "org.hsqldb:hsqldb:2.2.8"
+        compile deps.springJdbc
+
+        testCompile deps.springTest
+        testCompile deps.hsqldb
     }
 }
