@@ -34,7 +34,7 @@ public final class FieldType {
     private final FieldDef origin;
 
 
-    public FieldType(
+    FieldType(
             final String name,
             final DataType dataType,
             final Optional<TemplateValue> templateValue,

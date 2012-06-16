@@ -32,7 +32,7 @@ public class TableType {
     private final List<FieldType> fields;
     private final Map<FieldDef, FieldType> lookupByDef;
 
-    public TableType(final String name, final List<FieldType> fields) {
+    TableType(final String name, final List<FieldType> fields) {
         this.name = name;
         this.fields = fields;
         this.lookupByDef = Maps.uniqueIndex(fields, new Function<FieldType, FieldDef>() {
