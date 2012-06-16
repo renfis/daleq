@@ -36,7 +36,7 @@ public class DateTypeConverter implements TypeConverter {
         return Date.class;
     }
 
-    private static String createXMLDateTime(final Date date) {
+    public static String createXMLDateTime(final Date date) {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault()).format(date);
     }
 }

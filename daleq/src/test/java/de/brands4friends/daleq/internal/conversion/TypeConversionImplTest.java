@@ -17,7 +17,6 @@
 package de.brands4friends.daleq.internal.conversion;
 
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 import java.util.Date;
@@ -40,17 +39,20 @@ public class TypeConversionImplTest {
 
     @Test
     public void dateConverter_should_beRegistered() {
-        assertThat(conversion.convert(new Date(1234)), is(notNullValue()));
+        final Date value = new Date(1234);
+        assertThat(conversion.convert(value), is(DateTypeConverter.createXMLDateTime(value)));
     }
 
     @Test
     public void localDateConverter_should_beRegistered() {
-        assertThat(conversion.convert(new LocalDate(1234L)), is(notNullValue()));
+        final LocalDate value = new LocalDate(1234L);
+        assertThat(conversion.convert(value), is(LocalDateConverter.createXMLDateTime(value)));
     }
 
     @Test
     public void dateTimeConverter_should_beRegistered() {
-        assertThat(conversion.convert(new DateTime(1234)), is(notNullValue()));
+        final DateTime value = new DateTime(1234);
+        assertThat(conversion.convert(value), is(DateTimeTypeConverter.createXMLDateTime(value)));
     }
 
     @Test

@@ -18,28 +18,31 @@ package de.brands4friends.daleq.internal.conversion;
 
 import java.util.Map;
 
-import com.google.common.collect.ImmutableMap;
+import javax.annotation.Nullable;
+
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 import de.brands4friends.daleq.TypeConversion;
 
 public class TypeConversionImpl implements TypeConversion {
 
-    private static final Map<Class<?>, TypeConverter> TYPE_CONVERTER_BY_CLASSNAME = buildMap();
+    private static final Map<Class<?>, TypeConverter> TYPE_CONVERTER_BY_CLASSNAME =
+            Maps.uniqueIndex(Lists.newArrayList(
+                    new DateTypeConverter(),
+                    new DateTimeTypeConverter(),
+                    new LocalDateConverter()),
 
-    private static Map<Class<?>, TypeConverter> buildMap() {
-        final DateTypeConverter dateTypeConverter = new DateTypeConverter();
-        final DateTimeTypeConverter dateTimeTypeConverter = new DateTimeTypeConverter();
-        final LocalDateConverter localDateConverter = new LocalDateConverter();
-
-        return new ImmutableMap.Builder<Class<?>, TypeConverter>()
-                .put(dateTypeConverter.getResponsibleFor(), dateTypeConverter)
-                .put(dateTimeTypeConverter.getResponsibleFor(), dateTimeTypeConverter)
-                .put(localDateConverter.getResponsibleFor(), localDateConverter)
-                .build();
-    }
+                    new Function<TypeConverter, Class<?>>() {
+                        @Override
+                        public Class<?> apply(@Nullable final TypeConverter input) {
+                            return input == null ? null : input.getResponsibleFor();
+                        }
+                    });
 
     @Override
-    public String convert(final Object value) {
+    public String convert(@Nullable final Object value) {
         if (value == null) {
             return null;
         }
