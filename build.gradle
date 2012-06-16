@@ -47,7 +47,7 @@ configure(allprojects) {
 //    tasks.withType(Compile) { options.compilerArgs = ["-g:source,lines,vars"] }
 
     test {
-        maxHeapSize '800M'
+        maxHeapSize '400M'
 //        debug true
         maxParallelForks 10
     }
