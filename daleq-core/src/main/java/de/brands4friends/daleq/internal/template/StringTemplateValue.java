@@ -28,8 +28,6 @@ public final class StringTemplateValue implements TemplateValue {
     private static final String VAR_NAME = "_";
     public static final String VAR = "${" + VAR_NAME + "}";
 
-    public static final TemplateValue DEFAULT = new StringTemplateValue(VAR);
-
     private final String template;
 
     public StringTemplateValue(final String template) {
