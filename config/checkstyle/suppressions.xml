@@ -11,4 +11,7 @@
     <suppress files=".+Test\.java" checks="VisibilityModifier"/>
 
     <suppress files=".+Table\.java" checks="HideUtilityClassConstructor"/>
+
+    <!-- Disable finding Copyright notices as false positives -->
+    <suppress files=".*\.java" lines="1-16" checks="StrictDuplicateCode" />
 </suppressions>
