@@ -31,6 +31,9 @@ import de.brands4friends.daleq.internal.types.TableTypeFactory;
 
 public class RowBuilderTest {
 
+    private static final String FOO = "FOO";
+    private static final String BAR = "BAR";
+
     private Context context;
     private TableType tableType;
     private StructureBuilder sb;
@@ -46,12 +49,12 @@ public class RowBuilderTest {
     public void aRowWithJustProvidedProperties_should_beBuild() {
         assertThat(
                 RowBuilder.aRow(23)
-                        .f(ExampleTable.PROP_A, "FOO")
-                        .f(ExampleTable.PROP_B, "BAR")
+                        .f(ExampleTable.PROP_A, FOO)
+                        .f(ExampleTable.PROP_B, BAR)
                         .build(context, tableType),
                 is(sb.row(
-                        sb.field(ExampleTable.PROP_A, "FOO"),
-                        sb.field(ExampleTable.PROP_B, "BAR")
+                        sb.field(ExampleTable.PROP_A, FOO),
+                        sb.field(ExampleTable.PROP_B, BAR)
                 ))
         );
     }
@@ -77,12 +80,12 @@ public class RowBuilderTest {
     public void addingAFieldTwice_should_takeTheLastOne() {
         assertThat(
                 RowBuilder.aRow(23)
-                        .f(ExampleTable.PROP_B, "FOO")
-                        .f(ExampleTable.PROP_B, "BAR")
+                        .f(ExampleTable.PROP_B, FOO)
+                        .f(ExampleTable.PROP_B, BAR)
                         .build(context, tableType),
                 is(sb.row(
                         sb.field(ExampleTable.PROP_A, "23"),
-                        sb.field(ExampleTable.PROP_B, "BAR")
+                        sb.field(ExampleTable.PROP_B, BAR)
                 ))
         );
     }

@@ -118,19 +118,20 @@ public class TableBuilderTest {
 
     @Test
     public void allHaving_should_applyTheFieldToAllPreviouslyAddedRow() {
+        final String newValue = "new";
         assertThat(
                 aTable(ExampleTable.class)
                         .with(
                                 aRow(0).f(PROP_B, "0_ORG"),
                                 aRow(1).f(PROP_B, "1_ORG"),
                                 aRow(2).f(PROP_B, "2_ORG"))
-                        .allHaving(PROP_B, "new")
+                        .allHaving(PROP_B, newValue)
                         .build(context),
                 is(
                         sb.table(
-                                sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "new")),
-                                sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "new")),
-                                sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "new"))
+                                sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, newValue)),
+                                sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, newValue)),
+                                sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, newValue))
                         )
                 )
         );
