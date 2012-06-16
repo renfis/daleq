@@ -58,7 +58,18 @@ configure(allprojects) {
     }
 
     pmd {
-        ruleSets = ['basic', 'design', 'braces', 'clone', 'strings', 'optimizations', 'strictexception', 'typeresolution', 'unusedcode', 'coupling']
+        ruleSets = [
+                'basic',
+                'design',
+                'braces',
+                'clone',
+                'strings',
+                'optimizations',
+                'strictexception',
+                'typeresolution',
+                'unusedcode',
+                'coupling'
+        ]
         ruleSetFiles = fileTree(dir: "${rootProject.projectDir}/config/pmd", include: '*.xml')
     }
 }
