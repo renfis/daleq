@@ -19,12 +19,15 @@ package de.brands4friends.daleq.internal.builder;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Longs;
 
 import de.brands4friends.daleq.Context;
 import de.brands4friends.daleq.Daleq;
+import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.Row;
 import de.brands4friends.daleq.RowContainer;
 import de.brands4friends.daleq.Table;
@@ -65,6 +68,14 @@ public class TableBuilder implements Table {
     public Table withRowsUntil(final long maxId) {
         for (long i = 0; i < maxId; i++) {
             this.rows.add(Daleq.aRow(i));
+        }
+        return this;
+    }
+
+    @Override
+    public Table allHaving(final FieldDef fieldDef, @Nullable final Object value) {
+        for (Row row : rows) {
+            row.f(fieldDef, value);
         }
         return this;
     }

@@ -16,6 +16,8 @@
 
 package de.brands4friends.daleq;
 
+import javax.annotation.Nullable;
+
 public interface Table {
 
     Table with(Row... rows);
@@ -25,6 +27,8 @@ public interface Table {
     Table withSomeRows(long... ids);
 
     Table withRowsUntil(long maxId);
+
+    Table allHaving(FieldDef fieldDef, @Nullable Object value);
 
     TableContainer build(final Context context);
 

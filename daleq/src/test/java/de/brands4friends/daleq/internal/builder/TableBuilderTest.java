@@ -114,6 +114,49 @@ public class TableBuilderTest {
         );
     }
 
+    @Test
+    public void allHaving_should_applyTheFieldToAllPreviouslyAddedRow() {
+        assertThat(
+                aTable(ExampleTable.class)
+                        .with(
+                                aRow(0).f(PROP_B, "0_ORG"),
+                                aRow(1).f(PROP_B, "1_ORG"),
+                                aRow(2).f(PROP_B, "2_ORG"))
+                        .allHaving(PROP_B, "new")
+                        .build(context),
+                is(
+                        sb.table(
+                                sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "new")),
+                                sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "new")),
+                                sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "new"))
+                        )
+                )
+        );
+    }
+
+    @Test
+    public void allHaving_should_notApplyToRowsAddedAfter() {
+        assertThat(
+                aTable(ExampleTable.class)
+                        .with(aRow(0).f(PROP_B, "0_ORG"))
+                        .allHaving(PROP_B, "new")
+                        .with(aRow(1).f(PROP_B, "1_ORG"), aRow(2).f(PROP_B, "2_ORG"))
+                        .build(context),
+                is(
+                        sb.table(
+                                sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "new")),
+                                sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "1_ORG")),
+                                sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "2_ORG"))
+                        )
+                )
+        );
+    }
+
+    @Test
+    public void allHaving_onEmptyTable_should_doNothing() {
+        assertThat(aTable(ExampleTable.class).allHaving(PROP_A, "FOO").build(context), is(sb.table()));
+    }
+
     @TableDef("ANOTHER_TABLE")
     public static class AnotherTable {
         public static final FieldDef ANOTHER_FIELD = FieldDef.fd(DataType.INTEGER);
