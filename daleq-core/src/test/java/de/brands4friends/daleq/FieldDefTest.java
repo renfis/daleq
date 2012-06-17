@@ -17,9 +17,11 @@
 package de.brands4friends.daleq;
 
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import org.dbunit.dataset.datatype.DataType;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import com.google.common.base.Optional;
@@ -87,12 +89,16 @@ public class FieldDefTest {
 
     @Test(expected = NullPointerException.class)
     public void nameWithNull_should_fail() {
-        someFd().name(null);
+        final FieldDef fd = someFd().name(null);
+        // should already have failed!
+        assertThat(fd, Matchers.is(nullValue()));
     }
 
     @Test(expected = NullPointerException.class)
     public void templateWithNull_should_fail() {
-        someFd().template(null);
+        final FieldDef fd = someFd().template(null);
+        // should already have failed!
+        assertThat(fd, Matchers.is(nullValue()));
     }
 
     private FieldDef someFd() {
