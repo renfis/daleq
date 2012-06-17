@@ -17,9 +17,17 @@
 package de.brands4friends.daleq.internal.builder;
 
 import static nl.jqno.equalsverifier.EqualsVerifier.forClass;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertThat;
+
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
 
+import de.brands4friends.daleq.FieldContainer;
+import de.brands4friends.daleq.NoSuchDaleqFieldException;
 import nl.jqno.equalsverifier.Warning;
 
 public class RowContainerImplTest {
@@ -27,5 +35,33 @@ public class RowContainerImplTest {
     @Test
     public void testHashcodeAndEquals() {
         forClass(RowContainerImpl.class).suppress(Warning.NULL_FIELDS).verify();
+    }
+
+    @Test
+    public void getFieldByName_should_getAnExistingField() {
+        final String fieldName = "A";
+        final FieldContainer existingField = field(fieldName, "foo");
+        final RowContainerImpl row = new RowContainerImpl(fields(existingField));
+
+        assertThat(row.getFieldBy(fieldName), is(existingField));
+    }
+
+    @Test(expected = NoSuchDaleqFieldException.class)
+    public void getFieldByName_should_throwForNonExistingField() {
+        final String fieldName = "A";
+        final FieldContainer existingField = field(fieldName, "foo");
+        final RowContainerImpl row = new RowContainerImpl(fields(existingField));
+
+        final FieldContainer result = row.getFieldBy("B");
+        // should have failed yet.
+        assertThat(result, is(nullValue()));
+    }
+
+    private FieldContainer field(final String name, final String value) {
+        return new FieldContainerImpl(name, value);
+    }
+
+    private List<FieldContainer> fields(final FieldContainer... fields) {
+        return Arrays.asList(fields);
     }
 }

@@ -17,26 +17,49 @@
 package de.brands4friends.daleq.internal.builder;
 
 import java.util.List;
+import java.util.Map;
 
+import javax.annotation.Nullable;
+
+import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Maps;
 
 import de.brands4friends.daleq.FieldContainer;
+import de.brands4friends.daleq.NoSuchDaleqFieldException;
 import de.brands4friends.daleq.RowContainer;
 
 public final class RowContainerImpl implements RowContainer {
 
     private final List<FieldContainer> fields;
+    private final Map<String, FieldContainer> index;
 
     public RowContainerImpl(final List<FieldContainer> fields) {
         this.fields = ImmutableList.copyOf(Preconditions.checkNotNull(fields));
+        this.index = Maps.uniqueIndex(this.fields, new Function<FieldContainer, String>() {
+            @Override
+            public String apply(@Nullable final FieldContainer field) {
+                if (field == null) {
+                    return null;
+                }
+                return field.getName();
+            }
+        });
     }
 
     @Override
     public List<FieldContainer> getFields() {
         return fields;
+    }
+
+    public FieldContainer getFieldBy(final String fieldName) {
+        if (!this.index.containsKey(fieldName)) {
+            throw new NoSuchDaleqFieldException("fieldName");
+        }
+        return this.index.get(fieldName);
     }
 
     @Override

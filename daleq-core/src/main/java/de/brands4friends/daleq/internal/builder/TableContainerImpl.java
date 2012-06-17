@@ -18,10 +18,15 @@ package de.brands4friends.daleq.internal.builder;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
+import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Objects;
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 
 import de.brands4friends.daleq.RowContainer;
 import de.brands4friends.daleq.TableContainer;
@@ -44,6 +49,19 @@ public final class TableContainerImpl implements TableContainer {
     @Override
     public List<RowContainer> getRows() {
         return rows;
+    }
+
+    @Override
+    public Iterable<Optional<String>> getValuesOfField(final String fieldName) {
+        return Iterables.transform(rows, new Function<RowContainer, Optional<String>>() {
+            @Override
+            public Optional<String> apply(@Nullable final RowContainer row) {
+                if (row == null) {
+                    return null;
+                }
+                return row.getFieldBy(fieldName).getValue();
+            }
+        });
     }
 
     @Override

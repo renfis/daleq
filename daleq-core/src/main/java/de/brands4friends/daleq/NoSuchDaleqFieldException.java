@@ -16,14 +16,8 @@
 
 package de.brands4friends.daleq;
 
-import java.util.List;
-
-import com.google.common.base.Optional;
-
-public interface TableContainer {
-    String getName();
-
-    List<RowContainer> getRows();
-
-    Iterable<Optional<String>> getValuesOfField(final String fieldName);
+public class NoSuchDaleqFieldException extends DaleqBuildException {
+    public NoSuchDaleqFieldException(final String message) {
+        super(message);
+    }
 }

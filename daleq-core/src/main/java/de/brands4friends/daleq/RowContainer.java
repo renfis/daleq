@@ -20,4 +20,10 @@ import java.util.List;
 
 public interface RowContainer {
     List<FieldContainer> getFields();
+
+    /**
+     * @param fieldName
+     * @throws NoSuchDaleqFieldException if such a field does not exist in the RowContainer
+     */
+    FieldContainer getFieldBy(final String fieldName);
 }
