@@ -104,7 +104,7 @@ public class TableBuilder<T> implements Table {
                 return row.build(context, tableType);
             }
         });
-        return new TableContainerImpl(tableType.getName(), rowContainers);
+        return new TableContainerImpl(tableType, rowContainers);
     }
 
     private TableType toTableType(final Context context) {

@@ -20,10 +20,14 @@ import java.util.List;
 
 import com.google.common.base.Optional;
 
+import de.brands4friends.daleq.internal.types.TableType;
+
 public interface TableContainer {
     String getName();
 
     List<RowContainer> getRows();
 
     Iterable<Optional<String>> getValuesOfField(final String fieldName);
+
+    TableType getTableType();
 }

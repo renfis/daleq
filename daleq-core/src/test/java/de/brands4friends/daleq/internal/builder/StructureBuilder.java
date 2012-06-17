@@ -49,7 +49,7 @@ public class StructureBuilder {
     }
 
     public TableContainer table(final RowContainer... rowContainers) {
-        return new TableContainerImpl(tableType.getName(), Arrays.asList(rowContainers));
+        return new TableContainerImpl(tableType, Arrays.asList(rowContainers));
     }
 
     public RowContainer row(final PropertyContainerBean... props) {
