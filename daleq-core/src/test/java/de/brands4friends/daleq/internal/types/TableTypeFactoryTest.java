@@ -40,7 +40,7 @@ public class TableTypeFactoryTest {
 
     @Before
     public void setUp() throws Exception {
-        factory = new TableTypeFactory();
+        factory = new TableTypeFactoryImpl();
     }
 
     @Test

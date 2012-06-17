@@ -35,7 +35,7 @@ import de.brands4friends.daleq.RowContainer;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.TableContainer;
 import de.brands4friends.daleq.internal.types.TableType;
-import de.brands4friends.daleq.internal.types.TableTypeFactory;
+import de.brands4friends.daleq.internal.types.TableTypeFactoryImpl;
 
 public class TableBuilder<T> implements Table {
 
@@ -97,7 +97,7 @@ public class TableBuilder<T> implements Table {
 
     @Override
     public TableContainer build(final Context context) {
-        final TableType tableType = new TableTypeFactory().create(table);
+        final TableType tableType = new TableTypeFactoryImpl().create(table);
         final List<RowContainer> rowContainers = Lists.transform(rows, new Function<Row, RowContainer>() {
             @Override
             public RowContainer apply(final Row row) {

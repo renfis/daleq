@@ -27,7 +27,7 @@ import de.brands4friends.daleq.Context;
 import de.brands4friends.daleq.DaleqBuildException;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.internal.types.TableType;
-import de.brands4friends.daleq.internal.types.TableTypeFactory;
+import de.brands4friends.daleq.internal.types.TableTypeFactoryImpl;
 
 public class RowBuilderTest {
 
@@ -41,7 +41,7 @@ public class RowBuilderTest {
     @Before
     public void setUp() throws Exception {
         context = new SimpleContext();
-        tableType = new TableTypeFactory().create(ExampleTable.class);
+        tableType = new TableTypeFactoryImpl().create(ExampleTable.class);
         sb = new StructureBuilder(tableType);
     }
 

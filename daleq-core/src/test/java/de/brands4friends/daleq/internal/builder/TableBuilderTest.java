@@ -36,7 +36,7 @@ import de.brands4friends.daleq.DaleqBuildException;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.TableDef;
 import de.brands4friends.daleq.internal.types.TableType;
-import de.brands4friends.daleq.internal.types.TableTypeFactory;
+import de.brands4friends.daleq.internal.types.TableTypeFactoryImpl;
 
 public class TableBuilderTest {
 
@@ -46,7 +46,7 @@ public class TableBuilderTest {
     @Before
     public void setUp() throws Exception {
         context = new SimpleContext();
-        final TableType tableType = new TableTypeFactory().create(ExampleTable.class);
+        final TableType tableType = new TableTypeFactoryImpl().create(ExampleTable.class);
         sb = new StructureBuilder(tableType);
     }
 
