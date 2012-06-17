@@ -21,10 +21,14 @@ import de.brands4friends.daleq.TemplateValueFactory;
 import de.brands4friends.daleq.TypeConversion;
 import de.brands4friends.daleq.internal.conversion.TypeConversionImpl;
 import de.brands4friends.daleq.internal.template.TemplateValueFactoryImpl;
+import de.brands4friends.daleq.internal.types.TableTypeFactory;
+import de.brands4friends.daleq.internal.types.TableTypeFactoryImpl;
 
 public class SimpleContext implements Context {
+
     private final TypeConversion typeConversion = new TypeConversionImpl();
     private final TemplateValueFactory templateValueFactory = TemplateValueFactoryImpl.getInstance();
+    private final TableTypeFactory tableTypeFactory = new TableTypeFactoryImpl();
 
     @Override
     public TypeConversion getTypeConversion() {
@@ -34,5 +38,10 @@ public class SimpleContext implements Context {
     @Override
     public TemplateValueFactory getTemplateValueFactory() {
         return templateValueFactory;
+    }
+
+    @Override
+    public TableTypeFactory getTableTypeFactory() {
+        return tableTypeFactory;
     }
 }

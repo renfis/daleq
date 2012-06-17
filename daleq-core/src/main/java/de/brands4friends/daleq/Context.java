@@ -16,8 +16,12 @@
 
 package de.brands4friends.daleq;
 
+import de.brands4friends.daleq.internal.types.TableTypeFactory;
+
 public interface Context {
     TypeConversion getTypeConversion();
 
     TemplateValueFactory getTemplateValueFactory();
+
+    TableTypeFactory getTableTypeFactory();
 }
