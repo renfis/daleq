@@ -58,7 +58,7 @@ public class StructureBuilder {
                 new Function<PropertyContainerBean, FieldContainer>() {
                     @Override
                     public FieldContainer apply(final PropertyContainerBean input) {
-                        final FieldType fieldType = tableType.findStructureByDef(input.fieldDef);
+                        final FieldType fieldType = tableType.findFieldBy(input.fieldDef);
                         return new FieldContainerImpl(fieldType.getName(), input.value);
                     }
                 }));

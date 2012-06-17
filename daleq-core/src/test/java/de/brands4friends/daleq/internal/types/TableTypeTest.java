@@ -51,13 +51,13 @@ public class TableTypeTest {
                 new TableType("SOME_NAME",
                         fieldType);
 
-        assertThat(table.findStructureByDef(origin), is(fieldType));
+        assertThat(table.findFieldBy(origin), is(fieldType));
     }
 
     @Test
     public void findStructureByDefOfNonExisting_should_notReturnStructure() {
         final FieldDef origin = FieldDef.fd(DataType.INTEGER).name("propertyDef");
         final TableType table = new TableType("SOME_NAME");
-        assertThat(table.findStructureByDef(origin), is(nullValue()));
+        assertThat(table.findFieldBy(origin), is(nullValue()));
     }
 }

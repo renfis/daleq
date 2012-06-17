@@ -55,7 +55,7 @@ public class TableType {
         return fields;
     }
 
-    public FieldType findStructureByDef(final FieldDef fieldDef) {
+    public FieldType findFieldBy(final FieldDef fieldDef) {
         return lookupByDef.get(fieldDef);
     }
 

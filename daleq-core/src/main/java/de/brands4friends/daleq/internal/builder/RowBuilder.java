@@ -111,7 +111,7 @@ public class RowBuilder implements Row {
         return Maps.uniqueIndex(fields.values(), new Function<FieldHolder, FieldType>() {
             @Override
             public FieldType apply(final FieldHolder fieldHolder) {
-                final FieldType fieldType = tableType.findStructureByDef(fieldHolder.getFieldDef());
+                final FieldType fieldType = tableType.findFieldBy(fieldHolder.getFieldDef());
                 if (fieldType == null) {
                     return throwUnknownFieldException(fieldHolder, tableType);
                 }
