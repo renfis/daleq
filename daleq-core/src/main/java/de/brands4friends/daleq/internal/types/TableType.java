@@ -26,7 +26,7 @@ import com.google.common.collect.Maps;
 
 import de.brands4friends.daleq.FieldDef;
 
-public class TableType {
+public final class TableType {
 
     private final String name;
     private final List<FieldType> fields;
@@ -60,7 +60,7 @@ public class TableType {
     }
 
     @Override
-    public final boolean equals(final Object obj) {
+    public boolean equals(final Object obj) {
         if (obj instanceof TableType) {
             final TableType that = (TableType) obj;
 
@@ -72,7 +72,7 @@ public class TableType {
     }
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         return Objects.hashCode(name, fields);
     }
 
