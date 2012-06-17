@@ -43,7 +43,7 @@ class FieldScanner {
 
             if (result.isEmpty()) {
                 throw new IllegalArgumentException(
-                        "No PropertyType Definitions in class '" + fromClass.getSimpleName() + "'");
+                        "No Field Definitions in class '" + fromClass.getSimpleName() + "'");
             }
 
             return result;
