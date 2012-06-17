@@ -54,7 +54,7 @@ public class FieldDefTest {
     }
 
     @Test
-    public void aFieldWithTemplate_should_haveATempalte() {
+    public void aFieldWithTemplate_should_haveATemplate() {
         assertThat(someFd().template(TEMPLATE).getTemplate().isPresent(), is(true));
     }
 
