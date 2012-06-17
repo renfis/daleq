@@ -55,23 +55,23 @@ public class FieldDefTest {
 
     @Test
     public void aFieldWithTemplate_should_haveATempalte() {
-        assertThat(FieldDef.fd(DataType.INTEGER).template(TEMPLATE).getTemplate().isPresent(), is(true));
+        assertThat(someFd().template(TEMPLATE).getTemplate().isPresent(), is(true));
     }
 
     @Test
     public void aFieldWithoutTemplate_should_haveNoTemplate() {
-        assertThat(FieldDef.fd(DataType.INTEGER).getTemplate().isPresent(), is(false));
+        assertThat(someFd().getTemplate().isPresent(), is(false));
     }
 
     @Test
     public void aFieldTemplate_should_beCorrect() {
         final TemplateValue expected = new StringTemplateValue(TEMPLATE);
-        assertThat(FieldDef.fd(DataType.INTEGER).template(TEMPLATE).getTemplate().get(), is(expected));
+        assertThat(someFd().template(TEMPLATE).getTemplate().get(), is(expected));
     }
 
     @Test
     public void chainNameAndTemplate_should_haveBoth() {
-        final FieldDef fd = FieldDef.fd(DataType.INTEGER).name(NEW_NAME).template(TEMPLATE);
+        final FieldDef fd = someFd().name(NEW_NAME).template(TEMPLATE);
         assertThat(fd.getName().get(), is(NEW_NAME));
         final TemplateValue expected = new StringTemplateValue(TEMPLATE);
         assertThat(fd.getTemplate().get(), is(expected));
@@ -79,9 +79,23 @@ public class FieldDefTest {
 
     @Test
     public void chainTemplateAndName_should_haveBoth() {
-        final FieldDef fd = FieldDef.fd(DataType.INTEGER).template(TEMPLATE).name(NEW_NAME);
+        final FieldDef fd = someFd().template(TEMPLATE).name(NEW_NAME);
         assertThat(fd.getName().get(), is(NEW_NAME));
         final TemplateValue expected = new StringTemplateValue(TEMPLATE);
         assertThat(fd.getTemplate().get(), is(expected));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void nameWithNull_should_fail() {
+        someFd().name(null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void templateWithNull_should_fail() {
+        someFd().template(null);
+    }
+
+    private FieldDef someFd() {
+        return FieldDef.fd(DataType.INTEGER);
     }
 }

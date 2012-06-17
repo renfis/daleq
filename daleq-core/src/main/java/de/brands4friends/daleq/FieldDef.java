@@ -49,10 +49,12 @@ public final class FieldDef {
     }
 
     public FieldDef name(final String name) {
+        Preconditions.checkNotNull(name);
         return new FieldDef(this.dataType, Optional.of(name), this.template);
     }
 
     public FieldDef template(final String template) {
+        Preconditions.checkNotNull(template);
         return new FieldDef(
                 this.dataType,
                 this.name,
