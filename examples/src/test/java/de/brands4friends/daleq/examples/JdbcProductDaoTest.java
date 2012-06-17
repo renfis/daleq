@@ -23,6 +23,7 @@ import static de.brands4friends.daleq.examples.ProductTable.SIZE;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -67,7 +68,7 @@ public class JdbcProductDaoTest extends AbstractTransactionalJUnit4SpringContext
     }
 
     @Test
-    public void findById_should_returnExistingProduct() {
+    public void findById_should_returnExistingProduct() throws IOException {
 
         final long expectedId = 42L;
 
@@ -75,6 +76,7 @@ public class JdbcProductDaoTest extends AbstractTransactionalJUnit4SpringContext
                 aRow(11).f(ID, expectedId)
         );
 
+        daleq.printTable(table, System.out);
         daleq.insertIntoDatabase(table);
 
         final Product product = productDao.findById(expectedId);

@@ -34,6 +34,7 @@ public class MarkdownTableFormatter implements TableFormatter {
 
     public static final char PAD_CHAR = ' ';
     public static final String NEWLINE = "\n";
+    public static final String WHITESPACE = " ";
 
     private static enum Alignment {LEFT, RIGHT}
 
@@ -73,7 +74,7 @@ public class MarkdownTableFormatter implements TableFormatter {
 
             appendSeparator(appendable);
             for (Column column : columns) {
-                appendable.append(" ");
+                appendWhitespace(appendable);
                 final FieldContainer field = row.getFieldBy(column.name);
                 final String value = field.getValue().or("");
                 if (column.alignment == Alignment.LEFT) {
@@ -81,11 +82,15 @@ public class MarkdownTableFormatter implements TableFormatter {
                 } else {
                     appendable.append(Strings.padStart(value, column.width, PAD_CHAR));
                 }
-                appendable.append(" ");
+                appendWhitespace(appendable);
                 appendSeparator(appendable);
             }
             appendNewline(appendable);
         }
+    }
+
+    private void appendWhitespace(final Appendable appendable) throws IOException {
+        appendable.append(WHITESPACE);
     }
 
     private void appendHead(final Appendable appendable, final List<Column> columns) throws IOException {
@@ -144,9 +149,9 @@ public class MarkdownTableFormatter implements TableFormatter {
     }
 
     private void appendColumnHeader(final Column column, final Appendable appendable) throws IOException {
-        appendable.append(" ");
+        appendWhitespace(appendable);
         appendable.append(Strings.padEnd(column.name, column.width, PAD_CHAR));
-        appendable.append(" ");
+        appendWhitespace(appendable);
     }
 
     private int calcMaxWidth(final TableContainer table, final String fieldName) {
