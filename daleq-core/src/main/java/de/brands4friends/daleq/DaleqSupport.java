@@ -16,9 +16,14 @@
 
 package de.brands4friends.daleq;
 
+import java.io.IOException;
+import java.io.PrintStream;
+
 public interface DaleqSupport {
 
     void insertIntoDatabase(Table... tables);
 
     void assertTableInDatabase(Table table);
+
+    void printTable(Table table, PrintStream printer) throws IOException;
 }

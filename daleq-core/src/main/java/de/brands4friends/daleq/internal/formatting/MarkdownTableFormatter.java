@@ -36,9 +36,12 @@ public class MarkdownTableFormatter implements TableFormatter {
     public static final String NEWLINE = "\n";
     public static final String WHITESPACE = " ";
 
-    private static enum Alignment {LEFT, RIGHT}
+    private static enum Alignment {
+        LEFT,
+        RIGHT
+    }
 
-    private static class Column {
+    private static final class Column {
         private final int width;
         private final String name;
         private final Alignment alignment;
@@ -69,7 +72,9 @@ public class MarkdownTableFormatter implements TableFormatter {
         appendBody(table, appendable, columns);
     }
 
-    private void appendBody(final TableContainer table, final Appendable appendable, final List<Column> columns) throws IOException {
+    private void appendBody(final TableContainer table, final Appendable appendable, final List<Column> columns)
+            throws IOException {
+
         for (RowContainer row : table.getRows()) {
 
             appendSeparator(appendable);
@@ -119,7 +124,9 @@ public class MarkdownTableFormatter implements TableFormatter {
         appendNewline(appendable);
     }
 
-    private void appendHorizontalHeaderLine(final Appendable appendable, final List<Column> columns) throws IOException {
+    private void appendHorizontalHeaderLine(final Appendable appendable, final List<Column> columns)
+            throws IOException {
+
         appendSeparator(appendable);
         for (Column column : columns) {
 

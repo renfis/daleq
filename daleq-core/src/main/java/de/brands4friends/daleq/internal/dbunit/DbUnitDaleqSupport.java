@@ -16,6 +16,8 @@
 
 package de.brands4friends.daleq.internal.dbunit;
 
+import java.io.IOException;
+import java.io.PrintStream;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
@@ -39,6 +41,7 @@ import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.TableContainer;
 import de.brands4friends.daleq.internal.builder.SchemaContainerImpl;
 import de.brands4friends.daleq.internal.builder.SimpleContext;
+import de.brands4friends.daleq.internal.formatting.MarkdownTableFormatter;
 
 public class DbUnitDaleqSupport implements DaleqSupport {
 
@@ -127,6 +130,13 @@ public class DbUnitDaleqSupport implements DaleqSupport {
         } catch (DatabaseUnitException e) {
             throw new DaleqException(e);
         }
+    }
+
+    @Override
+    public void printTable(final Table table, final PrintStream printer) throws IOException {
+        Preconditions.checkNotNull(table);
+        final TableContainer tableContainer = table.build(context);
+        new MarkdownTableFormatter().formatTo(tableContainer, printer);
     }
 
     private void insertIntoDatabase(final SchemaContainer schema) throws DatabaseUnitException, SQLException {
