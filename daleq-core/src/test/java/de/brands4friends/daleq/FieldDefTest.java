@@ -32,6 +32,7 @@ public class FieldDefTest {
 
     public static final String NAME = "foo";
     public static final String TEMPLATE = "foo";
+    public static final String NEW_NAME = "new name";
 
     @Test
     public void testHashCodeAndEquals() {
@@ -70,16 +71,16 @@ public class FieldDefTest {
 
     @Test
     public void chainNameAndTemplate_should_haveBoth() {
-        final FieldDef fd = FieldDef.fd(DataType.INTEGER).name("new name").template(TEMPLATE);
-        assertThat(fd.getName().get(), is("new name"));
+        final FieldDef fd = FieldDef.fd(DataType.INTEGER).name(NEW_NAME).template(TEMPLATE);
+        assertThat(fd.getName().get(), is(NEW_NAME));
         final TemplateValue expected = new StringTemplateValue(TEMPLATE);
         assertThat(fd.getTemplate().get(), is(expected));
     }
 
     @Test
     public void chainTemplateAndName_should_haveBoth() {
-        final FieldDef fd = FieldDef.fd(DataType.INTEGER).template(TEMPLATE).name("new name");
-        assertThat(fd.getName().get(), is("new name"));
+        final FieldDef fd = FieldDef.fd(DataType.INTEGER).template(TEMPLATE).name(NEW_NAME);
+        assertThat(fd.getName().get(), is(NEW_NAME));
         final TemplateValue expected = new StringTemplateValue(TEMPLATE);
         assertThat(fd.getTemplate().get(), is(expected));
     }
