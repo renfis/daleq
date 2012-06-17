@@ -43,7 +43,7 @@ public class TableBuilder<T> implements Table {
     private final List<Row> rows;
 
     public TableBuilder(final Class<T> table) {
-        this.table = table;
+        this.table = Preconditions.checkNotNull(table);
         this.rows = Lists.newArrayList();
     }
 
