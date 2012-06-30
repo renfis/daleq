@@ -36,10 +36,8 @@ import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.Context;
 import de.brands4friends.daleq.DaleqSupport;
-import de.brands4friends.daleq.SchemaData;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.TableData;
-import de.brands4friends.daleq.internal.builder.ImmutableSchemaData;
 import de.brands4friends.daleq.internal.builder.SimpleContext;
 import de.brands4friends.daleq.internal.formatting.MarkdownTableFormatter;
 
@@ -88,7 +86,7 @@ public class DbUnitDaleqSupport implements DaleqSupport {
     @Override
     public final void insertIntoDatabase(final Table... tables) {
         try {
-            insertIntoDatabase(toSchemaContainer(tables));
+            insertIntoDatabase(toTables(tables));
 
         } catch (DatabaseUnitException e) {
             throw new DaleqException(e);
@@ -97,8 +95,8 @@ public class DbUnitDaleqSupport implements DaleqSupport {
         }
     }
 
-    private SchemaData toSchemaContainer(final Table... tables) {
-        final List<TableData> tableDatas = Lists.transform(
+    private List<TableData> toTables(final Table... tables) {
+        return Lists.transform(
                 Arrays.asList(tables),
                 new Function<Table, TableData>() {
                     @Override
@@ -106,17 +104,16 @@ public class DbUnitDaleqSupport implements DaleqSupport {
                         return table.build(context);
                     }
                 });
-        return new ImmutableSchemaData(tableDatas);
     }
 
     @Override
     public void assertTableInDatabase(final Table table) {
         Preconditions.checkNotNull(table);
         try {
-            final SchemaData schemaData = toSchemaContainer(table);
-            final String tableName = schemaData.getTables().get(0).getName();
+            final List<TableData> tableDatas = toTables(table);
+            final String tableName = tableDatas.get(0).getName();
 
-            final IDataSet expectedDataSet = dataSetFactory.create(schemaData.getTables());
+            final IDataSet expectedDataSet = dataSetFactory.create(tableDatas);
             final ITable expectedTable = expectedDataSet.getTable(tableName);
             final IDataSet actualDataSet = createDatabaseConnection().createDataSet();
             final ITable actualTable = actualDataSet.getTable(tableName);
@@ -139,8 +136,8 @@ public class DbUnitDaleqSupport implements DaleqSupport {
         new MarkdownTableFormatter().formatTo(tableData, printer);
     }
 
-    private void insertIntoDatabase(final SchemaData schema) throws DatabaseUnitException, SQLException {
-        final IDataSet dbUnitDataset = dataSetFactory.create(schema.getTables());
+    private void insertIntoDatabase(final List<TableData> tables) throws DatabaseUnitException, SQLException {
+        final IDataSet dbUnitDataset = dataSetFactory.create(tables);
         insertOperation.execute(createDatabaseConnection(), dbUnitDataset);
     }
 }
