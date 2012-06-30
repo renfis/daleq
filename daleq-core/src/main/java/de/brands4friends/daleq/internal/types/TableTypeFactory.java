@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq;
+package de.brands4friends.daleq.internal.types;
+
+import de.brands4friends.daleq.TableType;
 
 public interface TableTypeFactory {
     <T> TableType create(Class<T> fromClass);

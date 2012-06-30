@@ -34,7 +34,8 @@ import de.brands4friends.daleq.Row;
 import de.brands4friends.daleq.RowData;
 import de.brands4friends.daleq.TableType;
 import de.brands4friends.daleq.TemplateValue;
-import de.brands4friends.daleq.TemplateValueFactory;
+import de.brands4friends.daleq.internal.conversion.TypeConversion;
+import de.brands4friends.daleq.internal.template.TemplateValueFactory;
 
 public class RowBuilder implements Row {
 
@@ -90,7 +91,7 @@ public class RowBuilder implements Row {
         if (fieldType.getTemplateValue().isPresent()) {
             return fieldType.getTemplateValue().get();
         } else {
-            final TemplateValueFactory factory = context.getTemplateValueFactory();
+            final TemplateValueFactory factory = context.getService(TemplateValueFactory.class);
             return factory.create(fieldType.getDataType(), fieldType.getName());
         }
     }
@@ -104,7 +105,8 @@ public class RowBuilder implements Row {
     }
 
     private String convert(final Context context, final Object valueToConvert) {
-        return context.getTypeConversion().convert(valueToConvert);
+        final TypeConversion typeConversion = context.getService(TypeConversion.class);
+        return typeConversion.convert(valueToConvert);
     }
 
     private Map<FieldType, FieldHolder> createTypeToHolderIndex(final TableType tableType) {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq;
+package de.brands4friends.daleq.internal.conversion;
 
 import javax.annotation.Nullable;
 

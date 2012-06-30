@@ -35,7 +35,7 @@ import de.brands4friends.daleq.RowData;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.TableType;
-import de.brands4friends.daleq.TableTypeFactory;
+import de.brands4friends.daleq.internal.types.TableTypeFactory;
 
 public class TableBuilder<T> implements Table {
 
@@ -108,7 +108,7 @@ public class TableBuilder<T> implements Table {
     }
 
     private TableType toTableType(final Context context) {
-        final TableTypeFactory tableTypeFactory = context.getTableTypeFactory();
+        final TableTypeFactory tableTypeFactory = context.getService(TableTypeFactory.class);
         return tableTypeFactory.create(table);
     }
 

@@ -24,8 +24,6 @@ import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import de.brands4friends.daleq.TypeConversion;
-
 public class TypeConversionImpl implements TypeConversion {
 
     private static final Map<Class<?>, TypeConverter> TYPE_CONVERTER_BY_CLASSNAME =

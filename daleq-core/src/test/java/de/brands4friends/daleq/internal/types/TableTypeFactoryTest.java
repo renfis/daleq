@@ -29,7 +29,6 @@ import de.brands4friends.daleq.Daleq;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.TableDef;
 import de.brands4friends.daleq.TableType;
-import de.brands4friends.daleq.TableTypeFactory;
 import de.brands4friends.daleq.TemplateValue;
 
 public class TableTypeFactoryTest {

@@ -21,7 +21,6 @@ import java.util.List;
 import de.brands4friends.daleq.FieldType;
 import de.brands4friends.daleq.TableDef;
 import de.brands4friends.daleq.TableType;
-import de.brands4friends.daleq.TableTypeFactory;
 
 public class TableTypeFactoryImpl implements TableTypeFactory {
 

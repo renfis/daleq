@@ -22,7 +22,6 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 
 import de.brands4friends.daleq.TableType;
-import de.brands4friends.daleq.TableTypeFactory;
 
 public class CachingTableTypeFactoryDecorator implements TableTypeFactory {
 

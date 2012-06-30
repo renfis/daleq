@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq;
+package de.brands4friends.daleq.internal.template;
 
 import org.dbunit.dataset.datatype.DataType;
+
+import de.brands4friends.daleq.TemplateValue;
 
 public interface TemplateValueFactory {
     TemplateValue create(DataType dataType, String fieldName);
