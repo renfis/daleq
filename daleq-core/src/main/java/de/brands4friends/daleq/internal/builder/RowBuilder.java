@@ -80,7 +80,6 @@ public class RowBuilder implements Row {
     }
 
     private FieldContainer convertDefaultField(final FieldType fieldType, final Context context) {
-        // apply template binding to template
         final TemplateValue templateValue = toTemplate(fieldType, context);
 
         final String renderedValue = templateValue.render(binding);
