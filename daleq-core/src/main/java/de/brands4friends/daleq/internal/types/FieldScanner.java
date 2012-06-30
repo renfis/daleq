@@ -32,38 +32,32 @@ import de.brands4friends.daleq.FieldDef;
 class FieldScanner {
 
     public <T> List<FieldType> scan(final Class<T> fromClass) {
-
-        try {
-            final List<FieldType> result = Lists.newArrayList();
-            for (Field field : fromClass.getDeclaredFields()) {
-                if (isConstant(field) && isFieldDef(field)) {
-                    addStructureOfField(result, field);
-                }
+        final List<FieldType> result = Lists.newArrayList();
+        for (Field field : fromClass.getDeclaredFields()) {
+            if (isConstant(field) && isFieldDef(field)) {
+                result.add(mapFieldToFieldType(field));
             }
+        }
+        checkResultHasFields(fromClass, result);
+        return result;
+    }
 
-            if (result.isEmpty()) {
-                throw new IllegalArgumentException(
-                        "No Field Definitions in class '" + fromClass.getSimpleName() + "'");
-            }
-
-            return result;
-        } catch (IllegalAccessException e) {
-            throw new IllegalStateException(e);
+    private <T> void checkResultHasFields(final Class<T> fromClass, final List<FieldType> result) {
+        if (result.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "No Field Definitions in class '" + fromClass.getSimpleName() + "'");
         }
     }
 
-    private void addStructureOfField(
-            final List<FieldType> result,
-            final Field field
-    ) throws IllegalAccessException {
-        final FieldDef fieldDef = (FieldDef) field.get(null);
-        result.add(toFieldStructure(field, fieldDef));
-    }
-
-    private FieldType toFieldStructure(final Field field, final FieldDef fieldDef) {
-        final String name = fieldDef.getName().or(field.getName());
-        final DataType dataType = fieldDef.getDataType();
-        return new FieldType(name, dataType, fieldDef.getTemplate(), fieldDef);
+    private FieldType mapFieldToFieldType(final Field field) {
+        try {
+            final FieldDef fieldDef = (FieldDef) field.get(null);
+            final String name = fieldDef.getName().or(field.getName());
+            final DataType dataType = fieldDef.getDataType();
+            return new FieldType(name, dataType, fieldDef.getTemplate(), fieldDef);
+        } catch (IllegalAccessException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     private boolean isFieldDef(final Field field) {
