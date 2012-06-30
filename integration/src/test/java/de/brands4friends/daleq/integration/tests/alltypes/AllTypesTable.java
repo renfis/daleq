@@ -18,8 +18,7 @@ package de.brands4friends.daleq.integration.tests.alltypes;
 
 import static de.brands4friends.daleq.Daleq.fd;
 
-import org.dbunit.dataset.datatype.DataType;
-
+import de.brands4friends.daleq.DataType;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.TableDef;
 

@@ -16,9 +16,8 @@
 
 package de.brands4friends.daleq.integration.tests.assertingtable;
 
-import org.dbunit.dataset.datatype.DataType;
-
 import de.brands4friends.daleq.Daleq;
+import de.brands4friends.daleq.DataType;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.TableDef;
 

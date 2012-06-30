@@ -27,12 +27,11 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import org.dbunit.dataset.datatype.DataType;
-
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 
+import de.brands4friends.daleq.DataType;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.FieldType;
 import de.brands4friends.daleq.internal.builder.FieldDefBuilder;

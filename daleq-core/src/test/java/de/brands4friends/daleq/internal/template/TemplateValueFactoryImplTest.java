@@ -19,9 +19,10 @@ package de.brands4friends.daleq.internal.template;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.dbunit.dataset.datatype.DataType;
 import org.junit.Before;
 import org.junit.Test;
+
+import de.brands4friends.daleq.DataType;
 
 public class TemplateValueFactoryImplTest {
 

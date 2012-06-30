@@ -23,7 +23,6 @@ import static org.junit.Assert.assertThat;
 
 import java.util.Collection;
 
-import org.dbunit.dataset.datatype.DataType;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,6 +30,7 @@ import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.Daleq;
+import de.brands4friends.daleq.DataType;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.FieldType;
 import de.brands4friends.daleq.TemplateValue;

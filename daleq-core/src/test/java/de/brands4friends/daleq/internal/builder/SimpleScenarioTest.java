@@ -21,10 +21,10 @@ import static de.brands4friends.daleq.Daleq.aTable;
 import static de.brands4friends.daleq.internal.builder.SimpleScenarioTest.MyTable.NAME;
 import static de.brands4friends.daleq.internal.builder.SimpleScenarioTest.MyTable.VALUE;
 
-import org.dbunit.dataset.datatype.DataType;
 import org.junit.Test;
 
 import de.brands4friends.daleq.Daleq;
+import de.brands4friends.daleq.DataType;
 import de.brands4friends.daleq.FieldDef;
 
 public class SimpleScenarioTest {

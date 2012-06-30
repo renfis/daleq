@@ -32,7 +32,6 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
-import org.dbunit.dataset.datatype.DataType;
 import org.dbunit.operation.DatabaseOperation;
 import org.easymock.Capture;
 import org.easymock.EasyMockSupport;
@@ -44,6 +43,7 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.Daleq;
+import de.brands4friends.daleq.DataType;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.TableData;

@@ -14,17 +14,40 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.examples;
+package de.brands4friends.daleq;
 
-import de.brands4friends.daleq.Daleq;
-import de.brands4friends.daleq.DataType;
-import de.brands4friends.daleq.FieldDef;
-import de.brands4friends.daleq.TableDef;
-
-@TableDef("PRODUCT")
-public class ProductTable {
-    public static final FieldDef ID = Daleq.fd(DataType.INTEGER);
-    public static final FieldDef NAME = Daleq.fd(DataType.VARCHAR);
-    public static final FieldDef SIZE = Daleq.fd(DataType.VARCHAR);
-    public static final FieldDef PRICE = Daleq.fd(DataType.DECIMAL);
+public enum DataType {
+    // String types
+    VARCHAR,
+    LONGVARCHAR,
+    NVARCHAR,
+    LONGNVARCHAR,
+    CLOB,
+    // Char types
+    CHAR,
+    NCHAR,
+    // Boolean types
+    BOOLEAN,
+    BIT,
+    // Number types
+    NUMERIC,
+    DECIMAL,
+    INTEGER,
+    TINYINT,
+    SMALLINT,
+    BIGINT,
+    REAL,
+    DOUBLE,
+    FLOAT,
+    BIGINT_AUX_LONG,
+    // Date types
+    DATE,
+    // Timestamp types
+    TIME,
+    TIMESTAMP,
+    // Blob types
+    VARBINARY,
+    BINARY,
+    LONGVARBINARY,
+    BLOB
 }

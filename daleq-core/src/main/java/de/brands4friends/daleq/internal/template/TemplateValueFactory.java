@@ -16,8 +16,7 @@
 
 package de.brands4friends.daleq.internal.template;
 
-import org.dbunit.dataset.datatype.DataType;
-
+import de.brands4friends.daleq.DataType;
 import de.brands4friends.daleq.TemplateValue;
 
 public interface TemplateValueFactory {

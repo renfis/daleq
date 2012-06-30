@@ -20,12 +20,12 @@ import static org.easymock.EasyMock.expect;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.dbunit.dataset.datatype.DataType;
 import org.easymock.EasyMockSupport;
 import org.junit.Before;
 import org.junit.Test;
 
 import de.brands4friends.daleq.Daleq;
+import de.brands4friends.daleq.DataType;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.TableDef;
 import de.brands4friends.daleq.TableType;

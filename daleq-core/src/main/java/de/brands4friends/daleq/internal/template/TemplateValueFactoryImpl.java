@@ -22,12 +22,11 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-import org.dbunit.dataset.datatype.DataType;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import de.brands4friends.daleq.DaleqBuildException;
+import de.brands4friends.daleq.DataType;
 import de.brands4friends.daleq.TemplateValue;
 
 public final class TemplateValueFactoryImpl implements TemplateValueFactory {

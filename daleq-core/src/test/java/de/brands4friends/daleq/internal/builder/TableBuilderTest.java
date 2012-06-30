@@ -25,7 +25,6 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
-import org.dbunit.dataset.datatype.DataType;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,6 +33,7 @@ import com.google.common.collect.Lists;
 import de.brands4friends.daleq.Context;
 import de.brands4friends.daleq.Daleq;
 import de.brands4friends.daleq.DaleqBuildException;
+import de.brands4friends.daleq.DataType;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.TableDef;
 import de.brands4friends.daleq.TableType;

@@ -16,8 +16,6 @@
 
 package de.brands4friends.daleq;
 
-import org.dbunit.dataset.datatype.DataType;
-
 import de.brands4friends.daleq.internal.builder.FieldDefBuilder;
 import de.brands4friends.daleq.internal.builder.RowBuilder;
 import de.brands4friends.daleq.internal.builder.TableBuilder;

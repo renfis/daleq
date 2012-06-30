@@ -16,8 +16,6 @@
 
 package de.brands4friends.daleq;
 
-import org.dbunit.dataset.datatype.DataType;
-
 import com.google.common.base.Optional;
 
 public interface FieldDef {
