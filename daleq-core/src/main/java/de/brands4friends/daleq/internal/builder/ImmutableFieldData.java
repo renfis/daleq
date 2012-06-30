@@ -24,7 +24,7 @@ import com.google.common.base.Preconditions;
 
 import de.brands4friends.daleq.FieldData;
 
-public final class ImmutableFieldData implements FieldData {
+final class ImmutableFieldData implements FieldData {
     private final String name;
     private final Optional<String> value;
 

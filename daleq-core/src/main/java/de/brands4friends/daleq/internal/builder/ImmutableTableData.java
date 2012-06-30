@@ -32,7 +32,7 @@ import de.brands4friends.daleq.RowData;
 import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.internal.types.TableType;
 
-public final class ImmutableTableData implements TableData {
+final class ImmutableTableData implements TableData {
 
     private final TableType tableType;
     private final List<RowData> rows;

@@ -32,7 +32,7 @@ import de.brands4friends.daleq.FieldData;
 import de.brands4friends.daleq.NoSuchDaleqFieldException;
 import de.brands4friends.daleq.RowData;
 
-public final class ImmutableRowData implements RowData {
+final class ImmutableRowData implements RowData {
 
     private final List<FieldData> fields;
     private final Map<String, FieldData> index;
