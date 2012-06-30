@@ -30,7 +30,7 @@ import com.google.common.collect.Iterables;
 
 import de.brands4friends.daleq.RowData;
 import de.brands4friends.daleq.TableData;
-import de.brands4friends.daleq.internal.types.TableType;
+import de.brands4friends.daleq.TableType;
 
 final class ImmutableTableData implements TableData {
 

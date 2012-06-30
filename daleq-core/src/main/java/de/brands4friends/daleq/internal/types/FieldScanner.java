@@ -34,6 +34,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldDef;
+import de.brands4friends.daleq.FieldType;
 
 /**
  * Scans classes for FieldDefs and returns the findings as FieldTypes
@@ -51,7 +52,7 @@ class FieldScanner {
                 final FieldDef fieldDef = (FieldDef) field.get(null);
                 final String name = fieldDef.getName().or(field.getName());
                 final DataType dataType = fieldDef.getDataType();
-                return new FieldType(name, dataType, fieldDef.getTemplate(), fieldDef);
+                return new FieldTypeImpl(name, dataType, fieldDef.getTemplate(), fieldDef);
             } catch (IllegalAccessException e) {
                 throw new IllegalStateException(e);
             }

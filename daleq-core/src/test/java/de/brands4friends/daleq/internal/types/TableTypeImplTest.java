@@ -26,29 +26,31 @@ import org.junit.Test;
 import com.google.common.base.Optional;
 
 import de.brands4friends.daleq.FieldDef;
+import de.brands4friends.daleq.FieldType;
+import de.brands4friends.daleq.TableType;
 import de.brands4friends.daleq.TemplateValue;
 import de.brands4friends.daleq.internal.template.StringTemplateValue;
 import de.brands4friends.daleq.test.EqualsAssert;
 
-public class TableTypeTest {
+public class TableTypeImplTest {
 
     @Test
     public void testHashcodeAndEquals() {
-        EqualsAssert.assertProperEqualsAndHashcode(TableType.class);
+        EqualsAssert.assertProperEqualsAndHashcode(TableTypeImpl.class);
     }
 
     @Test
     public void findStructureByDefOfExisting_should_returnStructure() {
         final DataType integer = DataType.INTEGER;
         final FieldDef origin = FieldDef.fd(integer).name("propertyDef");
-        final FieldType fieldType = new FieldType(
+        final FieldType fieldType = new FieldTypeImpl(
                 "P NAME",
                 integer,
                 Optional.<TemplateValue>of(new StringTemplateValue("bar")),
                 origin
         );
         final TableType table =
-                new TableType("SOME_NAME",
+                new TableTypeImpl("SOME_NAME",
                         fieldType);
 
         assertThat(table.findFieldBy(origin), is(fieldType));
@@ -57,7 +59,7 @@ public class TableTypeTest {
     @Test
     public void findStructureByDefOfNonExisting_should_notReturnStructure() {
         final FieldDef origin = FieldDef.fd(DataType.INTEGER).name("propertyDef");
-        final TableType table = new TableType("SOME_NAME");
+        final TableType table = new TableTypeImpl("SOME_NAME");
         assertThat(table.findFieldBy(origin), is(nullValue()));
     }
 }

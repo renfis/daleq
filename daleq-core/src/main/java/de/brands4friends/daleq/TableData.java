@@ -20,8 +20,6 @@ import java.util.List;
 
 import com.google.common.base.Optional;
 
-import de.brands4friends.daleq.internal.types.TableType;
-
 public interface TableData {
     String getName();
 

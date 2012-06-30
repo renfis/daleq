@@ -31,6 +31,7 @@ import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldDef;
+import de.brands4friends.daleq.FieldType;
 import de.brands4friends.daleq.TemplateValue;
 import de.brands4friends.daleq.internal.template.StringTemplateValue;
 
@@ -78,9 +79,9 @@ public class FieldScannerTest {
 
     @Test
     public void scanningAClassWithPropertyDefs_should_extractThosePropertyDefs() {
-        final Collection<FieldType> expected = Lists.newArrayList(
-                new FieldType("ID", DataType.INTEGER, Optional.<TemplateValue>absent(), WithPropertyDefs.ID),
-                new FieldType("NAME", DataType.VARCHAR, Optional.<TemplateValue>absent(), WithPropertyDefs.NAME)
+        final Collection<FieldType> expected = Lists.<FieldType>newArrayList(
+                new FieldTypeImpl("ID", DataType.INTEGER, Optional.<TemplateValue>absent(), WithPropertyDefs.ID),
+                new FieldTypeImpl("NAME", DataType.VARCHAR, Optional.<TemplateValue>absent(), WithPropertyDefs.NAME)
         );
         assertThat(scanner.scan(WithPropertyDefs.class), is(expected));
     }
@@ -91,8 +92,8 @@ public class FieldScannerTest {
 
     @Test
     public void scanningWithExplicitName_should_haveThatName() {
-        final Collection<FieldType> expected = Lists.newArrayList(
-                new FieldType(NAME, DataType.INTEGER, Optional.<TemplateValue>absent(), WithExplicitName.ID)
+        final Collection<FieldType> expected = Lists.<FieldType>newArrayList(
+                new FieldTypeImpl(NAME, DataType.INTEGER, Optional.<TemplateValue>absent(), WithExplicitName.ID)
         );
         assertThat(scanner.scan(WithExplicitName.class), is(expected));
     }
@@ -106,7 +107,7 @@ public class FieldScannerTest {
         assertThat(
                 scanner.scan(WithExplicitTemplate.class),
                 contains(
-                        new FieldType(
+                        (FieldType) new FieldTypeImpl(
                                 "NAME",
                                 DataType.VARCHAR,
                                 Optional.<TemplateValue>of(new StringTemplateValue("some template")),

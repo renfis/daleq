@@ -23,10 +23,10 @@ import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldData;
 import de.brands4friends.daleq.FieldDef;
+import de.brands4friends.daleq.FieldType;
 import de.brands4friends.daleq.RowData;
 import de.brands4friends.daleq.TableData;
-import de.brands4friends.daleq.internal.types.FieldType;
-import de.brands4friends.daleq.internal.types.TableType;
+import de.brands4friends.daleq.TableType;
 
 public class StructureBuilder {
 

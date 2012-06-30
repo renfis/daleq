@@ -16,6 +16,21 @@
 
 package de.brands4friends.daleq.internal.types;
 
-public interface TableTypeFactory {
-    <T> TableType create(Class<T> fromClass);
+import static nl.jqno.equalsverifier.EqualsVerifier.forClass;
+
+import org.junit.Test;
+
+import com.google.common.base.Optional;
+
+import nl.jqno.equalsverifier.Warning;
+
+public class FieldTypeImplTest {
+
+    @Test
+    public void testHashCodeAndEquals() {
+        forClass(FieldTypeImpl.class)
+                .withPrefabValues(Optional.class, Optional.of("a"), Optional.of("b"))
+                .suppress(Warning.STRICT_INHERITANCE)
+                .verify();
+    }
 }

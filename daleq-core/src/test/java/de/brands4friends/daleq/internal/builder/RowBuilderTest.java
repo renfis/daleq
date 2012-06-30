@@ -26,7 +26,7 @@ import org.junit.Test;
 import de.brands4friends.daleq.Context;
 import de.brands4friends.daleq.DaleqBuildException;
 import de.brands4friends.daleq.FieldDef;
-import de.brands4friends.daleq.internal.types.TableType;
+import de.brands4friends.daleq.TableType;
 import de.brands4friends.daleq.internal.types.TableTypeFactoryImpl;
 
 public class RowBuilderTest {

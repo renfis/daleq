@@ -16,11 +16,16 @@
 
 package de.brands4friends.daleq;
 
-import javax.annotation.Nullable;
+import org.dbunit.dataset.datatype.DataType;
 
-public interface Row {
+import com.google.common.base.Optional;
 
-    Row f(FieldDef fieldDef, @Nullable Object value);
+public interface FieldType {
+    String getName();
 
-    RowData build(Context context, final TableType tableType);
+    DataType getDataType();
+
+    Optional<TemplateValue> getTemplateValue();
+
+    FieldDef getOrigin();
 }

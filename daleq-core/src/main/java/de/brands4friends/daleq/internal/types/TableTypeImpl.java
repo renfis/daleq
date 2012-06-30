@@ -25,14 +25,16 @@ import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 
 import de.brands4friends.daleq.FieldDef;
+import de.brands4friends.daleq.FieldType;
+import de.brands4friends.daleq.TableType;
 
-public final class TableType {
+final class TableTypeImpl implements TableType {
 
     private final String name;
     private final List<FieldType> fields;
     private final Map<FieldDef, FieldType> lookupByDef;
 
-    TableType(final String name, final List<FieldType> fields) {
+    TableTypeImpl(final String name, final List<FieldType> fields) {
         this.name = name;
         this.fields = fields;
         this.lookupByDef = Maps.uniqueIndex(fields, new Function<FieldType, FieldDef>() {
@@ -43,26 +45,29 @@ public final class TableType {
         });
     }
 
-    public TableType(final String name, final FieldType... fields) {
+    public TableTypeImpl(final String name, final FieldType... fields) {
         this(name, Arrays.asList(fields));
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public List<FieldType> getFields() {
         return fields;
     }
 
+    @Override
     public FieldType findFieldBy(final FieldDef fieldDef) {
         return lookupByDef.get(fieldDef);
     }
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof TableType) {
-            final TableType that = (TableType) obj;
+        if (obj instanceof TableTypeImpl) {
+            final TableTypeImpl that = (TableTypeImpl) obj;
 
             return Objects.equal(name, that.name)
                     && Objects.equal(fields, that.fields);

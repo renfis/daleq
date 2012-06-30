@@ -29,12 +29,12 @@ import de.brands4friends.daleq.Context;
 import de.brands4friends.daleq.DaleqBuildException;
 import de.brands4friends.daleq.FieldData;
 import de.brands4friends.daleq.FieldDef;
+import de.brands4friends.daleq.FieldType;
 import de.brands4friends.daleq.Row;
 import de.brands4friends.daleq.RowData;
+import de.brands4friends.daleq.TableType;
 import de.brands4friends.daleq.TemplateValue;
 import de.brands4friends.daleq.TemplateValueFactory;
-import de.brands4friends.daleq.internal.types.FieldType;
-import de.brands4friends.daleq.internal.types.TableType;
 
 public class RowBuilder implements Row {
 

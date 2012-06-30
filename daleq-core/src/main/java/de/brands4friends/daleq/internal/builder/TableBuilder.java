@@ -34,8 +34,8 @@ import de.brands4friends.daleq.Row;
 import de.brands4friends.daleq.RowData;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.TableData;
-import de.brands4friends.daleq.internal.types.TableType;
-import de.brands4friends.daleq.internal.types.TableTypeFactory;
+import de.brands4friends.daleq.TableType;
+import de.brands4friends.daleq.TableTypeFactory;
 
 public class TableBuilder<T> implements Table {
 

@@ -17,12 +17,12 @@
 package de.brands4friends.daleq.internal.builder;
 
 import de.brands4friends.daleq.Context;
+import de.brands4friends.daleq.TableTypeFactory;
 import de.brands4friends.daleq.TemplateValueFactory;
 import de.brands4friends.daleq.TypeConversion;
 import de.brands4friends.daleq.internal.conversion.TypeConversionImpl;
 import de.brands4friends.daleq.internal.template.TemplateValueFactoryImpl;
 import de.brands4friends.daleq.internal.types.CachingTableTypeFactoryDecorator;
-import de.brands4friends.daleq.internal.types.TableTypeFactory;
 import de.brands4friends.daleq.internal.types.TableTypeFactoryImpl;
 
 public class SimpleContext implements Context {

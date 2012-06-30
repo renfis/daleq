@@ -18,7 +18,10 @@ package de.brands4friends.daleq.internal.types;
 
 import java.util.List;
 
+import de.brands4friends.daleq.FieldType;
 import de.brands4friends.daleq.TableDef;
+import de.brands4friends.daleq.TableType;
+import de.brands4friends.daleq.TableTypeFactory;
 
 public class TableTypeFactoryImpl implements TableTypeFactory {
 
@@ -37,6 +40,6 @@ public class TableTypeFactoryImpl implements TableTypeFactory {
 
     private <T> TableType createTableType(final Class<T> fromClass, final TableDef tableDef) {
         final List<FieldType> fields = fieldScanner.scan(fromClass);
-        return new TableType(tableDef.value(), fields);
+        return new TableTypeImpl(tableDef.value(), fields);
     }
 }

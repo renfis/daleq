@@ -16,11 +16,12 @@
 
 package de.brands4friends.daleq;
 
-import javax.annotation.Nullable;
+import java.util.List;
 
-public interface Row {
+public interface TableType {
+    String getName();
 
-    Row f(FieldDef fieldDef, @Nullable Object value);
+    List<FieldType> getFields();
 
-    RowData build(Context context, final TableType tableType);
+    FieldType findFieldBy(FieldDef fieldDef);
 }

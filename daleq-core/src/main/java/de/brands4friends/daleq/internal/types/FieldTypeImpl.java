@@ -25,16 +25,17 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
 import de.brands4friends.daleq.FieldDef;
+import de.brands4friends.daleq.FieldType;
 import de.brands4friends.daleq.TemplateValue;
 
-public final class FieldType {
+final class FieldTypeImpl implements FieldType {
     private final String name;
     private final DataType dataType;
     private final Optional<TemplateValue> templateValue;
     private final FieldDef origin;
 
 
-    FieldType(
+    FieldTypeImpl(
             final String name,
             final DataType dataType,
             final Optional<TemplateValue> templateValue,
@@ -45,26 +46,30 @@ public final class FieldType {
         this.origin = Preconditions.checkNotNull(origin);
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public DataType getDataType() {
         return dataType;
     }
 
+    @Override
     public Optional<TemplateValue> getTemplateValue() {
         return templateValue;
     }
 
+    @Override
     public FieldDef getOrigin() {
         return origin;
     }
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof FieldType) {
-            final FieldType that = (FieldType) obj;
+        if (obj instanceof FieldTypeImpl) {
+            final FieldTypeImpl that = (FieldTypeImpl) obj;
 
             return Objects.equal(name, that.name)
                     && Objects.equal(dataType, that.dataType)

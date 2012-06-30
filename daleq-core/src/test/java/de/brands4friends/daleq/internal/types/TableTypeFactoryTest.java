@@ -27,6 +27,8 @@ import com.google.common.base.Optional;
 
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.TableDef;
+import de.brands4friends.daleq.TableType;
+import de.brands4friends.daleq.TableTypeFactory;
 import de.brands4friends.daleq.TemplateValue;
 
 public class TableTypeFactoryTest {
@@ -47,8 +49,8 @@ public class TableTypeFactoryTest {
     public void createOfMyTable_should_returnTableStructure() {
 
         final TableType tableType = factory.create(MyTable.class);
-        final TableType expected = new TableType("MY_TABLE",
-                new FieldType("ID", DataType.INTEGER, Optional.<TemplateValue>absent(), MyTable.ID));
+        final TableType expected = new TableTypeImpl("MY_TABLE",
+                new FieldTypeImpl("ID", DataType.INTEGER, Optional.<TemplateValue>absent(), MyTable.ID));
 
         assertThat(tableType, is(expected));
     }
