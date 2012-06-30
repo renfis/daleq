@@ -27,7 +27,7 @@ import com.google.common.collect.Lists;
 import de.brands4friends.daleq.FieldDef;
 
 /**
- * Scans classes for PropertyDefs and returns the findings as PropertyStructures
+ * Scans classes for FieldDefs and returns the findings as FieldTypes
  */
 class FieldScanner {
 
