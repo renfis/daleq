@@ -54,10 +54,10 @@ public class RowBuilder implements Row {
 
     @Override
     public RowContainer build(final Context context, final TableType tableType) {
-        final Map<FieldType, FieldHolder> structureToHolder = createTypeToHolderIndex(tableType);
+        final Map<FieldType, FieldHolder> typeToHolderIndex = createTypeToHolderIndex(tableType);
 
         final List<FieldContainer> fieldContainers =
-                mapFieldsToContainers(context, tableType, structureToHolder);
+                mapFieldsToContainers(context, tableType, typeToHolderIndex);
 
         return new RowContainerImpl(fieldContainers);
     }
