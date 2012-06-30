@@ -45,7 +45,7 @@ public class FlatXmlIDataSetFactory implements IDataSetFactory {
     public IDataSet create(final SchemaData schema) throws DataSetException {
         try {
             final StringWriter stringWriter = new StringWriter();
-            new FlatXmlConverter(NULL_TOKEN).writeTo(schema, stringWriter);
+            new FlatXmlConverter(NULL_TOKEN).writeTo(schema.getTables(), stringWriter);
             final String doc = stringWriter.toString();
             final FlatXmlDataSetBuilder flatXmlDataSetBuilder = new FlatXmlDataSetBuilder();
 

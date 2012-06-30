@@ -33,7 +33,6 @@ import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldData;
 import de.brands4friends.daleq.RowData;
-import de.brands4friends.daleq.SchemaData;
 import de.brands4friends.daleq.TableData;
 
 /**
@@ -52,17 +51,17 @@ class FlatXmlConverter {
     /**
      * Converts the schema to an DbUnit conforming FlatXml file.
      *
-     * @param schema the Schema which should be written to a FlatXml file.
+     * @param tables
      * @param writer the destination, where the XML file is written to
      * @throws java.io.IOException if the writer encounters IO problems.
      */
-    public void writeTo(final SchemaData schema, final Writer writer) throws IOException {
+    public void writeTo(final List<TableData> tables, final Writer writer) throws IOException {
 
         final Document doc = documentFactory.createDocument();
         final Element root = documentFactory.createElement("dataset");
         doc.setRootElement(root);
 
-        for (TableData list : schema.getTables()) {
+        for (TableData list : tables) {
             addDataList(list, root);
         }
 
