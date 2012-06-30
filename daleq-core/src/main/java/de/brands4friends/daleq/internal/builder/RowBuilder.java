@@ -59,7 +59,7 @@ public class RowBuilder implements Row {
         final List<FieldData> fields =
                 mapFieldsToContainers(context, tableType, typeToHolderIndex);
 
-        return new RowContainerImpl(fields);
+        return new ImmutableRowData(fields);
     }
 
     private List<FieldData> mapFieldsToContainers(

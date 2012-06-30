@@ -30,18 +30,18 @@ import de.brands4friends.daleq.FieldData;
 import de.brands4friends.daleq.NoSuchDaleqFieldException;
 import nl.jqno.equalsverifier.Warning;
 
-public class RowContainerImplTest {
+public class ImmutableRowDataTest {
 
     @Test
     public void testHashcodeAndEquals() {
-        forClass(RowContainerImpl.class).suppress(Warning.NULL_FIELDS).verify();
+        forClass(ImmutableRowData.class).suppress(Warning.NULL_FIELDS).verify();
     }
 
     @Test
     public void getFieldByName_should_getAnExistingField() {
         final String fieldName = "A";
         final FieldData existingField = field(fieldName, "foo");
-        final RowContainerImpl row = new RowContainerImpl(fields(existingField));
+        final ImmutableRowData row = new ImmutableRowData(fields(existingField));
 
         assertThat(row.getFieldBy(fieldName), is(existingField));
     }
@@ -50,7 +50,7 @@ public class RowContainerImplTest {
     public void getFieldByName_should_throwForNonExistingField() {
         final String fieldName = "A";
         final FieldData existingField = field(fieldName, "foo");
-        final RowContainerImpl row = new RowContainerImpl(fields(existingField));
+        final ImmutableRowData row = new ImmutableRowData(fields(existingField));
 
         final FieldData result = row.getFieldBy("B");
         // should have failed yet.

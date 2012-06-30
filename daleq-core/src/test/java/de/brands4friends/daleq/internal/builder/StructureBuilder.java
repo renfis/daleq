@@ -53,7 +53,7 @@ public class StructureBuilder {
     }
 
     public RowData row(final PropertyContainerBean... props) {
-        return new RowContainerImpl(Lists.transform(
+        return new ImmutableRowData(Lists.transform(
                 Arrays.asList(props),
                 new Function<PropertyContainerBean, FieldData>() {
                     @Override

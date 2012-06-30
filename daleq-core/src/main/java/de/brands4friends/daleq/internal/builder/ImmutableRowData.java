@@ -32,12 +32,12 @@ import de.brands4friends.daleq.FieldData;
 import de.brands4friends.daleq.NoSuchDaleqFieldException;
 import de.brands4friends.daleq.RowData;
 
-public final class RowContainerImpl implements RowData {
+public final class ImmutableRowData implements RowData {
 
     private final List<FieldData> fields;
     private final Map<String, FieldData> index;
 
-    public RowContainerImpl(final List<FieldData> fields) {
+    public ImmutableRowData(final List<FieldData> fields) {
         this.fields = ImmutableList.copyOf(Preconditions.checkNotNull(fields));
         this.index = Maps.uniqueIndex(this.fields, new Function<FieldData, String>() {
             @Override
@@ -69,8 +69,8 @@ public final class RowContainerImpl implements RowData {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof RowContainerImpl) {
-            final RowContainerImpl that = (RowContainerImpl) obj;
+        if (obj instanceof ImmutableRowData) {
+            final ImmutableRowData that = (ImmutableRowData) obj;
 
             return Objects.equal(fields, that.fields);
         }
