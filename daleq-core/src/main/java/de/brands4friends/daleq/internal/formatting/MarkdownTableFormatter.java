@@ -27,7 +27,7 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
 
-import de.brands4friends.daleq.FieldContainer;
+import de.brands4friends.daleq.FieldData;
 import de.brands4friends.daleq.RowData;
 import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.internal.types.FieldType;
@@ -83,7 +83,7 @@ public class MarkdownTableFormatter implements TableFormatter {
             appendSeparator(appendable);
             for (Column column : columns) {
                 appendWhitespace(appendable);
-                final FieldContainer field = row.getFieldBy(column.name);
+                final FieldData field = row.getFieldBy(column.name);
                 final String value = field.getValue().or("");
                 if (column.alignment == Alignment.LEFT) {
                     appendable.append(Strings.padEnd(value, column.width, PAD_CHAR));

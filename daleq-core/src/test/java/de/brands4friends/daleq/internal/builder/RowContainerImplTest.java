@@ -26,7 +26,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import de.brands4friends.daleq.FieldContainer;
+import de.brands4friends.daleq.FieldData;
 import de.brands4friends.daleq.NoSuchDaleqFieldException;
 import nl.jqno.equalsverifier.Warning;
 
@@ -40,7 +40,7 @@ public class RowContainerImplTest {
     @Test
     public void getFieldByName_should_getAnExistingField() {
         final String fieldName = "A";
-        final FieldContainer existingField = field(fieldName, "foo");
+        final FieldData existingField = field(fieldName, "foo");
         final RowContainerImpl row = new RowContainerImpl(fields(existingField));
 
         assertThat(row.getFieldBy(fieldName), is(existingField));
@@ -49,19 +49,19 @@ public class RowContainerImplTest {
     @Test(expected = NoSuchDaleqFieldException.class)
     public void getFieldByName_should_throwForNonExistingField() {
         final String fieldName = "A";
-        final FieldContainer existingField = field(fieldName, "foo");
+        final FieldData existingField = field(fieldName, "foo");
         final RowContainerImpl row = new RowContainerImpl(fields(existingField));
 
-        final FieldContainer result = row.getFieldBy("B");
+        final FieldData result = row.getFieldBy("B");
         // should have failed yet.
         assertThat(result, is(nullValue()));
     }
 
-    private FieldContainer field(final String name, final String value) {
+    private FieldData field(final String name, final String value) {
         return new FieldContainerImpl(name, value);
     }
 
-    private List<FieldContainer> fields(final FieldContainer... fields) {
+    private List<FieldData> fields(final FieldData... fields) {
         return Arrays.asList(fields);
     }
 }

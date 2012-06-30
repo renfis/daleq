@@ -31,7 +31,7 @@ import org.dom4j.io.XMLWriter;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 
-import de.brands4friends.daleq.FieldContainer;
+import de.brands4friends.daleq.FieldData;
 import de.brands4friends.daleq.RowData;
 import de.brands4friends.daleq.SchemaData;
 import de.brands4friends.daleq.TableData;
@@ -79,17 +79,17 @@ class FlatXmlConverter {
 
     private void addRow(final Element root, final String name, final RowData row) {
         final Element elem = documentFactory.createElement(name);
-        for (final FieldContainer prop : sortPropertiesByName(row.getFields())) {
+        for (final FieldData prop : sortPropertiesByName(row.getFields())) {
             final String value = prepareValue(prop.getName(), prop.getValue());
             elem.add(documentFactory.createAttribute(elem, prop.getName(), value));
         }
         root.add(elem);
     }
 
-    private Collection<FieldContainer> sortPropertiesByName(final Collection<FieldContainer> fields) {
-        final List<FieldContainer> newProps = Lists.newArrayList(fields);
-        Collections.sort(newProps, new Comparator<FieldContainer>() {
-            public int compare(final FieldContainer o1, final FieldContainer o2) {
+    private Collection<FieldData> sortPropertiesByName(final Collection<FieldData> fields) {
+        final List<FieldData> newProps = Lists.newArrayList(fields);
+        Collections.sort(newProps, new Comparator<FieldData>() {
+            public int compare(final FieldData o1, final FieldData o2) {
                 return o1.getName().compareTo(o2.getName());
             }
         });

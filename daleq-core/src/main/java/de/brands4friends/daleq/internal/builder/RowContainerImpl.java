@@ -28,20 +28,20 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 
-import de.brands4friends.daleq.FieldContainer;
+import de.brands4friends.daleq.FieldData;
 import de.brands4friends.daleq.NoSuchDaleqFieldException;
 import de.brands4friends.daleq.RowData;
 
 public final class RowContainerImpl implements RowData {
 
-    private final List<FieldContainer> fields;
-    private final Map<String, FieldContainer> index;
+    private final List<FieldData> fields;
+    private final Map<String, FieldData> index;
 
-    public RowContainerImpl(final List<FieldContainer> fields) {
+    public RowContainerImpl(final List<FieldData> fields) {
         this.fields = ImmutableList.copyOf(Preconditions.checkNotNull(fields));
-        this.index = Maps.uniqueIndex(this.fields, new Function<FieldContainer, String>() {
+        this.index = Maps.uniqueIndex(this.fields, new Function<FieldData, String>() {
             @Override
-            public String apply(@Nullable final FieldContainer field) {
+            public String apply(@Nullable final FieldData field) {
                 if (field == null) {
                     return null;
                 }
@@ -51,11 +51,11 @@ public final class RowContainerImpl implements RowData {
     }
 
     @Override
-    public List<FieldContainer> getFields() {
+    public List<FieldData> getFields() {
         return fields;
     }
 
-    public FieldContainer getFieldBy(final String fieldName) {
+    public FieldData getFieldBy(final String fieldName) {
         if (!this.index.containsKey(fieldName)) {
             throw new NoSuchDaleqFieldException("fieldName");
         }

@@ -27,7 +27,7 @@ import com.google.common.collect.Maps;
 
 import de.brands4friends.daleq.Context;
 import de.brands4friends.daleq.DaleqBuildException;
-import de.brands4friends.daleq.FieldContainer;
+import de.brands4friends.daleq.FieldData;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.Row;
 import de.brands4friends.daleq.RowData;
@@ -56,20 +56,20 @@ public class RowBuilder implements Row {
     public RowData build(final Context context, final TableType tableType) {
         final Map<FieldType, FieldHolder> typeToHolderIndex = createTypeToHolderIndex(tableType);
 
-        final List<FieldContainer> fieldContainers =
+        final List<FieldData> fields =
                 mapFieldsToContainers(context, tableType, typeToHolderIndex);
 
-        return new RowContainerImpl(fieldContainers);
+        return new RowContainerImpl(fields);
     }
 
-    private List<FieldContainer> mapFieldsToContainers(
+    private List<FieldData> mapFieldsToContainers(
             final Context context,
             final TableType tableType,
             final Map<FieldType, FieldHolder> typeToHolder) {
 
-        return Lists.transform(tableType.getFields(), new Function<FieldType, FieldContainer>() {
+        return Lists.transform(tableType.getFields(), new Function<FieldType, FieldData>() {
             @Override
-            public FieldContainer apply(final FieldType fieldType) {
+            public FieldData apply(final FieldType fieldType) {
                 final FieldHolder actualField = typeToHolder.get(fieldType);
                 if (actualField == null) {
                     return convertDefaultField(fieldType, context);
@@ -79,7 +79,7 @@ public class RowBuilder implements Row {
         });
     }
 
-    private FieldContainer convertDefaultField(final FieldType fieldType, final Context context) {
+    private FieldData convertDefaultField(final FieldType fieldType, final Context context) {
         final TemplateValue templateValue = toTemplate(fieldType, context);
 
         final String renderedValue = templateValue.render(binding);
@@ -95,7 +95,7 @@ public class RowBuilder implements Row {
         }
     }
 
-    private FieldContainer convertProvidedField(
+    private FieldData convertProvidedField(
             final FieldType fieldType,
             final FieldHolder actualField,
             final Context context) {

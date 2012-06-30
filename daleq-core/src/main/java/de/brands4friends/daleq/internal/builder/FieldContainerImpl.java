@@ -22,9 +22,9 @@ import com.google.common.base.Objects;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
-import de.brands4friends.daleq.FieldContainer;
+import de.brands4friends.daleq.FieldData;
 
-public final class FieldContainerImpl implements FieldContainer {
+public final class FieldContainerImpl implements FieldData {
     private final String name;
     private final Optional<String> value;
 

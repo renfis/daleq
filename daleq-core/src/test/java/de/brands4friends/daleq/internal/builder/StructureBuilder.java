@@ -21,7 +21,7 @@ import java.util.Arrays;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
-import de.brands4friends.daleq.FieldContainer;
+import de.brands4friends.daleq.FieldData;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.RowData;
 import de.brands4friends.daleq.TableData;
@@ -55,9 +55,9 @@ public class StructureBuilder {
     public RowData row(final PropertyContainerBean... props) {
         return new RowContainerImpl(Lists.transform(
                 Arrays.asList(props),
-                new Function<PropertyContainerBean, FieldContainer>() {
+                new Function<PropertyContainerBean, FieldData>() {
                     @Override
-                    public FieldContainer apply(final PropertyContainerBean input) {
+                    public FieldData apply(final PropertyContainerBean input) {
                         final FieldType fieldType = tableType.findFieldBy(input.fieldDef);
                         return new FieldContainerImpl(fieldType.getName(), input.value);
                     }
