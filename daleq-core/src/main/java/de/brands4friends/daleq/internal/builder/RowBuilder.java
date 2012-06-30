@@ -46,6 +46,7 @@ public class RowBuilder implements Row {
         this.fields = Maps.newHashMap();
     }
 
+    @Override
     public Row f(final FieldDef fieldDef, @Nullable final Object value) {
         fields.put(fieldDef, new FieldHolder(fieldDef, value));
         return this;
