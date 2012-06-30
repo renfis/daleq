@@ -38,7 +38,7 @@ import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.TableDef;
 import nl.jqno.equalsverifier.Warning;
 
-public class TableContainerImplTest {
+public class ImmutableTableDataTest {
 
     @TableDef("THE_TABLE")
     public static class TheTable {
@@ -47,7 +47,7 @@ public class TableContainerImplTest {
 
     @Test
     public void testHashcodeAndEquals() {
-        forClass(TableContainerImpl.class).suppress(Warning.NULL_FIELDS).verify();
+        forClass(ImmutableTableData.class).suppress(Warning.NULL_FIELDS).verify();
     }
 
     @Test

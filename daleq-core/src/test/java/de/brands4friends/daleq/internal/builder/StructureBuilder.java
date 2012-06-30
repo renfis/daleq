@@ -49,7 +49,7 @@ public class StructureBuilder {
     }
 
     public TableData table(final RowData... rows) {
-        return new TableContainerImpl(tableType, Arrays.asList(rows));
+        return new ImmutableTableData(tableType, Arrays.asList(rows));
     }
 
     public RowData row(final PropertyContainerBean... props) {

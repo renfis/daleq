@@ -32,12 +32,12 @@ import de.brands4friends.daleq.RowData;
 import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.internal.types.TableType;
 
-public final class TableContainerImpl implements TableData {
+public final class ImmutableTableData implements TableData {
 
     private final TableType tableType;
     private final List<RowData> rows;
 
-    public TableContainerImpl(final TableType tableType, final List<RowData> rows) {
+    public ImmutableTableData(final TableType tableType, final List<RowData> rows) {
         this.tableType = Preconditions.checkNotNull(tableType);
         this.rows = ImmutableList.copyOf(Preconditions.checkNotNull(rows));
     }
@@ -72,8 +72,8 @@ public final class TableContainerImpl implements TableData {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof TableContainerImpl) {
-            final TableContainerImpl that = (TableContainerImpl) obj;
+        if (obj instanceof ImmutableTableData) {
+            final ImmutableTableData that = (ImmutableTableData) obj;
 
             return Objects.equal(tableType, that.tableType)
                     && Objects.equal(rows, that.rows);
