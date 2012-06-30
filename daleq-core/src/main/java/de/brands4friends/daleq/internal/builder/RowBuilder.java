@@ -83,7 +83,7 @@ public class RowBuilder implements Row {
         final TemplateValue templateValue = toTemplate(fieldType, context);
 
         final String renderedValue = templateValue.render(binding);
-        return new FieldContainerImpl(fieldType.getName(), renderedValue);
+        return new ImmutableFieldData(fieldType.getName(), renderedValue);
     }
 
     private TemplateValue toTemplate(final FieldType fieldType, final Context context) {
@@ -100,7 +100,7 @@ public class RowBuilder implements Row {
             final FieldHolder actualField,
             final Context context) {
         final String strValue = convert(context, actualField.getValue());
-        return new FieldContainerImpl(fieldType.getName(), strValue);
+        return new ImmutableFieldData(fieldType.getName(), strValue);
     }
 
     private String convert(final Context context, final Object valueToConvert) {

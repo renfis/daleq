@@ -58,7 +58,7 @@ public class RowContainerImplTest {
     }
 
     private FieldData field(final String name, final String value) {
-        return new FieldContainerImpl(name, value);
+        return new ImmutableFieldData(name, value);
     }
 
     private List<FieldData> fields(final FieldData... fields) {

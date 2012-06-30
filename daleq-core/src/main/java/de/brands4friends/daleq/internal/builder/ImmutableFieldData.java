@@ -24,11 +24,11 @@ import com.google.common.base.Preconditions;
 
 import de.brands4friends.daleq.FieldData;
 
-public final class FieldContainerImpl implements FieldData {
+public final class ImmutableFieldData implements FieldData {
     private final String name;
     private final Optional<String> value;
 
-    public FieldContainerImpl(final String name, @Nullable final String value) {
+    public ImmutableFieldData(final String name, @Nullable final String value) {
         this.name = Preconditions.checkNotNull(name);
         this.value = Optional.fromNullable(value);
     }
@@ -50,8 +50,8 @@ public final class FieldContainerImpl implements FieldData {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof FieldContainerImpl) {
-            final FieldContainerImpl that = (FieldContainerImpl) obj;
+        if (obj instanceof ImmutableFieldData) {
+            final ImmutableFieldData that = (ImmutableFieldData) obj;
 
             return Objects.equal(name, that.name)
                     && Objects.equal(value, that.value);

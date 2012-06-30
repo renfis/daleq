@@ -59,7 +59,7 @@ public class StructureBuilder {
                     @Override
                     public FieldData apply(final PropertyContainerBean input) {
                         final FieldType fieldType = tableType.findFieldBy(input.fieldDef);
-                        return new FieldContainerImpl(fieldType.getName(), input.value);
+                        return new ImmutableFieldData(fieldType.getName(), input.value);
                     }
                 }));
     }

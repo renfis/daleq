@@ -24,11 +24,11 @@ import com.google.common.base.Optional;
 
 import nl.jqno.equalsverifier.Warning;
 
-public class FieldContainerImplTest {
+public class ImmutableFieldDataTest {
 
     @Test
     public void testHashcodeAndEquals() {
-        forClass(FieldContainerImpl.class)
+        forClass(ImmutableFieldData.class)
                 .suppress(Warning.NULL_FIELDS)
                 .withPrefabValues(Optional.class, Optional.of("A"), Optional.of("B"))
                 .verify();
