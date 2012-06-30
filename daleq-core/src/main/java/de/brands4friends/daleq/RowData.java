@@ -18,12 +18,12 @@ package de.brands4friends.daleq;
 
 import java.util.List;
 
-public interface RowContainer {
+public interface RowData {
     List<FieldContainer> getFields();
 
     /**
      * @param fieldName
-     * @throws NoSuchDaleqFieldException if such a field does not exist in the RowContainer
+     * @throws NoSuchDaleqFieldException if such a field does not exist in the RowData
      */
     FieldContainer getFieldBy(final String fieldName);
 }

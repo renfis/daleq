@@ -28,16 +28,16 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 
-import de.brands4friends.daleq.RowContainer;
+import de.brands4friends.daleq.RowData;
 import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.internal.types.TableType;
 
 public final class TableContainerImpl implements TableData {
 
     private final TableType tableType;
-    private final List<RowContainer> rows;
+    private final List<RowData> rows;
 
-    public TableContainerImpl(final TableType tableType, final List<RowContainer> rows) {
+    public TableContainerImpl(final TableType tableType, final List<RowData> rows) {
         this.tableType = Preconditions.checkNotNull(tableType);
         this.rows = ImmutableList.copyOf(Preconditions.checkNotNull(rows));
     }
@@ -53,15 +53,15 @@ public final class TableContainerImpl implements TableData {
     }
 
     @Override
-    public List<RowContainer> getRows() {
+    public List<RowData> getRows() {
         return rows;
     }
 
     @Override
     public Iterable<Optional<String>> getValuesOfField(final String fieldName) {
-        return Iterables.transform(rows, new Function<RowContainer, Optional<String>>() {
+        return Iterables.transform(rows, new Function<RowData, Optional<String>>() {
             @Override
-            public Optional<String> apply(@Nullable final RowContainer row) {
+            public Optional<String> apply(@Nullable final RowData row) {
                 if (row == null) {
                     return null;
                 }

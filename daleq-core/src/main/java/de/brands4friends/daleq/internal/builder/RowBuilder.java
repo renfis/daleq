@@ -30,7 +30,7 @@ import de.brands4friends.daleq.DaleqBuildException;
 import de.brands4friends.daleq.FieldContainer;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.Row;
-import de.brands4friends.daleq.RowContainer;
+import de.brands4friends.daleq.RowData;
 import de.brands4friends.daleq.TemplateValue;
 import de.brands4friends.daleq.TemplateValueFactory;
 import de.brands4friends.daleq.internal.types.FieldType;
@@ -53,7 +53,7 @@ public class RowBuilder implements Row {
     }
 
     @Override
-    public RowContainer build(final Context context, final TableType tableType) {
+    public RowData build(final Context context, final TableType tableType) {
         final Map<FieldType, FieldHolder> typeToHolderIndex = createTypeToHolderIndex(tableType);
 
         final List<FieldContainer> fieldContainers =

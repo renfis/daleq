@@ -31,7 +31,7 @@ import de.brands4friends.daleq.Context;
 import de.brands4friends.daleq.Daleq;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.Row;
-import de.brands4friends.daleq.RowContainer;
+import de.brands4friends.daleq.RowData;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.internal.types.TableType;
@@ -98,13 +98,13 @@ public class TableBuilder<T> implements Table {
     @Override
     public TableData build(final Context context) {
         final TableType tableType = toTableType(context);
-        final List<RowContainer> rowContainers = Lists.transform(rows, new Function<Row, RowContainer>() {
+        final List<RowData> rows = Lists.transform(this.rows, new Function<Row, RowData>() {
             @Override
-            public RowContainer apply(final Row row) {
+            public RowData apply(final Row row) {
                 return row.build(context, tableType);
             }
         });
-        return new TableContainerImpl(tableType, rowContainers);
+        return new TableContainerImpl(tableType, rows);
     }
 
     private TableType toTableType(final Context context) {

@@ -32,7 +32,7 @@ import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldContainer;
-import de.brands4friends.daleq.RowContainer;
+import de.brands4friends.daleq.RowData;
 import de.brands4friends.daleq.SchemaData;
 import de.brands4friends.daleq.TableData;
 
@@ -72,12 +72,12 @@ class FlatXmlConverter {
 
     private void addDataList(final TableData list, final Element root) {
         final String name = list.getName();
-        for (RowContainer row : list.getRows()) {
+        for (RowData row : list.getRows()) {
             addRow(root, name, row);
         }
     }
 
-    private void addRow(final Element root, final String name, final RowContainer row) {
+    private void addRow(final Element root, final String name, final RowData row) {
         final Element elem = documentFactory.createElement(name);
         for (final FieldContainer prop : sortPropertiesByName(row.getFields())) {
             final String value = prepareValue(prop.getName(), prop.getValue());

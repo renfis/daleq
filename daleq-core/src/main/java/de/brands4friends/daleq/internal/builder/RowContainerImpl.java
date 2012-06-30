@@ -30,9 +30,9 @@ import com.google.common.collect.Maps;
 
 import de.brands4friends.daleq.FieldContainer;
 import de.brands4friends.daleq.NoSuchDaleqFieldException;
-import de.brands4friends.daleq.RowContainer;
+import de.brands4friends.daleq.RowData;
 
-public final class RowContainerImpl implements RowContainer {
+public final class RowContainerImpl implements RowData {
 
     private final List<FieldContainer> fields;
     private final Map<String, FieldContainer> index;

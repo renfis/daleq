@@ -25,7 +25,7 @@ import de.brands4friends.daleq.internal.types.TableType;
 public interface TableData {
     String getName();
 
-    List<RowContainer> getRows();
+    List<RowData> getRows();
 
     Iterable<Optional<String>> getValuesOfField(final String fieldName);
 

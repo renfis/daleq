@@ -28,7 +28,7 @@ import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
 
 import de.brands4friends.daleq.FieldContainer;
-import de.brands4friends.daleq.RowContainer;
+import de.brands4friends.daleq.RowData;
 import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.internal.types.FieldType;
 import de.brands4friends.daleq.internal.types.TableType;
@@ -78,7 +78,7 @@ public class MarkdownTableFormatter implements TableFormatter {
     private void appendBody(final TableData table, final Appendable appendable, final List<Column> columns)
             throws IOException {
 
-        for (RowContainer row : table.getRows()) {
+        for (RowData row : table.getRows()) {
 
             appendSeparator(appendable);
             for (Column column : columns) {

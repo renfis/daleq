@@ -24,5 +24,5 @@ public interface Row {
 
     Row f(FieldDef fieldDef, @Nullable Object value);
 
-    RowContainer build(Context context, final TableType tableType);
+    RowData build(Context context, final TableType tableType);
 }

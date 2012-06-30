@@ -23,7 +23,7 @@ import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldContainer;
 import de.brands4friends.daleq.FieldDef;
-import de.brands4friends.daleq.RowContainer;
+import de.brands4friends.daleq.RowData;
 import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.internal.types.FieldType;
 import de.brands4friends.daleq.internal.types.TableType;
@@ -48,11 +48,11 @@ public class StructureBuilder {
         this.tableType = tableType;
     }
 
-    public TableData table(final RowContainer... rowContainers) {
-        return new TableContainerImpl(tableType, Arrays.asList(rowContainers));
+    public TableData table(final RowData... rows) {
+        return new TableContainerImpl(tableType, Arrays.asList(rows));
     }
 
-    public RowContainer row(final PropertyContainerBean... props) {
+    public RowData row(final PropertyContainerBean... props) {
         return new RowContainerImpl(Lists.transform(
                 Arrays.asList(props),
                 new Function<PropertyContainerBean, FieldContainer>() {
