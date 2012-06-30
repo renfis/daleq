@@ -25,11 +25,11 @@ import com.google.common.collect.ImmutableList;
 import de.brands4friends.daleq.SchemaData;
 import de.brands4friends.daleq.TableData;
 
-public final class SchemaContainerImpl implements SchemaData {
+public final class ImmutableSchemaData implements SchemaData {
 
     private final List<TableData> tables;
 
-    public SchemaContainerImpl(final List<TableData> tables) {
+    public ImmutableSchemaData(final List<TableData> tables) {
         this.tables = ImmutableList.copyOf(Preconditions.checkNotNull(tables));
     }
 
@@ -40,8 +40,8 @@ public final class SchemaContainerImpl implements SchemaData {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof SchemaContainerImpl) {
-            final SchemaContainerImpl that = (SchemaContainerImpl) obj;
+        if (obj instanceof ImmutableSchemaData) {
+            final ImmutableSchemaData that = (ImmutableSchemaData) obj;
 
             return Objects.equal(tables, that.tables);
         }

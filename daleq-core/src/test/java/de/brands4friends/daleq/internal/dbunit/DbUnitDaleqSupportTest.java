@@ -46,7 +46,7 @@ import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.SchemaData;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.TableDef;
-import de.brands4friends.daleq.internal.builder.SchemaContainerImpl;
+import de.brands4friends.daleq.internal.builder.ImmutableSchemaData;
 import de.brands4friends.daleq.internal.builder.SimpleContext;
 import junit.framework.ComparisonFailure;
 
@@ -134,6 +134,6 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
     }
 
     private SchemaData toSchemaContainer(final Table table) {
-        return new SchemaContainerImpl(Lists.newArrayList(table.build(new SimpleContext())));
+        return new ImmutableSchemaData(Lists.newArrayList(table.build(new SimpleContext())));
     }
 }

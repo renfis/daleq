@@ -20,10 +20,10 @@ import org.junit.Test;
 
 import de.brands4friends.daleq.test.EqualsAssert;
 
-public class SchemaContainerImplTest {
+public class ImmutableSchemaDataTest {
 
     @Test
     public void testHashCodeAndEquals() {
-        EqualsAssert.assertProperEqualsAndHashcode(SchemaContainerImpl.class);
+        EqualsAssert.assertProperEqualsAndHashcode(ImmutableSchemaData.class);
     }
 }

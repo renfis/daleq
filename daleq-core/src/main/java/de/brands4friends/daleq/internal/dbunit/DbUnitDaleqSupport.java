@@ -39,7 +39,7 @@ import de.brands4friends.daleq.DaleqSupport;
 import de.brands4friends.daleq.SchemaData;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.TableData;
-import de.brands4friends.daleq.internal.builder.SchemaContainerImpl;
+import de.brands4friends.daleq.internal.builder.ImmutableSchemaData;
 import de.brands4friends.daleq.internal.builder.SimpleContext;
 import de.brands4friends.daleq.internal.formatting.MarkdownTableFormatter;
 
@@ -106,7 +106,7 @@ public class DbUnitDaleqSupport implements DaleqSupport {
                         return table.build(context);
                     }
                 });
-        return new SchemaContainerImpl(tableDatas);
+        return new ImmutableSchemaData(tableDatas);
     }
 
     @Override
