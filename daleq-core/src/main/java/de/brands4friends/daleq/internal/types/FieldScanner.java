@@ -16,12 +16,21 @@
 
 package de.brands4friends.daleq.internal.types;
 
+import static com.google.common.base.Predicates.and;
+import static com.google.common.collect.Iterables.filter;
+import static com.google.common.collect.Iterables.transform;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 import org.dbunit.dataset.datatype.DataType;
 
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldDef;
@@ -31,15 +40,57 @@ import de.brands4friends.daleq.FieldDef;
  */
 class FieldScanner {
 
-    public <T> List<FieldType> scan(final Class<T> fromClass) {
-        final List<FieldType> result = Lists.newArrayList();
-        for (Field field : fromClass.getDeclaredFields()) {
-            if (isConstant(field) && isFieldDef(field)) {
-                result.add(mapFieldToFieldType(field));
+    private static final Function<Field, FieldType> MAP_FIELD_TO_FIELD_TYPE = new Function<Field, FieldType>() {
+        @Override
+        public FieldType apply(@Nullable final Field field) {
+            try {
+                if (field == null) {
+                    return null;
+                }
+
+                final FieldDef fieldDef = (FieldDef) field.get(null);
+                final String name = fieldDef.getName().or(field.getName());
+                final DataType dataType = fieldDef.getDataType();
+                return new FieldType(name, dataType, fieldDef.getTemplate(), fieldDef);
+            } catch (IllegalAccessException e) {
+                throw new IllegalStateException(e);
             }
         }
+    };
+    public static final Predicate<Field> IS_FIELD_DEF = new Predicate<Field>() {
+        @Override
+        public boolean apply(@Nullable final Field field) {
+            if (field == null) {
+                return false;
+            }
+            return field.getType().isAssignableFrom(FieldDef.class);
+        }
+    };
+    public static final Predicate<Field> IS_CONSTANT = new Predicate<Field>() {
+        @Override
+        public boolean apply(@Nullable final Field field) {
+            if (field == null) {
+                return false;
+            }
+            final int modifiers = field.getModifiers();
+            return Modifier.isStatic(modifiers)
+                    && Modifier.isFinal(modifiers)
+                    && Modifier.isPublic(modifiers);
+        }
+    };
+
+    public <T> List<FieldType> scan(final Class<T> fromClass) {
+        final List<FieldType> result = Lists.newArrayList(
+                transform(
+                        filter(toDeclaredFields(fromClass), and(IS_FIELD_DEF, IS_CONSTANT)),
+                        MAP_FIELD_TO_FIELD_TYPE)
+        );
         checkResultHasFields(fromClass, result);
         return result;
+    }
+
+    private <T> List<Field> toDeclaredFields(final Class<T> fromClass) {
+        return Arrays.asList(fromClass.getDeclaredFields());
     }
 
     private <T> void checkResultHasFields(final Class<T> fromClass, final List<FieldType> result) {
@@ -49,25 +100,4 @@ class FieldScanner {
         }
     }
 
-    private FieldType mapFieldToFieldType(final Field field) {
-        try {
-            final FieldDef fieldDef = (FieldDef) field.get(null);
-            final String name = fieldDef.getName().or(field.getName());
-            final DataType dataType = fieldDef.getDataType();
-            return new FieldType(name, dataType, fieldDef.getTemplate(), fieldDef);
-        } catch (IllegalAccessException e) {
-            throw new IllegalStateException(e);
-        }
-    }
-
-    private boolean isFieldDef(final Field field) {
-        return field.getType().isAssignableFrom(FieldDef.class);
-    }
-
-    private boolean isConstant(final Field field) {
-        final int modifiers = field.getModifiers();
-        return Modifier.isStatic(modifiers)
-                && Modifier.isFinal(modifiers)
-                && Modifier.isPublic(modifiers);
-    }
 }
