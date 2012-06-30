@@ -36,7 +36,7 @@ import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.Context;
 import de.brands4friends.daleq.DaleqSupport;
-import de.brands4friends.daleq.SchemaContainer;
+import de.brands4friends.daleq.SchemaData;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.internal.builder.SchemaContainerImpl;
@@ -97,7 +97,7 @@ public class DbUnitDaleqSupport implements DaleqSupport {
         }
     }
 
-    private SchemaContainer toSchemaContainer(final Table... tables) {
+    private SchemaData toSchemaContainer(final Table... tables) {
         final List<TableData> tableDatas = Lists.transform(
                 Arrays.asList(tables),
                 new Function<Table, TableData>() {
@@ -113,10 +113,10 @@ public class DbUnitDaleqSupport implements DaleqSupport {
     public void assertTableInDatabase(final Table table) {
         Preconditions.checkNotNull(table);
         try {
-            final SchemaContainer schemaContainer = toSchemaContainer(table);
-            final String tableName = schemaContainer.getTables().get(0).getName();
+            final SchemaData schemaData = toSchemaContainer(table);
+            final String tableName = schemaData.getTables().get(0).getName();
 
-            final IDataSet expectedDataSet = dataSetFactory.create(schemaContainer);
+            final IDataSet expectedDataSet = dataSetFactory.create(schemaData);
             final ITable expectedTable = expectedDataSet.getTable(tableName);
             final IDataSet actualDataSet = createDatabaseConnection().createDataSet();
             final ITable actualTable = actualDataSet.getTable(tableName);
@@ -139,7 +139,7 @@ public class DbUnitDaleqSupport implements DaleqSupport {
         new MarkdownTableFormatter().formatTo(tableData, printer);
     }
 
-    private void insertIntoDatabase(final SchemaContainer schema) throws DatabaseUnitException, SQLException {
+    private void insertIntoDatabase(final SchemaData schema) throws DatabaseUnitException, SQLException {
         final IDataSet dbUnitDataset = dataSetFactory.create(schema);
         insertOperation.execute(createDatabaseConnection(), dbUnitDataset);
     }

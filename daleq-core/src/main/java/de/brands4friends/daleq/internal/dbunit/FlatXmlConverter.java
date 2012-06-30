@@ -33,7 +33,7 @@ import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldContainer;
 import de.brands4friends.daleq.RowContainer;
-import de.brands4friends.daleq.SchemaContainer;
+import de.brands4friends.daleq.SchemaData;
 import de.brands4friends.daleq.TableData;
 
 /**
@@ -56,7 +56,7 @@ class FlatXmlConverter {
      * @param writer the destination, where the XML file is written to
      * @throws java.io.IOException if the writer encounters IO problems.
      */
-    public void writeTo(final SchemaContainer schema, final Writer writer) throws IOException {
+    public void writeTo(final SchemaData schema, final Writer writer) throws IOException {
 
         final Document doc = documentFactory.createDocument();
         final Element root = documentFactory.createElement("dataset");

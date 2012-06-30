@@ -35,7 +35,7 @@ import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.Context;
 import de.brands4friends.daleq.FieldDef;
-import de.brands4friends.daleq.SchemaContainer;
+import de.brands4friends.daleq.SchemaData;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.internal.builder.SchemaContainerImpl;
@@ -89,8 +89,8 @@ public class FlatXmlConverterTest {
     private void writeToWriter(final Table table) throws IOException {
         final Context context = new SimpleContext();
         final TableData tableData = table.build(context);
-        final SchemaContainer schemaContainer = new SchemaContainerImpl(Lists.newArrayList(tableData));
-        converter.writeTo(schemaContainer, writer);
+        final SchemaData schemaData = new SchemaContainerImpl(Lists.newArrayList(tableData));
+        converter.writeTo(schemaData, writer);
     }
 
     private String asXml(final String table) {

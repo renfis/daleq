@@ -26,7 +26,7 @@ import org.dbunit.dataset.ReplacementDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 
-import de.brands4friends.daleq.SchemaContainer;
+import de.brands4friends.daleq.SchemaData;
 
 public class FlatXmlIDataSetFactory implements IDataSetFactory {
 
@@ -42,7 +42,7 @@ public class FlatXmlIDataSetFactory implements IDataSetFactory {
      * @throws org.dbunit.dataset.DataSetException
      *
      */
-    public IDataSet create(final SchemaContainer schema) throws DataSetException {
+    public IDataSet create(final SchemaData schema) throws DataSetException {
         try {
             final StringWriter stringWriter = new StringWriter();
             new FlatXmlConverter(NULL_TOKEN).writeTo(schema, stringWriter);

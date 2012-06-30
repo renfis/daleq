@@ -43,7 +43,7 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldDef;
-import de.brands4friends.daleq.SchemaContainer;
+import de.brands4friends.daleq.SchemaData;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.TableDef;
 import de.brands4friends.daleq.internal.builder.SchemaContainerImpl;
@@ -133,7 +133,7 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
         expect(connectionFactory.createConnection()).andReturn(connection);
     }
 
-    private SchemaContainer toSchemaContainer(final Table table) {
+    private SchemaData toSchemaContainer(final Table table) {
         return new SchemaContainerImpl(Lists.newArrayList(table.build(new SimpleContext())));
     }
 }

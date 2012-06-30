@@ -22,10 +22,10 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
-import de.brands4friends.daleq.SchemaContainer;
+import de.brands4friends.daleq.SchemaData;
 import de.brands4friends.daleq.TableData;
 
-public final class SchemaContainerImpl implements SchemaContainer {
+public final class SchemaContainerImpl implements SchemaData {
 
     private final List<TableData> tables;
 
