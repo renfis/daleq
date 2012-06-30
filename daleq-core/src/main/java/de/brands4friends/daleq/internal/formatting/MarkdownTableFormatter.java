@@ -19,6 +19,9 @@ package de.brands4friends.daleq.internal.formatting;
 import java.io.IOException;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
+import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -105,14 +108,19 @@ public class MarkdownTableFormatter implements TableFormatter {
 
     private List<Column> calculateColumns(final TableContainer table) {
         final TableType type = table.getTableType();
-        final List<Column> columns = Lists.newArrayList();
+        return Lists.transform(
+                type.getFields(), new Function<FieldType, Column>() {
 
-        for (FieldType field : type.getFields()) {
-            final String fieldName = field.getName();
-            final int width = calcMaxWidth(table, fieldName);
-            columns.add(new Column(width, fieldName, Alignment.RIGHT));
-        }
-        return columns;
+            @Override
+            public Column apply(@Nullable final FieldType field) {
+                if (field == null) {
+                    return null;
+                }
+                final String fieldName = field.getName();
+                final int width = calcMaxWidth(table, fieldName);
+                return new Column(width, fieldName, Alignment.RIGHT);
+            }
+        });
     }
 
     private void appendColumnHeaders(final Appendable appendable, final List<Column> columns) throws IOException {
