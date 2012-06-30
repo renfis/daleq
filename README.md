@@ -1,7 +1,9 @@
 Introduction
 ------------
 
-Daleq ... TODO
+Daleq is Data Generator DSL for Relation Databases. With Daleq testing SQL queries will become ridiculous easy.
+
+TODO
 
 Authors
 -------
