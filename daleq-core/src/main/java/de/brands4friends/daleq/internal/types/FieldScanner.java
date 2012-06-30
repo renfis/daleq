@@ -36,7 +36,7 @@ class FieldScanner {
         try {
             final List<FieldType> result = Lists.newArrayList();
             for (Field field : fromClass.getDeclaredFields()) {
-                if (isConstant(field) && isPropertyDef(field)) {
+                if (isConstant(field) && isFieldDef(field)) {
                     addStructureOfField(result, field);
                 }
             }
@@ -66,7 +66,7 @@ class FieldScanner {
         return new FieldType(name, dataType, fieldDef.getTemplate(), fieldDef);
     }
 
-    private boolean isPropertyDef(final Field field) {
+    private boolean isFieldDef(final Field field) {
         return field.getType().isAssignableFrom(FieldDef.class);
     }
 
