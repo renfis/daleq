@@ -116,7 +116,7 @@ public class DbUnitDaleqSupport implements DaleqSupport {
             final SchemaData schemaData = toSchemaContainer(table);
             final String tableName = schemaData.getTables().get(0).getName();
 
-            final IDataSet expectedDataSet = dataSetFactory.create(schemaData);
+            final IDataSet expectedDataSet = dataSetFactory.create(schemaData.getTables());
             final ITable expectedTable = expectedDataSet.getTable(tableName);
             final IDataSet actualDataSet = createDatabaseConnection().createDataSet();
             final ITable actualTable = actualDataSet.getTable(tableName);
@@ -140,7 +140,7 @@ public class DbUnitDaleqSupport implements DaleqSupport {
     }
 
     private void insertIntoDatabase(final SchemaData schema) throws DatabaseUnitException, SQLException {
-        final IDataSet dbUnitDataset = dataSetFactory.create(schema);
+        final IDataSet dbUnitDataset = dataSetFactory.create(schema.getTables());
         insertOperation.execute(createDatabaseConnection(), dbUnitDataset);
     }
 }

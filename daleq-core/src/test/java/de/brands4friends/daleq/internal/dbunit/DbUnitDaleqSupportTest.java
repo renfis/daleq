@@ -25,6 +25,7 @@ import static org.hamcrest.Matchers.arrayContaining;
 import static org.junit.Assert.assertThat;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.IDatabaseConnection;
@@ -43,10 +44,9 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldDef;
-import de.brands4friends.daleq.SchemaData;
 import de.brands4friends.daleq.Table;
+import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.TableDef;
-import de.brands4friends.daleq.internal.builder.ImmutableSchemaData;
 import de.brands4friends.daleq.internal.builder.SimpleContext;
 import junit.framework.ComparisonFailure;
 
@@ -103,7 +103,7 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
     @Test
     public void assertTable_should_beAsserted() throws DataSetException, SQLException {
         final Table table = aTable(MyTable.class).with(aRow(0));
-        final IDataSet dataSetFromDb = dataSetFactory.create(toSchemaContainer(table));
+        final IDataSet dataSetFromDb = dataSetFactory.create(toTableData(table));
 
         expectConnection();
         expect(connection.createDataSet()).andReturn(dataSetFromDb);
@@ -117,7 +117,7 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
     public void assertTable_should_failOnFailingAssertion() throws DataSetException, SQLException {
         final Table table = aTable(MyTable.class).with(aRow(0));
         final Table differentTable = aTable(MyTable.class).with(aRow(1));
-        final IDataSet dataSetFromDb = dataSetFactory.create(toSchemaContainer(table));
+        final IDataSet dataSetFromDb = dataSetFactory.create(toTableData(table));
 
         expectConnection();
         expect(connection.createDataSet()).andReturn(dataSetFromDb);
@@ -133,7 +133,7 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
         expect(connectionFactory.createConnection()).andReturn(connection);
     }
 
-    private SchemaData toSchemaContainer(final Table table) {
-        return new ImmutableSchemaData(Lists.newArrayList(table.build(new SimpleContext())));
+    private List<TableData> toTableData(final Table table) {
+        return Lists.newArrayList(table.build(new SimpleContext()));
     }
 }

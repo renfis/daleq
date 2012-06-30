@@ -19,6 +19,7 @@ package de.brands4friends.daleq.internal.dbunit;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.List;
 
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
@@ -26,7 +27,7 @@ import org.dbunit.dataset.ReplacementDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 
-import de.brands4friends.daleq.SchemaData;
+import de.brands4friends.daleq.TableData;
 
 public class FlatXmlIDataSetFactory implements IDataSetFactory {
 
@@ -37,15 +38,14 @@ public class FlatXmlIDataSetFactory implements IDataSetFactory {
      * <p/>
      * Nulls could be added eplixitly by filling "[NULL]" into the property values.
      *
-     * @param schema the schema to be converted
-     * @return a DbUnit dataset containing the data from the given Schema.
+     * @param tables@return a DbUnit dataset containing the data from the given Schema.
      * @throws org.dbunit.dataset.DataSetException
      *
      */
-    public IDataSet create(final SchemaData schema) throws DataSetException {
+    public IDataSet create(final List<TableData> tables) throws DataSetException {
         try {
             final StringWriter stringWriter = new StringWriter();
-            new FlatXmlConverter(NULL_TOKEN).writeTo(schema.getTables(), stringWriter);
+            new FlatXmlConverter(NULL_TOKEN).writeTo(tables, stringWriter);
             final String doc = stringWriter.toString();
             final FlatXmlDataSetBuilder flatXmlDataSetBuilder = new FlatXmlDataSetBuilder();
 

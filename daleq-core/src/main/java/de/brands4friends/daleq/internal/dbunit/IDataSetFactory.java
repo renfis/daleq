@@ -16,11 +16,13 @@
 
 package de.brands4friends.daleq.internal.dbunit;
 
+import java.util.List;
+
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 
-import de.brands4friends.daleq.SchemaData;
+import de.brands4friends.daleq.TableData;
 
 public interface IDataSetFactory {
-    IDataSet create(SchemaData schema) throws DataSetException;
+    IDataSet create(List<TableData> tables) throws DataSetException;
 }
