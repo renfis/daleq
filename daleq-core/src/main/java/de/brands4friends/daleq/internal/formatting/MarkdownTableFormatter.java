@@ -46,7 +46,7 @@ public class MarkdownTableFormatter implements TableFormatter {
         private final String name;
         private final Alignment alignment;
 
-        private Column(final int width, final String name, final Alignment alignment) {
+        Column(final int width, final String name, final Alignment alignment) {
             this.width = width;
             this.name = name;
             this.alignment = alignment;
