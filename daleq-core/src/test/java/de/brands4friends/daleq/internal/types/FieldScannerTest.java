@@ -16,7 +16,7 @@
 
 package de.brands4friends.daleq.internal.types;
 
-import static de.brands4friends.daleq.FieldDef.fd;
+import static de.brands4friends.daleq.Daleq.fd;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -30,6 +30,7 @@ import org.junit.Test;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 
+import de.brands4friends.daleq.Daleq;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.FieldType;
 import de.brands4friends.daleq.TemplateValue;
@@ -55,7 +56,7 @@ public class FieldScannerTest {
     }
 
     static class WithNonStatic {
-        public final FieldDef xID = FieldDef.fd(DataType.INTEGER);
+        public final FieldDef xID = Daleq.fd(DataType.INTEGER);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -64,7 +65,7 @@ public class FieldScannerTest {
     }
 
     static class WithNonFinal {
-        public static FieldDef xID = FieldDef.fd(DataType.INTEGER);
+        public static FieldDef xID = Daleq.fd(DataType.INTEGER);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -73,8 +74,8 @@ public class FieldScannerTest {
     }
 
     static class WithPropertyDefs {
-        public static final FieldDef ID = FieldDef.fd(DataType.INTEGER);
-        public static final FieldDef NAME = FieldDef.fd(DataType.VARCHAR);
+        public static final FieldDef ID = Daleq.fd(DataType.INTEGER);
+        public static final FieldDef NAME = Daleq.fd(DataType.VARCHAR);
     }
 
     @Test

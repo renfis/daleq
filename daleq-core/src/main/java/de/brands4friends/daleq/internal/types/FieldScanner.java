@@ -35,6 +35,7 @@ import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.FieldType;
+import de.brands4friends.daleq.internal.builder.FieldDefBuilder;
 
 /**
  * Scans classes for FieldDefs and returns the findings as FieldTypes
@@ -65,7 +66,7 @@ class FieldScanner {
             if (field == null) {
                 return false;
             }
-            return field.getType().isAssignableFrom(FieldDef.class);
+            return field.getType().isAssignableFrom(FieldDefBuilder.class);
         }
     };
 

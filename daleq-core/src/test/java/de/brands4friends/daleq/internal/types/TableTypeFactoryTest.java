@@ -25,6 +25,7 @@ import org.junit.Test;
 
 import com.google.common.base.Optional;
 
+import de.brands4friends.daleq.Daleq;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.TableDef;
 import de.brands4friends.daleq.TableType;
@@ -37,7 +38,7 @@ public class TableTypeFactoryTest {
 
     @TableDef("MY_TABLE")
     static class MyTable {
-        public static final FieldDef ID = FieldDef.fd(DataType.INTEGER);
+        public static final FieldDef ID = Daleq.fd(DataType.INTEGER);
     }
 
     @Before
@@ -56,7 +57,7 @@ public class TableTypeFactoryTest {
     }
 
     static class WithoutAnnotation {
-        public static final FieldDef ID = FieldDef.fd(DataType.INTEGER);
+        public static final FieldDef ID = Daleq.fd(DataType.INTEGER);
     }
 
     @Test(expected = IllegalArgumentException.class)

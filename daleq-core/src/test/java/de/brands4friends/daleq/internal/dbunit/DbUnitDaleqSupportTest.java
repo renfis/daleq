@@ -43,6 +43,7 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
+import de.brands4friends.daleq.Daleq;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.TableData;
@@ -50,6 +51,9 @@ import de.brands4friends.daleq.TableDef;
 import de.brands4friends.daleq.internal.builder.SimpleContext;
 import junit.framework.ComparisonFailure;
 
+// DaleqSupport should wrap the access to daleq. yes this might produce too much coupling, but for now that's the
+// way we go here.
+@SuppressWarnings("PMD.ExcessiveImports")
 public class DbUnitDaleqSupportTest extends EasyMockSupport {
 
     private IDatabaseConnection connection;
@@ -57,8 +61,8 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
 
     @TableDef("FOO")
     public static class MyTable {
-        public static final FieldDef ID = FieldDef.fd(DataType.INTEGER);
-        public static final FieldDef VALUE = FieldDef.fd(DataType.VARCHAR);
+        public static final FieldDef ID = Daleq.fd(DataType.INTEGER);
+        public static final FieldDef VALUE = Daleq.fd(DataType.VARCHAR);
     }
 
     private ConnectionFactory connectionFactory;

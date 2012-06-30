@@ -32,6 +32,7 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.Context;
+import de.brands4friends.daleq.Daleq;
 import de.brands4friends.daleq.DaleqBuildException;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.TableDef;
@@ -159,7 +160,7 @@ public class TableBuilderTest {
     public void allHaving_withFieldDefNotInTable_should_fail() {
         aTable(ExampleTable.class)
                 .withRowsUntil(1)
-                .allHaving(FieldDef.fd(DataType.CHAR).name("foo"), "bar")
+                .allHaving(Daleq.fd(DataType.CHAR).name("foo"), "bar")
                 .build(context);
     }
 
@@ -262,13 +263,13 @@ public class TableBuilderTest {
     public void having_withFieldDefNotInTable_should_fail() {
         aTable(ExampleTable.class)
                 .withRowsUntil(1)
-                .having(FieldDef.fd(DataType.CHAR).name("foo"), Lists.<Object>newArrayList("bar"))
+                .having(Daleq.fd(DataType.CHAR).name("foo"), Lists.<Object>newArrayList("bar"))
                 .build(context);
     }
 
     @TableDef("ANOTHER_TABLE")
     public static class AnotherTable {
-        public static final FieldDef ANOTHER_FIELD = FieldDef.fd(DataType.INTEGER);
+        public static final FieldDef ANOTHER_FIELD = Daleq.fd(DataType.INTEGER);
     }
 
     @Test(expected = DaleqBuildException.class)

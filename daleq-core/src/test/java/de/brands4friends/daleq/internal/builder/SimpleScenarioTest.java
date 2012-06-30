@@ -24,16 +24,17 @@ import static de.brands4friends.daleq.internal.builder.SimpleScenarioTest.MyTabl
 import org.dbunit.dataset.datatype.DataType;
 import org.junit.Test;
 
+import de.brands4friends.daleq.Daleq;
 import de.brands4friends.daleq.FieldDef;
 
 public class SimpleScenarioTest {
 
     @de.brands4friends.daleq.TableDef("foo")
     public static final class MyTable {
-        public static final FieldDef ID = FieldDef.fd(DataType.INTEGER);
-        public static final FieldDef NAME = FieldDef.fd(DataType.VARCHAR);
-        public static final FieldDef VALUE = FieldDef.fd(DataType.BIT);
-        public static final FieldDef MODIFIED = FieldDef.fd(DataType.TIMESTAMP);
+        public static final FieldDef ID = Daleq.fd(DataType.INTEGER);
+        public static final FieldDef NAME = Daleq.fd(DataType.VARCHAR);
+        public static final FieldDef VALUE = Daleq.fd(DataType.BIT);
+        public static final FieldDef MODIFIED = Daleq.fd(DataType.TIMESTAMP);
     }
 
     @Test

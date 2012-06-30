@@ -42,7 +42,7 @@ public class ImmutableTableDataTest {
 
     @TableDef("THE_TABLE")
     public static class TheTable {
-        public static final FieldDef ID = FieldDef.fd(DataType.INTEGER);
+        public static final FieldDef ID = Daleq.fd(DataType.INTEGER);
     }
 
     @Test

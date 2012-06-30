@@ -39,9 +39,9 @@ public class MarkdownTableFormatterTest {
 
     @TableDef("THE_TABLE")
     public static final class TheTable {
-        public static final FieldDef ID = FieldDef.fd(DataType.INTEGER);
-        public static final FieldDef NAME = FieldDef.fd(DataType.VARCHAR);
-        public static final FieldDef STUFF = FieldDef.fd(DataType.VARCHAR);
+        public static final FieldDef ID = Daleq.fd(DataType.INTEGER);
+        public static final FieldDef NAME = Daleq.fd(DataType.VARCHAR);
+        public static final FieldDef STUFF = Daleq.fd(DataType.VARCHAR);
     }
 
     @Before
@@ -68,7 +68,7 @@ public class MarkdownTableFormatterTest {
 
     @TableDef("COLUMN_LENGTH")
     public static final class ColumnLength {
-        public static final FieldDef COLUMN = FieldDef.fd(DataType.VARCHAR);
+        public static final FieldDef COLUMN = Daleq.fd(DataType.VARCHAR);
     }
 
     @Test

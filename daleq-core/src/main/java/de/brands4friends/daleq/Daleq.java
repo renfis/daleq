@@ -16,6 +16,9 @@
 
 package de.brands4friends.daleq;
 
+import org.dbunit.dataset.datatype.DataType;
+
+import de.brands4friends.daleq.internal.builder.FieldDefBuilder;
 import de.brands4friends.daleq.internal.builder.RowBuilder;
 import de.brands4friends.daleq.internal.builder.TableBuilder;
 
@@ -25,12 +28,15 @@ public final class Daleq {
 
     }
 
-
     public static <T> Table aTable(final Class<T> fromClass) {
         return TableBuilder.aTable(fromClass);
     }
 
     public static Row aRow(final long id) {
         return RowBuilder.aRow(id);
+    }
+
+    public static FieldDef fd(final DataType dataType) {
+        return FieldDefBuilder.fd(dataType);
     }
 }

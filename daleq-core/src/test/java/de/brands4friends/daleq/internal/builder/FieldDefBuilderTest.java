@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq;
+package de.brands4friends.daleq.internal.builder;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
@@ -26,11 +26,14 @@ import org.junit.Test;
 
 import com.google.common.base.Optional;
 
+import de.brands4friends.daleq.Daleq;
+import de.brands4friends.daleq.FieldDef;
+import de.brands4friends.daleq.TemplateValue;
 import de.brands4friends.daleq.internal.template.StringTemplateValue;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
-public class FieldDefTest {
+public class FieldDefBuilderTest {
 
     public static final String NAME = "foo";
     public static final String TEMPLATE = "foo";
@@ -39,7 +42,7 @@ public class FieldDefTest {
     @Test
     public void testHashCodeAndEquals() {
         EqualsVerifier
-                .forClass(FieldDef.class)
+                .forClass(FieldDefBuilder.class)
                 .withPrefabValues(Optional.class, Optional.of("a"), Optional.of("b"))
                 .suppress(Warning.NONFINAL_FIELDS)
                 .verify();
@@ -47,12 +50,12 @@ public class FieldDefTest {
 
     @Test
     public void aFieldWithName_should_haveName() {
-        assertThat(FieldDef.fd(DataType.BIGINT).name(NAME).getName().isPresent(), is(true));
+        assertThat(Daleq.fd(DataType.BIGINT).name(NAME).getName().isPresent(), is(true));
     }
 
     @Test
     public void aFieldWithoutName_should_haveName() {
-        assertThat(FieldDef.fd(DataType.BIGINT).getName().isPresent(), is(false));
+        assertThat(Daleq.fd(DataType.BIGINT).getName().isPresent(), is(false));
     }
 
     @Test
@@ -102,6 +105,6 @@ public class FieldDefTest {
     }
 
     private FieldDef someFd() {
-        return FieldDef.fd(DataType.INTEGER);
+        return Daleq.fd(DataType.INTEGER);
     }
 }

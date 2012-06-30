@@ -25,6 +25,7 @@ import org.junit.Test;
 
 import com.google.common.base.Optional;
 
+import de.brands4friends.daleq.Daleq;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.FieldType;
 import de.brands4friends.daleq.TableType;
@@ -42,7 +43,7 @@ public class TableTypeImplTest {
     @Test
     public void findStructureByDefOfExisting_should_returnStructure() {
         final DataType integer = DataType.INTEGER;
-        final FieldDef origin = FieldDef.fd(integer).name("propertyDef");
+        final FieldDef origin = Daleq.fd(integer).name("propertyDef");
         final FieldType fieldType = new FieldTypeImpl(
                 "P NAME",
                 integer,
@@ -58,7 +59,7 @@ public class TableTypeImplTest {
 
     @Test
     public void findStructureByDefOfNonExisting_should_notReturnStructure() {
-        final FieldDef origin = FieldDef.fd(DataType.INTEGER).name("propertyDef");
+        final FieldDef origin = Daleq.fd(DataType.INTEGER).name("propertyDef");
         final TableType table = new TableTypeImpl("SOME_NAME");
         assertThat(table.findFieldBy(origin), is(nullValue()));
     }

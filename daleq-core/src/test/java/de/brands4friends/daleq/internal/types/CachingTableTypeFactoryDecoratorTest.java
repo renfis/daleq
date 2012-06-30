@@ -25,6 +25,7 @@ import org.easymock.EasyMockSupport;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.brands4friends.daleq.Daleq;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.TableDef;
 import de.brands4friends.daleq.TableType;
@@ -38,7 +39,7 @@ public class CachingTableTypeFactoryDecoratorTest extends EasyMockSupport {
 
     @TableDef("THE_TABLE")
     public static class TheTable {
-        public static final FieldDef ID = FieldDef.fd(DataType.INTEGER);
+        public static final FieldDef ID = Daleq.fd(DataType.INTEGER);
     }
 
     @Before
