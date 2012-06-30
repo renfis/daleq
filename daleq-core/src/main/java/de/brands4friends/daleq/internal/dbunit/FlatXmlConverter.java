@@ -34,7 +34,7 @@ import com.google.common.collect.Lists;
 import de.brands4friends.daleq.FieldContainer;
 import de.brands4friends.daleq.RowContainer;
 import de.brands4friends.daleq.SchemaContainer;
-import de.brands4friends.daleq.TableContainer;
+import de.brands4friends.daleq.TableData;
 
 /**
  * Converts DataSets to XML File satisfying DbUnit's FlatXml Requirements.
@@ -62,7 +62,7 @@ class FlatXmlConverter {
         final Element root = documentFactory.createElement("dataset");
         doc.setRootElement(root);
 
-        for (TableContainer list : schema.getTables()) {
+        for (TableData list : schema.getTables()) {
             addDataList(list, root);
         }
 
@@ -70,7 +70,7 @@ class FlatXmlConverter {
         xmlWriter.write(doc);
     }
 
-    private void addDataList(final TableContainer list, final Element root) {
+    private void addDataList(final TableData list, final Element root) {
         final String name = list.getName();
         for (RowContainer row : list.getRows()) {
             addRow(root, name, row);

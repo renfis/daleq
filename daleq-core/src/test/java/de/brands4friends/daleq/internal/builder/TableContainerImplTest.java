@@ -34,7 +34,7 @@ import com.google.common.collect.Lists;
 import de.brands4friends.daleq.Daleq;
 import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.NoSuchDaleqFieldException;
-import de.brands4friends.daleq.TableContainer;
+import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.TableDef;
 import nl.jqno.equalsverifier.Warning;
 
@@ -52,7 +52,7 @@ public class TableContainerImplTest {
 
     @Test
     public void getValuesOfField_ifFieldExists_should_returnThoseFields() {
-        final TableContainer table = Daleq.aTable(TheTable.class).withRowsUntil(5).build(new SimpleContext());
+        final TableData table = Daleq.aTable(TheTable.class).withRowsUntil(5).build(new SimpleContext());
         final List<Optional<String>> expected = Lists.transform(
                 Lists.newArrayList("0", "1", "2", "3", "4"),
                 new Function<String, Optional<String>>() {
@@ -70,7 +70,7 @@ public class TableContainerImplTest {
 
     @Test(expected = NoSuchDaleqFieldException.class)
     public void getValuesOfField_ifFieldDoesNotExist_sould_fail() {
-        final TableContainer table = Daleq.aTable(TheTable.class).withRowsUntil(5).build(new SimpleContext());
+        final TableData table = Daleq.aTable(TheTable.class).withRowsUntil(5).build(new SimpleContext());
         final Iterable<Optional<String>> result = table.getValuesOfField("DOES_NOT_EXIST");
         // should have failed
         assertThat(result, Matchers.nullValue());

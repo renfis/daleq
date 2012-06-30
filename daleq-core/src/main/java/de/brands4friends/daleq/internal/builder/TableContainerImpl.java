@@ -29,10 +29,10 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 
 import de.brands4friends.daleq.RowContainer;
-import de.brands4friends.daleq.TableContainer;
+import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.internal.types.TableType;
 
-public final class TableContainerImpl implements TableContainer {
+public final class TableContainerImpl implements TableData {
 
     private final TableType tableType;
     private final List<RowContainer> rows;

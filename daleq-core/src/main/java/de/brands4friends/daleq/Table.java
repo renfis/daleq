@@ -32,6 +32,6 @@ public interface Table {
 
     Table having(FieldDef fieldDef, Iterable<Object> values);
 
-    TableContainer build(final Context context);
+    TableData build(final Context context);
 
 }

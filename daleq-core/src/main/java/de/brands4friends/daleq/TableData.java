@@ -22,7 +22,7 @@ import com.google.common.base.Optional;
 
 import de.brands4friends.daleq.internal.types.TableType;
 
-public interface TableContainer {
+public interface TableData {
     String getName();
 
     List<RowContainer> getRows();

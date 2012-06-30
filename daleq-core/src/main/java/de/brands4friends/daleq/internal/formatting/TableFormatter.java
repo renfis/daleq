@@ -18,10 +18,10 @@ package de.brands4friends.daleq.internal.formatting;
 
 import java.io.IOException;
 
-import de.brands4friends.daleq.TableContainer;
+import de.brands4friends.daleq.TableData;
 
 public interface TableFormatter {
-    String format(TableContainer table);
+    String format(TableData table);
 
-    void formatTo(TableContainer table, Appendable appendable) throws IOException;
+    void formatTo(TableData table, Appendable appendable) throws IOException;
 }

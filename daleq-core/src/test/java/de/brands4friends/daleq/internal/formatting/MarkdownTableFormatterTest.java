@@ -28,7 +28,7 @@ import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.Daleq;
 import de.brands4friends.daleq.FieldDef;
-import de.brands4friends.daleq.TableContainer;
+import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.TableDef;
 import de.brands4friends.daleq.internal.builder.SimpleContext;
 
@@ -52,7 +52,7 @@ public class MarkdownTableFormatterTest {
 
     @Test
     public void format_should_printHeaders() {
-        final TableContainer table = Daleq.aTable(TheTable.class).build(context);
+        final TableData table = Daleq.aTable(TheTable.class).build(context);
         assertThat(
                 formatter.format(table),
                 is(lines(
@@ -73,7 +73,7 @@ public class MarkdownTableFormatterTest {
 
     @Test
     public void should_alignToTheLongestValue() {
-        final TableContainer table = Daleq.aTable(ColumnLength.class)
+        final TableData table = Daleq.aTable(ColumnLength.class)
                 .withRowsUntil(5)
                 .having(ColumnLength.COLUMN, Lists.<Object>newArrayList(
                         "A",

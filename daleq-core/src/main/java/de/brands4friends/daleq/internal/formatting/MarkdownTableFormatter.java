@@ -29,7 +29,7 @@ import com.google.common.primitives.Ints;
 
 import de.brands4friends.daleq.FieldContainer;
 import de.brands4friends.daleq.RowContainer;
-import de.brands4friends.daleq.TableContainer;
+import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.internal.types.FieldType;
 import de.brands4friends.daleq.internal.types.TableType;
 
@@ -57,7 +57,7 @@ public class MarkdownTableFormatter implements TableFormatter {
     }
 
     @Override
-    public String format(final TableContainer table) {
+    public String format(final TableData table) {
         final StringBuilder builder = new StringBuilder();
         try {
             formatTo(table, builder);
@@ -68,14 +68,14 @@ public class MarkdownTableFormatter implements TableFormatter {
     }
 
     @Override
-    public void formatTo(final TableContainer table, final Appendable appendable) throws IOException {
+    public void formatTo(final TableData table, final Appendable appendable) throws IOException {
         final List<Column> columns = calculateColumns(table);
 
         appendHead(appendable, columns);
         appendBody(table, appendable, columns);
     }
 
-    private void appendBody(final TableContainer table, final Appendable appendable, final List<Column> columns)
+    private void appendBody(final TableData table, final Appendable appendable, final List<Column> columns)
             throws IOException {
 
         for (RowContainer row : table.getRows()) {
@@ -106,7 +106,7 @@ public class MarkdownTableFormatter implements TableFormatter {
         appendHorizontalHeaderLine(appendable, columns);
     }
 
-    private List<Column> calculateColumns(final TableContainer table) {
+    private List<Column> calculateColumns(final TableData table) {
         final TableType type = table.getTableType();
         return Lists.transform(
                 type.getFields(), new Function<FieldType, Column>() {
@@ -169,7 +169,7 @@ public class MarkdownTableFormatter implements TableFormatter {
         appendWhitespace(appendable);
     }
 
-    private int calcMaxWidth(final TableContainer table, final String fieldName) {
+    private int calcMaxWidth(final TableData table, final String fieldName) {
         int width = Ints.max(fieldName.length(), 2);
         for (Optional<String> value : table.getValuesOfField(fieldName)) {
             if (value.isPresent()) {

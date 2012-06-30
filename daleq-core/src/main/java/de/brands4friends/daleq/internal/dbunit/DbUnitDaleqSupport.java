@@ -38,7 +38,7 @@ import de.brands4friends.daleq.Context;
 import de.brands4friends.daleq.DaleqSupport;
 import de.brands4friends.daleq.SchemaContainer;
 import de.brands4friends.daleq.Table;
-import de.brands4friends.daleq.TableContainer;
+import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.internal.builder.SchemaContainerImpl;
 import de.brands4friends.daleq.internal.builder.SimpleContext;
 import de.brands4friends.daleq.internal.formatting.MarkdownTableFormatter;
@@ -98,15 +98,15 @@ public class DbUnitDaleqSupport implements DaleqSupport {
     }
 
     private SchemaContainer toSchemaContainer(final Table... tables) {
-        final List<TableContainer> tableContainers = Lists.transform(
+        final List<TableData> tableDatas = Lists.transform(
                 Arrays.asList(tables),
-                new Function<Table, TableContainer>() {
+                new Function<Table, TableData>() {
                     @Override
-                    public TableContainer apply(final Table table) {
+                    public TableData apply(final Table table) {
                         return table.build(context);
                     }
                 });
-        return new SchemaContainerImpl(tableContainers);
+        return new SchemaContainerImpl(tableDatas);
     }
 
     @Override
@@ -135,8 +135,8 @@ public class DbUnitDaleqSupport implements DaleqSupport {
     @Override
     public void printTable(final Table table, final PrintStream printer) throws IOException {
         Preconditions.checkNotNull(table);
-        final TableContainer tableContainer = table.build(context);
-        new MarkdownTableFormatter().formatTo(tableContainer, printer);
+        final TableData tableData = table.build(context);
+        new MarkdownTableFormatter().formatTo(tableData, printer);
     }
 
     private void insertIntoDatabase(final SchemaContainer schema) throws DatabaseUnitException, SQLException {

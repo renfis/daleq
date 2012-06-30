@@ -23,18 +23,18 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
 import de.brands4friends.daleq.SchemaContainer;
-import de.brands4friends.daleq.TableContainer;
+import de.brands4friends.daleq.TableData;
 
 public final class SchemaContainerImpl implements SchemaContainer {
 
-    private final List<TableContainer> tables;
+    private final List<TableData> tables;
 
-    public SchemaContainerImpl(final List<TableContainer> tables) {
+    public SchemaContainerImpl(final List<TableData> tables) {
         this.tables = ImmutableList.copyOf(Preconditions.checkNotNull(tables));
     }
 
     @Override
-    public List<TableContainer> getTables() {
+    public List<TableData> getTables() {
         return tables;
     }
 
