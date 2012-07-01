@@ -14,10 +14,14 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.internal.dbunit;
+package de.brands4friends.daleq;
 
 public class DaleqException extends RuntimeException {
     public DaleqException(final Throwable cause) {
         super(cause);
+    }
+
+    public DaleqException(final String message) {
+        super(message);
     }
 }

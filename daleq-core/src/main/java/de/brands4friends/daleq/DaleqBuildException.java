@@ -16,7 +16,7 @@
 
 package de.brands4friends.daleq;
 
-public class DaleqBuildException extends RuntimeException {
+public class DaleqBuildException extends DaleqException {
 
     public DaleqBuildException(final String message) {
         super(message);

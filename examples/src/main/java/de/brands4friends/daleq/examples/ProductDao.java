@@ -22,4 +22,8 @@ public interface ProductDao {
     Product findById(long id);
 
     List<Product> findBySize(String size);
+
+    void save(Product product);
+
+    void saveAll(Iterable<Product> products);
 }

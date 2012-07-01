@@ -19,11 +19,14 @@ package de.brands4friends.daleq.examples;
 import static de.brands4friends.daleq.Daleq.aRow;
 import static de.brands4friends.daleq.Daleq.aTable;
 import static de.brands4friends.daleq.examples.ProductTable.ID;
+import static de.brands4friends.daleq.examples.ProductTable.NAME;
+import static de.brands4friends.daleq.examples.ProductTable.PRICE;
 import static de.brands4friends.daleq.examples.ProductTable.SIZE;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -38,6 +41,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.common.primitives.Longs;
 
@@ -98,6 +102,54 @@ public class JdbcProductDaoTest extends AbstractTransactionalJUnit4SpringContext
         final List<Product> products = productDao.findBySize("S");
 
         assertProductsWithIds(products, 10L, 11L);
+    }
+
+    @Test
+    public void save_should_insertTheProduct() {
+        final BigDecimal price = aPrice(1200);
+        final String name = "some name";
+        final String size = "M";
+
+        final Product product = aProduct(name, price, size);
+
+        productDao.save(product);
+
+        final Table expected = aTable(ProductTable.class).with(
+                aRow(0).f(NAME, name).f(PRICE, "12.00").f(SIZE, size)
+        );
+        daleq.assertTableInDatabase(expected, ID);
+    }
+
+    @Test
+    public void saveAll_should_inserAllThoseProducts() {
+        final List<Product> products = Lists.newArrayList(
+                aProduct("p1", aPrice(100), "S1"),
+                aProduct("p2", aPrice(200), "S2"),
+                aProduct("p3", aPrice(300), "S3"),
+                aProduct("p4", aPrice(400), "S4")
+        );
+
+        productDao.saveAll(products);
+
+        final Table expected = aTable(ProductTable.class).with(
+                aRow(0).f(NAME, "p1").f(PRICE, "1.00").f(SIZE, "S1"),
+                aRow(1).f(NAME, "p2").f(PRICE, "2.00").f(SIZE, "S2"),
+                aRow(2).f(NAME, "p3").f(PRICE, "3.00").f(SIZE, "S3"),
+                aRow(3).f(NAME, "p4").f(PRICE, "4.00").f(SIZE, "S4")
+        );
+        daleq.assertTableInDatabase(expected, ID);
+    }
+
+    private BigDecimal aPrice(final int priceVal) {
+        return BigDecimal.valueOf(priceVal, 2);
+    }
+
+    private Product aProduct(final String name, final BigDecimal price, final String size) {
+        final Product product = new Product();
+        product.setName(name);
+        product.setPrice(price);
+        product.setSize(size);
+        return product;
     }
 
     private void assertProductsWithIds(final List<Product> products, final long... expectedIds) {

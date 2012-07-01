@@ -43,9 +43,7 @@ public class IntegrationConfig {
 
     @Bean
     public DaleqSupport daleqSupport(final ConnectionFactory connectionFactory) {
-        final DbUnitDaleqSupport dbUnitDaleqSupport = new DbUnitDaleqSupport();
-        dbUnitDaleqSupport.setConnectionFactory(connectionFactory);
-        return dbUnitDaleqSupport;
+        return DbUnitDaleqSupport.createInstance(connectionFactory);
     }
 
     @Bean

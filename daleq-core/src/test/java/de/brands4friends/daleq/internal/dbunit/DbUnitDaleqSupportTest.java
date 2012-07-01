@@ -36,7 +36,6 @@ import org.dbunit.operation.DatabaseOperation;
 import org.easymock.Capture;
 import org.easymock.EasyMockSupport;
 import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -49,7 +48,6 @@ import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.TableDef;
 import de.brands4friends.daleq.internal.builder.SimpleContext;
-import junit.framework.ComparisonFailure;
 
 // DaleqSupport should wrap the access to daleq. yes this might produce too much coupling, but for now that's the
 // way we go here.
@@ -57,7 +55,7 @@ import junit.framework.ComparisonFailure;
 public class DbUnitDaleqSupportTest extends EasyMockSupport {
 
     private IDatabaseConnection connection;
-    private IDataSetFactory dataSetFactory;
+    private Asserter asserter;
 
     @TableDef("FOO")
     public static class MyTable {
@@ -71,13 +69,12 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
 
     @Before
     public void setUp() throws Exception {
-        daleqSupport = new DbUnitDaleqSupport();
         connectionFactory = createMock(ConnectionFactory.class);
         insertOperation = createMock(DatabaseOperation.class);
-        daleqSupport.setConnectionFactory(connectionFactory);
-        daleqSupport.setInsertOperation(insertOperation);
         connection = createMock(IDatabaseConnection.class);
-        dataSetFactory = new FlatXmlIDataSetFactory();
+        final IDataSetFactory dataSetFactory = new FlatXmlIDataSetFactory();
+        asserter = createMock(Asserter.class);
+        daleqSupport = new DbUnitDaleqSupport(dataSetFactory, connectionFactory, insertOperation, asserter);
     }
 
     @Test
@@ -105,32 +102,14 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
     }
 
     @Test
-    public void assertTable_should_beAsserted() throws DataSetException, SQLException {
+    public void assertTable_should_delegate() throws DataSetException, SQLException {
         final Table table = aTable(MyTable.class).with(aRow(0));
-        final IDataSet dataSetFromDb = dataSetFactory.create(toTableData(table));
-
-        expectConnection();
-        expect(connection.createDataSet()).andReturn(dataSetFromDb);
+        final List<TableData> tables = toTableData(table);
+        asserter.assertTableInDatabase(tables, MyTable.ID, MyTable.VALUE);
 
         replayAll();
-        daleqSupport.assertTableInDatabase(table);
+        daleqSupport.assertTableInDatabase(table, MyTable.ID, MyTable.VALUE);
         verifyAll();
-    }
-
-    @Test(expected = ComparisonFailure.class)
-    public void assertTable_should_failOnFailingAssertion() throws DataSetException, SQLException {
-        final Table table = aTable(MyTable.class).with(aRow(0));
-        final Table differentTable = aTable(MyTable.class).with(aRow(1));
-        final IDataSet dataSetFromDb = dataSetFactory.create(toTableData(table));
-
-        expectConnection();
-        expect(connection.createDataSet()).andReturn(dataSetFromDb);
-
-        replayAll();
-
-        daleqSupport.assertTableInDatabase(differentTable);
-        Assert.fail("The test should have failed, since we compare two different tables.");
-
     }
 
     private void expectConnection() {

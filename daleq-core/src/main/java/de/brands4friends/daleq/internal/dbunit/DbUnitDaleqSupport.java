@@ -23,11 +23,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.dbunit.DatabaseUnitException;
-import org.dbunit.assertion.DbUnitAssert;
 import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.ITable;
 import org.dbunit.operation.DatabaseOperation;
 
 import com.google.common.base.Function;
@@ -35,7 +32,9 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 
 import de.brands4friends.daleq.Context;
+import de.brands4friends.daleq.DaleqException;
 import de.brands4friends.daleq.DaleqSupport;
+import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.internal.builder.SimpleContext;
@@ -43,23 +42,32 @@ import de.brands4friends.daleq.internal.formatting.MarkdownTableFormatter;
 
 public class DbUnitDaleqSupport implements DaleqSupport {
 
-    private IDataSetFactory dataSetFactory = new FlatXmlIDataSetFactory();
-    private ConnectionFactory connectionFactory;
-    private DatabaseOperation insertOperation = DatabaseOperation.INSERT;
+    private final IDataSetFactory dataSetFactory;
+    private final ConnectionFactory connectionFactory;
+    private final DatabaseOperation insertOperation;
 
-    private final Context context = new SimpleContext();
-    private final DbUnitAssert dbUnitAssert = new DbUnitAssert();
+    private final Context context;
+    private final Asserter asserter;
 
-    public void setConnectionFactory(final ConnectionFactory connectionFactory) {
-        this.connectionFactory = connectionFactory;
-    }
+    DbUnitDaleqSupport(
+            final IDataSetFactory dataSetFactory,
+            final ConnectionFactory connectionFactory,
+            final DatabaseOperation insertOperation,
+            final Asserter asserter) {
 
-    public void setDataSetFactory(final IDataSetFactory dataSetFactory) {
         this.dataSetFactory = dataSetFactory;
+        this.connectionFactory = connectionFactory;
+        this.insertOperation = insertOperation;
+        this.asserter = asserter;
+
+        this.context = new SimpleContext();
     }
 
-    public void setInsertOperation(final DatabaseOperation insertOperation) {
-        this.insertOperation = insertOperation;
+    public static DbUnitDaleqSupport createInstance(final ConnectionFactory connectionFactory) {
+        final IDataSetFactory dataSetFactory = new FlatXmlIDataSetFactory();
+        final DatabaseOperation insertOperation = DatabaseOperation.INSERT;
+        final Asserter asserter = new Asserter(dataSetFactory, connectionFactory);
+        return new DbUnitDaleqSupport(dataSetFactory, connectionFactory, insertOperation, asserter);
     }
 
     /**
@@ -70,7 +78,8 @@ public class DbUnitDaleqSupport implements DaleqSupport {
      * we are going to insert data in the db.
      *
      * @return a transaction aware connection to the database.
-     * @throws DaleqException if DbUnit denies the creation of the IDatabaseConnection
+     * @throws de.brands4friends.daleq.DaleqException
+     *          if DbUnit denies the creation of the IDatabaseConnection
      */
     private IDatabaseConnection createDatabaseConnection() {
         Preconditions.checkNotNull(connectionFactory, "connectionFactory is null.");
@@ -107,26 +116,14 @@ public class DbUnitDaleqSupport implements DaleqSupport {
     }
 
     @Override
-    public void assertTableInDatabase(final Table table) {
+    public void assertTableInDatabase(final Table table, final FieldDef... ignoreColumns) {
         Preconditions.checkNotNull(table);
-        try {
-            final List<TableData> tableDatas = toTables(table);
-            final String tableName = tableDatas.get(0).getName();
+        final List<TableData> allTables = toTables(table);
+        assertTableInDatabase(allTables, ignoreColumns);
+    }
 
-            final IDataSet expectedDataSet = dataSetFactory.create(tableDatas);
-            final ITable expectedTable = expectedDataSet.getTable(tableName);
-            final IDataSet actualDataSet = createDatabaseConnection().createDataSet();
-            final ITable actualTable = actualDataSet.getTable(tableName);
-
-            dbUnitAssert.assertEquals(expectedTable, actualTable);
-
-        } catch (DataSetException e) {
-            throw new DaleqException(e);
-        } catch (SQLException e) {
-            throw new DaleqException(e);
-        } catch (DatabaseUnitException e) {
-            throw new DaleqException(e);
-        }
+    private void assertTableInDatabase(final List<TableData> allTables, final FieldDef[] ignoreColumns) {
+        asserter.assertTableInDatabase(allTables, ignoreColumns);
     }
 
     @Override

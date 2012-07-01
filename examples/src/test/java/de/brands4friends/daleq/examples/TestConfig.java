@@ -28,7 +28,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import de.brands4friends.daleq.DaleqSupport;
 import de.brands4friends.daleq.internal.dbunit.ConnectionFactory;
 import de.brands4friends.daleq.internal.dbunit.DbUnitDaleqSupport;
-import de.brands4friends.daleq.internal.dbunit.SimpleConnectionFactory;
+import de.brands4friends.daleq.spring.SpringConnectionFactory;
 
 @Configuration
 public class TestConfig {
@@ -45,14 +45,12 @@ public class TestConfig {
 
     @Bean
     public DaleqSupport daleqSupport(final ConnectionFactory connectionFactory) {
-        final DbUnitDaleqSupport dbUnitDaleqSupport = new DbUnitDaleqSupport();
-        dbUnitDaleqSupport.setConnectionFactory(connectionFactory);
-        return dbUnitDaleqSupport;
+        return DbUnitDaleqSupport.createInstance(connectionFactory);
     }
 
     @Bean
     public ConnectionFactory connectionFactory(final DataSource dataSource) {
-        final SimpleConnectionFactory connectionFactory = new SimpleConnectionFactory();
+        final SpringConnectionFactory connectionFactory = new SpringConnectionFactory();
         connectionFactory.setDataSource(dataSource);
         return connectionFactory;
     }

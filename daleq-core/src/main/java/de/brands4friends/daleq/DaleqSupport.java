@@ -23,7 +23,7 @@ public interface DaleqSupport {
 
     void insertIntoDatabase(Table... tables);
 
-    void assertTableInDatabase(Table table);
+    void assertTableInDatabase(Table table, final FieldDef... ignoreColumns);
 
     void printTable(Table table, PrintStream printer) throws IOException;
 }

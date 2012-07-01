@@ -59,4 +59,17 @@ public class JdbcProductDao extends JdbcDaoSupport implements ProductDao {
                 PRODUCT_ROW_MAPPER, size
         );
     }
+
+    @Override
+    public void save(final Product product) {
+        getJdbcTemplate().update("INSERT INTO PRODUCT (NAME,SIZE,PRICE) VALUES (?,?,?)",
+                product.getName(), product.getSize(), product.getPrice());
+    }
+
+    @Override
+    public void saveAll(final Iterable<Product> products) {
+        for (Product product : products) {
+            save(product);
+        }
+    }
 }
