@@ -40,6 +40,7 @@ import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.TableDef;
 import de.brands4friends.daleq.internal.builder.SimpleContext;
+import de.brands4friends.daleq.internal.dbunit.dataset.InMemoryDataSetFactory;
 import junit.framework.ComparisonFailure;
 
 public class AsserterTest extends EasyMockSupport {
@@ -58,7 +59,7 @@ public class AsserterTest extends EasyMockSupport {
 
     @Before
     public void setUp() {
-        dataSetFactory = new FlatXmlIDataSetFactory();
+        dataSetFactory = new InMemoryDataSetFactory();
         connectionFactory = createMock(ConnectionFactory.class);
         connection = createMock(IDatabaseConnection.class);
 

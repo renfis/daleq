@@ -30,6 +30,7 @@ import de.brands4friends.daleq.FieldData;
 import de.brands4friends.daleq.NoSuchDaleqFieldException;
 import nl.jqno.equalsverifier.Warning;
 
+@SuppressWarnings("PMD.AvoidDuplicateLiterals") // fuck you pmd
 public class ImmutableRowDataTest {
 
     @Test
@@ -55,6 +56,24 @@ public class ImmutableRowDataTest {
         final FieldData result = row.getFieldBy("B");
         // should have failed yet.
         assertThat(result, is(nullValue()));
+    }
+
+    @Test
+    public void containsField_ofExistingField_should_returnTrue() {
+        final String fieldName = "A";
+        final FieldData existingField = field(fieldName, "foo");
+        final ImmutableRowData row = new ImmutableRowData(fields(existingField));
+
+        assertThat(row.containsField(fieldName), is(true));
+    }
+
+    @Test
+    public void containsField_ofNonExistingField_should_returnFalse() {
+        final String fieldName = "A";
+        final FieldData existingField = field(fieldName, "foo");
+        final ImmutableRowData row = new ImmutableRowData(fields(existingField));
+
+        assertThat(row.containsField("B"), is(false));
     }
 
     private FieldData field(final String name, final String value) {

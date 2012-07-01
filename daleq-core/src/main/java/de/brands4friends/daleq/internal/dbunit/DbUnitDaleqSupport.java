@@ -38,6 +38,7 @@ import de.brands4friends.daleq.FieldDef;
 import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.internal.builder.SimpleContext;
+import de.brands4friends.daleq.internal.dbunit.dataset.InMemoryDataSetFactory;
 import de.brands4friends.daleq.internal.formatting.MarkdownTableFormatter;
 
 public class DbUnitDaleqSupport implements DaleqSupport {
@@ -64,7 +65,7 @@ public class DbUnitDaleqSupport implements DaleqSupport {
     }
 
     public static DbUnitDaleqSupport createInstance(final ConnectionFactory connectionFactory) {
-        final IDataSetFactory dataSetFactory = new FlatXmlIDataSetFactory();
+        final IDataSetFactory dataSetFactory = new InMemoryDataSetFactory();
         final DatabaseOperation insertOperation = DatabaseOperation.INSERT;
         final Asserter asserter = new Asserter(dataSetFactory, connectionFactory);
         return new DbUnitDaleqSupport(dataSetFactory, connectionFactory, insertOperation, asserter);

@@ -16,6 +16,8 @@
 
 
 
+
+
 configure(allprojects) {
     apply plugin: 'java'
     apply plugin: 'idea'
@@ -79,7 +81,6 @@ project('daleq-core') {
         compile deps.commonsLang
         compile deps.commonsCodec
         compile deps.dbUnit
-        compile deps.dom4j
 
         testCompile deps.equalsverifier
     }

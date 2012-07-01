@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq;
+package de.brands4friends.daleq.internal.dbunit.dataset;
 
-import java.util.List;
+import de.brands4friends.daleq.Daleq;
+import de.brands4friends.daleq.DataType;
+import de.brands4friends.daleq.FieldDef;
+import de.brands4friends.daleq.TableDef;
 
-public interface RowData {
-    List<FieldData> getFields();
-
-    /**
-     * @param fieldName
-     * @throws NoSuchDaleqFieldException if such a field does not exist in the RowData
-     */
-    FieldData getFieldBy(final String fieldName);
-
-    boolean containsField(final String fieldName);
+@TableDef("SOME_TABLE")
+public class SomeTable {
+    public static final FieldDef ID = Daleq.fd(DataType.INTEGER);
+    public static final FieldDef NAME = Daleq.fd(DataType.VARCHAR);
 }

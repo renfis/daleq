@@ -56,10 +56,15 @@ final class ImmutableRowData implements RowData {
     }
 
     public FieldData getFieldBy(final String fieldName) {
-        if (!this.index.containsKey(fieldName)) {
+        if (!containsField(fieldName)) {
             throw new NoSuchDaleqFieldException("fieldName");
         }
         return this.index.get(fieldName);
+    }
+
+    @Override
+    public boolean containsField(final String fieldName) {
+        return this.index.containsKey(fieldName);
     }
 
     @Override

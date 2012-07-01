@@ -48,6 +48,7 @@ import de.brands4friends.daleq.Table;
 import de.brands4friends.daleq.TableData;
 import de.brands4friends.daleq.TableDef;
 import de.brands4friends.daleq.internal.builder.SimpleContext;
+import de.brands4friends.daleq.internal.dbunit.dataset.InMemoryDataSetFactory;
 
 // DaleqSupport should wrap the access to daleq. yes this might produce too much coupling, but for now that's the
 // way we go here.
@@ -72,7 +73,7 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
         connectionFactory = createMock(ConnectionFactory.class);
         insertOperation = createMock(DatabaseOperation.class);
         connection = createMock(IDatabaseConnection.class);
-        final IDataSetFactory dataSetFactory = new FlatXmlIDataSetFactory();
+        final IDataSetFactory dataSetFactory = new InMemoryDataSetFactory();
         asserter = createMock(Asserter.class);
         daleqSupport = new DbUnitDaleqSupport(dataSetFactory, connectionFactory, insertOperation, asserter);
     }

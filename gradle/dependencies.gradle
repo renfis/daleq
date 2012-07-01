@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+
 ext {
 
     def springVersion = "3.1.1.RELEASE"
@@ -29,7 +31,6 @@ ext {
             commonsLang: "commons-lang:commons-lang:2.6",
             commonsCodec: "commons-codec:commons-codec:1.6",
             dbUnit: "org.dbunit:dbunit:2.4.8",
-            dom4j: "dom4j:dom4j:1.6.1",
 
             equalsverifier: "nl.jqno.equalsverifier:equalsverifier:1.1.3",
 
