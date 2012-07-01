@@ -16,10 +16,10 @@
 
 package de.brands4friends.daleq.examples;
 
-import de.brands4friends.daleq.Daleq;
-import de.brands4friends.daleq.DataType;
-import de.brands4friends.daleq.FieldDef;
-import de.brands4friends.daleq.TableDef;
+import de.brands4friends.daleq.core.Daleq;
+import de.brands4friends.daleq.core.DataType;
+import de.brands4friends.daleq.core.FieldDef;
+import de.brands4friends.daleq.core.TableDef;
 
 @TableDef("PRODUCT")
 public class ProductTable {

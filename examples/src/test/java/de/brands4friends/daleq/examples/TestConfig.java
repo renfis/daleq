@@ -25,9 +25,9 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import de.brands4friends.daleq.DaleqSupport;
-import de.brands4friends.daleq.internal.dbunit.ConnectionFactory;
-import de.brands4friends.daleq.internal.dbunit.DbUnitDaleqSupport;
+import de.brands4friends.daleq.core.DaleqSupport;
+import de.brands4friends.daleq.core.internal.dbunit.ConnectionFactory;
+import de.brands4friends.daleq.core.internal.dbunit.DbUnitDaleqSupport;
 import de.brands4friends.daleq.spring.SpringConnectionFactory;
 
 @Configuration

@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.spring;
+package de.brands4friends.daleq.core.internal.dbunit;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
@@ -25,14 +26,12 @@ import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.datatype.IDataTypeFactory;
 import org.dbunit.ext.hsqldb.HsqldbDataTypeFactory;
-import org.springframework.jdbc.datasource.DataSourceUtils;
 
 import com.google.common.base.Preconditions;
 
 import de.brands4friends.daleq.core.DaleqException;
-import de.brands4friends.daleq.core.internal.dbunit.ConnectionFactory;
 
-public class SpringConnectionFactory implements ConnectionFactory {
+public class SimpleConnectionFactory implements ConnectionFactory {
 
     private DataSource dataSource;
 
@@ -51,12 +50,14 @@ public class SpringConnectionFactory implements ConnectionFactory {
     public IDatabaseConnection createConnection() {
         Preconditions.checkNotNull(dataSource, "dataSource is null.");
         try {
-            final Connection conn = DataSourceUtils.getConnection(dataSource);
+            final Connection conn = dataSource.getConnection();
             final DatabaseConnection databaseConnection = new DatabaseConnection(conn);
             databaseConnection.getConfig().setProperty(
                     "http://www.dbunit.org/properties/datatypeFactory", dataTypeFactory);
             return databaseConnection;
         } catch (DatabaseUnitException e) {
+            throw new DaleqException(e);
+        } catch (SQLException e) {
             throw new DaleqException(e);
         }
     }

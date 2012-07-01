@@ -14,16 +14,24 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.integration.tests.assertingtable;
+package de.brands4friends.daleq.core;
 
-import de.brands4friends.daleq.core.Daleq;
-import de.brands4friends.daleq.core.DataType;
-import de.brands4friends.daleq.core.FieldDef;
-import de.brands4friends.daleq.core.TableDef;
+import javax.annotation.Nullable;
 
-@TableDef("ASSERT_TABLE")
-public class AssertTableTable {
-    public static final FieldDef ID = Daleq.fd(DataType.INTEGER);
-    public static final FieldDef NAME = Daleq.fd(DataType.VARCHAR);
-    public static final FieldDef AMOUNT = Daleq.fd(DataType.DECIMAL);
+public interface Table {
+
+    Table with(Row... rows);
+
+    Table withSomeRows(Iterable<Long> ids);
+
+    Table withSomeRows(long... ids);
+
+    Table withRowsUntil(long maxId);
+
+    Table allHaving(FieldDef fieldDef, @Nullable Object value);
+
+    Table having(FieldDef fieldDef, Iterable<Object> values);
+
+    TableData build(final Context context);
+
 }

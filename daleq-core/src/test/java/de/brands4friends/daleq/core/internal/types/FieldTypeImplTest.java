@@ -14,16 +14,23 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.integration.tests.assertingtable;
+package de.brands4friends.daleq.core.internal.types;
 
-import de.brands4friends.daleq.core.Daleq;
-import de.brands4friends.daleq.core.DataType;
-import de.brands4friends.daleq.core.FieldDef;
-import de.brands4friends.daleq.core.TableDef;
+import static nl.jqno.equalsverifier.EqualsVerifier.forClass;
 
-@TableDef("ASSERT_TABLE")
-public class AssertTableTable {
-    public static final FieldDef ID = Daleq.fd(DataType.INTEGER);
-    public static final FieldDef NAME = Daleq.fd(DataType.VARCHAR);
-    public static final FieldDef AMOUNT = Daleq.fd(DataType.DECIMAL);
+import org.junit.Test;
+
+import com.google.common.base.Optional;
+
+import nl.jqno.equalsverifier.Warning;
+
+public class FieldTypeImplTest {
+
+    @Test
+    public void testHashCodeAndEquals() {
+        forClass(FieldTypeImpl.class)
+                .withPrefabValues(Optional.class, Optional.of("a"), Optional.of("b"))
+                .suppress(Warning.STRICT_INHERITANCE)
+                .verify();
+    }
 }

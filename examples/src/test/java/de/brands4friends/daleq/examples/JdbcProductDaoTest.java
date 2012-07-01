@@ -16,8 +16,8 @@
 
 package de.brands4friends.daleq.examples;
 
-import static de.brands4friends.daleq.Daleq.aRow;
-import static de.brands4friends.daleq.Daleq.aTable;
+import static de.brands4friends.daleq.core.Daleq.aRow;
+import static de.brands4friends.daleq.core.Daleq.aTable;
 import static de.brands4friends.daleq.examples.ProductTable.ID;
 import static de.brands4friends.daleq.examples.ProductTable.NAME;
 import static de.brands4friends.daleq.examples.ProductTable.PRICE;
@@ -45,8 +45,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.common.primitives.Longs;
 
-import de.brands4friends.daleq.DaleqSupport;
-import de.brands4friends.daleq.Table;
+import de.brands4friends.daleq.core.DaleqSupport;
+import de.brands4friends.daleq.core.Table;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfig.class)

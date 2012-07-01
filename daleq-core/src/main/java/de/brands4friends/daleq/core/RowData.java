@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.integration.tests.assertingtable;
+package de.brands4friends.daleq.core;
 
-import de.brands4friends.daleq.core.Daleq;
-import de.brands4friends.daleq.core.DataType;
-import de.brands4friends.daleq.core.FieldDef;
-import de.brands4friends.daleq.core.TableDef;
+import java.util.List;
 
-@TableDef("ASSERT_TABLE")
-public class AssertTableTable {
-    public static final FieldDef ID = Daleq.fd(DataType.INTEGER);
-    public static final FieldDef NAME = Daleq.fd(DataType.VARCHAR);
-    public static final FieldDef AMOUNT = Daleq.fd(DataType.DECIMAL);
+public interface RowData {
+    List<FieldData> getFields();
+
+    /**
+     * @param fieldName
+     * @throws NoSuchDaleqFieldException if such a field does not exist in the RowData
+     */
+    FieldData getFieldBy(final String fieldName);
+
+    boolean containsField(final String fieldName);
 }

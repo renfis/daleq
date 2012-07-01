@@ -14,16 +14,27 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.integration.tests.assertingtable;
+package de.brands4friends.daleq.core;
 
-import de.brands4friends.daleq.core.Daleq;
-import de.brands4friends.daleq.core.DataType;
-import de.brands4friends.daleq.core.FieldDef;
-import de.brands4friends.daleq.core.TableDef;
+import de.brands4friends.daleq.core.internal.builder.FieldDefBuilder;
+import de.brands4friends.daleq.core.internal.builder.RowBuilder;
+import de.brands4friends.daleq.core.internal.builder.TableBuilder;
 
-@TableDef("ASSERT_TABLE")
-public class AssertTableTable {
-    public static final FieldDef ID = Daleq.fd(DataType.INTEGER);
-    public static final FieldDef NAME = Daleq.fd(DataType.VARCHAR);
-    public static final FieldDef AMOUNT = Daleq.fd(DataType.DECIMAL);
+public final class Daleq {
+
+    private Daleq() {
+
+    }
+
+    public static <T> Table aTable(final Class<T> fromClass) {
+        return TableBuilder.aTable(fromClass);
+    }
+
+    public static Row aRow(final long id) {
+        return RowBuilder.aRow(id);
+    }
+
+    public static FieldDef fd(final DataType dataType) {
+        return FieldDefBuilder.fd(dataType);
+    }
 }

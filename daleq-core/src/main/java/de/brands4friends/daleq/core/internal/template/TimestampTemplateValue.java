@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.integration.tests.assertingtable;
+package de.brands4friends.daleq.core.internal.template;
 
-import de.brands4friends.daleq.core.Daleq;
-import de.brands4friends.daleq.core.DataType;
-import de.brands4friends.daleq.core.FieldDef;
-import de.brands4friends.daleq.core.TableDef;
+import org.joda.time.DateTime;
 
-@TableDef("ASSERT_TABLE")
-public class AssertTableTable {
-    public static final FieldDef ID = Daleq.fd(DataType.INTEGER);
-    public static final FieldDef NAME = Daleq.fd(DataType.VARCHAR);
-    public static final FieldDef AMOUNT = Daleq.fd(DataType.DECIMAL);
+import de.brands4friends.daleq.core.TemplateValue;
+import de.brands4friends.daleq.core.internal.conversion.DateTimeTypeConverter;
+
+final class TimestampTemplateValue implements TemplateValue {
+    @Override
+    public String render(final long value) {
+        final DateTime dateTime = new DateTime(0).plusSeconds((int) value);
+        return DateTimeTypeConverter.createXMLDateTime(dateTime);
+    }
 }

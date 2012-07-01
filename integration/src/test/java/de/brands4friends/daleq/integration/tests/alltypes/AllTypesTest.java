@@ -23,9 +23,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.brands4friends.daleq.Daleq;
-import de.brands4friends.daleq.DaleqSupport;
-import de.brands4friends.daleq.Table;
+import de.brands4friends.daleq.core.Daleq;
+import de.brands4friends.daleq.core.DaleqSupport;
+import de.brands4friends.daleq.core.Table;
 import de.brands4friends.daleq.integration.IntegrationConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
