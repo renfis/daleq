@@ -32,9 +32,9 @@ Obviously the test ensures that a query will filter products with a certain size
 Motivation
 ----------
 
-Writing unit tests for SQL queries in a Java application stack is not easy. One of the challenges is setting up the test data on which the the query will run. 
+Writing unit tests for SQL queries in a Java application stack is not easy. One of the challenges is setting up the test data on which the query will run. 
 
-To keep tests comprehensive and maintainable we have the following requirements for such data:
+To keep tests comprehensive and maintainable we have the following demands on such data:
 
 * **Data should be defined per test**. We think it is not maintainable to have a single dump, which is used for all tests. Each test ensures that a certain aspect of the query is implemented correctly. We doubt that it is possible to set up a single dump which contains all possible test cases. We doubt even more that such a dump stays maintainable in the long run.
 * **Data should be defined close to the test**. The closer the data is to the test, the more likely is, that it stays maintainable. The closest the data can be to test is actually in the test. Hence test data has to be set up in same language the test is written in.
