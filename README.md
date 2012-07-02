@@ -4,8 +4,9 @@ Introduction
 Writing unit tests for SQL queries in a Java application stack is not easy. One of the challenges setting up the test data to run the query against. 
 
 To keep tests comprehensive and maintainable we have the following requirements for such data:
-- Data should be defined per test. We think it is not maintainable have a single dump, which is used for any. Each test ensures that a certain aspect of the query is implemented correctly. We doubt that it is possible to set up a single dump which contains all possible test cases.
-- 
+
+* Data should be defined per test. We think it is not maintainable to have a single dump, which is used for all tests. Each test ensures that a certain aspect of the query is implemented correctly. We doubt that it is possible to set up a single dump which contains all possible test cases. We doubt even more that such a dump stays maintainable in the long run.
+* Data should be defined in the test. 
 
 Daleq is a DSL to define the content of a relational database in a concise and neat manner. 
 
