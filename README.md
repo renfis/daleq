@@ -1,6 +1,34 @@
 Introduction
 ------------
 
+Daleq is a DSL to define the content of a relational database in a concise and neat manner. It is actually very simple. 
+
+It lets you describe your test data in your unit test where you just write 
+those aspects of the data that are important for your test. The rest will be
+filled out by Daleq:
+
+```java
+@Test
+public void findBySize_should_returnThoseProductsHavingThatSize() {
+    daleq.insertIntoDatabase(
+            aTable(ProductTable.class)
+                    .withRowsUntil(10)
+                    .with(
+                            aRow(10).f(SIZE, "S"),
+                            aRow(11).f(SIZE, "S"),
+                            aRow(12).f(SIZE, "M"),
+                            aRow(13).f(SIZE, "L")
+                    )
+    );
+    final List<Product> products = productDao.findBySize("S");
+
+    assertProductsWithIds(products, 10L, 11L);
+}
+```
+
+Motivation
+----------
+
 Writing unit tests for SQL queries in a Java application stack is not easy. One of the challenges is setting up the test data on which the the query will run. 
 
 To keep tests comprehensive and maintainable we have the following requirements for such data:
@@ -9,9 +37,12 @@ To keep tests comprehensive and maintainable we have the following requirements 
 * **Data should be defined close to the test**. The closer the data is to the test, the more likely is, that it stays maintainable. The closest the data can be to test is actually in the test. Hence test data has to be set up in same language the test is written in.
 * **Data setup should only describe the aspects that matter** and therefore should be free of redundancy. Since relational database tables tend to contain a lot of repetitive data, setting up this data is poses a challenge if such tests should stay mantainable.
 
-Daleq is a DSL to define the content of a relational database in a concise and neat manner. It is actually very simple. 
+Concepts
+--------
 
-Let's assume you have such a database
+Let's have a look at Daleq's concept. They are actually very simple.
+
+Assume you have such a database
 
 ```sql
 CREATE TABLE PRODUCT (
@@ -32,10 +63,17 @@ public class ProductTable {
     public static final FieldDef PRICE = Daleq.fd(DataType.DECIMAL);
 }
 ```
-and Daleq is ready to be used. Now let's have a look at Daleq DSL. It is even more simple. It consists of two concepts: First there is a Table
+and Daleq is ready to be used. Now take a look at Daleq's DSL. It consists of two concepts: First there is a Table
 ```java
 final Table table = Daleq.aTable(ProductTable.class);
 ```
+Now we have an empty table. Ok, that does not help much. Hence we a row:
+
+```java
+final Table table = Daleq.aTable(ProductTable.class).with(Daleq.aRow(1));
+```
+
+
 Examples
 --------
 
