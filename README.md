@@ -1,6 +1,8 @@
 Introduction
 ------------
 
+_Disclaimer: This README is work in progress, it is not yet finished._
+
 Daleq is a DSL to define the content of a relational database in a concise and neat manner. It is actually very simple. 
 
 It lets you describe your test data in your unit test where you just write 
@@ -25,6 +27,7 @@ public void findBySize_should_returnThoseProductsHavingThatSize() {
     assertProductsWithIds(products, 10L, 11L);
 }
 ```
+Obviously the test ensures that a query will filter products with a certain size. In this test we insert 14 rows into the table. The first ten rows have arbitrary content. It does not matter, which content they actually have, they just don't have a size S. Then we explicitly at 4 further rows, two of them having a size of S. In this test it does not matter either, which other columns are in the product table. This test is about the SIZE column and therefore we just focus on it. Daleq will do the rest.
 
 Motivation
 ----------
@@ -42,6 +45,7 @@ Concepts
 
 Let's have a look at Daleq's concept. They are actually very simple.
 
+### Table Definitions
 Assume you have such a database
 
 ```sql
@@ -63,12 +67,17 @@ public class ProductTable {
     public static final FieldDef PRICE = Daleq.fd(DataType.DECIMAL);
 }
 ```
-and Daleq is ready to be used. Now take a look at Daleq's DSL. It consists of two concepts: First there is a Table
+and Daleq is ready to be used. 
+
+### Tables
+Now take a look at Daleq's DSL. It consists of two concepts: First there is a Table
 ```java
 final Table table = Daleq.aTable(ProductTable.class);
 ```
-Now we have an empty table. Ok, that does not help much. Hence we a row:
+Now we have an empty table. Ok, that does not help much. 
 
+### Rows
+Hence we a row:
 ```java
 final Table table = Daleq.aTable(ProductTable.class).with(Daleq.aRow(1));
 ```
