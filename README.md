@@ -5,6 +5,11 @@ Daleq is a Test Data DSL for unit testing SQL Queries.
 
 TODO
 
+Examples
+--------
+
+For now have a look at the [tests in the example code](https://github.com/brands4friends/daleq/blob/master/examples/src/test/java/de/brands4friends/daleq/examples/JdbcProductDaoTest.java).
+
 Authors
 -------
 
