@@ -1,9 +1,13 @@
 Introduction
 ------------
 
-Daleq is a Test Data DSL for unit testing SQL Queries.
+Writing unit tests for SQL queries in a Java application stack is not easy. One of the challenges setting up the test data to run the query against. 
 
-TODO
+To keep tests comprehensive and maintainable we have the following requirements for such data:
+- Data should be defined per test. We think it is not maintainable have a single dump, which is used for any. Each test ensures that a certain aspect of the query is implemented correctly. We doubt that it is possible to set up a single dump which contains all possible test cases.
+- 
+
+Daleq is a DSL to define the content of a relational database in a concise and neat manner. 
 
 Examples
 --------
