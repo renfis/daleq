@@ -43,7 +43,7 @@ To keep tests comprehensive and maintainable we have the following demands on su
 Concepts
 --------
 
-Let's have a look at Daleq's concept. They are actually very simple.
+Let's have a look at Daleq's concepts. They are actually very simple.
 
 ### Table Definitions
 Assume you have such a database
@@ -77,7 +77,7 @@ final Table table = Daleq.aTable(ProductTable.class);
 Now we have an empty table. Ok, that does not help much. 
 
 ### Rows
-Hence we a row:
+Hence with a row:
 ```java
 final Table table = Daleq.aTable(ProductTable.class).with(Daleq.aRow(1));
 ```
