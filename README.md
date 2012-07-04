@@ -29,8 +29,8 @@ public void findBySize_should_returnThoseProductsHavingThatSize() {
 ```
 Obviously this test ensures that a query will filter products with a certain size. We insert 14 rows into the table. The first ten rows have arbitrary content. It does not matter, which content they actually have, they just don't have a size S. Then we explicitly add four further rows, two of them having a size of S. The other columns in these rows don't matter either. The test is about the SIZE column and therefore we just focus on it. Daleq will handle the rest for us just fine.
 
-Motivation
-----------
+What we think about test data
+-----------------------------
 
 Writing unit tests for SQL queries in a Java application stack is not easy.
 One of the challenges is setting up the test data on which the queries will
@@ -39,8 +39,13 @@ run.
 To keep tests comprehensive and maintainable we have the following demands on such data:
 
 * **Data should be defined per test**. We think it is not maintainable to have a single dump that is used for all tests. Each test ensures that a certain aspect of the query is implemented correctly. We doubt that it is possible to set up a single dump which contains all possible test cases. We doubt even more that such a dump stays maintainable in the long run.
-* **Data should be defined close to the test**. The closer the data is to the test, the more likely is, that it stays maintainable. The closest the data can be to test is actually in the test. Hence test data has to be set up in same language the test is written in.
+* **Data should be defined close to the test**. The closer the data is to the test, the more likely is, that it stays in sync with the test. The closest the data can be to test is actually in the test method. Hence test data has to be set up in same language the test is written in.
 * **Data setup should only describe the aspects that matter** and therefore should be free of redundancy. Since relational database tables tend to contain a lot of repetitive data, setting up this data is poses a challenge if such tests should stay mantainable.
+
+How Daleq will help you
+-----------------------
+
+Daleq is a DSL, actually a family of some builders, which acts as a wrapper around [DbUnit](http://www.dbunit.org/). DbUnit is a great tool when it comes to scripting and automating to fill or assert on your database but it does a bad job to give you a tool to this nice and proper in unit tests. Daleq fills this gap.
 
 Next Steps
 ----------
