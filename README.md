@@ -1,13 +1,13 @@
 Introduction
 ------------
 
-_Disclaimer: This README is work in progress, it is not yet finished._
-
 Daleq is a DSL to define content of a relational database in a concise and neat manner. It is actually very simple. 
 
-It lets you describe the relation database table directly in your unit test by
+It lets you describe a relation database table directly in your unit test by
 just writing those parts of the data which are subject to the test. Anything
-else is filled out by Daleq. Let's have a look at an example:
+else is filled out by Daleq. 
+
+Let's have a look at an example:
 
 ```java
 @Test
