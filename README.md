@@ -45,7 +45,7 @@ To keep tests comprehensive and maintainable we have the following demands on su
 How Daleq will help you
 -----------------------
 
-Daleq is a DSL, actually a family of some builders, which acts as a wrapper around [DbUnit](http://www.dbunit.org/). DbUnit is a great tool when it comes to scripting and automating to fill or assert on your database but it does a bad job to give you a tool to this nice and proper in unit tests. Daleq fills this gap.
+Daleq is a DSL, actually a family of some builders, which acts as a wrapper around [DbUnit](http://www.dbunit.org/). DbUnit is a great tool when it comes to batch scripting your database but it does a bad job to give you a tool to do this nicely and proper in unit tests. Daleq fills this gap. Instead of maintaining XML files which act like the content of your database you write that content directly in Java. Daleq is designed to benefit from code completion in your favorite IDE. What was a burden in times of clumsy XML will become a one liner with Daleq.
 
 Next Steps
 ----------
