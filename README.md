@@ -33,8 +33,7 @@ What we think about test data
 -----------------------------
 
 Writing unit tests for SQL queries in a Java application stack is not easy.
-One of the challenges is setting up the test data on which the queries will
-run.
+One of the challenges is setting up the test data the queries will run on.
 
 To keep tests comprehensive and maintainable we have the following demands on such data:
 
