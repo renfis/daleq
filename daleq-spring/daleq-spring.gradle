@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-include "daleq-core"
-include "daleq-spring"
-include "integration"
-include "examples"
+apply from: script('uploadArchives')
 
-rootProject.name = "daleq"
-rootProject.children.each {
-  it.buildFileName = it.name + ".gradle"
+displayName = "Daleq Framework - Spring Module"
+description = 'Integrate Daleq tests with spring-jdbc.'
+
+
+dependencies {
+    compile project(':daleq-core')
+    compile deps.springJdbc
 }

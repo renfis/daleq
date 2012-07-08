@@ -14,12 +14,18 @@
  * limitations under the License.
  */
 
-include "daleq-core"
-include "daleq-spring"
-include "integration"
-include "examples"
+apply from: script('uploadArchives')
 
-rootProject.name = "daleq"
-rootProject.children.each {
-  it.buildFileName = it.name + ".gradle"
+displayName = "Daleq Framework - Core Module"
+description = 'Daleq is a DSL to define the content of a relational database in \
+ a concise and neat manner. It is actually very simple.'
+
+dependencies {
+    compile deps.jodaTime
+    compile deps.guava
+    compile deps.commonsLang
+    compile deps.commonsCodec
+    compile deps.dbUnit
+
+    testCompile deps.equalsverifier
 }

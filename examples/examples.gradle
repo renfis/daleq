@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-include "daleq-core"
-include "daleq-spring"
-include "integration"
-include "examples"
+displayName = "Daleq Framework - Examples"
+description = 'Daleq examples to illustrate the usage.'
 
-rootProject.name = "daleq"
-rootProject.children.each {
-  it.buildFileName = it.name + ".gradle"
+dependencies {
+    compile project(':daleq-core')
+    compile project(':daleq-spring')
+    compile deps.springJdbc
+
+    testCompile deps.springTest
+    testCompile deps.hsqldb
 }
