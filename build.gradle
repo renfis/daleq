@@ -19,14 +19,15 @@ description = 'Daleq Framework'
 // Define Dependencies
 apply from: script('dependencies')
 
-allprojects {
+allprojects {	
+    apply plugin: 'idea'	
+	
     group = 'de.brands4friends.daleq'
     version = '0.2.0-SNAPSHOT'	
 }
 
 subprojects {
     apply plugin: 'java'
-    apply plugin: 'idea'
     apply plugin: 'checkstyle'
     apply plugin: 'pmd'
     apply plugin: 'findbugs'
