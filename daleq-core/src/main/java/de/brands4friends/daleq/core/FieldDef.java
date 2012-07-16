@@ -18,7 +18,7 @@ package de.brands4friends.daleq.core;
 
 import com.google.common.base.Optional;
 
-public interface FieldDef {
+public interface FieldDef extends FieldTypeReference {
     Optional<String> getName();
 
     DataType getDataType();

@@ -16,28 +16,33 @@
 
 package de.brands4friends.daleq.core.internal.builder;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThat;
-
-import org.hamcrest.Matchers;
-import org.junit.Test;
-
 import com.google.common.base.Optional;
-
 import de.brands4friends.daleq.core.Daleq;
 import de.brands4friends.daleq.core.DataType;
 import de.brands4friends.daleq.core.FieldDef;
+import de.brands4friends.daleq.core.FieldType;
+import de.brands4friends.daleq.core.TableDef;
+import de.brands4friends.daleq.core.TableType;
 import de.brands4friends.daleq.core.TemplateValue;
 import de.brands4friends.daleq.core.internal.template.StringTemplateValue;
+import de.brands4friends.daleq.core.internal.types.TableTypeFactory;
+import de.brands4friends.daleq.core.internal.types.TableTypeFactoryImpl;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
+import org.hamcrest.Matchers;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertThat;
 
 public class FieldDefBuilderTest {
 
     public static final String NAME = "foo";
     public static final String TEMPLATE = "foo";
     public static final String NEW_NAME = "new name";
+    private TableTypeFactory factory;
 
     @Test
     public void testHashCodeAndEquals() {
@@ -102,6 +107,31 @@ public class FieldDefBuilderTest {
         final FieldDef fd = someFd().template(null);
         // should already have failed!
         assertThat(fd, Matchers.is(nullValue()));
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        factory = new TableTypeFactoryImpl();
+    }
+
+    @TableDef("RESOLVE")
+    public static class ResolveTable {
+        public static final FieldDef ID = Daleq.fd(DataType.BIGINT);
+    }
+
+    @Test
+    public void resolve_should_mapFieldDefToExistingType() {
+        final TableType tableType = factory.create(ResolveTable.class);
+        final FieldType fieldType = ResolveTable.ID.resolve(tableType);
+        assertThat(fieldType.getOrigin(), is(ResolveTable.ID));
+    }
+
+    @Test
+    public void resolve_should_returnNullForUnmappedType() {
+        final TableType tableType = factory.create(ResolveTable.class);
+        final FieldDef fd = Daleq.fd(DataType.BIGINT);
+        final FieldType fieldType = fd.resolve(tableType);
+        assertThat(fieldType, is(nullValue()));
     }
 
     private FieldDef someFd() {

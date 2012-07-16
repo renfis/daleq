@@ -19,9 +19,10 @@ package de.brands4friends.daleq.core.internal.builder;
 import com.google.common.base.Objects;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
-
 import de.brands4friends.daleq.core.DataType;
 import de.brands4friends.daleq.core.FieldDef;
+import de.brands4friends.daleq.core.FieldType;
+import de.brands4friends.daleq.core.TableType;
 import de.brands4friends.daleq.core.TemplateValue;
 import de.brands4friends.daleq.core.internal.template.StringTemplateValue;
 
@@ -81,4 +82,8 @@ public final class FieldDefBuilder implements FieldDef {
         return new FieldDefBuilder(dataType, Optional.<String>absent(), Optional.<TemplateValue>absent());
     }
 
+    @Override
+    public FieldType resolve(final TableType tableType) {
+        return tableType.findFieldBy(this);
+    }
 }

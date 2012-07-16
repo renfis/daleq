@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
 
 public interface Row {
 
-    Row f(FieldDef fieldDef, @Nullable Object value);
+    Row f(FieldTypeReference fieldTypeReference, @Nullable Object value);
 
     RowData build(Context context, final TableType tableType);
 }

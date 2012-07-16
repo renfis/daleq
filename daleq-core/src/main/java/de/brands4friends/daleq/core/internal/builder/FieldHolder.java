@@ -19,19 +19,19 @@ package de.brands4friends.daleq.core.internal.builder;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 
-import de.brands4friends.daleq.core.FieldDef;
+import de.brands4friends.daleq.core.FieldTypeReference;
 
-public class FieldHolder {
-    private final FieldDef fieldDef;
+class FieldHolder {
+    private final FieldTypeReference fieldTypeRef;
     private final Object value;
 
-    public FieldHolder(final FieldDef fieldDef, final Object value) {
-        this.fieldDef = Preconditions.checkNotNull(fieldDef);
+    public FieldHolder(final FieldTypeReference fieldTypeRef, final Object value) {
+        this.fieldTypeRef = Preconditions.checkNotNull(fieldTypeRef);
         this.value = value;
     }
 
-    public FieldDef getFieldDef() {
-        return fieldDef;
+    public FieldTypeReference getFieldTypeRef() {
+        return fieldTypeRef;
     }
 
     public Object getValue() {
@@ -40,7 +40,7 @@ public class FieldHolder {
 
     @Override
     public final int hashCode() {
-        return Objects.hashCode(fieldDef, value);
+        return Objects.hashCode(fieldTypeRef, value);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class FieldHolder {
         if (obj instanceof FieldHolder) {
             final FieldHolder that = (FieldHolder) obj;
 
-            return Objects.equal(fieldDef, that.fieldDef)
+            return Objects.equal(fieldTypeRef, that.fieldTypeRef)
                     && Objects.equal(value, that.value);
         }
 
