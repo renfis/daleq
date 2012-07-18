@@ -16,17 +16,15 @@
 
 package de.brands4friends.daleq.core.internal.types;
 
-import static com.google.common.base.Objects.toStringHelper;
-
 import com.google.common.base.Objects;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
-
 import de.brands4friends.daleq.core.DataType;
-import de.brands4friends.daleq.core.FieldDef;
 import de.brands4friends.daleq.core.FieldType;
 import de.brands4friends.daleq.core.FieldTypeReference;
 import de.brands4friends.daleq.core.TemplateValue;
+
+import static com.google.common.base.Objects.toStringHelper;
 
 final class FieldTypeImpl implements FieldType {
     private final String name;
@@ -39,7 +37,7 @@ final class FieldTypeImpl implements FieldType {
             final String name,
             final DataType dataType,
             final Optional<TemplateValue> templateValue,
-            final FieldDef origin) {
+            final FieldTypeReference origin) {
         this.name = Preconditions.checkNotNull(name);
         this.dataType = Preconditions.checkNotNull(dataType);
         this.templateValue = Preconditions.checkNotNull(templateValue);
