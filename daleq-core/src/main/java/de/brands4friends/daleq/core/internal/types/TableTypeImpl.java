@@ -16,30 +16,29 @@
 
 package de.brands4friends.daleq.core.internal.types;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
-
-import de.brands4friends.daleq.core.FieldDef;
 import de.brands4friends.daleq.core.FieldType;
+import de.brands4friends.daleq.core.FieldTypeReference;
 import de.brands4friends.daleq.core.TableType;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 final class TableTypeImpl implements TableType {
 
     private final String name;
     private final List<FieldType> fields;
-    private final Map<FieldDef, FieldType> lookupByDef;
+    private final Map<FieldTypeReference, FieldType> lookupByDef;
 
     TableTypeImpl(final String name, final List<FieldType> fields) {
         this.name = name;
         this.fields = fields;
-        this.lookupByDef = Maps.uniqueIndex(fields, new Function<FieldType, FieldDef>() {
+        this.lookupByDef = Maps.uniqueIndex(fields, new Function<FieldType, FieldTypeReference>() {
             @Override
-            public FieldDef apply(final FieldType input) {
+            public FieldTypeReference apply(final FieldType input) {
                 return input.getOrigin();
             }
         });
@@ -60,8 +59,8 @@ final class TableTypeImpl implements TableType {
     }
 
     @Override
-    public FieldType findFieldBy(final FieldDef fieldDef) {
-        return lookupByDef.get(fieldDef);
+    public FieldType findFieldBy(final FieldTypeReference fieldRef) {
+        return lookupByDef.get(fieldRef);
     }
 
     @Override

@@ -25,5 +25,5 @@ public interface FieldType {
 
     Optional<TemplateValue> getTemplateValue();
 
-    FieldDef getOrigin();
+    FieldTypeReference getOrigin();
 }

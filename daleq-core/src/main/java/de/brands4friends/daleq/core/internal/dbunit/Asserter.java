@@ -22,6 +22,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import de.brands4friends.daleq.core.FieldTypeReference;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.assertion.DbUnitAssert;
 import org.dbunit.database.IDatabaseConnection;
@@ -83,17 +84,17 @@ public class Asserter {
         return connectionFactory.createConnection();
     }
 
-    private List<String> toColumnNames(final FieldDef[] ignoreColumns, final TableType tableType) {
-        return Lists.transform(Arrays.asList(ignoreColumns), new Function<FieldDef, String>() {
+    private List<String> toColumnNames(final FieldTypeReference[] ignoreColumns, final TableType tableType) {
+        return Lists.transform(Arrays.asList(ignoreColumns), new Function<FieldTypeReference, String>() {
             @Override
-            public String apply(@Nullable final FieldDef fieldDef) {
-                if (fieldDef == null) {
+            public String apply(@Nullable final FieldTypeReference fieldRef) {
+                if (fieldRef == null) {
                     throw new DaleqException("Cannot ignore null column");
                 }
-                final FieldType field = tableType.findFieldBy(fieldDef);
+                final FieldType field = tableType.findFieldBy(fieldRef);
                 if (field == null) {
-                    final String msg = String.format("The FieldDef '%s' is not contained in Table '%s'.",
-                            fieldDef.getName(), tableType.getName());
+                    final String msg = String.format("The referenced field '%s' is not contained in Table '%s'.",
+                            fieldRef, tableType.getName());
                     throw new DaleqException(msg);
                 }
                 return field.getName();
