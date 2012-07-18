@@ -19,6 +19,7 @@ package de.brands4friends.daleq.core;
 import de.brands4friends.daleq.core.internal.builder.FieldDefBuilder;
 import de.brands4friends.daleq.core.internal.builder.RowBuilder;
 import de.brands4friends.daleq.core.internal.builder.TableBuilder;
+import de.brands4friends.daleq.core.internal.types.ClassBasedTableTypeReference;
 
 public final class Daleq {
 
@@ -27,7 +28,7 @@ public final class Daleq {
     }
 
     public static <T> Table aTable(final Class<T> fromClass) {
-        return TableBuilder.aTable(fromClass);
+        return TableBuilder.aTable(ClassBasedTableTypeReference.of(fromClass));
     }
 
     public static Row aRow(final long id) {

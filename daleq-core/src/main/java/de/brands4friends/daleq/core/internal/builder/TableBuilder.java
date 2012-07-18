@@ -16,17 +16,10 @@
 
 package de.brands4friends.daleq.core.internal.builder;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Longs;
-
 import de.brands4friends.daleq.core.Context;
 import de.brands4friends.daleq.core.Daleq;
 import de.brands4friends.daleq.core.FieldDef;
@@ -35,15 +28,20 @@ import de.brands4friends.daleq.core.RowData;
 import de.brands4friends.daleq.core.Table;
 import de.brands4friends.daleq.core.TableData;
 import de.brands4friends.daleq.core.TableType;
-import de.brands4friends.daleq.core.internal.types.TableTypeFactory;
+import de.brands4friends.daleq.core.TableTypeReference;
 
-public class TableBuilder<T> implements Table {
+import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
-    private final Class<T> table;
+public final class TableBuilder implements Table {
+
+    private final TableTypeReference tableRef;
     private final List<Row> rows;
 
-    public TableBuilder(final Class<T> table) {
-        this.table = Preconditions.checkNotNull(table);
+    private TableBuilder(final TableTypeReference tableRef) {
+        this.tableRef = Preconditions.checkNotNull(tableRef);
         this.rows = Lists.newArrayList();
     }
 
@@ -108,12 +106,10 @@ public class TableBuilder<T> implements Table {
     }
 
     private TableType toTableType(final Context context) {
-        final TableTypeFactory tableTypeFactory = context.getService(TableTypeFactory.class);
-        return tableTypeFactory.create(table);
+        return tableRef.resolve(context);
     }
 
-    public static <T> Table aTable(final Class<T> fromClass) {
-
-        return new TableBuilder<T>(fromClass);
+    public static Table aTable(final TableTypeReference tableReference) {
+        return new TableBuilder(tableReference);
     }
 }
