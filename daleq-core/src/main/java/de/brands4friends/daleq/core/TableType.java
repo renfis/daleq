@@ -23,5 +23,5 @@ public interface TableType {
 
     List<FieldType> getFields();
 
-    FieldType findFieldBy(FieldDef fieldDef);
+    FieldType findFieldBy(FieldTypeReference fieldRef);
 }

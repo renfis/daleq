@@ -21,6 +21,7 @@ import de.brands4friends.daleq.core.Daleq;
 import de.brands4friends.daleq.core.DataType;
 import de.brands4friends.daleq.core.FieldDef;
 import de.brands4friends.daleq.core.FieldType;
+import de.brands4friends.daleq.core.FieldTypeReference;
 import de.brands4friends.daleq.core.TableDef;
 import de.brands4friends.daleq.core.TableType;
 import de.brands4friends.daleq.core.TemplateValue;
@@ -122,7 +123,7 @@ public class FieldDefBuilderTest {
     public void resolve_should_mapFieldDefToExistingType() {
         final TableType tableType = factory.create(ResolveTable.class);
         final FieldType fieldType = ResolveTable.ID.resolve(tableType);
-        assertThat(fieldType.getOrigin(), is(ResolveTable.ID));
+        assertThat(fieldType.getOrigin(), is((FieldTypeReference) ResolveTable.ID));
     }
 
     @Test

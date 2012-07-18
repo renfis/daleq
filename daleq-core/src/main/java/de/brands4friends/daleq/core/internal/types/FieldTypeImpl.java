@@ -25,13 +25,14 @@ import com.google.common.base.Preconditions;
 import de.brands4friends.daleq.core.DataType;
 import de.brands4friends.daleq.core.FieldDef;
 import de.brands4friends.daleq.core.FieldType;
+import de.brands4friends.daleq.core.FieldTypeReference;
 import de.brands4friends.daleq.core.TemplateValue;
 
 final class FieldTypeImpl implements FieldType {
     private final String name;
     private final DataType dataType;
     private final Optional<TemplateValue> templateValue;
-    private final FieldDef origin;
+    private final FieldTypeReference origin;
 
 
     FieldTypeImpl(
@@ -61,7 +62,7 @@ final class FieldTypeImpl implements FieldType {
     }
 
     @Override
-    public FieldDef getOrigin() {
+    public FieldTypeReference getOrigin() {
         return origin;
     }
 
