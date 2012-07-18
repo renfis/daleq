@@ -14,6 +14,10 @@ public final class NamedTableTypeReference implements TableTypeReference {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public boolean equals(final Object obj) {
         if (obj instanceof NamedTableTypeReference) {
