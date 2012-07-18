@@ -21,4 +21,8 @@ public class DaleqBuildException extends DaleqException {
     public DaleqBuildException(final String message) {
         super(message);
     }
+
+    public DaleqBuildException(Throwable cause) {
+        super(cause);
+    }
 }
