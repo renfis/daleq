@@ -16,52 +16,19 @@
 
 package de.brands4friends.daleq.core.internal.dbunit.dataset;
 
-import java.util.List;
-import java.util.Map;
-
+import com.google.common.collect.Maps;
+import de.brands4friends.daleq.core.FieldType;
+import de.brands4friends.daleq.core.TableType;
+import de.brands4friends.daleq.core.internal.dbunit.DataTypeMapping;
 import org.dbunit.dataset.Column;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.ITableMetaData;
 import org.dbunit.dataset.NoSuchColumnException;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
-
-import de.brands4friends.daleq.core.DataType;
-import de.brands4friends.daleq.core.FieldType;
-import de.brands4friends.daleq.core.TableType;
+import java.util.List;
+import java.util.Map;
 
 class TableMetaDataAdapter implements ITableMetaData {
-
-    private static final Map<DataType, org.dbunit.dataset.datatype.DataType> DATA_TYPE_MAPPING =
-            ImmutableMap.<DataType, org.dbunit.dataset.datatype.DataType>builder()
-                    .put(DataType.VARCHAR, org.dbunit.dataset.datatype.DataType.VARCHAR)
-                    .put(DataType.LONGVARCHAR, org.dbunit.dataset.datatype.DataType.LONGVARCHAR)
-                    .put(DataType.NVARCHAR, org.dbunit.dataset.datatype.DataType.NVARCHAR)
-                    .put(DataType.LONGNVARCHAR, org.dbunit.dataset.datatype.DataType.LONGNVARCHAR)
-                    .put(DataType.CLOB, org.dbunit.dataset.datatype.DataType.CLOB)
-                    .put(DataType.CHAR, org.dbunit.dataset.datatype.DataType.CHAR)
-                    .put(DataType.NCHAR, org.dbunit.dataset.datatype.DataType.NCHAR)
-                    .put(DataType.BOOLEAN, org.dbunit.dataset.datatype.DataType.BOOLEAN)
-                    .put(DataType.BIT, org.dbunit.dataset.datatype.DataType.BIT)
-                    .put(DataType.NUMERIC, org.dbunit.dataset.datatype.DataType.NUMERIC)
-                    .put(DataType.DECIMAL, org.dbunit.dataset.datatype.DataType.DECIMAL)
-                    .put(DataType.INTEGER, org.dbunit.dataset.datatype.DataType.INTEGER)
-                    .put(DataType.TINYINT, org.dbunit.dataset.datatype.DataType.TINYINT)
-                    .put(DataType.SMALLINT, org.dbunit.dataset.datatype.DataType.SMALLINT)
-                    .put(DataType.BIGINT, org.dbunit.dataset.datatype.DataType.BIGINT)
-                    .put(DataType.REAL, org.dbunit.dataset.datatype.DataType.REAL)
-                    .put(DataType.DOUBLE, org.dbunit.dataset.datatype.DataType.DOUBLE)
-                    .put(DataType.FLOAT, org.dbunit.dataset.datatype.DataType.FLOAT)
-                    .put(DataType.BIGINT_AUX_LONG, org.dbunit.dataset.datatype.DataType.BIGINT_AUX_LONG)
-                    .put(DataType.DATE, org.dbunit.dataset.datatype.DataType.DATE)
-                    .put(DataType.TIME, org.dbunit.dataset.datatype.DataType.TIME)
-                    .put(DataType.TIMESTAMP, org.dbunit.dataset.datatype.DataType.TIMESTAMP)
-                    .put(DataType.VARBINARY, org.dbunit.dataset.datatype.DataType.VARBINARY)
-                    .put(DataType.BINARY, org.dbunit.dataset.datatype.DataType.BINARY)
-                    .put(DataType.LONGVARBINARY, org.dbunit.dataset.datatype.DataType.LONGVARBINARY)
-                    .put(DataType.BLOB, org.dbunit.dataset.datatype.DataType.BLOB)
-                    .build();
 
     private final TableType tableType;
     private final Column[] columnsCache;
@@ -82,7 +49,7 @@ class TableMetaDataAdapter implements ITableMetaData {
     }
 
     private Column createColumn(final FieldType fieldType) {
-        return new Column(fieldType.getName(), DATA_TYPE_MAPPING.get(fieldType.getDataType()));
+        return new Column(fieldType.getName(), DataTypeMapping.toDbUnit(fieldType.getDataType()));
     }
 
     @Override
