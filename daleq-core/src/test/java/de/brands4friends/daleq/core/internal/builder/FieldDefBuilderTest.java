@@ -26,7 +26,6 @@ import de.brands4friends.daleq.core.TableType;
 import de.brands4friends.daleq.core.TemplateValue;
 import de.brands4friends.daleq.core.internal.template.StringTemplateValue;
 import de.brands4friends.daleq.core.internal.types.TableTypeFactory;
-import de.brands4friends.daleq.core.internal.types.TableTypeFactoryImpl;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.hamcrest.Matchers;
@@ -111,7 +110,7 @@ public class FieldDefBuilderTest {
 
     @Before
     public void setUp() throws Exception {
-        factory = new TableTypeFactoryImpl();
+        factory = new TableTypeFactory();
     }
 
     @TableDef("RESOLVE")

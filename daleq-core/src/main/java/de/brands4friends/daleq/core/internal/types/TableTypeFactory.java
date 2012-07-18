@@ -16,8 +16,28 @@
 
 package de.brands4friends.daleq.core.internal.types;
 
+import de.brands4friends.daleq.core.FieldType;
+import de.brands4friends.daleq.core.TableDef;
 import de.brands4friends.daleq.core.TableType;
 
-public interface TableTypeFactory {
-    <T> TableType create(Class<T> fromClass);
+import java.util.List;
+
+public class TableTypeFactory {
+
+    private final FieldScanner fieldScanner = new FieldScanner();
+
+    public <T> TableType create(final Class<T> fromClass) {
+
+        final TableDef tableDef = fromClass.getAnnotation(TableDef.class);
+        if (tableDef == null) {
+            throw new IllegalArgumentException("Expected @TableDef on class '" + fromClass.getCanonicalName() + "'");
+        }
+
+        return createTableType(fromClass, tableDef);
+    }
+
+    private <T> TableType createTableType(final Class<T> fromClass, final TableDef tableDef) {
+        final List<FieldType> fields = fieldScanner.scan(fromClass);
+        return new TableTypeImpl(tableDef.value(), fields);
+    }
 }

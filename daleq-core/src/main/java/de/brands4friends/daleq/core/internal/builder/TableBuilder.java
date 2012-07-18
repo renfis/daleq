@@ -29,6 +29,7 @@ import de.brands4friends.daleq.core.Table;
 import de.brands4friends.daleq.core.TableData;
 import de.brands4friends.daleq.core.TableType;
 import de.brands4friends.daleq.core.TableTypeReference;
+import de.brands4friends.daleq.core.internal.types.TableTypeRepository;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -106,7 +107,8 @@ public final class TableBuilder implements Table {
     }
 
     private TableType toTableType(final Context context) {
-        return tableRef.resolve(context);
+        final TableTypeRepository repository = context.getService(TableTypeRepository.class);
+        return repository.get(tableRef);
     }
 
     public static Table aTable(final TableTypeReference tableReference) {

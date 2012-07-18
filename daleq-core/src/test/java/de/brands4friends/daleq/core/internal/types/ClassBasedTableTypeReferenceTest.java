@@ -4,11 +4,9 @@ import de.brands4friends.daleq.core.Daleq;
 import de.brands4friends.daleq.core.DataType;
 import de.brands4friends.daleq.core.FieldDef;
 import de.brands4friends.daleq.core.TableDef;
-import de.brands4friends.daleq.core.TableType;
-import de.brands4friends.daleq.core.TableTypeReference;
-import de.brands4friends.daleq.core.internal.builder.SimpleContext;
 import org.junit.Test;
 
+import static nl.jqno.equalsverifier.EqualsVerifier.forClass;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -20,10 +18,15 @@ public class ClassBasedTableTypeReferenceTest {
     }
 
     @Test
-    public void resolve_should_returnATable() {
-        final TableTypeReference tableRef = ClassBasedTableTypeReference.of(Table.class);
-        final TableType table = tableRef.resolve(new SimpleContext());
+    public void testHashCodeAndEquals() {
+        forClass(ClassBasedTableTypeReference.class).verify();
+    }
 
-        assertThat(table.getName(), is("MY_TABLE"));
+    @Test
+    public void twoReferencesToTheSameTable_should_beEqual() {
+        assertThat(
+                ClassBasedTableTypeReference.of(Table.class),
+                is(ClassBasedTableTypeReference.of(Table.class))
+        );
     }
 }

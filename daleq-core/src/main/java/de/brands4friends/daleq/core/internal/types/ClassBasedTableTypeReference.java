@@ -1,7 +1,6 @@
 package de.brands4friends.daleq.core.internal.types;
 
-import de.brands4friends.daleq.core.Context;
-import de.brands4friends.daleq.core.TableType;
+import com.google.common.base.Objects;
 import de.brands4friends.daleq.core.TableTypeReference;
 
 /**
@@ -15,17 +14,31 @@ public final class ClassBasedTableTypeReference<T> implements TableTypeReference
         this.table = table;
     }
 
-    @Override
-    public TableType resolve(final Context context) {
-        return toTableType(context);
-    }
-
-    private TableType toTableType(final Context context) {
-        final TableTypeFactory tableTypeFactory = context.getService(TableTypeFactory.class);
-        return tableTypeFactory.create(table);
+    public Class<T> getTable() {
+        return table;
     }
 
     public static <T> TableTypeReference of(final Class<T> table) {
         return new ClassBasedTableTypeReference<T>(table);
+    }
+
+    private String getTableName() {
+        return table == null ? null : this.table.getName();
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj instanceof ClassBasedTableTypeReference) {
+            final ClassBasedTableTypeReference that = (ClassBasedTableTypeReference) obj;
+
+            return Objects.equal(getTableName(), that.getTableName());
+        }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getTableName());
     }
 }

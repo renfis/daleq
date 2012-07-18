@@ -16,19 +16,18 @@
 
 package de.brands4friends.daleq.core.internal.builder;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import de.brands4friends.daleq.core.Context;
 import de.brands4friends.daleq.core.Daleq;
 import de.brands4friends.daleq.core.DaleqBuildException;
 import de.brands4friends.daleq.core.DataType;
 import de.brands4friends.daleq.core.FieldDef;
 import de.brands4friends.daleq.core.TableType;
-import de.brands4friends.daleq.core.internal.types.TableTypeFactoryImpl;
+import de.brands4friends.daleq.core.internal.types.TableTypeFactory;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 public class RowBuilderTest {
 
@@ -42,7 +41,7 @@ public class RowBuilderTest {
     @Before
     public void setUp() throws Exception {
         context = new SimpleContext();
-        tableType = new TableTypeFactoryImpl().create(ExampleTable.class);
+        tableType = new TableTypeFactory().create(ExampleTable.class);
         sb = new StructureBuilder(tableType);
     }
 

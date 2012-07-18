@@ -16,30 +16,28 @@
 
 package de.brands4friends.daleq.core.internal.builder;
 
-import java.util.Map;
-
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
-
 import de.brands4friends.daleq.core.Context;
 import de.brands4friends.daleq.core.internal.conversion.TypeConversion;
 import de.brands4friends.daleq.core.internal.conversion.TypeConversionImpl;
 import de.brands4friends.daleq.core.internal.template.TemplateValueFactory;
 import de.brands4friends.daleq.core.internal.template.TemplateValueFactoryImpl;
-import de.brands4friends.daleq.core.internal.types.CachingTableTypeFactoryDecorator;
-import de.brands4friends.daleq.core.internal.types.TableTypeFactory;
-import de.brands4friends.daleq.core.internal.types.TableTypeFactoryImpl;
+import de.brands4friends.daleq.core.internal.types.CachingTableTypeRepository;
+import de.brands4friends.daleq.core.internal.types.TableTypeRepository;
+
+import java.util.Map;
 
 public class SimpleContext implements Context {
 
     private final TypeConversion typeConversion = new TypeConversionImpl();
     private final TemplateValueFactory templateValueFactory = TemplateValueFactoryImpl.getInstance();
-    private final TableTypeFactory tableTypeFactory = new CachingTableTypeFactoryDecorator(new TableTypeFactoryImpl());
+    private final TableTypeRepository tableTypeRepository = new CachingTableTypeRepository();
 
     private final Map<Class<?>, Object> registry = ImmutableMap.of(
             TypeConversion.class, typeConversion,
             TemplateValueFactory.class, templateValueFactory,
-            TableTypeFactory.class, tableTypeFactory
+            TableTypeRepository.class, tableTypeRepository
     );
 
     @Override
