@@ -2,14 +2,12 @@ package de.brands4friends.daleq.core.internal.types;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
-import de.brands4friends.daleq.core.Daleq;
 import de.brands4friends.daleq.core.DaleqBuildException;
+import de.brands4friends.daleq.core.FieldDef;
 import de.brands4friends.daleq.core.FieldType;
-import de.brands4friends.daleq.core.FieldTypeReference;
 import de.brands4friends.daleq.core.TableType;
 import de.brands4friends.daleq.core.TableTypeReference;
 import de.brands4friends.daleq.core.TemplateValue;
-import de.brands4friends.daleq.core.internal.dbunit.DataTypeMapping;
 import org.dbunit.dataset.datatype.DataType;
 import org.dbunit.dataset.datatype.DataTypeException;
 
@@ -48,7 +46,7 @@ public class DbQueryingTableTypeResolver implements TableTypeResolver {
 
     @Override
     public TableType resolve(TableTypeReference reference) {
-        if (!canResolve(reference)) {
+        if(!canResolve(reference)) {
             throw new IllegalArgumentException("Cannot resolve the reference + " + reference);
         }
         final NamedTableTypeReference namedRef = (NamedTableTypeReference) reference;
@@ -56,26 +54,20 @@ public class DbQueryingTableTypeResolver implements TableTypeResolver {
         try {
             final DatabaseMetaData metaData = dataSource.getConnection().getMetaData();
 
-            final ResultSet rs = metaData.getColumns(catalog, schema, namedRef.getName(), null);
+            final ResultSet rs = metaData.getColumns(catalog,schema,namedRef.getName(),null);
 
             final List<FieldType> fieldTypes = Lists.newArrayList();
-            while (rs.next()) {
+            while(rs.next()){
                 final String columnName = rs.getString("COLUMN_NAME");
                 final int type = rs.getInt("DATA_TYPE");
-                final DataType dbUnitDataType = DataType.forSqlType(type);
-                final de.brands4friends.daleq.core.DataType daleqDataType = DataTypeMapping.toDaleq(dbUnitDataType);
-                final FieldTypeReference fieldRef = Daleq.fd(daleqDataType).name(columnName);
-                final FieldType fieldType = new FieldTypeImpl(
-                        columnName,
-                        daleqDataType,
-                        Optional.<TemplateValue>absent(),
-                        fieldRef);
-
+                DataType dbUnitDataType = DataType.forSqlType(type);
+                // TODO
+                FieldType fieldType = new FieldTypeImpl(columnName,null, Optional.<TemplateValue>absent(),null);
                 fieldTypes.add(fieldType);
             }
             // TODO handle if not exists!
 
-            return new TableTypeImpl(namedRef.getName(), fieldTypes);
+            return new TableTypeImpl(namedRef.getName(),fieldTypes);
 
         } catch (SQLException e) {
             throw new DaleqBuildException(e);
