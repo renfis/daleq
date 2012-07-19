@@ -16,16 +16,17 @@
 
 package de.brands4friends.daleq.core.internal.types;
 
-import com.google.common.base.Function;
-import com.google.common.base.Objects;
-import com.google.common.collect.Maps;
-import de.brands4friends.daleq.core.FieldType;
-import de.brands4friends.daleq.core.FieldTypeReference;
-import de.brands4friends.daleq.core.TableType;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import com.google.common.base.Function;
+import com.google.common.base.Objects;
+import com.google.common.collect.Maps;
+
+import de.brands4friends.daleq.core.FieldType;
+import de.brands4friends.daleq.core.FieldTypeReference;
+import de.brands4friends.daleq.core.TableType;
 
 final class TableTypeImpl implements TableType {
 

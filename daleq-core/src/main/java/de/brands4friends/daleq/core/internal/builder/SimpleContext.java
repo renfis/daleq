@@ -16,8 +16,11 @@
 
 package de.brands4friends.daleq.core.internal.builder;
 
+import java.util.Map;
+
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
+
 import de.brands4friends.daleq.core.Context;
 import de.brands4friends.daleq.core.internal.conversion.TypeConversion;
 import de.brands4friends.daleq.core.internal.conversion.TypeConversionImpl;
@@ -25,8 +28,6 @@ import de.brands4friends.daleq.core.internal.template.TemplateValueFactory;
 import de.brands4friends.daleq.core.internal.template.TemplateValueFactoryImpl;
 import de.brands4friends.daleq.core.internal.types.CachingTableTypeRepository;
 import de.brands4friends.daleq.core.internal.types.TableTypeRepository;
-
-import java.util.Map;
 
 public class SimpleContext implements Context {
 

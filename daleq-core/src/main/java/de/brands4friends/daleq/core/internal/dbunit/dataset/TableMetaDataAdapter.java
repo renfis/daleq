@@ -16,17 +16,19 @@
 
 package de.brands4friends.daleq.core.internal.dbunit.dataset;
 
-import com.google.common.collect.Maps;
-import de.brands4friends.daleq.core.FieldType;
-import de.brands4friends.daleq.core.TableType;
-import de.brands4friends.daleq.core.internal.dbunit.DataTypeMapping;
+import java.util.List;
+import java.util.Map;
+
 import org.dbunit.dataset.Column;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.ITableMetaData;
 import org.dbunit.dataset.NoSuchColumnException;
 
-import java.util.List;
-import java.util.Map;
+import com.google.common.collect.Maps;
+
+import de.brands4friends.daleq.core.FieldType;
+import de.brands4friends.daleq.core.TableType;
+import de.brands4friends.daleq.core.internal.dbunit.DataTypeMapping;
 
 class TableMetaDataAdapter implements ITableMetaData {
 

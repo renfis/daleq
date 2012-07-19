@@ -22,7 +22,6 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import de.brands4friends.daleq.core.FieldTypeReference;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.assertion.DbUnitAssert;
 import org.dbunit.database.IDatabaseConnection;
@@ -36,6 +35,7 @@ import com.google.common.collect.Lists;
 import de.brands4friends.daleq.core.DaleqException;
 import de.brands4friends.daleq.core.FieldDef;
 import de.brands4friends.daleq.core.FieldType;
+import de.brands4friends.daleq.core.FieldTypeReference;
 import de.brands4friends.daleq.core.TableData;
 import de.brands4friends.daleq.core.TableType;
 

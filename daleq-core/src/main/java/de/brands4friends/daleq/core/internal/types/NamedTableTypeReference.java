@@ -17,6 +17,7 @@
 package de.brands4friends.daleq.core.internal.types;
 
 import com.google.common.base.Objects;
+
 import de.brands4friends.daleq.core.TableTypeReference;
 
 /**

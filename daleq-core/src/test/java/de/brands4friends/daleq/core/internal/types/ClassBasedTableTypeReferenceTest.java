@@ -16,15 +16,16 @@
 
 package de.brands4friends.daleq.core.internal.types;
 
+import static nl.jqno.equalsverifier.EqualsVerifier.forClass;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+
+import org.junit.Test;
+
 import de.brands4friends.daleq.core.Daleq;
 import de.brands4friends.daleq.core.DataType;
 import de.brands4friends.daleq.core.FieldDef;
 import de.brands4friends.daleq.core.TableDef;
-import org.junit.Test;
-
-import static nl.jqno.equalsverifier.EqualsVerifier.forClass;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 public class ClassBasedTableTypeReferenceTest {
 

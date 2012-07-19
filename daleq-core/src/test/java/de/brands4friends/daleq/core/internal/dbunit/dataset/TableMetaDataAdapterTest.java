@@ -16,19 +16,20 @@
 
 package de.brands4friends.daleq.core.internal.dbunit.dataset;
 
-import de.brands4friends.daleq.core.TableType;
-import de.brands4friends.daleq.core.internal.types.TableTypeFactory;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+
+import java.util.Arrays;
+
 import org.dbunit.dataset.Column;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.NoSuchColumnException;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import de.brands4friends.daleq.core.TableType;
+import de.brands4friends.daleq.core.internal.types.TableTypeFactory;
 
 public class TableMetaDataAdapterTest {
 

@@ -16,11 +16,11 @@
 
 package de.brands4friends.daleq.core.internal.types;
 
+import java.util.List;
+
 import de.brands4friends.daleq.core.FieldType;
 import de.brands4friends.daleq.core.TableDef;
 import de.brands4friends.daleq.core.TableType;
-
-import java.util.List;
 
 public class TableTypeFactory {
 

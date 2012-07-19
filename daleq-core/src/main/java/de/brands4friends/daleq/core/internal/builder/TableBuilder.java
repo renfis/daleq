@@ -16,10 +16,17 @@
 
 package de.brands4friends.daleq.core.internal.builder;
 
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Longs;
+
 import de.brands4friends.daleq.core.Context;
 import de.brands4friends.daleq.core.Daleq;
 import de.brands4friends.daleq.core.FieldDef;
@@ -30,11 +37,6 @@ import de.brands4friends.daleq.core.TableData;
 import de.brands4friends.daleq.core.TableType;
 import de.brands4friends.daleq.core.TableTypeReference;
 import de.brands4friends.daleq.core.internal.types.TableTypeRepository;
-
-import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 
 public final class TableBuilder implements Table {
 

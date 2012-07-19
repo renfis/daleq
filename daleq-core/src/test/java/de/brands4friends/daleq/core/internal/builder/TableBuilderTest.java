@@ -16,7 +16,20 @@
 
 package de.brands4friends.daleq.core.internal.builder;
 
+import static de.brands4friends.daleq.core.Daleq.aRow;
+import static de.brands4friends.daleq.core.Daleq.aTable;
+import static de.brands4friends.daleq.core.internal.builder.ExampleTable.PROP_A;
+import static de.brands4friends.daleq.core.internal.builder.ExampleTable.PROP_B;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import com.google.common.collect.Lists;
+
 import de.brands4friends.daleq.core.Context;
 import de.brands4friends.daleq.core.Daleq;
 import de.brands4friends.daleq.core.DaleqBuildException;
@@ -25,17 +38,6 @@ import de.brands4friends.daleq.core.FieldDef;
 import de.brands4friends.daleq.core.TableDef;
 import de.brands4friends.daleq.core.TableType;
 import de.brands4friends.daleq.core.internal.types.TableTypeFactory;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.util.List;
-
-import static de.brands4friends.daleq.core.Daleq.aRow;
-import static de.brands4friends.daleq.core.Daleq.aTable;
-import static de.brands4friends.daleq.core.internal.builder.ExampleTable.PROP_A;
-import static de.brands4friends.daleq.core.internal.builder.ExampleTable.PROP_B;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 public class TableBuilderTest {
 

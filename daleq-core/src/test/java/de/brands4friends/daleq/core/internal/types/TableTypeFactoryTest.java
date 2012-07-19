@@ -16,18 +16,20 @@
 
 package de.brands4friends.daleq.core.internal.types;
 
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import com.google.common.base.Optional;
+
 import de.brands4friends.daleq.core.Daleq;
 import de.brands4friends.daleq.core.DataType;
 import de.brands4friends.daleq.core.FieldDef;
 import de.brands4friends.daleq.core.TableDef;
 import de.brands4friends.daleq.core.TableType;
 import de.brands4friends.daleq.core.TemplateValue;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 public class TableTypeFactoryTest {
 

@@ -16,9 +16,15 @@
 
 package de.brands4friends.daleq.core.internal.builder;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Nullable;
+
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+
 import de.brands4friends.daleq.core.Context;
 import de.brands4friends.daleq.core.DaleqBuildException;
 import de.brands4friends.daleq.core.FieldData;
@@ -30,10 +36,6 @@ import de.brands4friends.daleq.core.TableType;
 import de.brands4friends.daleq.core.TemplateValue;
 import de.brands4friends.daleq.core.internal.conversion.TypeConversion;
 import de.brands4friends.daleq.core.internal.template.TemplateValueFactory;
-
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Map;
 
 public class RowBuilder implements Row {
 

@@ -16,20 +16,22 @@
 
 package de.brands4friends.daleq.core.internal.types;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.ThreadSafe;
+
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+
 import de.brands4friends.daleq.core.DaleqBuildException;
 import de.brands4friends.daleq.core.TableType;
 import de.brands4friends.daleq.core.TableTypeReference;
-
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.ThreadSafe;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 @ThreadSafe
 public class CachingTableTypeRepository implements TableTypeRepository {
