@@ -4,3 +4,5 @@ build
 *.iml
 *.ipr
 *.iws
+gradle.properties
+atlassian-ide-plugin.xml
