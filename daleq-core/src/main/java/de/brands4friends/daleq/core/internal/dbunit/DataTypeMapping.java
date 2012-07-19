@@ -7,7 +7,7 @@ import de.brands4friends.daleq.core.DataType;
 /**
  *
  */
-public class DataTypeMapping {
+public final class DataTypeMapping {
 
     private static final BiMap<DataType, org.dbunit.dataset.datatype.DataType> MAPPING =
             ImmutableBiMap.<DataType, org.dbunit.dataset.datatype.DataType>builder()
@@ -39,11 +39,15 @@ public class DataTypeMapping {
                     .put(DataType.BLOB, org.dbunit.dataset.datatype.DataType.BLOB)
                     .build();
 
-    public static DataType toDaleq(org.dbunit.dataset.datatype.DataType dbUnit) {
+    private DataTypeMapping() {
+
+    }
+
+    public static DataType toDaleq(final org.dbunit.dataset.datatype.DataType dbUnit) {
         return MAPPING.inverse().get(dbUnit);
     }
 
-    public static org.dbunit.dataset.datatype.DataType toDbUnit(DataType daleq) {
+    public static org.dbunit.dataset.datatype.DataType toDbUnit(final DataType daleq) {
         return MAPPING.get(daleq);
     }
 }
