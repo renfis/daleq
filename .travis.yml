@@ -2,6 +2,8 @@ language: java
 jdk:
   - openjdk7
   - openjdk6
+before_install:
+  - "gradle --version"
 install: "gradle --stacktrace --quiet --no-color assemble"
 script: "gradle --stacktrace --quiet --continue --no-color check"
 after_script:
