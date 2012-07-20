@@ -2,4 +2,4 @@ language: java
 jdk:
   - openjdk7
   - openjdk6
-script: "gradle check --stacktrace --info --no-color"
+script: "./gradlew check --stacktrace --info --no-color --continue"
