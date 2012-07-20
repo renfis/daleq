@@ -3,3 +3,7 @@ jdk:
   - openjdk7
   - openjdk6
 script: "./gradlew check --stacktrace --info --no-color --continue"
+notifications:
+  email:
+    recipients:
+      - l.girndt@googlemail.com
