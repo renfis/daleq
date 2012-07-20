@@ -89,3 +89,8 @@ String propertyOr(propName,defaultProp) {
 	}
 	return project.getProperty(propName)
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.0'
+}
+
