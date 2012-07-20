@@ -2,8 +2,8 @@ language: java
 jdk:
   - openjdk7
   - openjdk6
-install: "gradle --stacktrace --quiet --no-color -PcontinuousIntegration assemble"
-script: "gradle --stacktrace --quiet --continue --no-color -PcontinuousIntegration check"
+install: "gradle --stacktrace --quiet --no-color assemble"
+script: "gradle --stacktrace --quiet --continue --no-color check"
 after_script:
   - "gradle --stacktrace --quiet --continue --no-color issues"
 notifications:

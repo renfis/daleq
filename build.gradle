@@ -35,7 +35,6 @@ subprojects {
     apply plugin: 'checkstyle'
     apply plugin: 'pmd'
     apply plugin: 'findbugs'
-    apply from: script('continiousIntegration')
     apply from: script('issues')
 
     sourceCompatibility = 1.6
