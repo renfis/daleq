@@ -52,6 +52,11 @@ Next Steps
 1. [Learn about the DSL](https://github.com/brands4friends/daleq/wiki/Understanding-the-DSL)
 1. [Have a look at some examples](https://github.com/brands4friends/daleq/wiki/Examples)
 
+
+Build Status
+-----------
+
+[![Build Status](https://secure.travis-ci.org/brands4friends/daleq.png?branch=master)](http://travis-ci.org/brands4friends/daleq)
 Authors
 -------
 
