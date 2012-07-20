@@ -17,6 +17,7 @@
 package de.brands4friends.daleq.core.internal.template;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import de.brands4friends.daleq.core.TemplateValue;
 import de.brands4friends.daleq.core.internal.conversion.DateTimeTypeConverter;
@@ -24,7 +25,7 @@ import de.brands4friends.daleq.core.internal.conversion.DateTimeTypeConverter;
 final class TimestampTemplateValue implements TemplateValue {
     @Override
     public String render(final long value) {
-        final DateTime dateTime = new DateTime(0).plusSeconds((int) value);
+        final DateTime dateTime = new DateTime(0, DateTimeZone.UTC).plusSeconds((int) value);
         return DateTimeTypeConverter.createXMLDateTime(dateTime);
     }
 }
