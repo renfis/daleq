@@ -2,8 +2,8 @@ language: java
 jdk:
   - openjdk7
   - openjdk6
-install: "./gradlew --quiet --no-color -PcontiniousIntegration assemble"
-script: "./gradlew --quiet --continue --no-color -PcontiniousIntegration check"
+install: "./gradlew --quiet --no-color -PcontinuousIntegration assemble"
+script: "./gradlew --quiet --continue --no-color -PcontinuousIntegration check"
 notifications:
   email:
     recipients:

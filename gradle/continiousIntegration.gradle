@@ -19,7 +19,7 @@ import junit.framework.TestResult
 
 import org.gradle.api.tasks.testing.TestResult
 
-if(!hasProperty("continiousIntegration")) {
+if(!hasProperty("continuousIntegration")) {
     return
 }
 
