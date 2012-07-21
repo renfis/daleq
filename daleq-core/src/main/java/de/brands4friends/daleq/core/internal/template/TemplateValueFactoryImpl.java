@@ -22,7 +22,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 
 import de.brands4friends.daleq.core.DaleqBuildException;
@@ -31,35 +31,38 @@ import de.brands4friends.daleq.core.TemplateValue;
 
 public final class TemplateValueFactoryImpl implements TemplateValueFactory {
 
-    private static final Set<DataType> STRING_TYPES =
-            of(DataType.VARCHAR, DataType.LONGVARCHAR, DataType.NVARCHAR, DataType.LONGNVARCHAR, DataType.CLOB);
-
-    private static final Set<DataType> CHAR_TYPES = of(DataType.CHAR, DataType.NCHAR);
-
-    private static final Set<DataType> BOOLEAN_TYPES = of(DataType.BOOLEAN, DataType.BIT);
-
-    private static final Set<DataType> NUMBER_TYPES =
-            of(DataType.NUMERIC, DataType.DECIMAL, DataType.INTEGER, DataType.TINYINT, DataType.SMALLINT,
-                    DataType.BIGINT, DataType.REAL, DataType.DOUBLE, DataType.FLOAT, DataType.BIGINT_AUX_LONG);
-
-    private static final Set<DataType> DATE_TYPES = of(DataType.DATE);
-
-    private static final Set<DataType> TIMESTAMP_TYPES = of(DataType.TIME, DataType.TIMESTAMP);
-
-    private static final Set<DataType> BLOB_TYPES = of(DataType.VARBINARY, DataType.BINARY,
-            DataType.LONGVARBINARY, DataType.BLOB);
-
     public static interface ToTemplate {
         Set<DataType> mapsTypes();
 
         TemplateValue map(String fieldName, String variable);
     }
 
+    private static final class DelegatingToTemplate implements ToTemplate {
+
+        private final Set<DataType> mapsTypes;
+        private final TemplateValue map;
+
+        DelegatingToTemplate(final Set<DataType> mapsTypes, final TemplateValue map) {
+            this.mapsTypes = mapsTypes;
+            this.map = map;
+        }
+
+        @Override
+        public Set<DataType> mapsTypes() {
+            return mapsTypes;
+        }
+
+        @Override
+        public TemplateValue map(final String fieldName, final String variable) {
+            return map;
+        }
+    }
+
     private static final ToTemplate STRING_TO_TEMPLATE = new ToTemplate() {
 
         @Override
         public Set<DataType> mapsTypes() {
-            return STRING_TYPES;
+            return of(DataType.VARCHAR, DataType.LONGVARCHAR, DataType.NVARCHAR, DataType.LONGNVARCHAR, DataType.CLOB);
         }
 
         @Override
@@ -71,7 +74,8 @@ public final class TemplateValueFactoryImpl implements TemplateValueFactory {
     private static final ToTemplate NUMBER_TO_TEMPLATE = new ToTemplate() {
         @Override
         public Set<DataType> mapsTypes() {
-            return NUMBER_TYPES;
+            return of(DataType.NUMERIC, DataType.DECIMAL, DataType.INTEGER, DataType.SMALLINT,
+                    DataType.BIGINT, DataType.REAL, DataType.DOUBLE, DataType.FLOAT, DataType.BIGINT_AUX_LONG);
         }
 
         @Override
@@ -80,70 +84,19 @@ public final class TemplateValueFactoryImpl implements TemplateValueFactory {
         }
     };
 
-    private static final ModuloTemplateValue MOD2_TEMPLATE_VALUE = new ModuloTemplateValue(2);
-    private static final ToTemplate MOD2_TO_TEMPLATE = new ToTemplate() {
-        @Override
-        public Set<DataType> mapsTypes() {
-            return BOOLEAN_TYPES;
-        }
-
-        @Override
-        public TemplateValue map(final String fieldName, final String variable) {
-            return MOD2_TEMPLATE_VALUE;
-        }
-    };
-
-    private static final DateTemplateValue DATE_TEMPLATE_VALUE = new DateTemplateValue();
-    private static final ToTemplate DATE_TO_TEMPLATE = new ToTemplate() {
-        @Override
-        public Set<DataType> mapsTypes() {
-            return DATE_TYPES;
-        }
-
-        @Override
-        public TemplateValue map(final String fieldName, final String variable) {
-            return DATE_TEMPLATE_VALUE;
-        }
-    };
-
-    private static final TimestampTemplateValue TIMESTAMP_TEMPLATE_VALUE = new TimestampTemplateValue();
-    private static final ToTemplate TIMESTAMP_TO_TEMPLATE = new ToTemplate() {
-        @Override
-        public Set<DataType> mapsTypes() {
-            return TIMESTAMP_TYPES;
-        }
-
-        @Override
-        public TemplateValue map(final String fieldName, final String variable) {
-            return TIMESTAMP_TEMPLATE_VALUE;
-        }
-    };
-
-    private static final CharTemplateValue CHAR_TEMPLATE_VALUE = new CharTemplateValue();
-    private static final ToTemplate CHAR_TO_TEMPLATE = new ToTemplate() {
-        @Override
-        public Set<DataType> mapsTypes() {
-            return CHAR_TYPES;
-        }
-
-        @Override
-        public TemplateValue map(final String fieldName, final String variable) {
-            return CHAR_TEMPLATE_VALUE;
-        }
-    };
-
-    private static final Base64TemplateValue BASE64_TEMPLATE_VALUE = new Base64TemplateValue();
-    private static final ToTemplate BASE64_TO_TEMPLATE = new ToTemplate() {
-        @Override
-        public Set<DataType> mapsTypes() {
-            return BLOB_TYPES;
-        }
-
-        @Override
-        public TemplateValue map(final String fieldName, final String variable) {
-            return BASE64_TEMPLATE_VALUE;
-        }
-    };
+    private static final Collection<ToTemplate> TO_TEMPLATES = ImmutableList.of(
+            NUMBER_TO_TEMPLATE,
+            new DelegatingToTemplate(of(DataType.TINYINT), new ModuloTemplateValue(128)),
+            new DelegatingToTemplate(of(DataType.SMALLINT), new ModuloTemplateValue(32768)),
+            STRING_TO_TEMPLATE,
+            new DelegatingToTemplate(of(DataType.DATE), new DateTemplateValue()),
+            new DelegatingToTemplate(of(DataType.TIME, DataType.TIMESTAMP), new TimestampTemplateValue()),
+            new DelegatingToTemplate(of(DataType.BOOLEAN, DataType.BIT), new ModuloTemplateValue(2)),
+            new DelegatingToTemplate(of(DataType.CHAR, DataType.NCHAR), new CharTemplateValue()),
+            new DelegatingToTemplate(
+                    of(DataType.VARBINARY, DataType.BINARY, DataType.LONGVARBINARY, DataType.BLOB),
+                    new Base64TemplateValue())
+    );
 
     private final Map<DataType, ToTemplate> mapping;
 
@@ -167,12 +120,7 @@ public final class TemplateValueFactoryImpl implements TemplateValueFactory {
     public static TemplateValueFactory getInstance() {
         final Map<DataType, ToTemplate> mapping = Maps.newHashMap();
 
-        final Collection<ToTemplate> toTemplates = Lists.newArrayList(
-                NUMBER_TO_TEMPLATE, STRING_TO_TEMPLATE,
-                DATE_TO_TEMPLATE, TIMESTAMP_TO_TEMPLATE, MOD2_TO_TEMPLATE, CHAR_TO_TEMPLATE, BASE64_TO_TEMPLATE
-        );
-
-        for (ToTemplate toTemplate : toTemplates) {
+        for (ToTemplate toTemplate : TO_TEMPLATES) {
             for (DataType dataType : toTemplate.mapsTypes()) {
                 mapping.put(dataType, toTemplate);
             }

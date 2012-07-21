@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.integration.tests.alltypes;
+package de.brands4friends.daleq.integration.tables;
 
 import static de.brands4friends.daleq.core.Daleq.fd;
 

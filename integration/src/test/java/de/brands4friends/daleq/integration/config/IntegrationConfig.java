@@ -14,27 +14,23 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.integration;
+package de.brands4friends.daleq.integration.config;
 
 import javax.sql.DataSource;
 
+import org.dbunit.dataset.datatype.IDataTypeFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import de.brands4friends.daleq.core.DaleqSupport;
 import de.brands4friends.daleq.core.internal.dbunit.ConnectionFactory;
 import de.brands4friends.daleq.core.internal.dbunit.DbUnitDaleqSupport;
-import de.brands4friends.daleq.core.internal.dbunit.SimpleConnectionFactory;
+import de.brands4friends.daleq.spring.SpringConnectionFactory;
 
 @Configuration
 public class IntegrationConfig {
-    @Bean
-    public DataSource dataSource() {
-        return new EmbeddedDatabaseBuilder().addScript("schema.sql").build();
-    }
 
     @Bean
     public PlatformTransactionManager transactionManager(final DataSource dataSource) {
@@ -47,8 +43,9 @@ public class IntegrationConfig {
     }
 
     @Bean
-    public ConnectionFactory connectionFactory(final DataSource dataSource) {
-        final SimpleConnectionFactory connectionFactory = new SimpleConnectionFactory();
+    public ConnectionFactory connectionFactory(final DataSource dataSource, final IDataTypeFactory dataTypeFactory) {
+        final SpringConnectionFactory connectionFactory = new SpringConnectionFactory();
+        connectionFactory.setDataTypeFactory(dataTypeFactory);
         connectionFactory.setDataSource(dataSource);
         return connectionFactory;
     }

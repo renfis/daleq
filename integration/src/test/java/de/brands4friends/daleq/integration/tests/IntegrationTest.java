@@ -14,26 +14,22 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.integration.tests.assertingtable;
+package de.brands4friends.daleq.integration.tests;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.brands4friends.daleq.core.Daleq;
-import de.brands4friends.daleq.core.DaleqSupport;
 import de.brands4friends.daleq.core.Table;
-import de.brands4friends.daleq.integration.IntegrationConfig;
+import de.brands4friends.daleq.integration.tables.AllTypesTable;
+import de.brands4friends.daleq.integration.tables.AssertTableTable;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = IntegrationConfig.class)
-public class AssertTableTest extends AbstractTransactionalJUnit4SpringContextTests {
+public abstract class IntegrationTest extends BaseTest {
 
-    @Autowired
-    private DaleqSupport daleq;
+    @Test
+    public void everyDataType_should_beInsertedIntoTheDatabase() {
+        final Table table = Daleq.aTable(AllTypesTable.class).withRowsUntil(2000);
+        daleq.insertIntoDatabase(table);
+    }
 
     @Test
     public void inserting_build_asserting() {
@@ -41,6 +37,15 @@ public class AssertTableTest extends AbstractTransactionalJUnit4SpringContextTes
         daleq.insertIntoDatabase(toBeInserted);
 
         final Table toBeCompared = Daleq.aTable(AssertTableTable.class).withRowsUntil(100);
-        daleq.assertTableInDatabase(toBeCompared);
+        daleq.assertTableInDatabase(toBeCompared, AssertTableTable.ID);
+    }
+
+    @Test
+    public void inserting_build_asserting2() {
+        final Table toBeInserted = Daleq.aTable(AssertTableTable.class).withRowsUntil(100);
+        daleq.insertIntoDatabase(toBeInserted);
+
+        final Table toBeCompared = Daleq.aTable(AssertTableTable.class).withRowsUntil(100);
+        daleq.assertTableInDatabase(toBeCompared, AssertTableTable.ID);
     }
 }

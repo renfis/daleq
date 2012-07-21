@@ -14,24 +14,13 @@
  * limitations under the License.
  */
 
+package de.brands4friends.daleq.integration.tests.fieldtypes;
 
+import org.springframework.test.context.ContextConfiguration;
 
+import de.brands4friends.daleq.integration.config.HsqldbConfig;
 
+@ContextConfiguration(classes = HsqldbConfig.class)
+public class HsqldbFieldTypeTest extends FieldTypeTest {
 
-
-
-
-
-displayName = "Daleq Framework - Integration Tests"
-description = 'Daleq integration tests that may take long and should not be \
- called each development iteration.'
-
-dependencies {
-    compile project(':daleq-core')
-    compile project(':daleq-spring')
-    compile deps.springJdbc
-
-    testCompile deps.springTest
-    testCompile deps.hsqldb
-    testCompile deps.h2
 }

@@ -28,9 +28,9 @@ public interface Table {
 
     Table withRowsUntil(long maxId);
 
-    Table allHaving(FieldDef fieldDef, @Nullable Object value);
+    Table allHaving(FieldTypeReference fieldDef, @Nullable Object value);
 
-    Table having(FieldDef fieldDef, Iterable<Object> values);
+    Table having(FieldTypeReference fieldDef, Iterable<Object> values);
 
     TableData build(final Context context);
 

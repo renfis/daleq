@@ -14,24 +14,16 @@
  * limitations under the License.
  */
 
+package de.brands4friends.daleq.integration.tables;
 
+import de.brands4friends.daleq.core.Daleq;
+import de.brands4friends.daleq.core.DataType;
+import de.brands4friends.daleq.core.FieldDef;
+import de.brands4friends.daleq.core.TableDef;
 
-
-
-
-
-
-
-displayName = "Daleq Framework - Integration Tests"
-description = 'Daleq integration tests that may take long and should not be \
- called each development iteration.'
-
-dependencies {
-    compile project(':daleq-core')
-    compile project(':daleq-spring')
-    compile deps.springJdbc
-
-    testCompile deps.springTest
-    testCompile deps.hsqldb
-    testCompile deps.h2
+@TableDef("ASSERT_TABLE")
+public class AssertTableTable {
+    public static final FieldDef ID = Daleq.fd(DataType.INTEGER);
+    public static final FieldDef NAME = Daleq.fd(DataType.VARCHAR);
+    public static final FieldDef AMOUNT = Daleq.fd(DataType.DECIMAL);
 }

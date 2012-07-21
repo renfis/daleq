@@ -29,7 +29,7 @@ import com.google.common.primitives.Longs;
 
 import de.brands4friends.daleq.core.Context;
 import de.brands4friends.daleq.core.Daleq;
-import de.brands4friends.daleq.core.FieldDef;
+import de.brands4friends.daleq.core.FieldTypeReference;
 import de.brands4friends.daleq.core.Row;
 import de.brands4friends.daleq.core.RowData;
 import de.brands4friends.daleq.core.Table;
@@ -76,7 +76,7 @@ public final class TableBuilder implements Table {
     }
 
     @Override
-    public Table allHaving(final FieldDef fieldDef, @Nullable final Object value) {
+    public Table allHaving(final FieldTypeReference fieldDef, @Nullable final Object value) {
         for (Row row : rows) {
             row.f(fieldDef, value);
         }
@@ -84,7 +84,7 @@ public final class TableBuilder implements Table {
     }
 
     @Override
-    public Table having(final FieldDef fieldDef, final Iterable<Object> values) {
+    public Table having(final FieldTypeReference fieldDef, final Iterable<Object> values) {
         Preconditions.checkNotNull(values);
         final Iterator<Object> iter = values.iterator();
         for (Row row : rows) {

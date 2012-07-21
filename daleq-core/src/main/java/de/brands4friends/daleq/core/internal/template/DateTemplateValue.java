@@ -16,6 +16,8 @@
 
 package de.brands4friends.daleq.core.internal.template;
 
+import java.math.BigInteger;
+
 import org.joda.time.LocalDate;
 
 import de.brands4friends.daleq.core.TemplateValue;
@@ -23,9 +25,14 @@ import de.brands4friends.daleq.core.internal.conversion.LocalDateConverter;
 
 final class DateTemplateValue implements TemplateValue {
 
+    public static final long MAX_VALUE = 2932896;
+    private static final BigInteger MODULUS = BigInteger.valueOf(MAX_VALUE + 1);
+
     @Override
     public String render(final long value) {
-        final LocalDate localDate = new LocalDate(0).plusDays((int) value);
+        final BigInteger bd = BigInteger.valueOf(value);
+        final int remainder = bd.mod(MODULUS).intValue();
+        final LocalDate localDate = new LocalDate(0).plusDays(remainder);
         return LocalDateConverter.createXMLDateTime(localDate);
     }
 }
