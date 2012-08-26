@@ -3,11 +3,11 @@ jdk:
   - openjdk7
   - openjdk6
 before_install:
-  - "gradle --version"
-install: "gradle --stacktrace --quiet --no-color assemble"
-script: "gradle --stacktrace --quiet --continue --no-color check"
+  - "./gradlew --version"
+install: "./gradlew --stacktrace --quiet --no-color assemble"
+script: "./gradlew --stacktrace --quiet --continue --no-color check"
 after_script:
-  - "gradle --stacktrace --quiet --continue --no-color issues"
+  - "./gradlew --stacktrace --quiet --continue --no-color issues"
 notifications:
   email:
     recipients:
