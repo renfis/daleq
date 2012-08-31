@@ -14,27 +14,25 @@
  * limitations under the License.
  */
 
+package de.brands4friends.daleq.integration.config;
+
+import javax.sql.DataSource;
+
+import org.dbunit.dataset.datatype.IDataTypeFactory;
+import org.dbunit.ext.mysql.MySqlDataTypeFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+public class MysqlConfig {
 
 
+    @Bean
+    public DataSource dataSource() {
+        return new DriverManagerDataSource("jdbc:mysql://127.0.0.1:3306/test", "test", "test");
+    }
 
-
-
-
-
-
-
-
-displayName = "Daleq Framework - Integration Tests"
-description = 'Daleq integration tests that may take long and should not be \
- called each development iteration.'
-
-dependencies {
-    compile project(':daleq-core')
-    compile project(':daleq-spring')
-    compile deps.springJdbc
-
-    testCompile deps.springTest
-    testCompile deps.hsqldb
-    testCompile deps.h2
-    testCompile deps.mysql
+    @Bean
+    public IDataTypeFactory dataTypeFactory() {
+        return new MySqlDataTypeFactory();
+    }
 }
