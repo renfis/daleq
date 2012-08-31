@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.integration.tests;
+package de.brands4friends.daleq.integration.tests.asserting;
 
 import org.springframework.test.context.ContextConfiguration;
 
-import de.brands4friends.daleq.integration.config.H2Config;
+import de.brands4friends.daleq.integration.config.HsqldbConfig;
 
-@ContextConfiguration(classes = H2Config.class)
-public class H2Test extends IntegrationTest {
+@ContextConfiguration(classes = HsqldbConfig.class)
+public class HsqldbAssertingTest extends AssertingTest {
+
 }
