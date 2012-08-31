@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.integration.tests;
+package de.brands4friends.daleq.integration.tables;
 
-import org.springframework.test.context.ContextConfiguration;
+import de.brands4friends.daleq.core.Daleq;
+import de.brands4friends.daleq.core.DataType;
+import de.brands4friends.daleq.core.FieldDef;
+import de.brands4friends.daleq.core.TableDef;
 
-import de.brands4friends.daleq.integration.config.MysqlConfig;
-
-@ContextConfiguration(classes = MysqlConfig.class)
-public class MysqlTest extends IntegrationTest {
-
+@TableDef("ASSERT_TABLE")
+public class MysqlAssertTableTable {
+    public static final FieldDef ID = Daleq.fd(DataType.INTEGER);
+    public static final FieldDef NAME = Daleq.fd(DataType.VARCHAR);
+    public static final FieldDef AMOUNT = Daleq.fd(DataType.DECIMAL);
 }

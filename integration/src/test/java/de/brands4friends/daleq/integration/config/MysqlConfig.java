@@ -23,8 +23,10 @@ import org.dbunit.ext.mysql.MySqlDataTypeFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-public class MysqlConfig {
+import de.brands4friends.daleq.integration.tables.MysqlAllTypesTable;
+import de.brands4friends.daleq.integration.tables.MysqlAssertTableTable;
 
+public class MysqlConfig {
 
     @Bean
     public DataSource dataSource() {
@@ -34,5 +36,15 @@ public class MysqlConfig {
     @Bean
     public IDataTypeFactory dataTypeFactory() {
         return new MySqlDataTypeFactory();
+    }
+
+    @Bean
+    public TableProvider allTypesProvider() {
+        return new TableProvider(MysqlAllTypesTable.class, MysqlAssertTableTable.class, MysqlAssertTableTable.ID);
+    }
+
+    @Bean
+    public RunDbBarrier runDbBarrier() {
+        return new RunDbBarrier(true);
     }
 }

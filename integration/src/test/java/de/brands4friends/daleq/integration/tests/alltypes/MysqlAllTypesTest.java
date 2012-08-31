@@ -16,22 +16,11 @@
 
 package de.brands4friends.daleq.integration.tests.alltypes;
 
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 
-import de.brands4friends.daleq.core.Daleq;
-import de.brands4friends.daleq.core.Table;
-import de.brands4friends.daleq.integration.config.TableProvider;
-import de.brands4friends.daleq.integration.tests.BaseTest;
+import de.brands4friends.daleq.integration.config.MysqlConfig;
 
-public abstract class AllTypesTest extends BaseTest {
+@ContextConfiguration(classes = MysqlConfig.class)
+public class MysqlAllTypesTest extends AllTypesTest {
 
-    @Autowired
-    private TableProvider tableProvider;
-
-    @Test
-    public void everyDataType_should_beInsertedIntoTheDatabase() {
-        final Table table = Daleq.aTable(tableProvider.allTypesTable()).withRowsBetween(1, 2000);
-        daleq.insertIntoDatabase(table);
-    }
 }
