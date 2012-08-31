@@ -24,16 +24,29 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
+import de.brands4friends.daleq.integration.tables.HsqldbAllTypesTable;
+import de.brands4friends.daleq.integration.tables.HsqldbAssertTableTable;
+
 @Configuration
 public class HsqldbConfig {
 
     @Bean
     public DataSource dataSource() {
-        return new EmbeddedDatabaseBuilder().addScript("schema.sql").build();
+        return new EmbeddedDatabaseBuilder().addScript("schema-hsqldb.sql").build();
     }
 
     @Bean
     public IDataTypeFactory dataTypeFactory() {
         return new HsqldbDataTypeFactory();
+    }
+
+    @Bean
+    public TableProvider allTypesProvider() {
+        return new TableProvider(HsqldbAllTypesTable.class, HsqldbAssertTableTable.class, HsqldbAssertTableTable.ID);
+    }
+
+    @Bean
+    public RunDbBarrier runDbBarrier() {
+        return new RunDbBarrier(true);
     }
 }

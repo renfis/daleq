@@ -25,16 +25,29 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
+import de.brands4friends.daleq.integration.tables.H2AllTypesTable;
+import de.brands4friends.daleq.integration.tables.H2AssertTableTable;
+
 @Configuration
 public class H2Config {
 
     @Bean
     public DataSource dataSource() {
-        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).addScript("schema.sql").build();
+        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).addScript("schema-h2.sql").build();
     }
 
     @Bean
     public IDataTypeFactory dataTypeFactory() {
         return new H2DataTypeFactory();
+    }
+
+    @Bean
+    public TableProvider allTypesProvider() {
+        return new TableProvider(H2AllTypesTable.class, H2AssertTableTable.class, H2AssertTableTable.ID);
+    }
+
+    @Bean
+    public RunDbBarrier runDbBarrier() {
+        return new RunDbBarrier(true);
     }
 }

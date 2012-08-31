@@ -23,7 +23,7 @@ import de.brands4friends.daleq.core.FieldDef;
 import de.brands4friends.daleq.core.TableDef;
 
 @TableDef("ALL_TYPES")
-public class AllTypesTable {
+public class H2AllTypesTable {
     // Characters
     public static final FieldDef A_VARCHAR = fd(DataType.VARCHAR);
     public static final FieldDef A_CHAR = fd(DataType.CHAR);
@@ -54,4 +54,5 @@ public class AllTypesTable {
     //    public static final FieldDef A_BINARY = fd(DataType.BINARY);
     public static final FieldDef A_LONGVARBINARY = fd(DataType.LONGVARBINARY);
     public static final FieldDef A_BLOB = fd(DataType.BLOB);
+
 }
