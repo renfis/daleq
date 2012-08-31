@@ -28,6 +28,8 @@ public interface Table {
 
     Table withRowsUntil(long maxId);
 
+    Table withRowsBetween(long from, long to);
+
     Table allHaving(FieldTypeReference fieldDef, @Nullable Object value);
 
     Table having(FieldTypeReference fieldDef, Iterable<Object> values);

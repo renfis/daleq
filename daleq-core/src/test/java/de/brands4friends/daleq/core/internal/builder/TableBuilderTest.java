@@ -118,6 +118,31 @@ public class TableBuilderTest {
     }
 
     @Test
+    public void aTableWithRowsBetween_should_beBuilt() {
+        assertThat(
+                aTable(ExampleTable.class).withRowsBetween(10, 15).build(context),
+                is(sb.table(
+                        sb.row(sb.field(PROP_A, "10"), sb.field(PROP_B, "10")),
+                        sb.row(sb.field(PROP_A, "11"), sb.field(PROP_B, "11")),
+                        sb.row(sb.field(PROP_A, "12"), sb.field(PROP_B, "12")),
+                        sb.row(sb.field(PROP_A, "13"), sb.field(PROP_B, "13")),
+                        sb.row(sb.field(PROP_A, "14"), sb.field(PROP_B, "14")),
+                        sb.row(sb.field(PROP_A, "15"), sb.field(PROP_B, "15"))
+                ))
+        );
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void aTableWithRowsBetween_butFromEqualsTo_should_fail() {
+        aTable(ExampleTable.class).withRowsBetween(10, 10);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void aTableWithRowsBetween_butFromLessThanTo_should_fail() {
+        aTable(ExampleTable.class).withRowsBetween(10, 9);
+    }
+
+    @Test
     public void allHaving_should_applyTheFieldToAllPreviouslyAddedRow() {
         final String newValue = "new";
         assertThat(
