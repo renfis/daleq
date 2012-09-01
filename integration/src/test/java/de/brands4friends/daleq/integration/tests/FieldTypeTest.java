@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.integration.tests.fieldtypes;
+package de.brands4friends.daleq.integration.tests;
 
 import static de.brands4friends.daleq.core.Daleq.aRow;
 import static de.brands4friends.daleq.core.Daleq.aTable;
@@ -36,7 +36,6 @@ import de.brands4friends.daleq.core.TableType;
 import de.brands4friends.daleq.core.internal.builder.SimpleContext;
 import de.brands4friends.daleq.core.internal.template.TemplateValueFactory;
 import de.brands4friends.daleq.integration.beans.TableProvider;
-import de.brands4friends.daleq.integration.tests.BaseTest;
 
 
 public class FieldTypeTest extends BaseTest {

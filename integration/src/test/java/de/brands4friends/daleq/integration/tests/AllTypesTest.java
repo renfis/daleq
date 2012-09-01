@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.integration.tests.alltypes;
+package de.brands4friends.daleq.integration.tests;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import de.brands4friends.daleq.core.Daleq;
 import de.brands4friends.daleq.core.Table;
 import de.brands4friends.daleq.integration.beans.TableProvider;
-import de.brands4friends.daleq.integration.tests.BaseTest;
 
 public class AllTypesTest extends BaseTest {
 
