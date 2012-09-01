@@ -22,6 +22,7 @@ import org.dbunit.dataset.datatype.IDataTypeFactory;
 import org.dbunit.ext.h2.H2DataTypeFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
@@ -29,6 +30,7 @@ import de.brands4friends.daleq.integration.tables.H2AllTypesTable;
 import de.brands4friends.daleq.integration.tables.H2AssertTableTable;
 
 @Configuration
+@Profile("H2")
 public class H2Config {
 
     @Bean

@@ -21,11 +21,15 @@ import javax.sql.DataSource;
 import org.dbunit.dataset.datatype.IDataTypeFactory;
 import org.dbunit.ext.mysql.MySqlDataTypeFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import de.brands4friends.daleq.integration.tables.MysqlAllTypesTable;
 import de.brands4friends.daleq.integration.tables.MysqlAssertTableTable;
 
+@Configuration
+@Profile("Mysql")
 public class MysqlConfig {
 
     @Bean

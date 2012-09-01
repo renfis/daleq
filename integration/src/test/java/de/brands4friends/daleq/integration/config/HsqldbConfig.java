@@ -22,12 +22,14 @@ import org.dbunit.dataset.datatype.IDataTypeFactory;
 import org.dbunit.ext.hsqldb.HsqldbDataTypeFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
 import de.brands4friends.daleq.integration.tables.HsqldbAllTypesTable;
 import de.brands4friends.daleq.integration.tables.HsqldbAssertTableTable;
 
 @Configuration
+@Profile("HSQLDB")
 public class HsqldbConfig {
 
     @Bean
