@@ -25,7 +25,11 @@ import de.brands4friends.daleq.core.internal.conversion.DateTimeTypeConverter;
 final class TimestampTemplateValue implements TemplateValue {
     @Override
     public String render(final long value) {
-        final DateTime dateTime = new DateTime(0, DateTimeZone.UTC).plusSeconds((int) value);
+        final DateTime dateTime = new DateTime(0, DateTimeZone.UTC)
+                // Mysql fails with 1970-01-01 00:xx:yy. See http://bugs.mysql.com/bug.php?id=22276
+                // Hence we add an hour offset.
+                .plusHours(1)
+                .plusSeconds((int) value);
         return DateTimeTypeConverter.createXMLDateTime(dateTime);
     }
 }
