@@ -176,7 +176,7 @@ public class FieldTypeTest extends BaseTest {
         for (FieldType fieldType : tableType.getFields()) {
             final String templatized = templatizeValue(fieldType, value);
             final Table table = aTable(tableProvider.allTypesTable())
-                    .with(aRow(0L).f(fieldType.getOrigin(), templatized));
+                    .with(aRow(1L).f(fieldType.getOrigin(), templatized));
 
             try {
                 daleq.insertIntoDatabase(table);
