@@ -31,19 +31,19 @@ public abstract class AssertingTest extends BaseTest {
 
     @Test
     public void inserting_build_asserting() {
-        final Table toBeInserted = Daleq.aTable(tableProvider.assertTable()).withRowsUntil(100);
+        final Table toBeInserted = Daleq.aTable(tableProvider.assertTable()).withRowsBetween(1, 100);
         daleq.insertIntoDatabase(toBeInserted);
 
-        final Table toBeCompared = Daleq.aTable(tableProvider.assertTable()).withRowsUntil(100);
+        final Table toBeCompared = Daleq.aTable(tableProvider.assertTable()).withRowsBetween(1, 100);
         daleq.assertTableInDatabase(toBeCompared, tableProvider.assertTableId());
     }
 
     @Test
     public void inserting_build_asserting2() {
-        final Table toBeInserted = Daleq.aTable(tableProvider.assertTable()).withRowsUntil(100);
+        final Table toBeInserted = Daleq.aTable(tableProvider.assertTable()).withRowsBetween(1, 100);
         daleq.insertIntoDatabase(toBeInserted);
 
-        final Table toBeCompared = Daleq.aTable(tableProvider.assertTable()).withRowsUntil(100);
+        final Table toBeCompared = Daleq.aTable(tableProvider.assertTable()).withRowsBetween(1, 100);
         daleq.assertTableInDatabase(toBeCompared, tableProvider.assertTableId());
     }
 }
