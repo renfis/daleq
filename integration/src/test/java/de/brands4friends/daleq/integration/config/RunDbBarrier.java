@@ -18,6 +18,9 @@ package de.brands4friends.daleq.integration.config;
 
 import org.junit.Assume;
 
+/**
+ * Decides whether a DB integration test should be performed.
+ */
 public class RunDbBarrier {
 
     private final boolean shouldRun;
