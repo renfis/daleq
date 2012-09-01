@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import de.brands4friends.daleq.core.Daleq;
 import de.brands4friends.daleq.core.Table;
 import de.brands4friends.daleq.integration.beans.TableProvider;
+import de.brands4friends.daleq.integration.tables.AssertTableTable;
 
 public class AssertingTest extends BaseTest {
 
@@ -30,19 +31,19 @@ public class AssertingTest extends BaseTest {
 
     @Test
     public void inserting_build_asserting() {
-        final Table toBeInserted = Daleq.aTable(tableProvider.assertTable()).withRowsBetween(1, 100);
+        final Table toBeInserted = Daleq.aTable(AssertTableTable.class).withRowsBetween(1, 100);
         daleq.insertIntoDatabase(toBeInserted);
 
-        final Table toBeCompared = Daleq.aTable(tableProvider.assertTable()).withRowsBetween(1, 100);
-        daleq.assertTableInDatabase(toBeCompared, tableProvider.assertTableId());
+        final Table toBeCompared = Daleq.aTable(AssertTableTable.class).withRowsBetween(1, 100);
+        daleq.assertTableInDatabase(toBeCompared, AssertTableTable.ID);
     }
 
     @Test
     public void inserting_build_asserting2() {
-        final Table toBeInserted = Daleq.aTable(tableProvider.assertTable()).withRowsBetween(1, 100);
+        final Table toBeInserted = Daleq.aTable(AssertTableTable.class).withRowsBetween(1, 100);
         daleq.insertIntoDatabase(toBeInserted);
 
-        final Table toBeCompared = Daleq.aTable(tableProvider.assertTable()).withRowsBetween(1, 100);
-        daleq.assertTableInDatabase(toBeCompared, tableProvider.assertTableId());
+        final Table toBeCompared = Daleq.aTable(AssertTableTable.class).withRowsBetween(1, 100);
+        daleq.assertTableInDatabase(toBeCompared, AssertTableTable.ID);
     }
 }

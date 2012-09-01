@@ -28,7 +28,6 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 import de.brands4friends.daleq.integration.beans.TableProvider;
 import de.brands4friends.daleq.integration.tables.H2AllTypesTable;
-import de.brands4friends.daleq.integration.tables.H2AssertTableTable;
 
 @Configuration
 @Profile("H2")
@@ -46,6 +45,6 @@ public class H2Config implements DbConfig {
 
     @Bean
     public TableProvider allTypesProvider() {
-        return new TableProvider(H2AllTypesTable.class, H2AssertTableTable.class, H2AssertTableTable.ID);
+        return new TableProvider(H2AllTypesTable.class);
     }
 }

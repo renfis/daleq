@@ -27,7 +27,6 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
 import de.brands4friends.daleq.integration.beans.TableProvider;
 import de.brands4friends.daleq.integration.tables.HsqldbAllTypesTable;
-import de.brands4friends.daleq.integration.tables.HsqldbAssertTableTable;
 
 @Configuration
 @Profile("HSQLDB")
@@ -45,6 +44,6 @@ public class HsqldbConfig implements DbConfig {
 
     @Bean
     public TableProvider allTypesProvider() {
-        return new TableProvider(HsqldbAllTypesTable.class, HsqldbAssertTableTable.class, HsqldbAssertTableTable.ID);
+        return new TableProvider(HsqldbAllTypesTable.class);
     }
 }

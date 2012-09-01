@@ -16,32 +16,16 @@
 
 package de.brands4friends.daleq.integration.beans;
 
-import de.brands4friends.daleq.core.FieldDef;
-
 public class TableProvider {
 
     private final Class<?> allTypesTable;
-    private final Class<?> assertTable;
-    private final FieldDef assertTableId;
 
     public TableProvider(
-            final Class<?> allTypesTable,
-            final Class<?> assertTable,
-            final FieldDef assertTableId) {
+            final Class<?> allTypesTable) {
         this.allTypesTable = allTypesTable;
-        this.assertTable = assertTable;
-        this.assertTableId = assertTableId;
     }
 
     public Class<?> allTypesTable() {
         return allTypesTable;
-    }
-
-    public Class<?> assertTable() {
-        return assertTable;
-    }
-
-    public FieldDef assertTableId() {
-        return assertTableId;
     }
 }

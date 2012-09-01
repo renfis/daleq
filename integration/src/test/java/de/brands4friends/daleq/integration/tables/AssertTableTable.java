@@ -22,7 +22,7 @@ import de.brands4friends.daleq.core.FieldDef;
 import de.brands4friends.daleq.core.TableDef;
 
 @TableDef("ASSERT_TABLE")
-public class HsqldbAssertTableTable {
+public class AssertTableTable {
     public static final FieldDef ID = Daleq.fd(DataType.INTEGER);
     public static final FieldDef NAME = Daleq.fd(DataType.VARCHAR);
     public static final FieldDef AMOUNT = Daleq.fd(DataType.DECIMAL);
