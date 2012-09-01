@@ -29,6 +29,7 @@ final class TimestampTemplateValue implements TemplateValue {
                 // Mysql fails with 1970-01-01 00:xx:yy. See http://bugs.mysql.com/bug.php?id=22276
                 // Hence we add an hour offset.
                 .plusHours(1)
+                .plusSeconds(1)
                 .plusSeconds((int) value);
         return DateTimeTypeConverter.createXMLDateTime(dateTime);
     }
