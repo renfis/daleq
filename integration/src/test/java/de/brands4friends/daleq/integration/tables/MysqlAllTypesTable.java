@@ -47,8 +47,7 @@ public class MysqlAllTypesTable {
     // Dates
     public static final FieldDef A_DATE = fd(DataType.DATE);
     //    public static final FieldDef A_TIME = fd(DataType.TIME);
-    // TODO
-//    public static final FieldDef A_TIMESTAMP = fd(DataType.TIMESTAMP);
+    public static final FieldDef A_TIMESTAMP = fd(DataType.TIMESTAMP);
 
     // Binaries
     public static final FieldDef A_VARBINARY = fd(DataType.VARBINARY);

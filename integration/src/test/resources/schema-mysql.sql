@@ -20,8 +20,7 @@ CREATE TABLE ALL_TYPES (
     A_FLOAT           FLOAT          ,
     A_DATE            DATE           ,
 --     A_TIME            TIME           ,
--- TODO!
---     A_TIMESTAMP       TIMESTAMP      ,
+    A_TIMESTAMP       TIMESTAMP      ,
     A_VARBINARY       VARBINARY(250) ,
     A_BINARY          BINARY,
 --    A_LONGVARBINARY   LONGVARBINARY  ,
