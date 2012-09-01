@@ -1,11 +1,17 @@
 language: java
 jdk:
   - openjdk7
+  - oraclejdk7
   - openjdk6
+env:
+  - INTEGRATION_DB=HSQLDB
+  - INTEGRATION_DB=H2
+  - INTEGRATION_DB=Mysql
 before_install:
   - "./gradlew --version"
+  - mysql -e 'create database daleq_test;'
 install: "./gradlew --stacktrace --quiet --no-color assemble"
-script: "./gradlew --stacktrace --quiet --continue --no-color check"
+script: "./travis_build.sh"
 after_script:
   - "./gradlew --stacktrace --quiet --continue --no-color issues"
 notifications:
