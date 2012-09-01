@@ -39,7 +39,7 @@ import de.brands4friends.daleq.integration.config.TableProvider;
 import de.brands4friends.daleq.integration.tests.BaseTest;
 
 
-public abstract class FieldTypeTest extends BaseTest {
+public class FieldTypeTest extends BaseTest {
 
     public static final long HUGE_LONG_VAL = 1273651726351726351L;
 

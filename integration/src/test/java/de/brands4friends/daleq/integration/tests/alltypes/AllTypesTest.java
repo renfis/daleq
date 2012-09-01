@@ -24,7 +24,7 @@ import de.brands4friends.daleq.core.Table;
 import de.brands4friends.daleq.integration.config.TableProvider;
 import de.brands4friends.daleq.integration.tests.BaseTest;
 
-public abstract class AllTypesTest extends BaseTest {
+public class AllTypesTest extends BaseTest {
 
     @Autowired
     private TableProvider tableProvider;

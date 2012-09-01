@@ -19,16 +19,26 @@ package de.brands4friends.daleq.integration.tests;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.brands4friends.daleq.core.DaleqSupport;
+import de.brands4friends.daleq.integration.config.H2Config;
+import de.brands4friends.daleq.integration.config.HsqldbConfig;
 import de.brands4friends.daleq.integration.config.IntegrationConfig;
+import de.brands4friends.daleq.integration.config.MysqlConfig;
 import de.brands4friends.daleq.integration.config.RunDbBarrier;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = IntegrationConfig.class)
+@ContextConfiguration(classes = {
+        IntegrationConfig.class,
+        HsqldbConfig.class,
+        H2Config.class,
+        MysqlConfig.class
+})
+@ActiveProfiles("HSQLDB")
 @SuppressWarnings("PMD.AbstractClassWithoutAnyMethod")
 public abstract class BaseTest extends AbstractTransactionalJUnit4SpringContextTests {
 
