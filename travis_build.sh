@@ -6,3 +6,4 @@
 -Pintegration.mysql.user=root \
 -Pintegration.mysql.password= \
 check
+./gradlew --stacktrace --quiet --continue --no-color issues
