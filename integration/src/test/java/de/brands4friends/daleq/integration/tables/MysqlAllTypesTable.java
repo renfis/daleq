@@ -29,7 +29,7 @@ public class MysqlAllTypesTable {
     public static final FieldDef A_CHAR = fd(DataType.CHAR);
     //    public static final FieldDef A_LONGVARCHAR = fd(DataType.LONGVARCHAR);
     public static final FieldDef A_NVARCHAR = fd(DataType.NVARCHAR);
-//    public static final FieldDef A_CLOB = fd(DataType.CLOB);
+    public static final FieldDef A_TEXT = fd(DataType.CLOB);
 
     // Numerics
     public static final FieldDef A_NUMERIC = fd(DataType.NUMERIC);
@@ -54,6 +54,6 @@ public class MysqlAllTypesTable {
     public static final FieldDef A_VARBINARY = fd(DataType.VARBINARY);
     //    public static final FieldDef A_BINARY = fd(DataType.BINARY);
 //    public static final FieldDef A_LONGVARBINARY = fd(DataType.LONGVARBINARY);
-//    public static final FieldDef A_BLOB = fd(DataType.BLOB);
+    public static final FieldDef A_BLOB = fd(DataType.BLOB);
 
 }

@@ -6,7 +6,7 @@ CREATE TABLE ALL_TYPES (
     A_CHAR            CHAR           ,
 --    A_LONGVARCHAR     LONGVARCHAR(250),
     A_NVARCHAR        NVARCHAR(250)  ,
---    A_CLOB            CLOB           ,
+    A_TEXT            TEXT           ,
     A_NUMERIC         NUMERIC        ,
     A_DECIMAL         DECIMAL        ,
     A_BOOLEAN         BOOLEAN        ,
@@ -23,9 +23,9 @@ CREATE TABLE ALL_TYPES (
 -- TODO!
 --     A_TIMESTAMP       TIMESTAMP      ,
     A_VARBINARY       VARBINARY(250) ,
-    A_BINARY          BINARY
+    A_BINARY          BINARY,
 --    A_LONGVARBINARY   LONGVARBINARY  ,
---    A_BLOB            BLOB
+   A_BLOB            BLOB
 
 -- Types defined by DbUnit but not available in HSQLDB
 --    A_LONGNVARCHAR    LONGNVARCHAR
