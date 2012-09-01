@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.integration.config;
+package de.brands4friends.daleq.integration.beans;
 
 import de.brands4friends.daleq.core.FieldDef;
 

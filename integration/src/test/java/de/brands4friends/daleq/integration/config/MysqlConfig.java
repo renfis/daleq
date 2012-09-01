@@ -25,6 +25,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import de.brands4friends.daleq.integration.beans.PrepareMysqlSchema;
+import de.brands4friends.daleq.integration.beans.TableProvider;
 import de.brands4friends.daleq.integration.tables.MysqlAllTypesTable;
 import de.brands4friends.daleq.integration.tables.MysqlAssertTableTable;
 

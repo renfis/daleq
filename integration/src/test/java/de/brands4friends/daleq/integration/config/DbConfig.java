@@ -20,6 +20,8 @@ import javax.sql.DataSource;
 
 import org.dbunit.dataset.datatype.IDataTypeFactory;
 
+import de.brands4friends.daleq.integration.beans.TableProvider;
+
 public interface DbConfig {
     DataSource dataSource();
 

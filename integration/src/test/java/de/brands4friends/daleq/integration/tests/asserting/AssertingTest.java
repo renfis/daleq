@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import de.brands4friends.daleq.core.Daleq;
 import de.brands4friends.daleq.core.Table;
-import de.brands4friends.daleq.integration.config.TableProvider;
+import de.brands4friends.daleq.integration.beans.TableProvider;
 import de.brands4friends.daleq.integration.tests.BaseTest;
 
 public class AssertingTest extends BaseTest {

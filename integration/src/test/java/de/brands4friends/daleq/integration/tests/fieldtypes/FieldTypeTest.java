@@ -35,7 +35,7 @@ import de.brands4friends.daleq.core.Table;
 import de.brands4friends.daleq.core.TableType;
 import de.brands4friends.daleq.core.internal.builder.SimpleContext;
 import de.brands4friends.daleq.core.internal.template.TemplateValueFactory;
-import de.brands4friends.daleq.integration.config.TableProvider;
+import de.brands4friends.daleq.integration.beans.TableProvider;
 import de.brands4friends.daleq.integration.tests.BaseTest;
 
 
