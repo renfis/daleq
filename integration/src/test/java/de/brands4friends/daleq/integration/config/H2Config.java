@@ -31,7 +31,7 @@ import de.brands4friends.daleq.integration.tables.H2AssertTableTable;
 
 @Configuration
 @Profile("H2")
-public class H2Config {
+public class H2Config implements DbConfig {
 
     @Bean
     public DataSource dataSource() {

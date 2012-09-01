@@ -30,7 +30,7 @@ import de.brands4friends.daleq.integration.tables.MysqlAssertTableTable;
 
 @Configuration
 @Profile("Mysql")
-public class MysqlConfig {
+public class MysqlConfig implements DbConfig {
 
     @Bean
     public DataSource dataSource() {

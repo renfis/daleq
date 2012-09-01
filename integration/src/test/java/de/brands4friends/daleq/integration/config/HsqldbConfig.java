@@ -30,7 +30,7 @@ import de.brands4friends.daleq.integration.tables.HsqldbAssertTableTable;
 
 @Configuration
 @Profile("HSQLDB")
-public class HsqldbConfig {
+public class HsqldbConfig implements DbConfig {
 
     @Bean
     public DataSource dataSource() {
