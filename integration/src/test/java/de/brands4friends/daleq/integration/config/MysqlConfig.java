@@ -49,7 +49,7 @@ public class MysqlConfig {
     }
 
     @Bean
-    public PrepareMysqlSchema prepareMysqlSchema(final DataSource dataSource) {
-        return new PrepareMysqlSchema(dataSource);
+    public PrepareMysqlSchema prepareMysqlSchema() {
+        return new PrepareMysqlSchema(dataSource());
     }
 }
