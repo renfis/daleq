@@ -4,8 +4,6 @@ jdk:
   - oraclejdk7
   - openjdk6
 env:
-  - INTEGRATION_DB=HSQLDB
-  - INTEGRATION_DB=H2
   - INTEGRATION_DB=Mysql
 before_install:
   - "./gradlew --version"
