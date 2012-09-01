@@ -16,6 +16,8 @@
 
 package de.brands4friends.daleq.integration.config;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import javax.sql.DataSource;
 
 import org.dbunit.dataset.datatype.IDataTypeFactory;
@@ -33,9 +35,22 @@ import de.brands4friends.daleq.integration.tables.MysqlAllTypesTable;
 @Profile("Mysql")
 public class MysqlConfig implements DbConfig {
 
+    public static final String MYSQL_URL = "integration.mysql.url";
+    public static final String MYSQL_USER = "integration.mysql.user";
+    public static final String MYSQL_PASSWORD = "integration.mysql.password";
+
     @Bean
     public DataSource dataSource() {
-        return new DriverManagerDataSource("jdbc:mysql://127.0.0.1:3306/test", "test", "test");
+
+        final String url = readProperty(MYSQL_URL);
+        final String user = readProperty(MYSQL_USER);
+        final String password = readProperty(MYSQL_PASSWORD);
+
+        return new DriverManagerDataSource(url, user, password);
+    }
+
+    private String readProperty(final String property) {
+        return checkNotNull(System.getProperty(property), "Expected System Property '%s'", property);
     }
 
     @Bean
