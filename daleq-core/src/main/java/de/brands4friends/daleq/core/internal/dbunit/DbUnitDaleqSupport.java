@@ -71,28 +71,12 @@ public class DbUnitDaleqSupport implements DaleqSupport {
         return new DbUnitDaleqSupport(dataSetFactory, connectionFactory, insertOperation, asserter);
     }
 
-    /**
-     * Returns a DatabaseConnection which is aware of Spring's Transaction Management.
-     * <p/>
-     * As a matter of fact this works if and only if we are already in an active Transaction due to the way
-     * Spring's Transaction Manager works. Hence we have to create a new DbUnit Database Connection each time
-     * we are going to insert data in the db.
-     *
-     * @return a transaction aware connection to the database.
-     * @throws de.brands4friends.daleq.core.DaleqException
-     *          if DbUnit denies the creation of the IDatabaseConnection
-     */
+
     private IDatabaseConnection createDatabaseConnection() {
         Preconditions.checkNotNull(connectionFactory, "connectionFactory is null.");
         return connectionFactory.createConnection();
     }
 
-    /**
-     * Inserts the given tables into the database.
-     * <p/>
-     * The insertion respects the current transaction context, hence if they are written in an active transaction, they
-     * are properly roled back.
-     */
     @Override
     public final void insertIntoDatabase(final Table... tables) {
         try {
