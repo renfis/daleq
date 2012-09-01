@@ -47,4 +47,9 @@ public class MysqlConfig {
     public RunDbBarrier runDbBarrier() {
         return new RunDbBarrier(true);
     }
+
+    @Bean
+    public PrepareMysqlSchema prepareMysqlSchema(final DataSource dataSource) {
+        return new PrepareMysqlSchema(dataSource);
+    }
 }
