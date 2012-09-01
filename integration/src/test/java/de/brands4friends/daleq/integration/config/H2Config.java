@@ -47,9 +47,4 @@ public class H2Config {
     public TableProvider allTypesProvider() {
         return new TableProvider(H2AllTypesTable.class, H2AssertTableTable.class, H2AssertTableTable.ID);
     }
-
-    @Bean
-    public RunDbBarrier runDbBarrier() {
-        return new RunDbBarrier(true);
-    }
 }

@@ -46,9 +46,4 @@ public class HsqldbConfig {
     public TableProvider allTypesProvider() {
         return new TableProvider(HsqldbAllTypesTable.class, HsqldbAssertTableTable.class, HsqldbAssertTableTable.ID);
     }
-
-    @Bean
-    public RunDbBarrier runDbBarrier() {
-        return new RunDbBarrier(true);
-    }
 }

@@ -16,7 +16,6 @@
 
 package de.brands4friends.daleq.integration.tests;
 
-import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
@@ -29,7 +28,6 @@ import de.brands4friends.daleq.integration.config.H2Config;
 import de.brands4friends.daleq.integration.config.HsqldbConfig;
 import de.brands4friends.daleq.integration.config.IntegrationConfig;
 import de.brands4friends.daleq.integration.config.MysqlConfig;
-import de.brands4friends.daleq.integration.config.RunDbBarrier;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
@@ -43,14 +41,6 @@ import de.brands4friends.daleq.integration.config.RunDbBarrier;
 public abstract class BaseTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     @Autowired
-    private RunDbBarrier runDbBarrier;
-
-    @Autowired
     protected DaleqSupport daleq;
-
-    @Before
-    public void ensureShouldRun() {
-        runDbBarrier.checkShouldRun();
-    }
 
 }
