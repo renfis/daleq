@@ -92,7 +92,8 @@ public final class TemplateValueFactoryImpl implements TemplateValueFactory {
             new DelegatingToTemplate(of(DataType.SMALLINT), new ModuloTemplateValue(32768)),
             STRING_TO_TEMPLATE,
             new DelegatingToTemplate(of(DataType.DATE), new DateTemplateValue()),
-            new DelegatingToTemplate(of(DataType.TIME, DataType.TIMESTAMP), new TimestampTemplateValue()),
+            new DelegatingToTemplate(of(DataType.TIME, DataType.TIMESTAMP),
+                    new TimestampTemplateValue(Integer.MAX_VALUE / 2)),
             new DelegatingToTemplate(of(DataType.BOOLEAN, DataType.BIT), new ModuloTemplateValue(2)),
             new DelegatingToTemplate(of(DataType.CHAR, DataType.NCHAR), new CharTemplateValue()),
             new DelegatingToTemplate(
