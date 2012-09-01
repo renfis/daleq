@@ -17,17 +17,12 @@
 package de.brands4friends.daleq.integration.tests;
 
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import de.brands4friends.daleq.core.Daleq;
 import de.brands4friends.daleq.core.Table;
-import de.brands4friends.daleq.integration.beans.TableProvider;
 import de.brands4friends.daleq.integration.tables.AssertTableTable;
 
 public class AssertingTest extends BaseTest {
-
-    @Autowired
-    private TableProvider tableProvider;
 
     @Test
     public void inserting_build_asserting() {

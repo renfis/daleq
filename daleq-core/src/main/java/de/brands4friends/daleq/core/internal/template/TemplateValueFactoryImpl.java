@@ -86,8 +86,8 @@ public final class TemplateValueFactoryImpl implements TemplateValueFactory {
 
     private static final Collection<ToTemplate> TO_TEMPLATES = ImmutableList.of(
             NUMBER_TO_TEMPLATE,
-            new DelegatingToTemplate(of(DataType.NUMERIC), new ModuloTemplateValue(10000000000l)),
-            new DelegatingToTemplate(of(DataType.DECIMAL), new ModuloTemplateValue(10000000000l)),
+            new DelegatingToTemplate(of(DataType.NUMERIC), new ModuloTemplateValue(10000000000L)),
+            new DelegatingToTemplate(of(DataType.DECIMAL), new ModuloTemplateValue(10000000000L)),
             new DelegatingToTemplate(of(DataType.TINYINT), new ModuloTemplateValue(128)),
             new DelegatingToTemplate(of(DataType.SMALLINT), new ModuloTemplateValue(32768)),
             STRING_TO_TEMPLATE,

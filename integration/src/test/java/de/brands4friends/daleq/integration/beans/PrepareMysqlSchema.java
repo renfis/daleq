@@ -16,6 +16,8 @@
 
 package de.brands4friends.daleq.integration.beans;
 
+import java.io.IOException;
+
 import javax.sql.DataSource;
 
 import org.slf4j.Logger;
@@ -36,7 +38,7 @@ public class PrepareMysqlSchema implements InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() throws IOException {
         final ClassPathResource script = new ClassPathResource("schema-mysql.sql");
         logger.info("Preparing Schema with file {}", script.getFile().getAbsolutePath());
         // Spring 3.1 deprecates SimpleJdbcTemplate, but not SimpleJdbcTestUtils. This will be resolved in Spring 3.2
