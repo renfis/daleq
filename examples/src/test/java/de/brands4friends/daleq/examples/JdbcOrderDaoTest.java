@@ -22,7 +22,8 @@ import static de.brands4friends.daleq.examples.OrderItemTable.ORDER_ID;
 import static de.brands4friends.daleq.examples.OrderItemTable.PRODUCT_ID;
 import static de.brands4friends.daleq.examples.OrderTable.CREATION;
 import static de.brands4friends.daleq.examples.OrderTable.CUSTOMER_ID;
-import static org.hamcrest.Matchers.is;
+import static de.brands4friends.daleq.examples.ProductTable.PRICE;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
@@ -31,6 +32,9 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -56,11 +60,16 @@ public class JdbcOrderDaoTest extends AbstractTransactionalJUnit4SpringContextTe
     public static final int CUSTOMER_1 = 23001;
     public static final int CUSTOMER_2 = 23002;
     public static final int CUSTOMER_3 = 2303;
-    
+    public static final int PRODUCT_9_99 = 1002;
+    public static final int PRODUCT_50 = 1003;
+
     @Autowired
     private DaleqSupport daleq;
 
     private JdbcOrderDao orderDao;
+    private LocalDate creationDay;
+    private DateTime duringCreationDay;
+    private BigDecimal fortyEuro;
 
     @Override
     @Autowired
@@ -71,46 +80,110 @@ public class JdbcOrderDaoTest extends AbstractTransactionalJUnit4SpringContextTe
     }
 
     @Before
-    public void setUp(){
+    public void setUp() {
         final Table customers = aTable(CustomerTable.class).with(
                 aRow(CUSTOMER_1),
                 aRow(CUSTOMER_2),
                 aRow(CUSTOMER_3)
         );
         final Table products = aTable(ProductTable.class).with(
-                aRow(PRODUCT_1).f(ProductTable.PRICE,"1.00"),
-                aRow(PRODUCT_10).f(ProductTable.PRICE,"10.00")
+                aRow(PRODUCT_1).f(PRICE, "1.00"),
+                aRow(PRODUCT_10).f(PRICE, "10.00"),
+                aRow(PRODUCT_9_99).f(PRICE, "9.99"),
+                aRow(PRODUCT_50).f(PRICE, "50.00")
         );
-        daleq.insertIntoDatabase(customers,products);
+        daleq.insertIntoDatabase(customers, products);
+
+        creationDay = new LocalDate(2012, 8, 1);
+        duringCreationDay = creationDay.toDateTime(new LocalTime(10, 30));
+        fortyEuro = BigDecimal.valueOf(400, 2);
     }
 
     @Test
-    public void test() throws IOException {
+    public void findExpensiveOrders_should_selectOrdersOfThatUser() {
+        final Table orders = aTable(OrderTable.class)
+                .withRowsBetween(1, 10)
+                .having(CUSTOMER_ID, Lists.<Object>newArrayList(
+                        CUSTOMER_1, CUSTOMER_1, CUSTOMER_1,
+                        CUSTOMER_2, CUSTOMER_2, CUSTOMER_2,
+                        CUSTOMER_3, CUSTOMER_3, CUSTOMER_3, CUSTOMER_3
+                ))
+                .allHaving(CREATION, duringCreationDay);
 
-        final long orderId = 11;
-        final LocalDate creationDay = new LocalDate(2012,8,1);
-        final DateTime creation = creationDay.toDateTime(new LocalTime(10, 30));
+        final Table orderItems = aTable(OrderItemTable.class)
+                .withRowsBetween(1, 10)
+                .having(ORDER_ID, Lists.<Object>newArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
+                .allHaving(PRODUCT_ID, PRODUCT_50);
+
+        daleq.insertIntoDatabase(orders, orderItems);
+
+        final List<Order> actual = orderDao.findExpensiveOrders(CUSTOMER_1, creationDay, fortyEuro);
+        assertContainsOrders(actual, order(1), order(2), order(3));
+    }
+
+//    @Test
+//    public void findExpensiveOrders_should_selectOrdersOfOnCreationDay() {
+//        final Table orders = aTable(OrderTable.class)
+//                .withRowsBetween(1,10)
+//
+//    }
+
+    @Test
+    public void findExpensiveOrders_should_selectCorrectlySummedUpItems() throws IOException {
 
         final Table orders = aTable(OrderTable.class)
                 .withRowsBetween(1, 10)
-                .with(aRow(orderId))
                 .allHaving(CUSTOMER_ID, CUSTOMER_1)
-                .allHaving(CREATION, creation);
+                .allHaving(CREATION, duringCreationDay);
 
         final Table orderItems = aTable(OrderItemTable.class)
-                .withRowsBetween(101,110)
-                    .having(ORDER_ID, Lists.<Object>newArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
-                    .allHaving(PRODUCT_ID, PRODUCT_1)
+                // let orders 1-7 have just too cheap products
+                .withRowsBetween(101, 107)
+                .having(ORDER_ID, Lists.<Object>newArrayList(1, 2, 3, 4, 5, 6, 7))
+                .allHaving(PRODUCT_ID, PRODUCT_1)
                 .with(
-                        aRow(111).f(ORDER_ID,orderId).f(PRODUCT_ID,PRODUCT_10),
-                        aRow(112).f(ORDER_ID,orderId).f(PRODUCT_ID,PRODUCT_10),
-                        aRow(113).f(ORDER_ID,orderId).f(PRODUCT_ID,PRODUCT_10),
-                        aRow(114).f(ORDER_ID,orderId).f(PRODUCT_ID,PRODUCT_10)
+                        // Order 8: Just not enough
+                        aRow(108).f(ORDER_ID, 8).f(PRODUCT_ID, PRODUCT_10),
+                        aRow(109).f(ORDER_ID, 8).f(PRODUCT_ID, PRODUCT_10),
+                        aRow(110).f(ORDER_ID, 8).f(PRODUCT_ID, PRODUCT_10),
+                        aRow(111).f(ORDER_ID, 8).f(PRODUCT_ID, PRODUCT_9_99),
+
+                        // Order 9: Exactly 40.00
+                        aRow(112).f(ORDER_ID, 9).f(PRODUCT_ID, PRODUCT_10),
+                        aRow(113).f(ORDER_ID, 9).f(PRODUCT_ID, PRODUCT_10),
+                        aRow(114).f(ORDER_ID, 9).f(PRODUCT_ID, PRODUCT_10),
+                        aRow(115).f(ORDER_ID, 9).f(PRODUCT_ID, PRODUCT_10),
+
+                        // Order 10: > 40.00
+                        aRow(116).f(ORDER_ID, 10).f(PRODUCT_ID, PRODUCT_50)
                 );
 
-        daleq.insertIntoDatabase(orders,orderItems);
+        daleq.insertIntoDatabase(orders, orderItems);
 
-        List<Order> actual = orderDao.findExpensiveOrders(CUSTOMER_1, creationDay, BigDecimal.valueOf(400,2));
-        assertThat(actual.size(), is(1));
+        final List<Order> actual = orderDao.findExpensiveOrders(CUSTOMER_1, creationDay, fortyEuro);
+        assertContainsOrders(actual, order(8), order(9), order(10));
+    }
+
+    @SuppressWarnings("unchecked")
+    private void assertContainsOrders(List<Order> actual, Matcher... expected) {
+        assertThat(actual, containsInAnyOrder(expected));
+    }
+
+    private Matcher order(final long id) {
+        return new BaseMatcher<Order>() {
+            @Override
+            public boolean matches(final Object other) {
+                if (!(other instanceof Order)) {
+                    return false;
+                }
+                final Order order = (Order) other;
+                return id == order.getId();
+            }
+
+            @Override
+            public void describeTo(final Description description) {
+                description.appendText("order with id ").appendValue(id);
+            }
+        };
     }
 }
