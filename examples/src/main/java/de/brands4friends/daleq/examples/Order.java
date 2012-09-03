@@ -16,5 +16,40 @@
 
 package de.brands4friends.daleq.examples;
 
+import org.joda.time.DateTime;
+
+import com.google.common.base.Objects;
+
 public class Order {
+
+    private long id;
+    private long customerId;
+    private DateTime creation;
+
+    public Order(final long id, final long customerId, final DateTime creation) {
+        this.id = id;
+        this.customerId = customerId;
+        this.creation = creation;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public long getCustomerId() {
+        return customerId;
+    }
+
+    public DateTime getCreation() {
+        return creation;
+    }
+
+    @Override
+    public final String toString() {
+        return Objects.toStringHelper(this)
+                .add("id", id)
+                .add("customerId", customerId)
+                .add("creation", creation)
+                .toString();
+    }
 }
