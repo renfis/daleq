@@ -197,7 +197,7 @@ public class TableBuilderTest {
     @Test
     public void having_withEmptyValues_should_leaveTheFieldsAsTheyAre() {
         assertThat(
-                aTable(ExampleTable.class).withRowsUntil(3).having(PROP_B, Lists.newArrayList()).build(context),
+                aTable(ExampleTable.class).withRowsUntil(3).havingIterable(PROP_B, Lists.newArrayList()).build(context),
                 is(
                         sb.table(
                                 sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "0")),
@@ -213,7 +213,7 @@ public class TableBuilderTest {
         assertThat(
                 aTable(ExampleTable.class)
                         .withRowsUntil(3)
-                        .having(PROP_B, Lists.<Object>newArrayList("A", "B", "C"))
+                        .havingIterable(PROP_B, Lists.<Object>newArrayList("A", "B", "C"))
                         .build(context),
                 is(
                         sb.table(
@@ -230,7 +230,7 @@ public class TableBuilderTest {
         assertThat(
                 aTable(ExampleTable.class)
                         .withRowsUntil(3)
-                        .having(PROP_B, Lists.<Object>newArrayList("A", "B"))
+                        .havingIterable(PROP_B, Lists.<Object>newArrayList("A", "B"))
                         .build(context),
                 is(
                         sb.table(
@@ -249,7 +249,7 @@ public class TableBuilderTest {
         assertThat(
                 aTable(ExampleTable.class)
                         .withRowsUntil(1)
-                        .having(PROP_B, values)
+                        .havingIterable(PROP_B, values)
                         .build(context),
                 is(
                         sb.table(
@@ -263,7 +263,7 @@ public class TableBuilderTest {
     public void having_withNullAsValues_should_fail() {
         aTable(ExampleTable.class)
                 .withRowsUntil(3)
-                .having(PROP_B, null)
+                .havingIterable(PROP_B, null)
                 .build(context);
     }
 
@@ -272,7 +272,7 @@ public class TableBuilderTest {
         assertThat(
                 aTable(ExampleTable.class)
                         .withRowsUntil(3)
-                        .having(PROP_B, Lists.<Object>newArrayList("A", "B", "C", "D", "E"))
+                        .havingIterable(PROP_B, Lists.<Object>newArrayList("A", "B", "C", "D", "E"))
                         .build(context),
                 is(
                         sb.table(
@@ -288,7 +288,7 @@ public class TableBuilderTest {
     public void having_withFieldDefNotInTable_should_fail() {
         aTable(ExampleTable.class)
                 .withRowsUntil(1)
-                .having(Daleq.fd(DataType.CHAR).name("foo"), Lists.<Object>newArrayList("bar"))
+                .havingIterable(Daleq.fd(DataType.CHAR).name("foo"), Lists.<Object>newArrayList("bar"))
                 .build(context);
     }
 

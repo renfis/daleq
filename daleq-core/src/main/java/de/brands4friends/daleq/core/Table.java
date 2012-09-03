@@ -32,7 +32,7 @@ public interface Table {
 
     Table allHaving(FieldTypeReference fieldDef, @Nullable Object value);
 
-    Table having(FieldTypeReference fieldDef, Iterable<Object> values);
+    Table havingIterable(FieldTypeReference fieldDef, Iterable<Object> values);
 
     TableData build(final Context context);
 

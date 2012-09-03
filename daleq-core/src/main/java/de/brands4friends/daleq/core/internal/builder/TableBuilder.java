@@ -95,7 +95,7 @@ public final class TableBuilder implements Table {
     }
 
     @Override
-    public Table having(final FieldTypeReference fieldDef, final Iterable<Object> values) {
+    public Table havingIterable(final FieldTypeReference fieldDef, final Iterable<Object> values) {
         Preconditions.checkNotNull(values);
         final Iterator<Object> iter = values.iterator();
         for (Row row : rows) {

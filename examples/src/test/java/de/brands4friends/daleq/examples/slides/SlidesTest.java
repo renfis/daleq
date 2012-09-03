@@ -102,7 +102,7 @@ public class SlidesTest extends AbstractTransactionalJUnit4SpringContextTests {
         final Table table =
                 aTable(ProductTable.class)
                         .withRowsBetween(1, 5)
-                        .having(SIZE, Lists.<Object>newArrayList(
+                        .havingIterable(SIZE, Lists.<Object>newArrayList(
                                 "S", "M", "L", "XL"
                         ));
 

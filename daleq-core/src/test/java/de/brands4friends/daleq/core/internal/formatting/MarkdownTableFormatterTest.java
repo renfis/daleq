@@ -75,7 +75,7 @@ public class MarkdownTableFormatterTest {
     public void should_alignToTheLongestValue() {
         final TableData table = Daleq.aTable(ColumnLength.class)
                 .withRowsUntil(5)
-                .having(ColumnLength.COLUMN, Lists.<Object>newArrayList(
+                .havingIterable(ColumnLength.COLUMN, Lists.<Object>newArrayList(
                         "A",
                         "ABCDEFGHIJ",
                         "ABCDEF",
