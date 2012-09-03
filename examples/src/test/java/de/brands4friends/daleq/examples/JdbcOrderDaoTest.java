@@ -55,16 +55,19 @@ public class JdbcOrderDaoTest extends AbstractTransactionalJUnit4SpringContextTe
 
     public static final int PRODUCT_1 = 1000;
     public static final int PRODUCT_10 = 1001;
+    public static final int PRODUCT_9_99 = 1002;
+    public static final int PRODUCT_50 = 1003;
+
     public static final int CUSTOMER_1 = 23001;
     public static final int CUSTOMER_2 = 23002;
     public static final int CUSTOMER_3 = 2303;
-    public static final int PRODUCT_9_99 = 1002;
-    public static final int PRODUCT_50 = 1003;
 
     @Autowired
     private DaleqSupport daleq;
 
+    private DataSource dataSource;
     private JdbcOrderDao orderDao;
+
     private LocalDate creationDay;
     private DateTime duringCreationDay;
     private BigDecimal fortyEuro;
@@ -73,12 +76,15 @@ public class JdbcOrderDaoTest extends AbstractTransactionalJUnit4SpringContextTe
     @Autowired
     public void setDataSource(final DataSource dataSource) {
         super.setDataSource(dataSource);
-        this.orderDao = new JdbcOrderDao();
-        this.orderDao.setDataSource(dataSource);
+        this.dataSource = dataSource;
     }
 
     @Before
     public void setUp() {
+
+        this.orderDao = new JdbcOrderDao();
+        this.orderDao.setDataSource(dataSource);
+
         final Table customers = aTable(CustomerTable.class).with(
                 aRow(CUSTOMER_1),
                 aRow(CUSTOMER_2),
