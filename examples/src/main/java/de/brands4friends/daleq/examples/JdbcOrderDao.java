@@ -31,14 +31,18 @@ public class JdbcOrderDao extends JdbcDaoSupport implements OrderDao {
     public static final RowMapper<Order> ROW_MAPPER = new RowMapper<Order>() {
         @Override
         public Order mapRow(final ResultSet rs, final int rowNum) throws SQLException {
-            return new Order();
+            return new Order(
+                    rs.getLong("ID"),
+                    rs.getLong("CUSTOMER_ID"),
+                    new DateTime(rs.getTimestamp("CREATION"))
+            );
         }
     };
 
     @Override
     public List<Order> findExpensiveOrders(final long customerId, final LocalDate boughtAt, final BigDecimal minimumAmount) {
         final DateTime dateLower = boughtAt.toDateMidnight().toDateTime();
-        final DateTime dateUpper   = dateLower.plusDays(1);
+        final DateTime dateUpper = dateLower.plusDays(1);
         return getJdbcTemplate().query(
                 "select o.* from CUSTOMER_ORDER o " +
                         "LEFT JOIN (" +
@@ -53,7 +57,7 @@ public class JdbcOrderDao extends JdbcDaoSupport implements OrderDao {
                         "      AND o.CREATION < ? " +
                         "      AND prices.TOTAL >= ? ",
                 ROW_MAPPER,
-                customerId ,dateLower.toDate(),dateUpper.toDate(),minimumAmount
+                customerId, dateLower.toDate(), dateUpper.toDate(), minimumAmount
         );
     }
 }
