@@ -46,8 +46,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.google.common.collect.Lists;
-
 import de.brands4friends.daleq.core.DaleqSupport;
 import de.brands4friends.daleq.core.Table;
 
@@ -103,16 +101,16 @@ public class JdbcOrderDaoTest extends AbstractTransactionalJUnit4SpringContextTe
     public void findExpensiveOrders_should_selectOrdersOfThatUser() {
         final Table orders = aTable(OrderTable.class)
                 .withRowsBetween(1, 10)
-                .having(CUSTOMER_ID, Lists.<Object>newArrayList(
+                .having(CUSTOMER_ID,
                         CUSTOMER_1, CUSTOMER_1, CUSTOMER_1,
                         CUSTOMER_2, CUSTOMER_2, CUSTOMER_2,
                         CUSTOMER_3, CUSTOMER_3, CUSTOMER_3, CUSTOMER_3
-                ))
+                )
                 .allHaving(CREATION, duringCreationDay);
 
         final Table orderItems = aTable(OrderItemTable.class)
                 .withRowsBetween(1, 10)
-                .having(ORDER_ID, Lists.<Object>newArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
+                .having(ORDER_ID, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
                 .allHaving(PRODUCT_ID, PRODUCT_50);
 
         daleq.insertIntoDatabase(orders, orderItems);
@@ -139,7 +137,7 @@ public class JdbcOrderDaoTest extends AbstractTransactionalJUnit4SpringContextTe
         final Table orderItems = aTable(OrderItemTable.class)
                 // let orders 1-7 have just too cheap products
                 .withRowsBetween(101, 107)
-                .having(ORDER_ID, Lists.<Object>newArrayList(1, 2, 3, 4, 5, 6, 7))
+                .having(ORDER_ID, 1, 2, 3, 4, 5, 6, 7)
                 .allHaving(PRODUCT_ID, PRODUCT_1)
                 .with(
                         // Order 8: Just not enough
