@@ -23,8 +23,6 @@ import static de.brands4friends.daleq.core.internal.builder.ExampleTable.PROP_B;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -195,20 +193,6 @@ public class TableBuilderTest {
     }
 
     @Test
-    public void havingIterable_withEmptyValues_should_leaveTheFieldsAsTheyAre() {
-        assertThat(
-                aTable(ExampleTable.class).withRowsUntil(3).havingIterable(PROP_B, Lists.newArrayList()).build(context),
-                is(
-                        sb.table(
-                                sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "0")),
-                                sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "1")),
-                                sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "2"))
-                        )
-                )
-        );
-    }
-
-    @Test
     public void having_withEmptyValues_should_leaveTheFieldsAsTheyAre() {
         assertThat(
                 aTable(ExampleTable.class).withRowsUntil(3).having(PROP_B).build(context),
@@ -217,23 +201,6 @@ public class TableBuilderTest {
                                 sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "0")),
                                 sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "1")),
                                 sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "2"))
-                        )
-                )
-        );
-    }
-
-    @Test
-    public void havingIterable_withValuesAsMuchElementsAsTable_should_fillTheTableCompletely() {
-        assertThat(
-                aTable(ExampleTable.class)
-                        .withRowsUntil(3)
-                        .havingIterable(PROP_B, Lists.<Object>newArrayList("A", "B", "C"))
-                        .build(context),
-                is(
-                        sb.table(
-                                sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "A")),
-                                sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "B")),
-                                sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "C"))
                         )
                 )
         );
@@ -257,23 +224,6 @@ public class TableBuilderTest {
     }
 
     @Test
-    public void havingIterable_withValuesLessElementsThanTheTable_should_fillUpToThatValues() {
-        assertThat(
-                aTable(ExampleTable.class)
-                        .withRowsUntil(3)
-                        .havingIterable(PROP_B, Lists.<Object>newArrayList("A", "B"))
-                        .build(context),
-                is(
-                        sb.table(
-                                sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "A")),
-                                sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "B")),
-                                sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "2"))
-                        )
-                )
-        );
-    }
-
-    @Test
     public void having_withValuesLessElementsThanTheTable_should_fillUpToThatValues() {
         assertThat(
                 aTable(ExampleTable.class)
@@ -285,23 +235,6 @@ public class TableBuilderTest {
                                 sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "A")),
                                 sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "B")),
                                 sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "2"))
-                        )
-                )
-        );
-    }
-
-    @Test
-    public void havingIterable_withNullInValues_should_setThatRowToNull() {
-        final List<Object> values = Lists.newArrayList();
-        values.add(null);
-        assertThat(
-                aTable(ExampleTable.class)
-                        .withRowsUntil(1)
-                        .havingIterable(PROP_B, values)
-                        .build(context),
-                is(
-                        sb.table(
-                                sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, null))
                         )
                 )
         );
@@ -331,23 +264,6 @@ public class TableBuilderTest {
     }
 
     @Test
-    public void havingIterable_withValuesMoreElementsThanTheTable_should_fillTheTable() {
-        assertThat(
-                aTable(ExampleTable.class)
-                        .withRowsUntil(3)
-                        .havingIterable(PROP_B, Lists.<Object>newArrayList("A", "B", "C", "D", "E"))
-                        .build(context),
-                is(
-                        sb.table(
-                                sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "A")),
-                                sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "B")),
-                                sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "C"))
-                        )
-                )
-        );
-    }
-
-    @Test
     public void having_withValuesMoreElementsThanTheTable_should_fillTheTable() {
         assertThat(
                 aTable(ExampleTable.class)
@@ -362,14 +278,6 @@ public class TableBuilderTest {
                         )
                 )
         );
-    }
-
-    @Test(expected = DaleqBuildException.class)
-    public void havingIterable_withFieldDefNotInTable_should_fail() {
-        aTable(ExampleTable.class)
-                .withRowsUntil(1)
-                .havingIterable(Daleq.fd(DataType.CHAR).name("foo"), Lists.<Object>newArrayList("bar"))
-                .build(context);
     }
 
     @Test(expected = DaleqBuildException.class)
