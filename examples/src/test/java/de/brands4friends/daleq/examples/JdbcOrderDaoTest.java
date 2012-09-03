@@ -184,7 +184,7 @@ public class JdbcOrderDaoTest extends AbstractTransactionalJUnit4SpringContextTe
     }
 
     @SuppressWarnings("unchecked")
-    private void assertContainsOrders(List<Order> actual, Matcher... expected) {
+    private void assertContainsOrders(final List<Order> actual, final Matcher... expected) {
         assertThat(actual, containsInAnyOrder(expected));
     }
 

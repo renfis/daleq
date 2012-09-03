@@ -40,7 +40,10 @@ public class JdbcOrderDao extends JdbcDaoSupport implements OrderDao {
     };
 
     @Override
-    public List<Order> findExpensiveOrders(final long customerId, final LocalDate boughtAt, final BigDecimal minimumAmount) {
+    public List<Order> findExpensiveOrders(
+            final long customerId,
+            final LocalDate boughtAt,
+            final BigDecimal minimumAmount) {
         final DateTime dateLower = boughtAt.toDateMidnight().toDateTime();
         final DateTime dateUpper = dateLower.plusDays(1);
         return getJdbcTemplate().query(

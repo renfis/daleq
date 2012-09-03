@@ -22,9 +22,9 @@ import com.google.common.base.Objects;
 
 public class Order {
 
-    private long id;
-    private long customerId;
-    private DateTime creation;
+    private final long id;
+    private final long customerId;
+    private final DateTime creation;
 
     public Order(final long id, final long customerId, final DateTime creation) {
         this.id = id;
