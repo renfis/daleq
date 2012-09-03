@@ -119,12 +119,33 @@ public class JdbcOrderDaoTest extends AbstractTransactionalJUnit4SpringContextTe
         assertContainsOrders(actual, order(1), order(2), order(3));
     }
 
-//    @Test
-//    public void findExpensiveOrders_should_selectOrdersOfOnCreationDay() {
-//        final Table orders = aTable(OrderTable.class)
-//                .withRowsBetween(1,10)
-//
-//    }
+    @Test
+    public void findExpensiveOrders_should_selectOrdersOnCreationDay() {
+
+        final DateTime beginOfCreationDay = creationDay.toDateTimeAtStartOfDay();
+
+        final Table orders = aTable(OrderTable.class).with(
+                aRow(1).f(CREATION, beginOfCreationDay.minusDays(10)),
+                aRow(2).f(CREATION, beginOfCreationDay.minusDays(1)),
+                aRow(3).f(CREATION, beginOfCreationDay.minusSeconds(1)),
+                aRow(4).f(CREATION, beginOfCreationDay),
+                aRow(5).f(CREATION, beginOfCreationDay.plusSeconds(1)),
+                aRow(6).f(CREATION, beginOfCreationDay.plusHours(5)),
+                aRow(7).f(CREATION, creationDay.toDateTime(new LocalTime(23, 59, 59))),
+                aRow(8).f(CREATION, beginOfCreationDay.plusDays(1)),
+                aRow(9).f(CREATION, beginOfCreationDay.plusDays(10))
+        ).allHaving(CUSTOMER_ID, CUSTOMER_1);
+
+        final Table orderItems = aTable(OrderItemTable.class)
+                .withRowsBetween(1, 9)
+                .having(ORDER_ID, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+                .allHaving(PRODUCT_ID, PRODUCT_50);
+
+        daleq.insertIntoDatabase(orders, orderItems);
+
+        final List<Order> actual = orderDao.findExpensiveOrders(CUSTOMER_1, creationDay, fortyEuro);
+        assertContainsOrders(actual, order(4), order(5), order(6), order(7));
+    }
 
     @Test
     public void findExpensiveOrders_should_selectCorrectlySummedUpItems() throws IOException {
