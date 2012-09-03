@@ -60,7 +60,7 @@ public class JdbcOrderDaoTest extends AbstractTransactionalJUnit4SpringContextTe
 
     public static final int CUSTOMER_1 = 23001;
     public static final int CUSTOMER_2 = 23002;
-    public static final int CUSTOMER_3 = 2303;
+    public static final int CUSTOMER_3 = 23003;
 
     @Autowired
     private DaleqSupport daleq;
