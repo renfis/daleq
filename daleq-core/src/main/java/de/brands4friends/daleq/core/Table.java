@@ -30,9 +30,11 @@ public interface Table {
 
     Table withRowsBetween(long from, long to);
 
+    Table having(FieldTypeReference fieldDef, Object... values);
+
     Table allHaving(FieldTypeReference fieldDef, @Nullable Object value);
 
-    Table having(FieldTypeReference fieldDef, Iterable<Object> values);
+    Table havingIterable(FieldTypeReference fieldDef, Iterable<Object> values);
 
     TableData build(final Context context);
 

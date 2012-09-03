@@ -23,8 +23,6 @@ import static de.brands4friends.daleq.core.internal.builder.ExampleTable.PROP_B;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -197,7 +195,7 @@ public class TableBuilderTest {
     @Test
     public void having_withEmptyValues_should_leaveTheFieldsAsTheyAre() {
         assertThat(
-                aTable(ExampleTable.class).withRowsUntil(3).having(PROP_B, Lists.newArrayList()).build(context),
+                aTable(ExampleTable.class).withRowsUntil(3).having(PROP_B).build(context),
                 is(
                         sb.table(
                                 sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "0")),
@@ -213,7 +211,7 @@ public class TableBuilderTest {
         assertThat(
                 aTable(ExampleTable.class)
                         .withRowsUntil(3)
-                        .having(PROP_B, Lists.<Object>newArrayList("A", "B", "C"))
+                        .having(PROP_B, "A", "B", "C")
                         .build(context),
                 is(
                         sb.table(
@@ -230,7 +228,7 @@ public class TableBuilderTest {
         assertThat(
                 aTable(ExampleTable.class)
                         .withRowsUntil(3)
-                        .having(PROP_B, Lists.<Object>newArrayList("A", "B"))
+                        .having(PROP_B, "A", "B")
                         .build(context),
                 is(
                         sb.table(
@@ -243,13 +241,11 @@ public class TableBuilderTest {
     }
 
     @Test
-    public void having_withValuesMoreElementsThanTheTable_should_fillTheTable() {
-        final List<Object> values = Lists.newArrayList();
-        values.add(null);
+    public void having_withNullInValues_should_setThatRowToNull() {
         assertThat(
                 aTable(ExampleTable.class)
                         .withRowsUntil(1)
-                        .having(PROP_B, values)
+                        .having(PROP_B, (Object) null)
                         .build(context),
                 is(
                         sb.table(
@@ -260,19 +256,19 @@ public class TableBuilderTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void having_withNullAsValues_should_fail() {
+    public void havingIterable_withNullAsValues_should_fail() {
         aTable(ExampleTable.class)
                 .withRowsUntil(3)
-                .having(PROP_B, null)
+                .havingIterable(PROP_B, null)
                 .build(context);
     }
 
     @Test
-    public void having_withNullInValues_should_setThatRowToNull() {
+    public void having_withValuesMoreElementsThanTheTable_should_fillTheTable() {
         assertThat(
                 aTable(ExampleTable.class)
                         .withRowsUntil(3)
-                        .having(PROP_B, Lists.<Object>newArrayList("A", "B", "C", "D", "E"))
+                        .having(PROP_B, "A", "B", "C", "D", "E")
                         .build(context),
                 is(
                         sb.table(
@@ -288,7 +284,7 @@ public class TableBuilderTest {
     public void having_withFieldDefNotInTable_should_fail() {
         aTable(ExampleTable.class)
                 .withRowsUntil(1)
-                .having(Daleq.fd(DataType.CHAR).name("foo"), Lists.<Object>newArrayList("bar"))
+                .having(Daleq.fd(DataType.CHAR).name("foo"), "bar")
                 .build(context);
     }
 

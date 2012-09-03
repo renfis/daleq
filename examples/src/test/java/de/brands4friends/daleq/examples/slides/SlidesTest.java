@@ -31,8 +31,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.google.common.collect.Lists;
-
 import de.brands4friends.daleq.core.DaleqSupport;
 import de.brands4friends.daleq.core.Table;
 import de.brands4friends.daleq.examples.ProductTable;
@@ -102,9 +100,7 @@ public class SlidesTest extends AbstractTransactionalJUnit4SpringContextTests {
         final Table table =
                 aTable(ProductTable.class)
                         .withRowsBetween(1, 5)
-                        .having(SIZE, Lists.<Object>newArrayList(
-                                "S", "M", "L", "XL"
-                        ));
+                        .having(SIZE, "S", "M", "L", "XL");
 
         daleq.printTable(table, System.out);
     }
