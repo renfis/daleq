@@ -41,7 +41,7 @@ import de.brands4friends.daleq.core.internal.builder.SimpleContext;
 import de.brands4friends.daleq.core.internal.dbunit.dataset.InMemoryDataSetFactory;
 import de.brands4friends.daleq.core.internal.formatting.MarkdownTableFormatter;
 
-public class DbUnitDaleqSupport implements DaleqSupport {
+public final class DbUnitDaleqSupport implements DaleqSupport {
 
     private final IDataSetFactory dataSetFactory;
     private final ConnectionFactory connectionFactory;
@@ -50,7 +50,7 @@ public class DbUnitDaleqSupport implements DaleqSupport {
     private final Context context;
     private final Asserter asserter;
 
-    DbUnitDaleqSupport(
+    private DbUnitDaleqSupport(
             final IDataSetFactory dataSetFactory,
             final ConnectionFactory connectionFactory,
             final DatabaseOperation insertOperation,
@@ -71,6 +71,13 @@ public class DbUnitDaleqSupport implements DaleqSupport {
         return new DbUnitDaleqSupport(dataSetFactory, connectionFactory, insertOperation, asserter);
     }
 
+    public static DbUnitDaleqSupport createInstance(final IDataSetFactory dataSetFactory,
+                                                    final ConnectionFactory connectionFactory,
+                                                    final DatabaseOperation insertOperation,
+                                                    final Asserter asserter) {
+        return new DbUnitDaleqSupport(dataSetFactory, connectionFactory, insertOperation, asserter);
+    }
+
 
     private IDatabaseConnection createDatabaseConnection() {
         Preconditions.checkNotNull(connectionFactory, "connectionFactory is null.");
@@ -78,7 +85,7 @@ public class DbUnitDaleqSupport implements DaleqSupport {
     }
 
     @Override
-    public final void insertIntoDatabase(final Table... tables) {
+    public void insertIntoDatabase(final Table... tables) {
         try {
             insertIntoDatabase(toTables(tables));
 
