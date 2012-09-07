@@ -106,7 +106,20 @@ public class FieldDefBuilderTest {
 
     @Test(expected = NullPointerException.class)
     public void templateWithNull_should_fail() {
-        final FieldDef fd = someFd().template(null);
+        final FieldDef fd = someFd().template((String) null);
+        // should already have failed!
+        assertThat(fd, Matchers.is(nullValue()));
+    }
+
+    @Test
+    public void templateValue_should_haveTemplate() {
+        final TemplateValue template = new StringTemplateValue("foo");
+        assertThat(someFd().template(template).getTemplate().get(), is(template));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void withTemplateValueWithNull_should_fail() {
+        final FieldDef fd = someFd().template((TemplateValue) null);
         // should already have failed!
         assertThat(fd, Matchers.is(nullValue()));
     }

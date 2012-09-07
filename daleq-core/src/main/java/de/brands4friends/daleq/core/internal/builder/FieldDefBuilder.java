@@ -74,6 +74,16 @@ public final class FieldDefBuilder implements FieldDef {
     }
 
     @Override
+    public FieldDef template(final TemplateValue templateValue) {
+        Preconditions.checkNotNull(templateValue);
+        return new FieldDefBuilder(
+                this.dataType,
+                this.name,
+                Optional.of(templateValue)
+        );
+    }
+
+    @Override
     public String toString() {
         return Objects.toStringHelper(this).add("name", name).add("dataType", dataType).toString();
     }
