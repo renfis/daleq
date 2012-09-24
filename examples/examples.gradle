@@ -27,3 +27,9 @@ dependencies {
     testCompile deps.springTest
     testCompile deps.hsqldb
 }
+
+sonar {
+    project {
+        skip = true
+    }
+}

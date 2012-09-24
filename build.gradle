@@ -22,6 +22,20 @@ description = 'Daleq Framework'
 // Define Dependencies
 apply from: script('dependencies')
 
+apply plugin: "sonar"
+
+sonar {
+    server {
+        url = propertyOr('sonar.host.url',null)
+    }
+    database {
+        url = propertyOr('sonar.jdbc.url',null)
+        driverClassName = propertyOr('sonar.jdbc.driver',null)
+        username = propertyOr('sonar.jdbc.username',null)
+        password = propertyOr('sonar.jdbc.password',null)
+    }
+}
+
 allprojects {	
     apply plugin: 'idea'	
 	
@@ -76,6 +90,12 @@ subprojects {
                 'coupling'
         ]
         ruleSetFiles = fileTree(dir: "${rootProject.projectDir}/config/pmd", include: '*.xml')
+    }
+
+    sonar {
+        project {
+            sourceEncoding = "UTF-8"
+        }
     }
 }
 
