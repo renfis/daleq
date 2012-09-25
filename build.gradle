@@ -64,6 +64,8 @@ subprojects {
         testCompile deps.hamcrest
         testCompile deps.easymock
         testCompile deps.sl4jSimple
+
+        testRuntime "com.cenqua.clover:clover:3.0.2"
     }
 
     test {
