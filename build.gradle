@@ -17,6 +17,8 @@
 
 
 
+
+
 description = 'Daleq Framework'
 
 // Define Dependencies
@@ -26,19 +28,19 @@ apply plugin: "sonar"
 
 sonar {
     server {
-        url = propertyOr('sonar.host.url',null)
+        url = propertyOr('sonar.host.url', null)
     }
     database {
-        url = propertyOr('sonar.jdbc.url',null)
-        driverClassName = propertyOr('sonar.jdbc.driver',null)
-        username = propertyOr('sonar.jdbc.username',null)
-        password = propertyOr('sonar.jdbc.password',null)
+        url = propertyOr('sonar.jdbc.url', null)
+        driverClassName = propertyOr('sonar.jdbc.driver', null)
+        username = propertyOr('sonar.jdbc.username', null)
+        password = propertyOr('sonar.jdbc.password', null)
     }
 }
 
-allprojects {	
-    apply plugin: 'idea'	
-	
+allprojects {
+    apply plugin: 'idea'
+
     group = 'de.brands4friends.daleq'
     version = '0.3.0-SNAPSHOT'
 }
@@ -64,8 +66,6 @@ subprojects {
         testCompile deps.hamcrest
         testCompile deps.easymock
         testCompile deps.sl4jSimple
-
-        testRuntime "com.cenqua.clover:clover:3.0.2"
     }
 
     test {
@@ -102,14 +102,14 @@ subprojects {
 }
 
 File script(String name) {
-  project.file("${rootProject.projectDir}/gradle/${name}.gradle")
+    project.file("${rootProject.projectDir}/gradle/${name}.gradle")
 }
 
-String propertyOr(propName,defaultProp) {
-	if( !project.hasProperty(propName) ) {
-		return defaultProp
-	}
-	return project.getProperty(propName)
+String propertyOr(propName, defaultProp) {
+    if (!project.hasProperty(propName)) {
+        return defaultProp
+    }
+    return project.getProperty(propName)
 }
 
 task wrapper(type: Wrapper) {
