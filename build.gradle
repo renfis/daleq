@@ -19,12 +19,15 @@
 
 
 
+
+
 description = 'Daleq Framework'
 
 // Define Dependencies
 apply from: script('dependencies')
 
 apply plugin: "sonar"
+
 
 sonar {
     server {
@@ -43,6 +46,21 @@ allprojects {
 
     group = 'de.brands4friends.daleq'
     version = '0.3.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+
+    configurations {
+        clover
+    }
+
+    dependencies {
+        clover "com.cenqua.clover:clover:2.6.2"
+    }
+
+    ant.taskdef(resource: "cloverlib.xml", classpath: configurations.clover.asPath)
+    ant.property(name: "clover.license.path", value: project.getProperty('clover.license'))
 }
 
 subprojects {

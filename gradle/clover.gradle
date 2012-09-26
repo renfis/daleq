@@ -1,0 +1,115 @@
+/*
+ * Copyright 2012 brands4friends, Private Sale GmbH
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+
+def cloverConvention = new CloverPluginConvention(project)
+project.convention.plugins.clover = cloverConvention
+
+test.doFirst {
+    if (project.hasProperty("withClover") && sourceSets.main.output.classesDir.exists()) {
+
+        // Before running clover, ensure that test sources exist. If test sources don't exist, coverage will fail.
+        sourceSets.test.java.srcDirs.each {
+            if (it.exists()) {
+                cloverEnabled = true
+            }
+        }
+
+        if (!cloverEnabled) {
+            println "Could not find test sources, skipping coverage."
+        }
+        else {
+
+            ant."clover-clean"()
+
+            //instrument the source
+            new File(cloverConvention.instrSrcDir).mkdirs()
+            sourceSets.main.java.srcDirs.each {
+                if (it.exists()) {
+                    ant."clover-instr"(srcdir: it, destdir: cloverConvention.instrSrcDir)
+                }
+            }
+
+            //move original classes
+            ant.move(file: sourceSets.main.output.classesDir, tofile: cloverConvention.classesBackupDir)
+
+            //compile instrumented classes
+            sourceSets.main.output.classesDir.mkdirs()
+            ant.javac(
+                    srcdir: cloverConvention.instrSrcDir,
+                    destdir: sourceSets.main.output.classesDir,
+                    source: sourceCompatibility,
+                    target: targetCompatibility,
+                    includeAntRuntime: false) {
+                classpath {
+                    pathElement path: configurations.testRuntime.asPath
+                }
+            }
+
+            //copy resources
+            ant.copy(todir: sourceSets.main.output.classesDir) {
+                fileset(dir: cloverConvention.classesBackupDir, excludes: "**/*.class")
+            }
+        }
+    }
+}
+
+test.doLast {
+    if (project.hasProperty("withClover") && new File(cloverConvention.classesBackupDir).exists() && cloverEnabled) {
+
+        // If you want to ratchet up coverage, add a -PhistoryThreshold=5 to ensure that coverage doesn't decrease by 5%
+        if (project.hasProperty("historyThreshold") && project.getProperty("historyThreshold").isInteger()) {
+            println "History Threshold being set to ${project.getProperty('historyThreshold')}%"
+            ant."clover-check"(threshold: "${project.getProperty('historyThreshold')}%", historydir: cloverConvention.historyDir)
+            ant."clover-historypoint"(historydir: cloverConvention.historyDir);
+        }
+
+        // restore original classes
+        ant.delete(file: sourceSets.main.output.classesDir)
+        ant.move(file: cloverConvention.classesBackupDir, tofile: sourceSets.main.output.classesDir)
+
+        def cloverReport = new File(reporting.baseDir, 'clover')
+        cloverReport.mkdirs()
+
+        ant."clover-report" {
+            current(outfile: "${cloverReport.absolutePath}/clover.xml")
+        }
+        ant."clover-html-report"(outdir: "${cloverReport.absolutePath}/html");
+    }
+}
+
+class CloverPluginConvention {
+    def instrSrcDir
+    def classesBackupDir
+    def licenseFile
+    def historyDir
+
+    def clover(Closure close) {
+        close.delegate = this
+        close.run()
+    }
+
+    // historyDir is set to a location outside of buildDir so that the clean task does not remove it.
+    CloverPluginConvention(Project project) {
+        instrSrcDir = "${project.buildDir}/instrSrc"
+        classesBackupDir = "${project.sourceSets.main.output.classesDir}-bak"
+        licenseFile = project.getProperty('clover.license')
+        historyDir = "${project.projectDir}/clover-history"
+    }
+}
+
+def cloverEnabled = false
