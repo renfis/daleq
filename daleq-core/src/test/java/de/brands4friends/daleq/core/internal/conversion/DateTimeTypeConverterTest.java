@@ -45,7 +45,7 @@ public class DateTimeTypeConverterTest {
 
     @Test
     public void testConvert2() {
-        final DateTime date = new DateTime(2012,10,2, 16,0,0, 530);
+        final DateTime date = new DateTime(2012, 10, 2, 16, 0, 0, 530);
         final String result = dateTimeTypeConverter.convert(date);
         assertThat(result, is("2012-10-02 16:00:00.530"));
     }

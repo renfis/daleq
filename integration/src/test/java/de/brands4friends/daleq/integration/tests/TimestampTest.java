@@ -36,12 +36,12 @@ public class TimestampTest extends BaseTest {
 
         final Timestamp ts = new Timestamp(dateTime.getMillis());
         final Table table = aTable(TimestampTypeTable.class).with(
-                aRow(42).f(TimestampTypeTable.A_TIMESTAMP,ts)
+                aRow(42).f(TimestampTypeTable.A_TIMESTAMP, ts)
         );
         daleq.insertIntoDatabase(table);
 
         final Table expected = aTable(TimestampTypeTable.class).with(
-                aRow(42).f(TimestampTypeTable.A_TIMESTAMP,dateTime)
+                aRow(42).f(TimestampTypeTable.A_TIMESTAMP, dateTime)
         );
 
         daleq.assertTableInDatabase(expected);
