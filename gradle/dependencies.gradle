@@ -23,6 +23,8 @@
 
 
 
+
+
 ext {
 
     def springVersion = "3.1.1.RELEASE"
@@ -38,7 +40,7 @@ ext {
             guava: "com.google.guava:guava:12.0",
             commonsLang: "commons-lang:commons-lang:2.6",
             commonsCodec: "commons-codec:commons-codec:1.6",
-            dbUnit: "org.dbunit:dbunit:2.4.8",
+            dbUnit: "org.dbunit:dbunit:2.4.9",
 
             equalsverifier: "nl.jqno.equalsverifier:equalsverifier:1.1.3",
 
