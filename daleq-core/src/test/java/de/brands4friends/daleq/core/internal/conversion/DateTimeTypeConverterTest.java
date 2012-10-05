@@ -43,6 +43,13 @@ public class DateTimeTypeConverterTest {
         assertThat(result, is("2000-12-24 01:02:03.004"));
     }
 
+    @Test
+    public void testConvert2() {
+        final DateTime date = new DateTime(2012,10,2, 16,0,0, 530);
+        final String result = dateTimeTypeConverter.convert(date);
+        assertThat(result, is("2012-10-02 16:00:00.530"));
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testConvertForNullFails() {
         dateTimeTypeConverter.convert(null);
