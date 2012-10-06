@@ -30,7 +30,7 @@ import de.brands4friends.daleq.integration.tables.TimestampTypeTable;
 public class TimestampTest extends BaseTest {
 
     @Test
-    public void everyDataType_should_beInsertedIntoTheDatabase() {
+    public void timestamp_should_haveProperMillis() {
 
         final DateTime dateTime = new DateTime(2012, 10, 5, 16, 0, 0, 560);
 
