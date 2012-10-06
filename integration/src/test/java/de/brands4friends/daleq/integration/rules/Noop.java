@@ -25,7 +25,7 @@ public class Noop extends Statement {
     private final Logger logger = LoggerFactory.getLogger(Noop.class);
 
     @Override
-    public void evaluate() throws Throwable {
+    public void evaluate() {
         logger.info("evaluation ignored.");
     }
 }
