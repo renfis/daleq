@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.integration.config;
+package de.brands4friends.daleq.integration.rules;
 
-import javax.sql.DataSource;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import org.dbunit.dataset.datatype.IDataTypeFactory;
+import de.brands4friends.daleq.integration.config.SupportedDb;
 
-import de.brands4friends.daleq.integration.beans.TableProvider;
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface Restrict {
+    SupportedDb[] not();
 
-public interface DbConfig {
-    DataSource dataSource();
-
-    IDataTypeFactory dataTypeFactory();
-
-    TableProvider allTypesProvider();
-
-    SupportedDb currentDb();
+    String reason();
 }

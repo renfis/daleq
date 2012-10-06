@@ -16,18 +16,6 @@
 
 package de.brands4friends.daleq.integration.config;
 
-import javax.sql.DataSource;
-
-import org.dbunit.dataset.datatype.IDataTypeFactory;
-
-import de.brands4friends.daleq.integration.beans.TableProvider;
-
-public interface DbConfig {
-    DataSource dataSource();
-
-    IDataTypeFactory dataTypeFactory();
-
-    TableProvider allTypesProvider();
-
-    SupportedDb currentDb();
+public enum SupportedDb {
+    HSQLDB, H2, MYSQL
 }

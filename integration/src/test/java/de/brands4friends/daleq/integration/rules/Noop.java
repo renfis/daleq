@@ -14,20 +14,18 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.integration.config;
+package de.brands4friends.daleq.integration.rules;
 
-import javax.sql.DataSource;
+import org.junit.runners.model.Statement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import org.dbunit.dataset.datatype.IDataTypeFactory;
+public class Noop extends Statement {
 
-import de.brands4friends.daleq.integration.beans.TableProvider;
+    private final Logger logger = LoggerFactory.getLogger(Noop.class);
 
-public interface DbConfig {
-    DataSource dataSource();
-
-    IDataTypeFactory dataTypeFactory();
-
-    TableProvider allTypesProvider();
-
-    SupportedDb currentDb();
+    @Override
+    public void evaluate() throws Throwable {
+        logger.info("evaluation ignored.");
+    }
 }

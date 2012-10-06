@@ -46,4 +46,9 @@ public class HsqldbConfig implements DbConfig {
     public TableProvider allTypesProvider() {
         return new TableProvider(HsqldbAllTypesTable.class);
     }
+
+    @Override
+    public SupportedDb currentDb() {
+        return SupportedDb.HSQLDB;
+    }
 }

@@ -47,4 +47,9 @@ public class H2Config implements DbConfig {
     public TableProvider allTypesProvider() {
         return new TableProvider(H2AllTypesTable.class);
     }
+
+    @Override
+    public SupportedDb currentDb() {
+        return SupportedDb.H2;
+    }
 }

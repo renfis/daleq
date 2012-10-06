@@ -16,6 +16,7 @@
 
 package de.brands4friends.daleq.integration.tests;
 
+import org.junit.Rule;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -27,6 +28,7 @@ import de.brands4friends.daleq.integration.config.H2Config;
 import de.brands4friends.daleq.integration.config.HsqldbConfig;
 import de.brands4friends.daleq.integration.config.IntegrationConfig;
 import de.brands4friends.daleq.integration.config.MysqlConfig;
+import de.brands4friends.daleq.integration.rules.RestrictDbRule;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
@@ -41,4 +43,7 @@ public abstract class BaseTest extends AbstractTransactionalJUnit4SpringContextT
     @Autowired
     protected DaleqSupport daleq;
 
+    @Rule
+    @Autowired
+    public RestrictDbRule restrictDbRule;
 }
