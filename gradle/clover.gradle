@@ -18,7 +18,10 @@
 
 
 
+
+
 if (!project.hasProperty("withClover")) {
+    logger.info("No clover coverage is created. If you want to create coverage use the -PwithClover switch.")
     return
 }
 
@@ -59,10 +62,10 @@ subprojects {
             }
 
             if (!cloverEnabled) {
-                println "Could not find test sources, skipping coverage."
+                logger.info("Could not find test sources, skipping coverage.")
             }
             else {
-
+                logger.info("Running clover coverage generation.")
                 ant."clover-clean"()
 
                 //instrument the source
@@ -78,7 +81,6 @@ subprojects {
 
                 //compile instrumented classes
                 sourceSets.main.output.classesDir.mkdirs()
-
 
                 ant.javac(
                         srcdir: cloverConvention.instrSrcDir,
@@ -100,7 +102,7 @@ subprojects {
     }
 
     test.doLast {
-        if (project.hasProperty("withClover") && new File(cloverConvention.classesBackupDir).exists() && cloverEnabled) {
+        if (new File(cloverConvention.classesBackupDir).exists() && cloverEnabled) {
 
             // If you want to ratchet up coverage, add a -PhistoryThreshold=5 to ensure that coverage doesn't decrease by 5%
             if (project.hasProperty("historyThreshold") && project.getProperty("historyThreshold").isInteger()) {
