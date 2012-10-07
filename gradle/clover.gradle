@@ -44,7 +44,7 @@ project(':') {
         cloverDb.parentFile.mkdirs()
 
         ant.'clover-merge'(initString: cloverDb) {
-            cloverdbset(dir:project.projectDir,includes:'**/clover*.db')
+            cloverdbset(dir: project.projectDir, includes: '**/clover*.db')
         }
 
         def cloverConvention = project.convention.plugins.clover
@@ -144,7 +144,7 @@ class CloverPluginConvention {
     CloverPluginConvention(Project project) {
         instrSrcDir = "${project.buildDir}/instrSrc"
 
-        if(project.hasProperty('sourceSets')) {
+        if (project.hasProperty('sourceSets')) {
             classesBackupDir = "${project.sourceSets.main.output.classesDir}-bak"
         }
 
