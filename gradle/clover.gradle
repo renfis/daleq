@@ -16,11 +16,21 @@
 
 
 
+if (!project.hasProperty("withClover")) {
+    return
+}
+
 def cloverConvention = new CloverPluginConvention(project)
 project.convention.plugins.clover = cloverConvention
 
+dependencies {
+    configurations.clover.each {
+        testRuntime files(it)
+    }
+}
+
 test.doFirst {
-    if (project.hasProperty("withClover") && sourceSets.main.output.classesDir.exists()) {
+    if (sourceSets.main.output.classesDir.exists()) {
 
         // Before running clover, ensure that test sources exist. If test sources don't exist, coverage will fail.
         sourceSets.test.java.srcDirs.each {
@@ -49,6 +59,8 @@ test.doFirst {
 
             //compile instrumented classes
             sourceSets.main.output.classesDir.mkdirs()
+
+
             ant.javac(
                     srcdir: cloverConvention.instrSrcDir,
                     destdir: sourceSets.main.output.classesDir,
@@ -56,7 +68,7 @@ test.doFirst {
                     target: targetCompatibility,
                     includeAntRuntime: false) {
                 classpath {
-                    pathElement path: configurations.testRuntime.asPath
+                    pathElement path: configurations.testRuntime.asPath + ":" + configurations.clover.asPath
                 }
             }
 
@@ -111,5 +123,3 @@ class CloverPluginConvention {
         historyDir = "${project.projectDir}/clover-history"
     }
 }
-
-def cloverEnabled = false
