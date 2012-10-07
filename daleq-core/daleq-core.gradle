@@ -16,14 +16,6 @@
 
 
 
-
-
-
-
-
-
-
-
 apply from: script('uploadArchives')
 
 displayName = "Daleq Framework - Core Module"
