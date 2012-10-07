@@ -6,3 +6,4 @@ build
 *.iws
 gradle.properties
 atlassian-ide-plugin.xml
+.clover
