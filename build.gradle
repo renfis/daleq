@@ -23,13 +23,14 @@
 
 
 
+
+
 description = 'Daleq Framework'
 
 // Define Dependencies
 apply from: script('dependencies')
 
 apply plugin: "sonar"
-
 
 sonar {
     server {
@@ -52,17 +53,6 @@ allprojects {
     repositories {
         mavenCentral()
     }
-
-    configurations {
-        clover
-    }
-
-    dependencies {
-        clover "com.cenqua.clover:clover:2.6.2"
-    }
-
-    ant.taskdef(resource: "cloverlib.xml", classpath: configurations.clover.asPath)
-    ant.property(name: "clover.license.path", value: project.getProperty('clover.license'))
 }
 
 subprojects {
@@ -71,7 +61,6 @@ subprojects {
     apply plugin: 'pmd'
     apply plugin: 'findbugs'
     apply from: script('issues')
-    apply from: script('clover')
 
     sourceCompatibility = 1.6
     targetCompatibility = 1.6
@@ -121,6 +110,8 @@ subprojects {
         }
     }
 }
+
+apply from: script('clover')
 
 File script(String name) {
     project.file("${rootProject.projectDir}/gradle/${name}.gradle")
