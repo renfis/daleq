@@ -17,11 +17,6 @@
 
 
 
-
-
-
-
-
 if (!project.hasProperty("withClover")) {
     logger.info("No clover coverage is created. If you want to create coverage use the -PwithClover switch.")
     return
@@ -127,6 +122,11 @@ subprojects {
         }
     }
 
+    sonar {
+        project {
+            cloverReportPath cloverConvention.xmlReport
+        }
+    }
 }
 
 class CloverPluginConvention {
