@@ -63,6 +63,11 @@ public class MysqlConfig implements DbConfig {
         return new TableProvider(MysqlAllTypesTable.class);
     }
 
+    @Override
+    public SupportedDb currentDb() {
+        return SupportedDb.MYSQL;
+    }
+
     @Bean
     public PrepareMysqlSchema prepareMysqlSchema() {
         return new PrepareMysqlSchema(dataSource());

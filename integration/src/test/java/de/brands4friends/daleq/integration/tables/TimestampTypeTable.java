@@ -14,20 +14,15 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.integration.config;
+package de.brands4friends.daleq.integration.tables;
 
-import javax.sql.DataSource;
+import static de.brands4friends.daleq.core.Daleq.fd;
 
-import org.dbunit.dataset.datatype.IDataTypeFactory;
+import de.brands4friends.daleq.core.DataType;
+import de.brands4friends.daleq.core.FieldDef;
+import de.brands4friends.daleq.core.TableDef;
 
-import de.brands4friends.daleq.integration.beans.TableProvider;
-
-public interface DbConfig {
-    DataSource dataSource();
-
-    IDataTypeFactory dataTypeFactory();
-
-    TableProvider allTypesProvider();
-
-    SupportedDb currentDb();
+@TableDef("TIMESTAMP_TYPE")
+public class TimestampTypeTable {
+    public static final FieldDef A_TIMESTAMP = fd(DataType.TIMESTAMP);
 }

@@ -25,6 +25,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import de.brands4friends.daleq.core.DaleqSupport;
 import de.brands4friends.daleq.core.internal.dbunit.ConnectionFactory;
 import de.brands4friends.daleq.core.internal.dbunit.DbUnitDaleqSupport;
+import de.brands4friends.daleq.integration.rules.RestrictDbRule;
 import de.brands4friends.daleq.spring.SpringConnectionFactory;
 
 @Configuration
@@ -49,5 +50,10 @@ public class IntegrationConfig {
         connectionFactory.setDataTypeFactory(dbConfig.dataTypeFactory());
         connectionFactory.setDataSource(dbConfig.dataSource());
         return connectionFactory;
+    }
+
+    @Bean
+    public RestrictDbRule restrictDbRule() {
+        return new RestrictDbRule(dbConfig.currentDb());
     }
 }
