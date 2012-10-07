@@ -20,6 +20,8 @@
 
 
 
+
+
 if (!project.hasProperty("withClover")) {
     logger.info("No clover coverage is created. If you want to create coverage use the -PwithClover switch.")
     return
@@ -115,11 +117,11 @@ subprojects {
             ant.delete(file: sourceSets.main.output.classesDir)
             ant.move(file: cloverConvention.classesBackupDir, tofile: sourceSets.main.output.classesDir)
 
-            def cloverReport = new File(reporting.baseDir, 'clover')
+            def cloverReport = cloverConvention.reportDir
             cloverReport.mkdirs()
 
             ant."clover-report" {
-                current(outfile: "${cloverReport.absolutePath}/clover.xml")
+                current(outfile: cloverConvention.xmlReport.absolutePath)
             }
             ant."clover-html-report"(outdir: "${cloverReport.absolutePath}/html");
         }
@@ -132,6 +134,8 @@ class CloverPluginConvention {
     def classesBackupDir
     def licenseFile
     def historyDir
+    def reportDir
+    def xmlReport
 
     def clover(Closure close) {
         close.delegate = this
@@ -144,5 +148,7 @@ class CloverPluginConvention {
         classesBackupDir = "${project.sourceSets.main.output.classesDir}-bak"
         licenseFile = project.getProperty('clover.license')
         historyDir = "${project.projectDir}/clover-history"
+        reportDir = new File(project.reporting.baseDir, 'clover')
+        xmlReport = new File('clover.xml', reportDir)
     }
 }
