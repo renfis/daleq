@@ -22,8 +22,9 @@
 
 
 
+
+
 apply from: script('uploadArchives')
-apply from: script('clover')
 
 displayName = "Daleq Framework - Core Module"
 description = 'Daleq is a DSL to define the content of a relational database in \
