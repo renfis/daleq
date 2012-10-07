@@ -33,12 +33,28 @@ allprojects {
 
     ant.taskdef(resource: "cloverlib.xml", classpath: configurations.clover.asPath)
     ant.property(name: "clover.license.path", value: project.getProperty('clover.license'))
+
+    project.convention.plugins.clover = new CloverPluginConvention(project)
+}
+
+project(':') {
+    task aggregate() << {
+
+        def cloverDb = new File(project.projectDir, '.clover/clover2_6_2.db')
+        cloverDb.parentFile.mkdirs()
+
+        ant.'clover-merge'(initString: cloverDb) {
+            cloverdbset(dir:project.projectDir,includes:'**/clover*.db')
+        }
+
+        def cloverConvention = project.convention.plugins.clover
+        cloverConvention.makeReports(ant)
+    }
 }
 
 subprojects {
 
-    def cloverConvention = new CloverPluginConvention(project)
-    project.convention.plugins.clover = cloverConvention
+    def cloverConvention = project.convention.plugins.clover
 
     def cloverEnabled = false
 
@@ -101,24 +117,11 @@ subprojects {
     test.doLast {
         if (new File(cloverConvention.classesBackupDir).exists() && cloverEnabled) {
 
-            // If you want to ratchet up coverage, add a -PhistoryThreshold=5 to ensure that coverage doesn't decrease by 5%
-            if (project.hasProperty("historyThreshold") && project.getProperty("historyThreshold").isInteger()) {
-                println "History Threshold being set to ${project.getProperty('historyThreshold')}%"
-                ant."clover-check"(threshold: "${project.getProperty('historyThreshold')}%", historydir: cloverConvention.historyDir)
-                ant."clover-historypoint"(historydir: cloverConvention.historyDir);
-            }
-
             // restore original classes
             ant.delete(file: sourceSets.main.output.classesDir)
             ant.move(file: cloverConvention.classesBackupDir, tofile: sourceSets.main.output.classesDir)
 
-            def cloverReport = cloverConvention.reportDir
-            cloverReport.mkdirs()
-
-            ant."clover-report" {
-                current(outfile: cloverConvention.xmlReport.absolutePath)
-            }
-            ant."clover-html-report"(outdir: "${cloverReport.absolutePath}/html");
+            cloverConvention.makeReports(ant)
         }
     }
 
@@ -137,18 +140,32 @@ class CloverPluginConvention {
     def reportDir
     def xmlReport
 
+    // historyDir is set to a location outside of buildDir so that the clean task does not remove it.
+    CloverPluginConvention(Project project) {
+        instrSrcDir = "${project.buildDir}/instrSrc"
+
+        if(project.hasProperty('sourceSets')) {
+            classesBackupDir = "${project.sourceSets.main.output.classesDir}-bak"
+        }
+
+        licenseFile = project.getProperty('clover.license')
+        historyDir = "${project.projectDir}/clover-history"
+
+        reportDir = new File(project.reporting.baseDir, 'clover')
+        xmlReport = new File('clover.xml', reportDir)
+    }
+
     def clover(Closure close) {
         close.delegate = this
         close.run()
     }
 
-    // historyDir is set to a location outside of buildDir so that the clean task does not remove it.
-    CloverPluginConvention(Project project) {
-        instrSrcDir = "${project.buildDir}/instrSrc"
-        classesBackupDir = "${project.sourceSets.main.output.classesDir}-bak"
-        licenseFile = project.getProperty('clover.license')
-        historyDir = "${project.projectDir}/clover-history"
-        reportDir = new File(project.reporting.baseDir, 'clover')
-        xmlReport = new File('clover.xml', reportDir)
+    def makeReports(ant) {
+        reportDir.mkdirs()
+
+        ant."clover-report" {
+            current(outfile: xmlReport.absolutePath)
+        }
+        ant."clover-html-report"(outdir: "${reportDir.absolutePath}/html");
     }
 }

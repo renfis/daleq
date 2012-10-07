@@ -37,6 +37,7 @@ sonar {
 
 allprojects {
     apply plugin: 'idea'
+    apply plugin: 'project-report'
 
     group = 'de.brands4friends.daleq'
     version = '0.3.0-SNAPSHOT'
@@ -118,4 +119,3 @@ String propertyOr(propName, defaultProp) {
 task wrapper(type: Wrapper) {
     gradleVersion = '1.2'
 }
-
