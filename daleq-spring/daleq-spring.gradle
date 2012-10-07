@@ -25,4 +25,6 @@ description = 'Integrate Daleq tests with spring-jdbc.'
 dependencies {
     compile project(':daleq-core')
     compile deps.springJdbc
+
+    testCompile deps.hsqldb
 }
