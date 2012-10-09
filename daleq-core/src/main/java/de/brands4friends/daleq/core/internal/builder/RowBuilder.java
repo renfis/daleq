@@ -70,7 +70,7 @@ public class RowBuilder implements Row {
 
         return Lists.transform(tableType.getFields(), new Function<FieldType, FieldData>() {
             @Override
-            public FieldData apply(final FieldType fieldType) {
+            public FieldData apply(@Nullable final FieldType fieldType) {
                 final FieldHolder actualField = typeToHolder.get(fieldType);
                 if (actualField == null) {
                     return convertDefaultField(fieldType, context);
@@ -112,7 +112,10 @@ public class RowBuilder implements Row {
     private Map<FieldType, FieldHolder> createTypeToHolderIndex(final TableType tableType) {
         return Maps.uniqueIndex(fields.values(), new Function<FieldHolder, FieldType>() {
             @Override
-            public FieldType apply(final FieldHolder fieldHolder) {
+            public FieldType apply(@Nullable final FieldHolder fieldHolder) {
+                if (fieldHolder == null) {
+                    throw new IllegalArgumentException("fieldHolder");
+                }
                 final FieldTypeReference fieldTypeReference = fieldHolder.getFieldTypeRef();
                 final FieldType fieldType = fieldTypeReference.resolve(tableType);
                 if (fieldType == null) {

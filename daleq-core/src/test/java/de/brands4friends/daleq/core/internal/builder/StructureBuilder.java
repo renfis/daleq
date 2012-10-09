@@ -18,6 +18,8 @@ package de.brands4friends.daleq.core.internal.builder;
 
 import java.util.Arrays;
 
+import javax.annotation.Nullable;
+
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
@@ -57,7 +59,10 @@ public class StructureBuilder {
                 Arrays.asList(props),
                 new Function<PropertyContainerBean, FieldData>() {
                     @Override
-                    public FieldData apply(final PropertyContainerBean input) {
+                    public FieldData apply(@Nullable final PropertyContainerBean input) {
+                        if (input == null) {
+                            throw new IllegalArgumentException("input");
+                        }
                         final FieldType fieldType = tableType.findFieldBy(input.fieldDef);
                         return new ImmutableFieldData(fieldType.getName(), input.value);
                     }

@@ -30,6 +30,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nullable;
 import javax.sql.DataSource;
 
 import org.junit.Test;
@@ -54,7 +55,7 @@ public class JdbcProductDaoTest extends AbstractTransactionalJUnit4SpringContext
 
     public static final Function<Product, Long> TO_ID = new Function<Product, Long>() {
         @Override
-        public Long apply(final Product input) {
+        public Long apply(@Nullable final Product input) {
             return input == null ? null : input.getId();
         }
     };

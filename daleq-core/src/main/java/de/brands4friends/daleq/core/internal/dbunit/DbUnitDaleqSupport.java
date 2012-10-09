@@ -22,6 +22,8 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
@@ -101,7 +103,10 @@ public final class DbUnitDaleqSupport implements DaleqSupport {
                 Arrays.asList(tables),
                 new Function<Table, TableData>() {
                     @Override
-                    public TableData apply(final Table table) {
+                    public TableData apply(@Nullable final Table table) {
+                        if (table == null) {
+                            throw new IllegalArgumentException("table");
+                        }
                         return table.build(context);
                     }
                 });

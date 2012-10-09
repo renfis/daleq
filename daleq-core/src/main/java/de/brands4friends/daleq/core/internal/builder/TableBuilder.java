@@ -117,7 +117,10 @@ public final class TableBuilder implements Table {
         final TableType tableType = toTableType(context);
         final List<RowData> rows = Lists.transform(this.rows, new Function<Row, RowData>() {
             @Override
-            public RowData apply(final Row row) {
+            public RowData apply(@Nullable final Row row) {
+                if (row == null) {
+                    throw new IllegalArgumentException("row");
+                }
                 return row.build(context, tableType);
             }
         });
