@@ -22,7 +22,4 @@ public class DaleqBuildException extends DaleqException {
         super(message);
     }
 
-    public DaleqBuildException(final Throwable cause) {
-        super(cause);
-    }
 }
