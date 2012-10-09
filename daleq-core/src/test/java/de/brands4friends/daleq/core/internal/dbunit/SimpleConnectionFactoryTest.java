@@ -46,7 +46,7 @@ public class SimpleConnectionFactoryTest extends EasyMockSupport {
         connectionFactory.createConnection();
     }
 
-    @Test
+    @Test @SuppressWarnings("PMD.CloseResource")
     public void createConnection_should_haveDataTypeFactory() throws SQLException {
         final DataSource dataSource = createMock(DataSource.class);
         final IDataTypeFactory dataTypeFactory = createMock(IDataTypeFactory.class);

@@ -26,9 +26,9 @@ public class OrderTest {
 
     @Test
     public void accessors_should_beCorrect() {
-        final long id = 342l;
-        final long customerId = 2348l;
-        final DateTime creation = new DateTime(234786823746l);
+        final long id = 342L;
+        final long customerId = 2348L;
+        final DateTime creation = new DateTime(234786823746L);
 
         final Order order = new Order(id, customerId, creation);
 

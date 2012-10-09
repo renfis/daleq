@@ -23,7 +23,7 @@ import javax.sql.DataSource;
 
 public final class SimpleConnectionFactory extends AbstractConnectionFactory {
 
-    @Override
+    @Override @SuppressWarnings("PMD.CloseResource") // this is a factory. it will not close the resource for sure!
     protected Connection getConnection(final DataSource dataSource) throws SQLException {
         return dataSource.getConnection();
     }

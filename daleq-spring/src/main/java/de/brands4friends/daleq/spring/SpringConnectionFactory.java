@@ -27,7 +27,7 @@ import de.brands4friends.daleq.core.internal.dbunit.AbstractConnectionFactory;
 
 public class SpringConnectionFactory extends AbstractConnectionFactory {
 
-    @Override
+    @Override @SuppressWarnings("PMD.CloseResource") // this is a factory. it will not close the resource for sure!
     protected Connection getConnection(final DataSource dataSource) throws SQLException {
         return DataSourceUtils.getConnection(dataSource);
     }
