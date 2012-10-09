@@ -21,44 +21,10 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import org.dbunit.DatabaseUnitException;
-import org.dbunit.database.DatabaseConnection;
-import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.dataset.datatype.IDataTypeFactory;
-import org.dbunit.ext.hsqldb.HsqldbDataTypeFactory;
-
-import com.google.common.base.Preconditions;
-
-import de.brands4friends.daleq.core.DaleqException;
-
-public class SimpleConnectionFactory implements ConnectionFactory {
-
-    private DataSource dataSource;
-
-    private IDataTypeFactory dataTypeFactory = new HsqldbDataTypeFactory();
-
-    public void setDataSource(final DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-
-    public void setDataTypeFactory(final IDataTypeFactory dataTypeFactory) {
-        this.dataTypeFactory = dataTypeFactory;
-    }
+public final class SimpleConnectionFactory extends AbstractConnectionFactory {
 
     @Override
-    @SuppressWarnings("PMD.CloseResource") // this is a factory. it will not close the resource for sure!
-    public IDatabaseConnection createConnection() {
-        Preconditions.checkNotNull(dataSource, "dataSource is null.");
-        try {
-            final Connection conn = dataSource.getConnection();
-            final DatabaseConnection databaseConnection = new DatabaseConnection(conn);
-            databaseConnection.getConfig().setProperty(
-                    "http://www.dbunit.org/properties/datatypeFactory", dataTypeFactory);
-            return databaseConnection;
-        } catch (DatabaseUnitException e) {
-            throw new DaleqException(e);
-        } catch (SQLException e) {
-            throw new DaleqException(e);
-        }
+    protected Connection getConnection(final DataSource dataSource) throws SQLException {
+        return dataSource.getConnection();
     }
 }
