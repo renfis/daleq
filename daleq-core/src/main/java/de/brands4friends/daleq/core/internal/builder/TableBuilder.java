@@ -124,6 +124,7 @@ public final class TableBuilder implements Table {
 
     @Override
     public TableData build(final Context context) {
+        Preconditions.checkNotNull(context, "context should not be null.");
         final TableType tableType = toTableType(context);
         final List<RowData> rows = Lists.transform(this.rows, new Function<Row, RowData>() {
             @Override

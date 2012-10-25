@@ -373,4 +373,9 @@ public class TableBuilderTest {
     public void aTableWithFieldsFromAnotherTable_should_fail() {
         aTable(ExampleTable.class).with(aRow(1).f(AnotherTable.ANOTHER_FIELD, 123)).build(context);
     }
+
+    @Test(expected = NullPointerException.class)
+    public void build_with_null_should_fail() {
+        aTable(ExampleTable.class).with(aRow(1)).build(null);
+    }
 }

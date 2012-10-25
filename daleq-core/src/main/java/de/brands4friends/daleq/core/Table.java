@@ -21,9 +21,14 @@ import javax.annotation.Nullable;
 /**
  * Used to build the content of a relational database table.
  * <p/>
- * <code>Table</code> is a container which holds a list of {@link Row}s. Therefore it provides a set of builder methods
- * to construct these rows. Together with {@link Row} it builds Daleq's model to describe the content of a database
+ * Logically a <code>Table</code> is a container which holds a list of {@link Row}s. Technically this is a Builder
+ * to declarative describe the content of the database table. Therefore it provides a set of builder methods
+ * to construct the rows. Besides the obvious #with, which accepts a list of rows, there are several methods
+ * which add rows just from a set of given ids, to be provide a concise mechanism to fill the database table.
+ * Together with {@link Row} it defines Daleq's model to describe the content of a database
  * table.
+ * <p/>
+ * TODO describe the table's meta model.
  * <p/>
  * Use {@link Daleq#aTable} to create a <code>Table</code>. We encourage to static import this method to benefit from
  * Daleq's embedded DSL.
@@ -212,6 +217,19 @@ public interface Table {
      */
     Table havingIterable(FieldTypeReference field, Iterable<Object> values);
 
+    /**
+     * Constructs the actual data holding entities.
+     * <p/>
+     * Since <code>Table</code> is actually a builder, at some point it has to construct the entities, holding
+     * the database table content. In general this method is not expected to be called by client code, but only
+     * by Daleq's internal code.
+     *
+     * @param context provides contextual information, which are required to build a {@link TableData}
+     * @return an entity actually holding the database table content
+     * @throws NullPointerException      if context is null
+     * @throws NoSuchDaleqFieldException if any row in the table contains a field which does not belong to
+     *                                   the table's meta model.
+     */
     TableData build(final Context context);
 
 }
