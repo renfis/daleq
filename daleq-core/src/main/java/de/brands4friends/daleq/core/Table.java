@@ -22,10 +22,14 @@ import javax.annotation.Nullable;
  * Used to build the content of a relational database table.
  * <p/>
  * <code>Table</code> is a container which holds a list of {@link Row}s. Therefore it provides a set of builder methods
- * to construct these rows.
+ * to construct these rows. Together with {@link Row} it builds Daleq's model to describe the content of a database
+ * table.
  * <p/>
  * Use {@link Daleq#aTable} to create a <code>Table</code>. We encourage to static import this method to benefit from
  * Daleq's embedded DSL.
+ *
+ * @see Daleq
+ * @see Row
  */
 public interface Table {
 
@@ -161,8 +165,7 @@ public interface Table {
      * first rows get their fields set, the other rows will not have their field changed. On the other hand, i
      * there are more values than rows, only the first values are used to be assigned to the rows.
      * <p/>
-     * Note that rows, which will be added to the table, after this method has been called, will not be affected by
-     * it.
+     * Note that rows added to the table after this method has been called, will not be affected by it.
      *
      * @param field  References the field, which is expected to be contained in code>Table</code>'s {@link TableDef}.
      *               The respective fields in all rows in the table, will be changed.
@@ -173,7 +176,25 @@ public interface Table {
      */
     Table having(FieldTypeReference field, Object... values);
 
-    Table allHaving(FieldTypeReference fieldDef, @Nullable Object value);
+    /**
+     * Sets the <code>field</code> in all already existing rows the same given <code>value</code>.
+     * <p/>
+     * A convenience method to batch change all already existing rows in the table. It is expected that
+     * <code>field</code> belongs to this <code>Table</code>'s {@link TableDef}. However, this is not checked
+     * while being added to the table, but only when <code>build()</code> is called.
+     * <p/>
+     * All rows in the table get their <code>field</code> updated with the given <code>value</code>
+     * <p/>
+     * Note that rows added to the table after this method has been called, will not be affected by it.
+     *
+     * @param field References the field, which is expected to be contained in code>Table</code>'s {@link TableDef}.
+     *              The respective fields in all rows in the table, will be changed.
+     * @param value the value will be assigned to the respective field in all rows, already existing in the table.
+     *              The value could be of any type Daleq is able to convert. See {@link Row} for further details.
+     * @return a <code>Table</code> containing the changed rows.
+     * @throws NullPointerException if field is null
+     */
+    Table allHaving(FieldTypeReference field, @Nullable Object value);
 
     /**
      * Sets the <code>field</code> in all already existing rows to the given <code>values</code>.

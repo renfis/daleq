@@ -95,9 +95,10 @@ public final class TableBuilder implements Table {
     }
 
     @Override
-    public Table allHaving(final FieldTypeReference fieldDef, @Nullable final Object value) {
+    public Table allHaving(final FieldTypeReference field, @Nullable final Object value) {
+        Preconditions.checkNotNull(field, "field should not be null");
         for (Row row : rows) {
-            row.f(fieldDef, value);
+            row.f(field, value);
         }
         return this;
     }

@@ -238,6 +238,11 @@ public class TableBuilderTest {
         );
     }
 
+    @Test(expected = NullPointerException.class)
+    public void allHaving_withFieldNull_should_fail() {
+        aTable(ExampleTable.class).withRowsBetween(1, 1).allHaving(null, "foo");
+    }
+
     @Test(expected = DaleqBuildException.class)
     public void allHaving_withFieldDefNotInTable_should_fail() {
         aTable(ExampleTable.class)
