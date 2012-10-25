@@ -20,6 +20,8 @@
 
 
 
+
+
 apply plugin: 'maven'
 apply plugin: 'signing'
 
@@ -41,6 +43,7 @@ artifacts {
 }
 
 signing {
+    required { gradle.taskGraph.hasTask("uploadArchives") }
     sign configurations.archives
 }
 
