@@ -14,7 +14,7 @@ Let's have a look at an example:
 public void findBySize_should_returnThoseProductsHavingThatSize() {
     daleq.insertIntoDatabase(
             aTable(ProductTable.class)
-                    .withRowsUntil(10)
+                    .withRowsBetween(1,9)
                     .with(
                             aRow(10).f(SIZE, "S"),
                             aRow(11).f(SIZE, "S"),
@@ -27,7 +27,7 @@ public void findBySize_should_returnThoseProductsHavingThatSize() {
     assertProductsWithIds(products, 10L, 11L);
 }
 ```
-Obviously this test ensures that a query will filter products with a certain size. We insert 14 rows into the table. The first ten rows have arbitrary content. It does not matter, which content they actually have, they just don't have a size S. Then we explicitly add four further rows, two of them having a size of S. The other columns in these rows don't matter either. The test is about the SIZE column and therefore we just focus on it. Daleq will handle the rest for us just fine.
+Obviously this test ensures that a query will filter products with a certain size. We insert 13 rows into the table. The first nine rows have arbitrary content. It does not matter, which content they actually have, they just don't have a size S. Then we explicitly add four further rows, two of them having a size of S. The other columns in these rows don't matter either. The test is about the SIZE column and therefore we just focus on it. Daleq will handle the rest for us just fine.
 
 What we think about test data
 -----------------------------
