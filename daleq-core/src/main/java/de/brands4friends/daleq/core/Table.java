@@ -148,11 +148,47 @@ public interface Table {
      */
     Table withRowsBetween(long from, long to);
 
-    Table having(FieldTypeReference fieldDef, Object... values);
+    /**
+     * Sets the <code>field</code> in all already existing rows to the given <code>values</code>.
+     * <p/>
+     * A convenience method to batch change all already existing rows in the table. It is expected that
+     * <code>field</code> belongs to this <code>Table</code>'s {@link TableDef}. However, this is not checked
+     * while being added to the table, but only when <code>build()</code> is called.
+     * <p/>
+     * The already existing rows are expected to have the order in which they were added. The values are applied
+     * to all those rows in that order. Hence the respective field in the <code>i</code>-th row will get
+     * the <code>i</code>-th value from <code>values</code>. If there are more rows than values, than only the
+     * first rows get their fields set, the other rows will not have their field changed. On the other hand, i
+     * there are more values than rows, only the first values are used to be assigned to the rows.
+     * <p/>
+     * Note that rows, which will be added to the table, after this method has been called, will not be affected by
+     * it.
+     *
+     * @param field  References the field, which is expected to be contained in code>Table</code>'s {@link TableDef}.
+     *               The respective fields in all rows in the table, will be changed.
+     * @param values the values will be assigned to the respective field in all rows, already existing in the table.
+     *               The value could be of any type Daleq is able to convert. See {@link Row} for further details.
+     * @return a <code>Table</code> containing the changed rows.
+     * @throws NullPointerException if field is null
+     */
+    Table having(FieldTypeReference field, Object... values);
 
     Table allHaving(FieldTypeReference fieldDef, @Nullable Object value);
 
-    Table havingIterable(FieldTypeReference fieldDef, Iterable<Object> values);
+    /**
+     * Sets the <code>field</code> in all already existing rows to the given <code>values</code>.
+     * <p/>
+     * A convenience method to batch change all already existing rows in the table.
+     *
+     * @param field  References the field, which is expected to be contained in code>Table</code>'s {@link TableDef}.
+     *               The respective fields in all rows in the table, will be changed.
+     * @param values the values will be assigned to the respective field in all rows, already existing in the table.
+     *               The value could be of any type Daleq is able to convert. See {@link Row} for further details.
+     * @return a <code>Table</code> containing the changed rows.
+     * @throws NullPointerException if field or values is null
+     * @see #having(FieldTypeReference, Object...)
+     */
+    Table havingIterable(FieldTypeReference field, Iterable<Object> values);
 
     TableData build(final Context context);
 

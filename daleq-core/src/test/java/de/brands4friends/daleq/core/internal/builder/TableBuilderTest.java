@@ -339,12 +339,24 @@ public class TableBuilderTest {
         );
     }
 
+    @Test
+    public void having_withFieldDefNotInTable_should_notFailWhenSet() {
+        aTable(ExampleTable.class)
+                .withRowsUntil(1)
+                .having(Daleq.fd(DataType.CHAR).name("foo"), "bar");
+    }
+
     @Test(expected = DaleqBuildException.class)
-    public void having_withFieldDefNotInTable_should_fail() {
+    public void having_withFieldDefNotInTable_should_failWhenBuilt() {
         aTable(ExampleTable.class)
                 .withRowsUntil(1)
                 .having(Daleq.fd(DataType.CHAR).name("foo"), "bar")
                 .build(context);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void having_withNullField_should_fail() {
+        aTable(ExampleTable.class).withRowsBetween(1, 1).having(null);
     }
 
     @TableDef("ANOTHER_TABLE")

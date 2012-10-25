@@ -103,19 +103,20 @@ public final class TableBuilder implements Table {
     }
 
     @Override
-    public Table having(final FieldTypeReference fieldDef, final Object... values) {
-        return havingIterable(fieldDef, Arrays.asList(values));
+    public Table having(final FieldTypeReference field, final Object... values) {
+        return havingIterable(field, Arrays.asList(values));
     }
 
     @Override
-    public Table havingIterable(final FieldTypeReference fieldDef, final Iterable<Object> values) {
+    public Table havingIterable(final FieldTypeReference field, final Iterable<Object> values) {
+        Preconditions.checkNotNull(field);
         Preconditions.checkNotNull(values);
         final Iterator<Object> iter = values.iterator();
         for (Row row : rows) {
             if (!iter.hasNext()) {
                 return this;
             }
-            row.f(fieldDef, iter.next());
+            row.f(field, iter.next());
         }
         return this;
     }
