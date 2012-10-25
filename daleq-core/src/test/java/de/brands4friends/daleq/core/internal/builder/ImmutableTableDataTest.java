@@ -52,7 +52,7 @@ public class ImmutableTableDataTest {
 
     @Test
     public void getValuesOfField_ifFieldExists_should_returnThoseFields() {
-        final TableData table = Daleq.aTable(TheTable.class).withRowsUntil(5).build(new SimpleContext());
+        final TableData table = Daleq.aTable(TheTable.class).withRowsBetween(0, 4).build(new SimpleContext());
         final List<Optional<String>> expected = Lists.transform(
                 Lists.newArrayList("0", "1", "2", "3", "4"),
                 new Function<String, Optional<String>>() {
@@ -70,7 +70,7 @@ public class ImmutableTableDataTest {
 
     @Test(expected = NoSuchDaleqFieldException.class)
     public void getValuesOfField_ifFieldDoesNotExist_sould_fail() {
-        final TableData table = Daleq.aTable(TheTable.class).withRowsUntil(5).build(new SimpleContext());
+        final TableData table = Daleq.aTable(TheTable.class).withRowsBetween(0, 5).build(new SimpleContext());
         final Iterable<Optional<String>> result = table.getValuesOfField("DOES_NOT_EXIST");
         // should have failed
         assertThat(result, Matchers.nullValue());

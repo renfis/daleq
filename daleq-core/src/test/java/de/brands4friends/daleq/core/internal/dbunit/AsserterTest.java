@@ -97,14 +97,14 @@ public class AsserterTest extends EasyMockSupport {
 
     @Test(expected = DaleqException.class)
     public void ignoredColumnDoesNoBelongToTable_should_fail() throws SQLException, DataSetException {
-        final Table table = aTable(MyTable.class).withRowsUntil(10);
+        final Table table = aTable(MyTable.class).withRowsBetween(0, 10);
         expectDataSetFromDb(table);
         doAssert(table, Daleq.fd(DataType.BIGINT).name("something else"));
     }
 
     @Test(expected = DaleqException.class)
     public void ignoredColumContainsNull_should_fail() throws SQLException, DataSetException {
-        final Table table = aTable(MyTable.class).withRowsUntil(10);
+        final Table table = aTable(MyTable.class).withRowsBetween(0, 10);
         expectDataSetFromDb(table);
         doAssert(table, MyTable.ID, null, MyTable.VALUE);
     }
@@ -115,7 +115,7 @@ public class AsserterTest extends EasyMockSupport {
     }
 
     private void dataSetFactoryFailsWith(final Exception expected) throws SQLException {
-        final Table table = aTable(MyTable.class).withRowsUntil(10);
+        final Table table = aTable(MyTable.class).withRowsBetween(0, 10);
         expectConnection();
         expect(connection.createDataSet()).andThrow(expected);
         doAssert(table);

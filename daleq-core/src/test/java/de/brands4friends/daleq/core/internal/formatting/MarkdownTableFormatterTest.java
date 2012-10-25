@@ -73,7 +73,7 @@ public class MarkdownTableFormatterTest {
     @Test
     public void should_alignToTheLongestValue() {
         final TableData table = Daleq.aTable(ColumnLength.class)
-                .withRowsUntil(5)
+                .withRowsBetween(0, 4)
                 .having(ColumnLength.COLUMN,
                         "A",
                         "ABCDEFGHIJ",

@@ -246,7 +246,7 @@ public class TableBuilderTest {
     @Test(expected = DaleqBuildException.class)
     public void allHaving_withFieldDefNotInTable_should_fail() {
         aTable(ExampleTable.class)
-                .withRowsUntil(1)
+                .withRowsBetween(0, 1)
                 .allHaving(Daleq.fd(DataType.CHAR).name("foo"), "bar")
                 .build(context);
     }
@@ -259,7 +259,7 @@ public class TableBuilderTest {
     @Test
     public void having_withEmptyValues_should_leaveTheFieldsAsTheyAre() {
         assertThat(
-                aTable(ExampleTable.class).withRowsUntil(3).having(PROP_B).build(context),
+                aTable(ExampleTable.class).withRowsBetween(0, 2).having(PROP_B).build(context),
                 is(
                         sb.table(
                                 sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "0")),
@@ -274,7 +274,7 @@ public class TableBuilderTest {
     public void having_withValuesAsMuchElementsAsTable_should_fillTheTableCompletely() {
         assertThat(
                 aTable(ExampleTable.class)
-                        .withRowsUntil(3)
+                        .withRowsBetween(0, 2)
                         .having(PROP_B, "A", "B", "C")
                         .build(context),
                 is(
@@ -291,7 +291,7 @@ public class TableBuilderTest {
     public void having_withValuesLessElementsThanTheTable_should_fillUpToThatValues() {
         assertThat(
                 aTable(ExampleTable.class)
-                        .withRowsUntil(3)
+                        .withRowsBetween(0, 2)
                         .having(PROP_B, "A", "B")
                         .build(context),
                 is(
@@ -308,7 +308,7 @@ public class TableBuilderTest {
     public void having_withNullInValues_should_setThatRowToNull() {
         assertThat(
                 aTable(ExampleTable.class)
-                        .withRowsUntil(1)
+                        .withRowsBetween(0, 0)
                         .having(PROP_B, (Object) null)
                         .build(context),
                 is(
@@ -322,7 +322,7 @@ public class TableBuilderTest {
     @Test(expected = NullPointerException.class)
     public void havingIterable_withNullAsValues_should_fail() {
         aTable(ExampleTable.class)
-                .withRowsUntil(3)
+                .withRowsBetween(0, 3)
                 .havingIterable(PROP_B, null)
                 .build(context);
     }
@@ -331,7 +331,7 @@ public class TableBuilderTest {
     public void having_withValuesMoreElementsThanTheTable_should_fillTheTable() {
         assertThat(
                 aTable(ExampleTable.class)
-                        .withRowsUntil(3)
+                        .withRowsBetween(0, 2)
                         .having(PROP_B, "AA", "BB", "CC", "DD", "EE")
                         .build(context),
                 is(
@@ -347,14 +347,14 @@ public class TableBuilderTest {
     @Test
     public void having_withFieldDefNotInTable_should_notFailWhenSet() {
         aTable(ExampleTable.class)
-                .withRowsUntil(1)
+                .withRowsBetween(0, 1)
                 .having(Daleq.fd(DataType.CHAR).name("foo"), "bar");
     }
 
     @Test(expected = DaleqBuildException.class)
     public void having_withFieldDefNotInTable_should_failWhenBuilt() {
         aTable(ExampleTable.class)
-                .withRowsUntil(1)
+                .withRowsBetween(0, 1)
                 .having(Daleq.fd(DataType.CHAR).name("foo"), "bar")
                 .build(context);
     }

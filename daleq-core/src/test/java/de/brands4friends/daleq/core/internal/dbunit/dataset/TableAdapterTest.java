@@ -38,7 +38,7 @@ public class TableAdapterTest {
 
     @Before
     public void setUp() {
-        tableData = Daleq.aTable(SomeTable.class).withRowsUntil(10).build(new SimpleContext());
+        tableData = Daleq.aTable(SomeTable.class).withRowsBetween(0, 9).build(new SimpleContext());
         tableAdapter = new TableAdapter(tableData);
     }
 

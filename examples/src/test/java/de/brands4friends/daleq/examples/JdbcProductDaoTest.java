@@ -92,7 +92,7 @@ public class JdbcProductDaoTest extends AbstractTransactionalJUnit4SpringContext
     public void findBySize_should_returnThoseProductsHavingThatSize() {
         daleq.insertIntoDatabase(
                 aTable(ProductTable.class)
-                        .withRowsUntil(10)
+                        .withRowsBetween(0, 9)
                         .with(
                                 aRow(10).f(SIZE, "S"),
                                 aRow(11).f(SIZE, "S"),
