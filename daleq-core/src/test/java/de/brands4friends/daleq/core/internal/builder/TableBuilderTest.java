@@ -153,14 +153,50 @@ public class TableBuilderTest {
         );
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void aTableWithRowsBetween_butFromEqualsTo_should_fail() {
-        aTable(ExampleTable.class).withRowsBetween(10, 10);
+    @Test
+    public void aTableWithRowsBetween_andFromEqualsTo_should_beCorrect() {
+        assertThat(
+                aTable(ExampleTable.class).withRowsBetween(10, 10).build(context),
+                is(sb.table(
+                        sb.row(sb.field(PROP_A, "10"), sb.field(PROP_B, "10"))
+                ))
+        );
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void aTableWithRowsBetween_butFromLessThanTo_should_fail() {
         aTable(ExampleTable.class).withRowsBetween(10, 9);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void aTableWithRowsBetween_butFromIsLessZero_should_fail() {
+        aTable(ExampleTable.class).withRowsBetween(-1, 10);
+    }
+
+    @Test
+    public void aTableWithRowsBetween_startingAtZero_should_beCorrect() {
+        assertThat(
+                aTable(ExampleTable.class).withRowsBetween(0, 1).build(context),
+                is(sb.table(
+                        sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "0")),
+                        sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "1"))
+                ))
+        );
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void aTableWithRowsBetween_butToIsLessZero_should_fail() {
+        aTable(ExampleTable.class).withRowsBetween(0, -1);
+    }
+
+    @Test
+    public void aTableWithRowsBetween_toIsZero_should_beCorrect() {
+        assertThat(
+                aTable(ExampleTable.class).withRowsBetween(0, 0).build(context),
+                is(sb.table(
+                        sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "0"))
+                ))
+        );
     }
 
     @Test

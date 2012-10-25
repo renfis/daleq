@@ -48,7 +48,7 @@ public interface Table {
      * </table>
      *
      * @param rows all rows which should be added to the table
-     * @return a <code>Table</code> which has the new rows.
+     * @return a <code>Table</code> containing the new rows.
      * @throws NullPointerException if one instance of <code>rows</code> is <code>null</code>.
      */
     Table with(Row... rows);
@@ -72,7 +72,7 @@ public interface Table {
      * </table>
      *
      * @param ids the ids of those rows, which will be added to the table.
-     * @return a <code>Table</code> which contains the new rows.
+     * @return a <code>Table</code> containing the new rows.
      * @throws NullPointerException if either the parameter <code>ids</code> or one element in it is null
      */
     Table withSomeRows(Iterable<Long> ids);
@@ -95,7 +95,7 @@ public interface Table {
      * </table>
      *
      * @param ids the ids of those rows, which will be added to the table.
-     * @return a <code>Table</code> which contains the new rows.
+     * @return a <code>Table</code> containing the new rows.
      * @throws NullPointerException if either the parameter <code>ids</code> or one element in it is null
      */
     Table withSomeRows(long... ids);
@@ -106,7 +106,7 @@ public interface Table {
      * The method should not be used anymore and will be removed in future releases.
      *
      * @param maxId describes the upper (exclusive) limit of the ids which will be added, starting form 0.
-     * @return a <code>Table</code> which contains the new rows.
+     * @return a <code>Table</code> containing the new rows.
      * @deprecated The method was supposed to be used for convenience, but meanwhile we learned that it is not
      *             intuitive. On one hand it is not a good idea to start ids form 0, because some DBs treat 0 as an
      *             id special, especially in combination with sequences. For instance, Mysql will not let you explicitly
@@ -116,6 +116,36 @@ public interface Table {
      */
     Table withRowsUntil(long maxId);
 
+    /**
+     * Adds rows with all ids in the interval <code>[from,to]</code> to the table.
+     * <p/>
+     * A convience method, which assumes an interval starting at <code>from</code> up to and including <code>to</code>
+     * and consisting of all ids in between. Each id in this interval will be transformed to a row, like
+     * <code>aRow(id)</code> would do it and add it to the table.
+     * <p/>
+     * For instance
+     * <pre class="code">{@code
+     * aTable(ProductTable.class).withRowsBetween(1L, 4L);
+     * }</pre>
+     * will yield a table
+     * <table>
+     * <tr><th>ID</th><th>NAME</th><th>SIZE</th><th>PRICE</th></tr>
+     * <tr><td>1</td><td>?</td><td>?</td><td>?</td></tr>
+     * <tr><td>2</td><td>?</td><td>?</td><td>?</td></tr>
+     * <tr><td>3</td><td>?</td><td>?</td><td>?</td></tr>
+     * <tr><td>4</td><td>?</td><td>?</td><td>?</td></tr>
+     * </table>
+     *
+     * @param from the lower inclusive bound of the interval. Has to be {@code >=0}.
+     * @param to   the upper inclusive bound of the internval. Has to be {@code >=0} and {@code from < to}.
+     * @return a <code>Table</code> containing the new rows.
+     * @throws IllegalArgumentException if not
+     *                                  <ol>
+     *                                  <li>{@code from >=0}</li>
+     *                                  <li>{@code to >=0}</li>
+     *                                  <li>{@code from < to}</li>
+     *                                  </ol>
+     */
     Table withRowsBetween(long from, long to);
 
     Table having(FieldTypeReference fieldDef, Object... values);

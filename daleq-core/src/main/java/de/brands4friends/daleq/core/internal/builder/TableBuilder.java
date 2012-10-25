@@ -84,8 +84,10 @@ public final class TableBuilder implements Table {
 
     @Override
     public Table withRowsBetween(final long from, final long to) {
-        Preconditions.checkArgument(from < to,
-                "Parameter from should be less than parameter to, but %s<%s is not true.", from, to);
+        Preconditions.checkArgument(from >= 0, "Parameter from should be >= 0");
+        Preconditions.checkArgument(to >= 0, "Parameter to should be >= 0");
+        Preconditions.checkArgument(from <= to,
+                "Parameter 'from' should be less than or equal to parameter 'to', but %s<=%s is not true.", from, to);
         for (long i = from; i <= to; i++) {
             this.rows.add(Daleq.aRow(i));
         }
