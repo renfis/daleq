@@ -14,14 +14,6 @@
  * limitations under the License.
  */
 
-
-
-
-
-
-
-
-
 apply plugin: 'maven'
 apply plugin: 'signing'
 
@@ -42,14 +34,19 @@ artifacts {
     archives javadocJar
 }
 
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
+
 signing {
-    required { gradle.taskGraph.hasTask("uploadArchives") }
+    required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") }
     sign configurations.archives
 }
 
 uploadArchives {
     repositories.mavenDeployer {
         configuration = configurations.archives
+
+        beforeDeployment { deployment -> signing.signPom(deployment) }
+
 
         repository(url: propertyOr('nexus.url', null)) {
             authentication(
