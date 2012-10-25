@@ -21,11 +21,11 @@ import javax.annotation.Nullable;
 /**
  * Used to build the content of a relational database table.
  * <p/>
- * <code>Table</code> is a container which holds a list of {@link Row}s. Therefore it provides a set of builder methods to construct
- * these rows.
+ * <code>Table</code> is a container which holds a list of {@link Row}s. Therefore it provides a set of builder methods
+ * to construct these rows.
  * <p/>
- * Use {@link Daleq#aTable} to create a <code>Table</code>. We encourage to static import this method to benefit from Daleq's
- * embedded DSL.
+ * Use {@link Daleq#aTable} to create a <code>Table</code>. We encourage to static import this method to benefit from
+ * Daleq's embedded DSL.
  */
 public interface Table {
 
@@ -72,7 +72,7 @@ public interface Table {
      * </table>
      *
      * @param ids the ids of those rows, which will be added to the table.
-     * @return a <code>Table</code> which has the new rows.
+     * @return a <code>Table</code> which contains the new rows.
      * @throws NullPointerException if either the parameter <code>ids</code> or one element in it is null
      */
     Table withSomeRows(Iterable<Long> ids);
@@ -95,11 +95,25 @@ public interface Table {
      * </table>
      *
      * @param ids the ids of those rows, which will be added to the table.
-     * @return a <code>Table</code> which has the new rows.
+     * @return a <code>Table</code> which contains the new rows.
      * @throws NullPointerException if either the parameter <code>ids</code> or one element in it is null
      */
     Table withSomeRows(long... ids);
 
+    /**
+     * Adds <code>maxId</code> number of rows with the ids from 0 to <code>maxId - 1</code> to the table.
+     * <p/>
+     * The method should not be used anymore and will be removed in future releases.
+     *
+     * @param maxId describes the upper (exclusive) limit of the ids which will be added, starting form 0.
+     * @return a <code>Table</code> which contains the new rows.
+     * @deprecated The method was supposed to be used for convenience, but meanwhile we learned that it is not
+     *             intuitive. On one hand it is not a good idea to start ids form 0, because some DBs treat 0 as an
+     *             id special, especially in combination with sequences. For instance, Mysql will not let you explicitly
+     *             set a a field, which has the auto increment attribute, with a zero, only non zero values could be
+     *             set explicitly. On the other hand, specifying the maxId as an exclusive interval is not intuitive
+     *             in this context. Use {@link #withRowsBetween} instead.
+     */
     Table withRowsUntil(long maxId);
 
     Table withRowsBetween(long from, long to);
