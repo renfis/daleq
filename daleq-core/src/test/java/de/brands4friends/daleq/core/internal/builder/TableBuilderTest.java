@@ -101,6 +101,17 @@ public class TableBuilderTest {
         );
     }
 
+    @Test(expected = NullPointerException.class)
+    public void aTableWithSomeNull_should_throw() {
+        final long[] nullArray = null;
+        aTable(ExampleTable.class).withSomeRows(nullArray);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void aTableWithSomeRowsAndOneIsNull_should_throw() {
+        aTable(ExampleTable.class).withSomeRows(1L, 2L, (Long) null);
+    }
+
     @Test
     public void aTableWithRowsUntil_should_beBuilt() {
         assertThat(

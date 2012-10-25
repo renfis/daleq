@@ -56,7 +56,9 @@ public final class TableBuilder implements Table {
 
     @Override
     public Table withSomeRows(final Iterable<Long> ids) {
-        for (long id : ids) {
+        Preconditions.checkNotNull(ids);
+        for (Long id : ids) {
+            Preconditions.checkNotNull(id, "each id should not be null");
             this.rows.add(Daleq.aRow(id));
         }
         return this;

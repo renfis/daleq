@@ -33,16 +33,15 @@ public interface Table {
      * Adds <code>rows</code> to the table.
      * <p/>
      * For instance
-     * <pre>{@code
+     * <pre class="code">{@code
      * aTable(ProductTable.class)
-     *      .rows(
-     *          aRow(1).f(SIZE,"XL"),
-     *          aRow(2)
-     *      )
+     * .rows(
+     * aRow(1).f(SIZE,"XL"),
+     * aRow(2)
+     * )
      * }</pre>
      * will yield a table containing
      * <table>
-     * <thea
      * <tr><th>ID</th><th>NAME</th><th>SIZE</th><th>PRICE</th></tr>
      * <tr><td>1</td><td>?</td><td>XL</td><td>?</td></tr>
      * <tr><td>2</td><td>?</td><td>?</td><td>?</td></tr>
@@ -57,10 +56,24 @@ public interface Table {
     /**
      * Adds rows with the given <code>ids</code> to the table.
      * <p/>
-     * A convenience method, which adds new rows to the table
+     * A convenience method, which transforms each id in <code>ids</code> to a row, like <code>aRow(id)</code> would do,
+     * and adds it to the already existing rows in the table.
+     * <p/>
+     * For instance
+     * <pre class="code">{@code
+     * final List<Long> ids = Lists.newArrayList(1L,2L);
+     * aTable(ProductTable.class).withSomeRows(ids);
+     * }</pre>
+     * will yield a table
+     * <table>
+     * <tr><th>ID</th><th>NAME</th><th>SIZE</th><th>PRICE</th></tr>
+     * <tr><td>1</td><td>?</td><td>?</td><td>?</td></tr>
+     * <tr><td>2</td><td>?</td><td>?</td><td>?</td></tr>
+     * </table>
      *
      * @param ids the ids of those rows, which will be added to the table.
      * @return a <code>Table</code> which has the new rows.
+     * @throws NullPointerException if either the parameter <code>ids</code> or one element in it is null
      */
     Table withSomeRows(Iterable<Long> ids);
 
