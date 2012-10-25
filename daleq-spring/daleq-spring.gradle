@@ -16,11 +16,10 @@
 
 
 
-apply from: script('uploadArchives')
-
 displayName = "Daleq Framework - Spring Module"
 description = 'Integrate Daleq tests with spring-jdbc.'
 
+apply from: script('uploadArchives')
 
 dependencies {
     compile project(':daleq-core')
