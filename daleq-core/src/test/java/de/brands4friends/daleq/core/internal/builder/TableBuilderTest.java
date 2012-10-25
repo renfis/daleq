@@ -33,6 +33,7 @@ import de.brands4friends.daleq.core.Daleq;
 import de.brands4friends.daleq.core.DaleqBuildException;
 import de.brands4friends.daleq.core.DataType;
 import de.brands4friends.daleq.core.FieldDef;
+import de.brands4friends.daleq.core.Row;
 import de.brands4friends.daleq.core.TableDef;
 import de.brands4friends.daleq.core.TableType;
 import de.brands4friends.daleq.core.internal.types.TableTypeFactory;
@@ -60,6 +61,17 @@ public class TableBuilderTest {
                         )
                 ))
         );
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void aTableWithArrayIsNull_should_fail() {
+        final Row[] nullRows = null;
+        aTable(ExampleTable.class).with(nullRows);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void aTableWithNullRow_should_fail() {
+        aTable(ExampleTable.class).with(aRow(42), null);
     }
 
     @Test

@@ -50,7 +50,11 @@ public final class TableBuilder implements Table {
 
     @Override
     public Table with(final Row... rows) {
-        this.rows.addAll(Arrays.asList(rows));
+        Preconditions.checkNotNull(rows, "rows should not be null");
+        for (final Row row : rows) {
+            Preconditions.checkNotNull(row, "each row should not be null");
+            this.rows.add(row);
+        }
         return this;
     }
 

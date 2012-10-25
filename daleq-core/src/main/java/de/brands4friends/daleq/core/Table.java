@@ -77,6 +77,27 @@ public interface Table {
      */
     Table withSomeRows(Iterable<Long> ids);
 
+    /**
+     * Adds rows with the given <code>ids</code> to the table.
+     * <p/>
+     * A convenience method, which transforms each id in <code>ids</code> to a row, like <code>aRow(id)</code> would do,
+     * and adds it to the already existing rows in the table.
+     * <p/>
+     * For instance
+     * <pre class="code">{@code
+     * aTable(ProductTable.class).withSomeRows(1L, 2L);
+     * }</pre>
+     * will yield a table
+     * <table>
+     * <tr><th>ID</th><th>NAME</th><th>SIZE</th><th>PRICE</th></tr>
+     * <tr><td>1</td><td>?</td><td>?</td><td>?</td></tr>
+     * <tr><td>2</td><td>?</td><td>?</td><td>?</td></tr>
+     * </table>
+     *
+     * @param ids the ids of those rows, which will be added to the table.
+     * @return a <code>Table</code> which has the new rows.
+     * @throws NullPointerException if either the parameter <code>ids</code> or one element in it is null
+     */
     Table withSomeRows(long... ids);
 
     Table withRowsUntil(long maxId);
