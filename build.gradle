@@ -38,7 +38,7 @@ allprojects {
     apply plugin: 'project-report'
 
     group = 'de.brands4friends.daleq'
-    version = '0.3.0'
+    version = '0.4.0-SNAPSHOT'
 
     repositories {
         mavenCentral()
