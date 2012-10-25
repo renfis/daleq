@@ -75,11 +75,7 @@ public final class TableBuilder implements Table {
 
     @Override
     public Table withRowsUntil(final long maxId) {
-        // TODO check parameter!
-        for (long i = 0; i < maxId; i++) {
-            this.rows.add(Daleq.aRow(i));
-        }
-        return this;
+        return withRowsBetween(0, maxId - 1);
     }
 
     @Override
