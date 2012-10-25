@@ -26,10 +26,10 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import de.brands4friends.daleq.core.Context;
-import de.brands4friends.daleq.core.DaleqBuildException;
 import de.brands4friends.daleq.core.FieldData;
 import de.brands4friends.daleq.core.FieldType;
 import de.brands4friends.daleq.core.FieldTypeReference;
+import de.brands4friends.daleq.core.NoSuchDaleqFieldException;
 import de.brands4friends.daleq.core.Row;
 import de.brands4friends.daleq.core.RowData;
 import de.brands4friends.daleq.core.TableType;
@@ -119,21 +119,21 @@ public class RowBuilder implements Row {
                 final FieldTypeReference fieldTypeReference = fieldHolder.getFieldTypeRef();
                 final FieldType fieldType = fieldTypeReference.resolve(tableType);
                 if (fieldType == null) {
-                    return throwUnknownFieldException(fieldHolder, tableType);
+                    return throwNoSuchDaleqFieldException(fieldHolder, tableType);
                 }
                 return fieldType;
             }
         });
     }
 
-    private FieldType throwUnknownFieldException(final FieldHolder fieldHolder, final TableType tableType) {
+    private FieldType throwNoSuchDaleqFieldException(final FieldHolder fieldHolder, final TableType tableType) {
         final String msg = String.format(
                 "The row contains a field '%s', " +
                         "but the table '%s' does not contain such a field definition.",
                 fieldHolder.getFieldTypeRef(),
                 tableType.getName()
         );
-        throw new DaleqBuildException(msg);
+        throw new NoSuchDaleqFieldException(msg);
     }
 
     public static RowBuilder aRow(final long binding) {
