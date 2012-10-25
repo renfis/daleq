@@ -240,7 +240,7 @@ public class TableBuilderTest {
 
     @Test(expected = NullPointerException.class)
     public void allHaving_withFieldNull_should_fail() {
-        aTable(ExampleTable.class).withRowsBetween(1, 1).allHaving(null, "foo");
+        aTable(ExampleTable.class).withRowsBetween(1, 1).allHaving(null, "some value");
     }
 
     @Test(expected = DaleqBuildException.class)
@@ -332,13 +332,13 @@ public class TableBuilderTest {
         assertThat(
                 aTable(ExampleTable.class)
                         .withRowsUntil(3)
-                        .having(PROP_B, "A", "B", "C", "D", "E")
+                        .having(PROP_B, "AA", "BB", "CC", "DD", "EE")
                         .build(context),
                 is(
                         sb.table(
-                                sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "A")),
-                                sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "B")),
-                                sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "C"))
+                                sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "AA")),
+                                sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "BB")),
+                                sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "CC"))
                         )
                 )
         );

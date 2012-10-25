@@ -118,6 +118,7 @@ public interface Table {
      *             set explicitly. On the other hand, specifying the maxId as an exclusive interval is not intuitive
      *             in this context. Use {@link #withRowsBetween} instead.
      */
+    @Deprecated
     Table withRowsUntil(long maxId);
 
     /**
