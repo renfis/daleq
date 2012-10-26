@@ -46,12 +46,35 @@ How Daleq will help you
 
 Daleq is a DSL, actually a family of some builders, which acts as a wrapper around [DbUnit](http://www.dbunit.org/). DbUnit is a great tool when it comes to batch scripting your database but it does a bad job to give you a tool to do this nicely and proper in unit tests. Daleq fills this gap. Instead of maintaining XML files which act like the content of your database you write that content directly in Java. Daleq is designed to benefit from code completion in your favorite IDE. What was a burden in times of clumsy XML will become a one liner with Daleq.
 
+Use it
+-----------
+
+Daleq lives in the Maven Central Repository. Including Daleq into your project is as easy as just adding the dependency:
+
+```xml
+<dependency>
+    <groupId>de.brands4friends.daleq</groupId>
+    <artifactId>daleq-core</artifactId>
+    <version>0.3.0</version>
+    <scope>test</scope>
+</dependency>
+```
+
+or if you are a Spring junky and want to leverage Daleq's Spring capabilities add as well:
+
+```xml
+<dependency>
+    <groupId>de.brands4friends.daleq</groupId>
+    <artifactId>daleq-spring</artifactId>
+    <version>0.3.0</version>
+</dependency>
+```
+
 Next Steps
 ----------
 
-1. [Learn about the DSL](https://github.com/brands4friends/daleq/wiki/Understanding-the-DSL)
-1. [Have a look at some examples](https://github.com/brands4friends/daleq/wiki/Examples)
-
+This is by far not everything we can teach you about Daleq. Go to the [Daleq Wiki](https://github.com/brands4friends/daleq/wiki) 
+to learn more.
 
 Build Status
 -----------
