@@ -14,25 +14,20 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core;
+package de.brands4friends.daleq.core.internal.dbunit;
 
-import de.brands4friends.daleq.core.internal.types.ClassBasedTableTypeReference;
+import de.brands4friends.daleq.core.Context;
 
-public final class Daleq {
+/**
+ * Used for tests to access a context
+ */
+public final class ContextFactory {
 
-    private Daleq() {
+    private ContextFactory() {
 
     }
 
-    public static <T> Table aTable(final Class<T> fromClass) {
-        return new TableBuilder(ClassBasedTableTypeReference.of(fromClass));
-    }
-
-    public static Row aRow(final long id) {
-        return new RowBuilder(id);
-    }
-
-    public static FieldDef fd(final DataType dataType) {
-        return FieldDefBuilder.fd(dataType);
+    public static Context context() {
+        return new SimpleContext();
     }
 }

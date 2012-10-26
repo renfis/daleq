@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.builder;
+package de.brands4friends.daleq.core;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -22,12 +22,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.brands4friends.daleq.core.Context;
-import de.brands4friends.daleq.core.Daleq;
-import de.brands4friends.daleq.core.DaleqBuildException;
-import de.brands4friends.daleq.core.DataType;
-import de.brands4friends.daleq.core.FieldDef;
-import de.brands4friends.daleq.core.TableType;
+import de.brands4friends.daleq.core.internal.dbunit.ContextFactory;
 import de.brands4friends.daleq.core.internal.types.TableTypeFactory;
 
 public class RowBuilderTest {
@@ -41,7 +36,7 @@ public class RowBuilderTest {
 
     @Before
     public void setUp() throws Exception {
-        context = new SimpleContext();
+        context = ContextFactory.context();
         tableType = new TableTypeFactory().create(ExampleTable.class);
         sb = new StructureBuilder(tableType);
     }
@@ -49,7 +44,7 @@ public class RowBuilderTest {
     @Test
     public void aRowWithJustProvidedProperties_should_beBuild() {
         assertThat(
-                RowBuilder.aRow(23)
+                new RowBuilder((long) 23)
                         .f(ExampleTable.PROP_A, FOO)
                         .f(ExampleTable.PROP_B, BAR)
                         .build(context, tableType),
@@ -63,7 +58,7 @@ public class RowBuilderTest {
     @Test
     public void aRowWithJustDefaults_should_buildThatRow() {
         assertThat(
-                RowBuilder.aRow(23).build(context, tableType),
+                new RowBuilder((long) 23).build(context, tableType),
                 is(sb.row(
                         sb.field(ExampleTable.PROP_A, "23"),
                         sb.field(ExampleTable.PROP_B, "23")
@@ -74,13 +69,13 @@ public class RowBuilderTest {
     @Test(expected = DaleqBuildException.class)
     public void propertyInRowContainsProperyDefNotInTableStructure_should_fail() {
         final FieldDef bar = Daleq.fd(DataType.VARCHAR);
-        RowBuilder.aRow(42).f(bar, "foo").build(context, tableType);
+        new RowBuilder((long) 42).f(bar, "foo").build(context, tableType);
     }
 
     @Test
     public void addingAFieldTwice_should_takeTheLastOne() {
         assertThat(
-                RowBuilder.aRow(23)
+                new RowBuilder((long) 23)
                         .f(ExampleTable.PROP_B, FOO)
                         .f(ExampleTable.PROP_B, BAR)
                         .build(context, tableType),
@@ -93,6 +88,6 @@ public class RowBuilderTest {
 
     @Test(expected = NullPointerException.class)
     public void fieldTypeReferenceIsNull_should_fail() {
-        RowBuilder.aRow(23).f(null, null);
+        Daleq.aRow(23).f(null, null);
     }
 }

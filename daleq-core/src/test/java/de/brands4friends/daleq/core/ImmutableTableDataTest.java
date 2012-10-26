@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.builder;
+package de.brands4friends.daleq.core;
 
+import static de.brands4friends.daleq.core.internal.dbunit.ContextFactory.context;
 import static nl.jqno.equalsverifier.EqualsVerifier.forClass;
 import static org.junit.Assert.assertThat;
 
@@ -30,12 +31,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 
-import de.brands4friends.daleq.core.Daleq;
-import de.brands4friends.daleq.core.DataType;
-import de.brands4friends.daleq.core.FieldDef;
-import de.brands4friends.daleq.core.NoSuchDaleqFieldException;
-import de.brands4friends.daleq.core.TableData;
-import de.brands4friends.daleq.core.TableDef;
+import de.brands4friends.daleq.core.internal.dbunit.ContextFactory;
 import nl.jqno.equalsverifier.Warning;
 
 public class ImmutableTableDataTest {
@@ -52,7 +48,7 @@ public class ImmutableTableDataTest {
 
     @Test
     public void getValuesOfField_ifFieldExists_should_returnThoseFields() {
-        final TableData table = Daleq.aTable(TheTable.class).withRowsBetween(0, 4).build(new SimpleContext());
+        final TableData table = Daleq.aTable(TheTable.class).withRowsBetween(0, 4).build(context());
         final List<Optional<String>> expected = Lists.transform(
                 Lists.newArrayList("0", "1", "2", "3", "4"),
                 new Function<String, Optional<String>>() {
@@ -70,7 +66,7 @@ public class ImmutableTableDataTest {
 
     @Test(expected = NoSuchDaleqFieldException.class)
     public void getValuesOfField_ifFieldDoesNotExist_sould_fail() {
-        final TableData table = Daleq.aTable(TheTable.class).withRowsBetween(0, 5).build(new SimpleContext());
+        final TableData table = Daleq.aTable(TheTable.class).withRowsBetween(0, 5).build(ContextFactory.context());
         final Iterable<Optional<String>> result = table.getValuesOfField("DOES_NOT_EXIST");
         // should have failed
         assertThat(result, Matchers.nullValue());

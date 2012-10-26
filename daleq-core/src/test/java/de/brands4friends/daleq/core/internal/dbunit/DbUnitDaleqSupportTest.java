@@ -18,6 +18,7 @@ package de.brands4friends.daleq.core.internal.dbunit;
 
 import static de.brands4friends.daleq.core.Daleq.aRow;
 import static de.brands4friends.daleq.core.Daleq.aTable;
+import static de.brands4friends.daleq.core.internal.dbunit.ContextFactory.context;
 import static org.easymock.EasyMock.capture;
 import static org.easymock.EasyMock.eq;
 import static org.easymock.EasyMock.expect;
@@ -47,7 +48,6 @@ import de.brands4friends.daleq.core.FieldDef;
 import de.brands4friends.daleq.core.Table;
 import de.brands4friends.daleq.core.TableData;
 import de.brands4friends.daleq.core.TableDef;
-import de.brands4friends.daleq.core.internal.builder.SimpleContext;
 import de.brands4friends.daleq.core.internal.dbunit.dataset.InMemoryDataSetFactory;
 
 // DaleqSupport should wrap the access to daleq. yes this might produce too much coupling, but for now that's the
@@ -118,6 +118,6 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
     }
 
     private List<TableData> toTableData(final Table table) {
-        return Lists.newArrayList(table.build(new SimpleContext()));
+        return Lists.newArrayList(table.build(context()));
     }
 }

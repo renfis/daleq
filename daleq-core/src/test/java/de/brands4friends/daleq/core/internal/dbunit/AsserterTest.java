@@ -18,6 +18,7 @@ package de.brands4friends.daleq.core.internal.dbunit;
 
 import static de.brands4friends.daleq.core.Daleq.aRow;
 import static de.brands4friends.daleq.core.Daleq.aTable;
+import static de.brands4friends.daleq.core.internal.dbunit.ContextFactory.context;
 import static org.easymock.EasyMock.expect;
 
 import java.sql.SQLException;
@@ -39,7 +40,6 @@ import de.brands4friends.daleq.core.FieldDef;
 import de.brands4friends.daleq.core.Table;
 import de.brands4friends.daleq.core.TableData;
 import de.brands4friends.daleq.core.TableDef;
-import de.brands4friends.daleq.core.internal.builder.SimpleContext;
 import de.brands4friends.daleq.core.internal.dbunit.dataset.InMemoryDataSetFactory;
 import junit.framework.ComparisonFailure;
 
@@ -139,6 +139,6 @@ public class AsserterTest extends EasyMockSupport {
     }
 
     private List<TableData> toTableData(final Table table) {
-        return Lists.newArrayList(table.build(new SimpleContext()));
+        return Lists.newArrayList(table.build(context()));
     }
 }

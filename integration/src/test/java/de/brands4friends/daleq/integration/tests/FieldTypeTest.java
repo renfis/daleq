@@ -29,11 +29,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
+import de.brands4friends.daleq.core.Context;
 import de.brands4friends.daleq.core.DaleqException;
 import de.brands4friends.daleq.core.FieldType;
 import de.brands4friends.daleq.core.Table;
 import de.brands4friends.daleq.core.TableType;
-import de.brands4friends.daleq.core.internal.builder.SimpleContext;
+import de.brands4friends.daleq.core.internal.dbunit.ContextFactory;
 import de.brands4friends.daleq.core.internal.template.TemplateValueFactory;
 import de.brands4friends.daleq.integration.beans.TableProvider;
 
@@ -50,7 +51,7 @@ public class FieldTypeTest extends BaseTest {
 
     @Before
     public void setUp() {
-        final SimpleContext context = new SimpleContext();
+        final Context context = ContextFactory.context();
         templateValueFactory = context.getService(TemplateValueFactory.class);
         tableType = aTable(tableProvider.allTypesTable()).build(context).getTableType();
     }

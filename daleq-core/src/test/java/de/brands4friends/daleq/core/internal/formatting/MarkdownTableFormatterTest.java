@@ -24,16 +24,17 @@ import org.junit.Test;
 
 import com.google.common.base.Joiner;
 
+import de.brands4friends.daleq.core.Context;
 import de.brands4friends.daleq.core.Daleq;
 import de.brands4friends.daleq.core.DataType;
 import de.brands4friends.daleq.core.FieldDef;
 import de.brands4friends.daleq.core.TableData;
 import de.brands4friends.daleq.core.TableDef;
-import de.brands4friends.daleq.core.internal.builder.SimpleContext;
+import de.brands4friends.daleq.core.internal.dbunit.ContextFactory;
 
 public class MarkdownTableFormatterTest {
 
-    private SimpleContext context;
+    private Context context;
     private TableFormatter formatter;
 
     @TableDef("THE_TABLE")
@@ -45,7 +46,7 @@ public class MarkdownTableFormatterTest {
 
     @Before
     public void setUp() throws Exception {
-        context = new SimpleContext();
+        context = ContextFactory.context();
         formatter = new MarkdownTableFormatter();
     }
 

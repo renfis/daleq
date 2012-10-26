@@ -39,7 +39,6 @@ import de.brands4friends.daleq.core.DaleqSupport;
 import de.brands4friends.daleq.core.FieldDef;
 import de.brands4friends.daleq.core.Table;
 import de.brands4friends.daleq.core.TableData;
-import de.brands4friends.daleq.core.internal.builder.SimpleContext;
 import de.brands4friends.daleq.core.internal.dbunit.dataset.InMemoryDataSetFactory;
 import de.brands4friends.daleq.core.internal.formatting.MarkdownTableFormatter;
 

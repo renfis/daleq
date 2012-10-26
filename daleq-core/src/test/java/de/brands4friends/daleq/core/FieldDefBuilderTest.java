@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.builder;
+package de.brands4friends.daleq.core;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
@@ -26,14 +26,6 @@ import org.junit.Test;
 
 import com.google.common.base.Optional;
 
-import de.brands4friends.daleq.core.Daleq;
-import de.brands4friends.daleq.core.DataType;
-import de.brands4friends.daleq.core.FieldDef;
-import de.brands4friends.daleq.core.FieldType;
-import de.brands4friends.daleq.core.FieldTypeReference;
-import de.brands4friends.daleq.core.TableDef;
-import de.brands4friends.daleq.core.TableType;
-import de.brands4friends.daleq.core.TemplateValue;
 import de.brands4friends.daleq.core.internal.template.StringTemplateValue;
 import de.brands4friends.daleq.core.internal.types.TableTypeFactory;
 import nl.jqno.equalsverifier.EqualsVerifier;

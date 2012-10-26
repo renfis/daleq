@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.builder;
+package de.brands4friends.daleq.core.internal.dbunit;
 
 import java.util.Map;
 
@@ -29,7 +29,7 @@ import de.brands4friends.daleq.core.internal.template.TemplateValueFactoryImpl;
 import de.brands4friends.daleq.core.internal.types.CachingTableTypeRepository;
 import de.brands4friends.daleq.core.internal.types.TableTypeRepository;
 
-public class SimpleContext implements Context {
+class SimpleContext implements Context {
 
     private final TypeConversion typeConversion = new TypeConversionImpl();
     private final TemplateValueFactory templateValueFactory = TemplateValueFactoryImpl.getInstance();

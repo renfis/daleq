@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.builder;
+package de.brands4friends.daleq.core;
 
 import java.util.List;
 
@@ -27,10 +27,6 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
-
-import de.brands4friends.daleq.core.RowData;
-import de.brands4friends.daleq.core.TableData;
-import de.brands4friends.daleq.core.TableType;
 
 final class ImmutableTableData implements TableData {
 

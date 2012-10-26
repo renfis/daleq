@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.builder;
+package de.brands4friends.daleq.core;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -27,23 +27,14 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Longs;
 
-import de.brands4friends.daleq.core.Context;
-import de.brands4friends.daleq.core.Daleq;
-import de.brands4friends.daleq.core.FieldTypeReference;
-import de.brands4friends.daleq.core.Row;
-import de.brands4friends.daleq.core.RowData;
-import de.brands4friends.daleq.core.Table;
-import de.brands4friends.daleq.core.TableData;
-import de.brands4friends.daleq.core.TableType;
-import de.brands4friends.daleq.core.TableTypeReference;
 import de.brands4friends.daleq.core.internal.types.TableTypeRepository;
 
-public final class TableBuilder implements Table {
+final class TableBuilder implements Table {
 
     private final TableTypeReference tableRef;
     private final List<Row> rows;
 
-    private TableBuilder(final TableTypeReference tableRef) {
+    TableBuilder(final TableTypeReference tableRef) {
         this.tableRef = Preconditions.checkNotNull(tableRef);
         this.rows = Lists.newArrayList();
     }
@@ -139,7 +130,4 @@ public final class TableBuilder implements Table {
         return repository.get(tableRef);
     }
 
-    public static Table aTable(final TableTypeReference tableReference) {
-        return new TableBuilder(tableReference);
-    }
 }

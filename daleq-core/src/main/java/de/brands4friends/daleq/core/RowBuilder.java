@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.builder;
+package de.brands4friends.daleq.core;
 
 import java.util.List;
 import java.util.Map;
@@ -26,24 +26,15 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import de.brands4friends.daleq.core.Context;
-import de.brands4friends.daleq.core.FieldData;
-import de.brands4friends.daleq.core.FieldType;
-import de.brands4friends.daleq.core.FieldTypeReference;
-import de.brands4friends.daleq.core.NoSuchDaleqFieldException;
-import de.brands4friends.daleq.core.Row;
-import de.brands4friends.daleq.core.RowData;
-import de.brands4friends.daleq.core.TableType;
-import de.brands4friends.daleq.core.TemplateValue;
 import de.brands4friends.daleq.core.internal.conversion.TypeConversion;
 import de.brands4friends.daleq.core.internal.template.TemplateValueFactory;
 
-public class RowBuilder implements Row {
+class RowBuilder implements Row {
 
     private final long binding;
     private final Map<FieldTypeReference, FieldHolder> fields;
 
-    public RowBuilder(final long binding) {
+    RowBuilder(final long binding) {
         this.binding = binding;
         this.fields = Maps.newHashMap();
     }
@@ -138,7 +129,4 @@ public class RowBuilder implements Row {
         throw new NoSuchDaleqFieldException(msg);
     }
 
-    public static RowBuilder aRow(final long binding) {
-        return new RowBuilder(binding);
-    }
 }
