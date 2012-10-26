@@ -56,11 +56,13 @@ public interface Row {
      *                           matter of fact this is not checked, when field is added with method call,
      *                           but rather when the table is built.
      * @param value              Sets the fields value. Daleq has a sophisticated strategy to calculate the value which
-     *                           is finally written into the database. If <code>value</code> is a (boxed) primitive type, it
-     *                           is directly written to the DB. If it is a subclass of Object, then Daleq checks if
-     *                           there is a registered {@link de.brands4friends.daleq.core.internal.conversion.TypeConverter}
+     *                           is finally written into the database. If <code>value</code> is a (boxed) primitive
+     *                           type, it is directly written to the DB. If it is a subclass of Object, then Daleq
+     *                           checks if there is a registered
+     *                           {@link de.brands4friends.daleq.core.internal.conversion.TypeConverter}
      *                           for this class and uses it, otherwise the class' toString() method is used. If you want
-     *                           to write <code>null</code> to the database, just set If <code>value</code>  to <code>null</code>.
+     *                           to write <code>null</code> to the database, just set If <code>value</code>
+     *                           to <code>null</code>.
      * @return the instance of row itself
      * @throws NullPointerException if fieldTypeReference is null
      */
