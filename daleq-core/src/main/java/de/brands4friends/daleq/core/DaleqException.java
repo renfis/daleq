@@ -16,6 +16,9 @@
 
 package de.brands4friends.daleq.core;
 
+/**
+ * A generic exception thrown in the context of Daleq
+ */
 public class DaleqException extends RuntimeException {
     public DaleqException(final Throwable cause) {
         super(cause);

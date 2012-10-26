@@ -16,6 +16,22 @@
 
 package de.brands4friends.daleq.core;
 
+/**
+ * Provides access to contextual information needed while building a {@link Table}.
+ */
 public interface Context {
+    /**
+     * A service lookup.
+     * <p/>
+     * The <code>Context</code> holds a service registry. Building a table requires access all of these services.
+     * This method decouples the public API from exposing the actual services. Which services are registered
+     * is implementation depending and my change.
+     *
+     * @param service the class of a requested service.
+     * @return If the <code>Context</code> has a registered implementation for requested <code>servive</code>, the
+     *         implementation is returned, otherwise an exception is thrown.
+     * @throws IllegalArgumentException if the <code>Context</code> does not have the requested
+     *                                  <code>service</code>.
+     */
     <T> T getService(Class<T> service);
 }

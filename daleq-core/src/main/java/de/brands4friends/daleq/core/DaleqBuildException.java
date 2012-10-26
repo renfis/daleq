@@ -16,6 +16,9 @@
 
 package de.brands4friends.daleq.core;
 
+/**
+ * Denotes a problem while building {@link TableData} out of a {@link Table}.
+ */
 public class DaleqBuildException extends DaleqException {
 
     public DaleqBuildException(final String message) {

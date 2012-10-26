@@ -16,6 +16,9 @@
 
 package de.brands4friends.daleq.core;
 
+/**
+ * Access to a particular row's field was requested, but such a field does not exist in the current context.
+ */
 public class NoSuchDaleqFieldException extends DaleqBuildException {
     public NoSuchDaleqFieldException(final String message) {
         super(message);

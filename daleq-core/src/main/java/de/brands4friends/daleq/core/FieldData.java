@@ -18,8 +18,24 @@ package de.brands4friends.daleq.core;
 
 import com.google.common.base.Optional;
 
+/**
+ * A data holding entity which represents a Row's Field according to Daleq's data model.
+ * This class is used internally by Daleq and should not be accessed directly by clients.
+ *
+ * @see TableData
+ * @see RowData
+ */
 public interface FieldData {
+    /**
+     * The field's name
+     */
     String getName();
 
+    /**
+     * Holds the field's value.
+     *
+     * @return If the field holds a <code>null</code> value, then <code>Optional.absend()</code> is
+     *         returned, otherwise the actual value is returned.
+     */
     Optional<String> getValue();
 }

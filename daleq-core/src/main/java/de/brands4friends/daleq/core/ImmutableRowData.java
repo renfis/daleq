@@ -46,11 +46,6 @@ final class ImmutableRowData implements RowData {
         });
     }
 
-    @Override
-    public List<FieldData> getFields() {
-        return fields;
-    }
-
     public FieldData getFieldBy(final String fieldName) {
         if (!containsField(fieldName)) {
             throw new NoSuchDaleqFieldException("fieldName");
