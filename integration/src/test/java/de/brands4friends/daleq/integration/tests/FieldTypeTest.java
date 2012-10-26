@@ -29,13 +29,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
-import de.brands4friends.daleq.core.Context;
 import de.brands4friends.daleq.core.DaleqException;
 import de.brands4friends.daleq.core.FieldType;
 import de.brands4friends.daleq.core.Table;
 import de.brands4friends.daleq.core.TableType;
-import de.brands4friends.daleq.core.internal.dbunit.ContextFactory;
 import de.brands4friends.daleq.core.internal.template.TemplateValueFactory;
+import de.brands4friends.daleq.core.internal.template.TemplateValueFactoryImpl;
+import de.brands4friends.daleq.core.internal.types.ClassBasedTableTypeReference;
+import de.brands4friends.daleq.core.internal.types.ClassBasedTableTypeResolver;
+import de.brands4friends.daleq.core.internal.types.TableTypeResolver;
 import de.brands4friends.daleq.integration.beans.TableProvider;
 
 
@@ -51,9 +53,9 @@ public class FieldTypeTest extends BaseTest {
 
     @Before
     public void setUp() {
-        final Context context = ContextFactory.context();
-        templateValueFactory = context.getService(TemplateValueFactory.class);
-        tableType = aTable(tableProvider.allTypesTable()).build(context).getTableType();
+        templateValueFactory = TemplateValueFactoryImpl.getInstance();
+        final TableTypeResolver tableTypeResolver = new ClassBasedTableTypeResolver();
+        tableType = tableTypeResolver.resolve(ClassBasedTableTypeReference.of(tableProvider.allTypesTable()));
     }
 
     @Test
