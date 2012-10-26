@@ -90,4 +90,9 @@ public class RowBuilderTest {
                 ))
         );
     }
+
+    @Test(expected = NullPointerException.class)
+    public void fieldTypeReferenceIsNull_should_fail() {
+        RowBuilder.aRow(23).f(null, null);
+    }
 }

@@ -22,6 +22,7 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 import com.google.common.base.Function;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -49,6 +50,7 @@ public class RowBuilder implements Row {
 
     @Override
     public Row f(final FieldTypeReference fieldTypeReference, @Nullable final Object value) {
+        Preconditions.checkNotNull(fieldTypeReference);
         fields.put(fieldTypeReference, new FieldHolder(fieldTypeReference, value));
         return this;
     }
