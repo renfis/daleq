@@ -22,11 +22,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import de.brands4friends.daleq.core.DaleqSupport;
-import de.brands4friends.daleq.core.internal.dbunit.ConnectionFactory;
-import de.brands4friends.daleq.core.internal.dbunit.DbUnitDaleqSupport;
 import de.brands4friends.daleq.integration.rules.RestrictDbRule;
-import de.brands4friends.daleq.spring.SpringConnectionFactory;
+import de.brands4friends.daleq.spring.DaleqSupportBean;
 
 @Configuration
 public class IntegrationConfig {
@@ -40,16 +37,11 @@ public class IntegrationConfig {
     }
 
     @Bean
-    public DaleqSupport daleqSupport(final ConnectionFactory connectionFactory) {
-        return DbUnitDaleqSupport.createInstance(connectionFactory);
-    }
-
-    @Bean
-    public ConnectionFactory connectionFactory() {
-        final SpringConnectionFactory connectionFactory = new SpringConnectionFactory();
-        connectionFactory.setDataTypeFactory(dbConfig.dataTypeFactory());
-        connectionFactory.setDataSource(dbConfig.dataSource());
-        return connectionFactory;
+    public DaleqSupportBean daleqSupport() {
+        final DaleqSupportBean daleqSupportBean = new DaleqSupportBean();
+        daleqSupportBean.setDataTypeFactory(dbConfig.dataTypeFactory());
+        daleqSupportBean.setDataSource(dbConfig.dataSource());
+        return daleqSupportBean;
     }
 
     @Bean

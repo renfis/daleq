@@ -39,46 +39,45 @@ import de.brands4friends.daleq.core.DaleqSupport;
 import de.brands4friends.daleq.core.FieldDef;
 import de.brands4friends.daleq.core.Table;
 import de.brands4friends.daleq.core.TableData;
-import de.brands4friends.daleq.core.internal.dbunit.dataset.InMemoryDataSetFactory;
 import de.brands4friends.daleq.core.internal.formatting.MarkdownTableFormatter;
+import de.brands4friends.daleq.core.internal.formatting.TableFormatter;
 
 public final class DbUnitDaleqSupport implements DaleqSupport {
 
     private final IDataSetFactory dataSetFactory;
     private final ConnectionFactory connectionFactory;
-    private final DatabaseOperation insertOperation;
+
+    private DatabaseOperation insertOperation = DatabaseOperation.INSERT;
+    private DatabaseOperation cleanInsertOperation = DatabaseOperation.CLEAN_INSERT;
 
     private final Context context;
     private final Asserter asserter;
 
-    private DbUnitDaleqSupport(
+    private TableFormatter tableFormatter = new MarkdownTableFormatter();
+
+    public DbUnitDaleqSupport(
             final IDataSetFactory dataSetFactory,
             final ConnectionFactory connectionFactory,
-            final DatabaseOperation insertOperation,
             final Asserter asserter) {
 
         this.dataSetFactory = dataSetFactory;
         this.connectionFactory = connectionFactory;
-        this.insertOperation = insertOperation;
         this.asserter = asserter;
 
         this.context = new SimpleContext();
     }
 
-    public static DbUnitDaleqSupport createInstance(final ConnectionFactory connectionFactory) {
-        final IDataSetFactory dataSetFactory = new InMemoryDataSetFactory();
-        final DatabaseOperation insertOperation = DatabaseOperation.INSERT;
-        final Asserter asserter = new Asserter(dataSetFactory, connectionFactory);
-        return new DbUnitDaleqSupport(dataSetFactory, connectionFactory, insertOperation, asserter);
+    void setInsertOperation(final DatabaseOperation insertOperation) {
+        this.insertOperation = insertOperation;
     }
 
-    public static DbUnitDaleqSupport createInstance(final IDataSetFactory dataSetFactory,
-                                                    final ConnectionFactory connectionFactory,
-                                                    final DatabaseOperation insertOperation,
-                                                    final Asserter asserter) {
-        return new DbUnitDaleqSupport(dataSetFactory, connectionFactory, insertOperation, asserter);
+    void setCleanInsertOperation(final DatabaseOperation cleanInsertOperation) {
+        this.cleanInsertOperation = cleanInsertOperation;
     }
 
+    void setTableFormatter(final TableFormatter tableFormatter) {
+        this.tableFormatter = tableFormatter;
+    }
 
     private IDatabaseConnection createDatabaseConnection() {
         Preconditions.checkNotNull(connectionFactory, "connectionFactory is null.");
@@ -87,8 +86,35 @@ public final class DbUnitDaleqSupport implements DaleqSupport {
 
     @Override
     public void insertIntoDatabase(final Table... tables) {
+        Preconditions.checkNotNull(insertOperation, "insertOperation");
+        executeOnDatabase(insertOperation, tables);
+    }
+
+    @Override
+    public void cleanInsertIntoDatabase(final Table... tables) {
+        Preconditions.checkNotNull(cleanInsertOperation, "cleanInsertOperation");
+        executeOnDatabase(cleanInsertOperation, tables);
+    }
+
+    @Override
+    public void assertTableInDatabase(final Table table, final FieldDef... ignoreColumns) {
+        Preconditions.checkNotNull(table);
+        final List<TableData> allTables = toTables(table);
+        asserter.assertTableInDatabase(allTables, ignoreColumns);
+    }
+
+    @Override
+    public void printTable(final Table table, final PrintStream printer) throws IOException {
+        Preconditions.checkNotNull(table);
+        final TableData tableData = table.build(context);
+        tableFormatter.formatTo(tableData, printer);
+    }
+
+
+    private void executeOnDatabase(final DatabaseOperation insertOperation1, final Table[] tables) {
         try {
-            insertIntoDatabase(toTables(tables));
+            final List<TableData> tableDatas = toTables(tables);
+            doExecuteOnDatabase(insertOperation1, tableDatas);
 
         } catch (DatabaseUnitException e) {
             throw new DaleqException(e);
@@ -111,26 +137,9 @@ public final class DbUnitDaleqSupport implements DaleqSupport {
                 });
     }
 
-    @Override
-    public void assertTableInDatabase(final Table table, final FieldDef... ignoreColumns) {
-        Preconditions.checkNotNull(table);
-        final List<TableData> allTables = toTables(table);
-        assertTableInDatabase(allTables, ignoreColumns);
-    }
-
-    private void assertTableInDatabase(final List<TableData> allTables, final FieldDef[] ignoreColumns) {
-        asserter.assertTableInDatabase(allTables, ignoreColumns);
-    }
-
-    @Override
-    public void printTable(final Table table, final PrintStream printer) throws IOException {
-        Preconditions.checkNotNull(table);
-        final TableData tableData = table.build(context);
-        new MarkdownTableFormatter().formatTo(tableData, printer);
-    }
-
-    private void insertIntoDatabase(final List<TableData> tables) throws DatabaseUnitException, SQLException {
+    private void doExecuteOnDatabase(final DatabaseOperation operation, final List<TableData> tables)
+            throws DatabaseUnitException, SQLException {
         final IDataSet dbUnitDataset = dataSetFactory.create(tables);
-        insertOperation.execute(createDatabaseConnection(), dbUnitDataset);
+        operation.execute(createDatabaseConnection(), dbUnitDataset);
     }
 }

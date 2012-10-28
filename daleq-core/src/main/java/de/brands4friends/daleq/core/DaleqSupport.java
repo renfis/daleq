@@ -40,6 +40,16 @@ public interface DaleqSupport {
      */
     void insertIntoDatabase(Table... tables);
 
+
+    /**
+     * Deletes the complete content of the given tables in the database and inserts the rows in <code>tables</code>
+     * into the database. The tables are inserted according to {@link DaleqSupport#insertIntoDatabase(Table...)}.
+     *
+     * @param tables the Daleq tables, which are should be filled into the database.
+     * @throws DaleqException if an error occurred in the underlying infrastructure.
+     */
+    void cleanInsertIntoDatabase(Table... tables);
+
     /**
      * Checks whether the actual table in the database has the same content as the given <code>table</code>.
      * <p/>

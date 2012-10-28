@@ -25,6 +25,8 @@ import static org.easymock.EasyMock.expect;
 import static org.hamcrest.Matchers.arrayContaining;
 import static org.junit.Assert.assertThat;
 
+import java.io.IOException;
+import java.io.PrintStream;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -35,6 +37,7 @@ import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.operation.DatabaseOperation;
 import org.easymock.Capture;
+import org.easymock.EasyMock;
 import org.easymock.EasyMockSupport;
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -49,6 +52,7 @@ import de.brands4friends.daleq.core.Table;
 import de.brands4friends.daleq.core.TableData;
 import de.brands4friends.daleq.core.TableDef;
 import de.brands4friends.daleq.core.internal.dbunit.dataset.InMemoryDataSetFactory;
+import de.brands4friends.daleq.core.internal.formatting.TableFormatter;
 
 // DaleqSupport should wrap the access to daleq. yes this might produce too much coupling, but for now that's the
 // way we go here.
@@ -57,6 +61,8 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
 
     private IDatabaseConnection connection;
     private Asserter asserter;
+    private TableFormatter tableFormatter;
+    private Table exampleTable;
 
     @TableDef("FOO")
     public static class MyTable {
@@ -67,30 +73,38 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
     private ConnectionFactory connectionFactory;
     private DbUnitDaleqSupport daleqSupport;
     private DatabaseOperation insertOperation;
+    private DatabaseOperation cleanInsertOperation;
 
     @Before
     public void setUp() throws Exception {
         connectionFactory = createMock(ConnectionFactory.class);
-        insertOperation = createMock(DatabaseOperation.class);
         connection = createMock(IDatabaseConnection.class);
         final IDataSetFactory dataSetFactory = new InMemoryDataSetFactory();
         asserter = createMock(Asserter.class);
-        daleqSupport = DbUnitDaleqSupport.createInstance(dataSetFactory, connectionFactory, insertOperation, asserter);
+        daleqSupport = new DbUnitDaleqSupport(dataSetFactory, connectionFactory, asserter);
+
+        insertOperation = createMock(DatabaseOperation.class);
+        cleanInsertOperation = createMock(DatabaseOperation.class);
+        tableFormatter = createMock(TableFormatter.class);
+
+        daleqSupport.setInsertOperation(insertOperation);
+        daleqSupport.setCleanInsertOperation(cleanInsertOperation);
+        daleqSupport.setTableFormatter(tableFormatter);
+
+        exampleTable = aTable(MyTable.class).with(
+                aRow(0).f(MyTable.VALUE, "val0"),
+                aRow(1).f(MyTable.VALUE, "val1")
+        );
     }
 
     @Test
-    public void inserIntoDatabase_should_insertAnIDataSetWithDbUnit() throws SQLException, DatabaseUnitException {
+    public void insertIntoDatabase_should_insertAnIDataSetWithDbUnit() throws SQLException, DatabaseUnitException {
         expectConnection();
         final Capture<IDataSet> capturedDataset = new Capture<IDataSet>();
         insertOperation.execute(eq(connection), capture(capturedDataset));
 
         replayAll();
-        daleqSupport.insertIntoDatabase(
-                aTable(MyTable.class).with(
-                        aRow(0).f(MyTable.VALUE, "val0"),
-                        aRow(1).f(MyTable.VALUE, "val1")
-                )
-        );
+        daleqSupport.insertIntoDatabase(exampleTable);
         verifyAll();
 
         final IDataSet dataSet = capturedDataset.getValue();
@@ -103,6 +117,17 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
     }
 
     @Test
+    public void cleanInsertIntoDatabase_should_delegateToCleanInsertOperation()
+            throws DatabaseUnitException, SQLException {
+        expectConnection();
+        cleanInsertOperation.execute(eq(connection), EasyMock.anyObject(IDataSet.class));
+
+        replayAll();
+        daleqSupport.cleanInsertIntoDatabase(exampleTable);
+        verifyAll();
+    }
+
+    @Test
     public void assertTable_should_delegate() throws DataSetException, SQLException {
         final Table table = aTable(MyTable.class).with(aRow(0));
         final List<TableData> tables = toTableData(table);
@@ -110,6 +135,18 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
 
         replayAll();
         daleqSupport.assertTableInDatabase(table, MyTable.ID, MyTable.VALUE);
+        verifyAll();
+    }
+
+    @Test
+    public void printTable_should_delegateToTableFormatter() throws IOException {
+
+        final PrintStream printStream = createMock(PrintStream.class);
+
+        tableFormatter.formatTo(exampleTable.build(ContextFactory.context()), printStream);
+
+        replayAll();
+        daleqSupport.printTable(exampleTable, printStream);
         verifyAll();
     }
 
