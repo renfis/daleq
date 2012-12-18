@@ -23,6 +23,9 @@ import static de.brands4friends.daleq.core.ExampleTable.PROP_B;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -316,8 +319,43 @@ public class TableBuilderTest {
     public void havingIterable_withNullAsValues_should_fail() {
         aTable(ExampleTable.class)
                 .withRowsBetween(0, 3)
-                .havingIterable(PROP_B, null)
+                .havingFrom(PROP_B, null)
                 .build(context);
+    }
+
+    @Test
+    public void havingFrom_withObjectList_should_compile() {
+        final List<Object> objs = new ArrayList<Object>();
+        objs.add("string 1");
+        objs.add("string 2");
+        objs.add("string 3");
+        aTable(ExampleTable.class).withRowsBetween(1, 3).havingFrom(PROP_B, objs).build(context);
+    }
+
+    @Test
+    public void havingFrom_withStringList_should_compile() {
+        final List<String> strings = new ArrayList<String>();
+        strings.add("string 1");
+        strings.add("string 2");
+        strings.add("string 3");
+        assertThat(
+                aTable(ExampleTable.class).withRowsBetween(1, 3).havingFrom(PROP_B, strings).build(context),
+                is(
+                        sb.table(
+                                sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "string 1")),
+                                sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "string 2")),
+                                sb.row(sb.field(PROP_A, "3"), sb.field(PROP_B, "string 3")))
+                )
+        );
+    }
+
+    @Test
+    public void havingFrom_and_havingIterable_should_doTheSame() {
+        final List<Object> strings = Lists.<Object>newArrayList("a1", "a2", "a3");
+        assertThat(
+                aTable(ExampleTable.class).withRowsBetween(1, 3).havingFrom(PROP_B, strings).build(context),
+                is(aTable(ExampleTable.class).withRowsBetween(1, 3).havingIterable(PROP_B, strings).build(context))
+        );
     }
 
     @Test

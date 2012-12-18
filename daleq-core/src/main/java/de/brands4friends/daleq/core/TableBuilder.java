@@ -96,10 +96,10 @@ final class TableBuilder implements Table {
     }
 
     @Override
-    public Table havingIterable(final FieldTypeReference field, final Iterable<Object> values) {
+    public <T> Table havingFrom(final FieldTypeReference field, final Iterable<T> values) {
         Preconditions.checkNotNull(field);
         Preconditions.checkNotNull(values);
-        final Iterator<Object> iter = values.iterator();
+        final Iterator<T> iter = values.iterator();
         for (Row row : rows) {
             if (!iter.hasNext()) {
                 return this;
@@ -107,6 +107,11 @@ final class TableBuilder implements Table {
             row.f(field, iter.next());
         }
         return this;
+    }
+
+    @Override
+    public <T> Table havingIterable(final FieldTypeReference field, final Iterable<Object> values) {
+        return havingFrom(field, values);
     }
 
     @Override
