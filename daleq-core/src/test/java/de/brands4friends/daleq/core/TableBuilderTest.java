@@ -121,20 +121,6 @@ public class TableBuilderTest {
     }
 
     @Test
-    public void aTableWithRowsUntil_should_beBuilt() {
-        assertThat(
-                aTable(ExampleTable.class).withRowsUntil(4).build(context),
-                is(
-                        sb.table(
-                                sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "0")),
-                                sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "1")),
-                                sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "2")),
-                                sb.row(sb.field(PROP_A, "3"), sb.field(PROP_B, "3"))
-                        ))
-        );
-    }
-
-    @Test
     public void aTableWithRowsBetween_should_beBuilt() {
         assertThat(
                 aTable(ExampleTable.class).withRowsBetween(10, 15).build(context),

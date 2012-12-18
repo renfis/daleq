@@ -110,23 +110,6 @@ public interface Table {
     Table withSomeRows(long... ids);
 
     /**
-     * Adds <code>maxId</code> number of rows with the ids from 0 to <code>maxId - 1</code> to the table.
-     * <p/>
-     * The method should not be used anymore and will be removed in future releases.
-     *
-     * @param maxId describes the upper (exclusive) limit of the ids which will be added, starting form 0.
-     * @return a <code>Table</code> containing the new rows.
-     * @deprecated The method was supposed to be used for convenience, but meanwhile we learned that it is not
-     *             intuitive. On one hand it is not a good idea to start ids form 0, because some DBs treat 0 as an
-     *             id special, especially in combination with sequences. For instance, Mysql will not let you explicitly
-     *             set a a field, which has the auto increment attribute, with a zero, only non zero values could be
-     *             set explicitly. On the other hand, specifying the maxId as an exclusive interval is not intuitive
-     *             in this context. Use {@link #withRowsBetween} instead.
-     */
-    @Deprecated
-    Table withRowsUntil(long maxId);
-
-    /**
      * Adds rows with all ids in the interval <code>[from,to]</code> to the table.
      * <p/>
      * A convience method, which assumes an interval starting at <code>from</code> up to and including <code>to</code>

@@ -65,11 +65,6 @@ final class TableBuilder implements Table {
     }
 
     @Override
-    public Table withRowsUntil(final long maxId) {
-        return withRowsBetween(0, maxId - 1);
-    }
-
-    @Override
     public Table withRowsBetween(final long from, final long to) {
         Preconditions.checkArgument(from >= 0, "Parameter from should be >= 0");
         Preconditions.checkArgument(to >= 0, "Parameter to should be >= 0");
