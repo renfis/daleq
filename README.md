@@ -1,3 +1,7 @@
+Daleq is a DSL to define content of a relational database in a concise and neat manner. It is actually very simple.
+It lets you describe a relational database table directly in your unit test by just writing those parts of the data
+that are subject to the test.
+
 Find out all about Daleq on [Daleq's Website](http://brands4friends.github.com/daleq-site/).
 
 Build Status
