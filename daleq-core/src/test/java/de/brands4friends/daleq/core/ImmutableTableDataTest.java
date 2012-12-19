@@ -65,7 +65,7 @@ public class ImmutableTableDataTest {
     }
 
     @Test(expected = NoSuchDaleqFieldException.class)
-    public void getValuesOfField_ifFieldDoesNotExist_sould_fail() {
+    public void getValuesOfField_ifFieldDoesNotExist_should_fail() {
         final TableData table = Daleq.aTable(TheTable.class).withRowsBetween(0, 5).build(ContextFactory.context());
         final Iterable<Optional<String>> result = table.getValuesOfField("DOES_NOT_EXIST");
         // should have failed

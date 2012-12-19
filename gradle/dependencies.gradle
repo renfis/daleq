@@ -16,41 +16,33 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 ext {
 
-    def springVersion = "3.1.1.RELEASE"
+    def springVersion = "3.2.0.RELEASE"
 
     deps = [
-            junit: "junit:junit:4.10",
-            hamcrest: "org.hamcrest:hamcrest-library:1.3.RC2",
+            junit: "junit:junit:4.11",
+            hamcrest: "org.hamcrest:hamcrest-library:1.3",
             easymock: "org.easymock:easymock:3.1",
-            sl4jSimple: "org.slf4j:slf4j-simple:1.5.6",
+            // We cannot upgrade to a later slf4j version, since DbUnit uses 1.5.6 and that version is
+            // not upward compatible. On the other hand, we use the slf4j simple module only for running tests,
+            // hence we ain't have any problems with this version (yet).
+            slf4jSimple: "org.slf4j:slf4j-simple:1.5.6",
 
-
-            jodaTime: "joda-time:joda-time:1.6.2",
-            guava: "com.google.guava:guava:12.0",
+            jodaTime: "joda-time:joda-time:2.1",
+            guava: "com.google.guava:guava:13.0.1",
+            jsr305: 'com.google.code.findbugs:jsr305:2.0.1',
             commonsLang: "commons-lang:commons-lang:2.6",
-            commonsCodec: "commons-codec:commons-codec:1.6",
+            commonsCodec: "commons-codec:commons-codec:1.7",
             dbUnit: "org.dbunit:dbunit:2.4.9",
 
             equalsverifier: "nl.jqno.equalsverifier:equalsverifier:1.1.3",
 
             springJdbc: "org.springframework:spring-jdbc:${springVersion}",
             springTest: "org.springframework:spring-test:${springVersion}",
-            hsqldb: "org.hsqldb:hsqldb:2.2.8",
-            h2: "com.h2database:h2:1.3.167",
-            mysql: "mysql:mysql-connector-java:5.1.21",
+            hsqldb: "org.hsqldb:hsqldb:2.2.9",
+            h2: "com.h2database:h2:1.3.170",
+            mysql: "mysql:mysql-connector-java:5.1.22",
             // as long as we've just got this license, we need to use version 2.6.x
             clover: "com.cenqua.clover:clover:2.6.2"
     ]

@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+
+
+
+
 description = 'Daleq Framework'
 
 // Define Dependencies
@@ -65,7 +69,8 @@ subprojects {
         testCompile deps.junit
         testCompile deps.hamcrest
         testCompile deps.easymock
-        testCompile deps.sl4jSimple
+        // We do not expose slf4j on our own, only tests will require it, since DbUnit uses it.
+        testRuntime deps.slf4jSimple
     }
 
     test {

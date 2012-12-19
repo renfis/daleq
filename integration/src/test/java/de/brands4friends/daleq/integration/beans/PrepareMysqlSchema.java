@@ -24,8 +24,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
-import org.springframework.test.jdbc.SimpleJdbcTestUtils;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.jdbc.JdbcTestUtils;
 
 public class PrepareMysqlSchema implements InitializingBean {
 
@@ -41,11 +41,8 @@ public class PrepareMysqlSchema implements InitializingBean {
     public void afterPropertiesSet() throws IOException {
         final ClassPathResource script = new ClassPathResource("schema-mysql.sql");
         logger.info("Preparing Schema with file {}", script.getFile().getAbsolutePath());
-        // Spring 3.1 deprecates SimpleJdbcTemplate, but not SimpleJdbcTestUtils. This will be resolved in Spring 3.2
-        // Until then we rely on this deprecated class.
-        // See as well https://jira.springsource.org/browse/SPR-9235
-        SimpleJdbcTestUtils.executeSqlScript(
-                new SimpleJdbcTemplate(dataSource),
+        JdbcTestUtils.executeSqlScript(
+                new JdbcTemplate(dataSource),
                 script,
                 false);
     }

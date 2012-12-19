@@ -25,6 +25,7 @@ apply from: script('uploadArchives')
 dependencies {
     compile deps.jodaTime
     compile deps.guava
+    compile deps.jsr305
     compile deps.commonsLang
     compile deps.commonsCodec
     compile deps.dbUnit
