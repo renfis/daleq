@@ -26,6 +26,8 @@ import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.brands4friends.daleq.core.internal.formatting.DateFormatter;
+
 public class TypeConversionImplTest {
 
     private TypeConversion conversion;
@@ -38,19 +40,19 @@ public class TypeConversionImplTest {
     @Test
     public void dateConverter_should_beRegistered() {
         final Date value = new Date(1234);
-        assertThat(conversion.convert(value), is(DateTypeConverter.createXMLDateTime(value)));
+        assertThat(conversion.convert(value), is(DateFormatter.print(value)));
     }
 
     @Test
     public void localDateConverter_should_beRegistered() {
         final LocalDate value = new LocalDate(1234L);
-        assertThat(conversion.convert(value), is(LocalDateConverter.createXMLDateTime(value)));
+        assertThat(conversion.convert(value), is(DateFormatter.print(value)));
     }
 
     @Test
     public void dateTimeConverter_should_beRegistered() {
         final DateTime value = new DateTime(1234);
-        assertThat(conversion.convert(value), is(DateTimeTypeConverter.createXMLDateTime(value)));
+        assertThat(conversion.convert(value), is(DateFormatter.print(value)));
     }
 
     @Test

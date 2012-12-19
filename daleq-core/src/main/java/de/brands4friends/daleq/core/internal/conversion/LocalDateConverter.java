@@ -17,30 +17,17 @@
 package de.brands4friends.daleq.core.internal.conversion;
 
 import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.DateTimeFormatterBuilder;
 
-public class LocalDateConverter implements TypeConverter {
+import de.brands4friends.daleq.core.internal.formatting.DateFormatter;
 
-    private static final DateTimeFormatter FORMATTER = new DateTimeFormatterBuilder()
-            .appendPattern("yyyy-MM-dd")
-            .toFormatter();
+class LocalDateConverter extends AbstractTypeConverter<LocalDate> {
 
-    public String convert(final Object valueToConvert) {
-        if (!(valueToConvert instanceof LocalDate)) {
-            final String targetType = (valueToConvert == null) ? "null" : valueToConvert.getClass().getCanonicalName();
-            final String msg = "LocalDateConverter tried to convert value [";
-            throw new IllegalArgumentException(msg + valueToConvert + "] of type: [" + targetType + "]");
-        }
-
-        return createXMLDateTime((LocalDate) valueToConvert);
+    public LocalDateConverter() {
+        super(LocalDate.class);
     }
 
-    public Class<?> getResponsibleFor() {
-        return LocalDate.class;
-    }
-
-    public static String createXMLDateTime(final LocalDate date) {
-        return FORMATTER.print(date);
+    @Override
+    protected String doConvert(final LocalDate localDate) {
+        return DateFormatter.print(localDate);
     }
 }

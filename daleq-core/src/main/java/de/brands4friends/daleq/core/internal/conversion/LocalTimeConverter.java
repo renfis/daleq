@@ -14,25 +14,20 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.template;
+package de.brands4friends.daleq.core.internal.conversion;
 
-import java.math.BigInteger;
+import org.joda.time.LocalTime;
 
-import org.joda.time.LocalDate;
-
-import de.brands4friends.daleq.core.TemplateValue;
 import de.brands4friends.daleq.core.internal.formatting.DateFormatter;
 
-final class DateTemplateValue implements TemplateValue {
+final class LocalTimeConverter extends AbstractTypeConverter<LocalTime> {
 
-    public static final long MAX_VALUE = 2932896;
-    private static final BigInteger MODULUS = BigInteger.valueOf(MAX_VALUE + 1);
+    public LocalTimeConverter() {
+        super(LocalTime.class);
+    }
 
     @Override
-    public String render(final long value) {
-        final BigInteger bd = BigInteger.valueOf(value);
-        final int remainder = bd.mod(MODULUS).intValue();
-        final LocalDate localDate = new LocalDate(0).plusDays(remainder);
-        return DateFormatter.print(localDate);
+    protected String doConvert(final LocalTime localTime) {
+        return DateFormatter.print(localTime);
     }
 }

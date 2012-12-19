@@ -46,7 +46,7 @@ public class HsqldbAllTypesTable {
 
     // Dates
     public static final FieldDef A_DATE = fd(DataType.DATE);
-    //    public static final FieldDef A_TIME = fd(DataType.TIME);
+    public static final FieldDef A_TIME = fd(DataType.TIME);
     public static final FieldDef A_TIMESTAMP = fd(DataType.TIMESTAMP);
 
     // Binaries

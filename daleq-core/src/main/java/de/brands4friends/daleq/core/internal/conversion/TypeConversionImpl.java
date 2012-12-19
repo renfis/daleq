@@ -27,10 +27,12 @@ import com.google.common.collect.Maps;
 public class TypeConversionImpl implements TypeConversion {
 
     private static final Map<Class<?>, TypeConverter> TYPE_CONVERTER_BY_CLASSNAME =
-            Maps.uniqueIndex(Lists.newArrayList(
+            Maps.uniqueIndex(Lists.<TypeConverter>newArrayList(
                     new DateTypeConverter(),
                     new DateTimeTypeConverter(),
-                    new LocalDateConverter()),
+                    new LocalDateConverter(),
+                    new LocalTimeConverter()
+            ),
 
                     new Function<TypeConverter, Class<?>>() {
                         @Override
