@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.template;
+package de.brands4friends.daleq.core;
 
 import java.math.BigInteger;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-
-import de.brands4friends.daleq.core.TemplateValue;
-import de.brands4friends.daleq.core.internal.formatting.DateFormatter;
 
 final class TimestampTemplateValue implements TemplateValue {
 
@@ -37,17 +34,16 @@ final class TimestampTemplateValue implements TemplateValue {
     }
 
     @Override
-    public String render(final long value) {
+    public Object transform(final long value) {
 
         final BigInteger val = BigInteger.valueOf(value);
         final int secondsToAdd = val.mod(modulus).intValue();
 
-        final DateTime dateTime = new DateTime(0, DateTimeZone.UTC)
+        return new DateTime(0, DateTimeZone.UTC)
                 // Mysql fails with 1970-01-01 00:xx:yy. See http://bugs.mysql.com/bug.php?id=22276
                 // Hence we add an hour offset.
                 .plusHours(1)
                 .plusSeconds(1)
                 .plusSeconds(secondsToAdd);
-        return DateFormatter.print(dateTime);
     }
 }

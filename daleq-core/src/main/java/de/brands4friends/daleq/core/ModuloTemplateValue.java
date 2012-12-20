@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.template;
+package de.brands4friends.daleq.core;
 
 import java.math.BigInteger;
 
 import com.google.common.base.Objects;
-
-import de.brands4friends.daleq.core.TemplateValue;
+import com.google.common.base.Preconditions;
 
 final class ModuloTemplateValue implements TemplateValue {
 
     private final BigInteger modulus;
 
     public ModuloTemplateValue(final long modulus) {
+        Preconditions.checkArgument(modulus > 0);
         this.modulus = BigInteger.valueOf(modulus);
     }
 
     @Override
-    public String render(final long value) {
-        return BigInteger.valueOf(value).mod(modulus).toString();
+    public Object transform(final long value) {
+        return BigInteger.valueOf(value).mod(modulus);
     }
 
     @Override

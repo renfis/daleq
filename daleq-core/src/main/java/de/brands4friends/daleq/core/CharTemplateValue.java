@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.template;
-
-import de.brands4friends.daleq.core.TemplateValue;
+package de.brands4friends.daleq.core;
 
 final class CharTemplateValue implements TemplateValue {
     @Override
-    public String render(final long value) {
+    public Object transform(final long value) {
         final int posz = 'z';
         final int posA = 'A';
         final int offset = (int) value % (posz - posA + 1);

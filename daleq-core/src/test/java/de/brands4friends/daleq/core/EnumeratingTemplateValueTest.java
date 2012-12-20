@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.template;
+package de.brands4friends.daleq.core;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -22,34 +22,36 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import nl.jqno.equalsverifier.EqualsVerifier;
+import com.google.common.collect.Lists;
 
-public class ModuloTemplateValueTest {
+public class EnumeratingTemplateValueTest {
 
-    private ModuloTemplateValue templateValue;
+    private EnumeratingTemplateValue<String> templateValue;
 
     @Before
     public void setUp() throws Exception {
-        templateValue = new ModuloTemplateValue(2);
+        templateValue = new EnumeratingTemplateValue<String>(
+                Lists.newArrayList("A", "B", "C", "D", "E")
+        );
     }
 
     @Test
-    public void testHashCodeAndEquals() {
-        EqualsVerifier.forClass(ModuloTemplateValue.class).verify();
+    public void transformPositiveValues() {
+
+        assertTransform(0, "A");
+        assertTransform(1, "B");
+        assertTransform(2, "C");
+        assertTransform(3, "D");
+        assertTransform(4, "E");
+        assertTransform(5, "A");
+    }
+
+    private void assertTransform(final int value, final String expected) {
+        assertThat((String) templateValue.transform(value), is(expected));
     }
 
     @Test
-    public void value_should_beRendered() {
-        assertThat(templateValue.render(0), is("0"));
-    }
-
-    @Test
-    public void oddValue_should_be1() {
-        assertThat(templateValue.render(23), is("1"));
-    }
-
-    @Test
-    public void evenValue_should_be0() {
-        assertThat(templateValue.render(42), is("0"));
+    public void transformNegative() {
+        assertTransform(-1, "B");
     }
 }

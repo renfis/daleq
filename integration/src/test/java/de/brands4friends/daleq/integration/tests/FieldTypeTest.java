@@ -177,7 +177,7 @@ public class FieldTypeTest extends BaseTest {
     private void assertInsertValueInAllFields(final long value) {
         final List<String> errors = Lists.newArrayList();
         for (FieldType fieldType : tableType.getFields()) {
-            final String templatized = templatizeValue(fieldType, value);
+            final Object templatized = templatizeValue(fieldType, value);
             final Table table = aTable(tableProvider.allTypesTable())
                     .with(aRow(1L).f(fieldType.getOrigin(), templatized));
 
@@ -197,7 +197,7 @@ public class FieldTypeTest extends BaseTest {
 
     }
 
-    private String templatizeValue(final FieldType fieldType, final long value) {
-        return templateValueFactory.create(fieldType.getDataType(), fieldType.getName()).render(value);
+    private Object templatizeValue(final FieldType fieldType, final long value) {
+        return templateValueFactory.create(fieldType.getDataType(), fieldType.getName()).transform(value);
     }
 }

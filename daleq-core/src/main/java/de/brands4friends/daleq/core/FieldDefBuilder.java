@@ -20,8 +20,6 @@ import com.google.common.base.Objects;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
-import de.brands4friends.daleq.core.internal.template.StringTemplateValue;
-
 final class FieldDefBuilder implements FieldDef {
 
     private final DataType dataType;

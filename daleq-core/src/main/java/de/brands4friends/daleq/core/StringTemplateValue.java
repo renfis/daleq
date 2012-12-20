@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.template;
+package de.brands4friends.daleq.core;
 
 import org.apache.commons.lang.text.StrSubstitutor;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
-
-import de.brands4friends.daleq.core.TemplateValue;
 
 public final class StringTemplateValue implements TemplateValue {
 
@@ -51,7 +49,7 @@ public final class StringTemplateValue implements TemplateValue {
     }
 
     @Override
-    public String render(final long value) {
+    public Object transform(final long value) {
         return StrSubstitutor.replace(this.template, ImmutableMap.of(VAR_NAME, value));
     }
 

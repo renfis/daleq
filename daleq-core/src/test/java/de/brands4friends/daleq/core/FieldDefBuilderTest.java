@@ -26,7 +26,6 @@ import org.junit.Test;
 
 import com.google.common.base.Optional;
 
-import de.brands4friends.daleq.core.internal.template.StringTemplateValue;
 import de.brands4friends.daleq.core.internal.types.TableTypeFactory;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;

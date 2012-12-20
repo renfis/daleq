@@ -76,8 +76,8 @@ class RowBuilder implements Row {
     private FieldData convertDefaultField(final FieldType fieldType, final Context context) {
         final TemplateValue templateValue = toTemplate(fieldType, context);
 
-        final String renderedValue = templateValue.render(binding);
-        return new ImmutableFieldData(fieldType.getName(), renderedValue);
+        final String convertedValue = convert(context, templateValue.transform(binding));
+        return new ImmutableFieldData(fieldType.getName(), convertedValue);
     }
 
     private TemplateValue toTemplate(final FieldType fieldType, final Context context) {

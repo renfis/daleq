@@ -28,10 +28,13 @@ package de.brands4friends.daleq.core;
 public interface TemplateValue {
 
     /**
-     * Maps a <code>Row</code>'s id to a field value, represented by a String.
+     * Maps a <code>Row</code>'s id to a field value.
+     * <p/>
+     * A field value may be of any type. It will be marshaled to a String by
+     * {@link de.brands4friends.daleq.core.internal.conversion.TypeConversion}.
      *
      * @param value the <code>Row</code>'s id.
-     * @return A String, representing the field value.
+     * @return An object, which will be marshaled to a String.
      */
-    String render(long value);
+    Object transform(long value);
 }

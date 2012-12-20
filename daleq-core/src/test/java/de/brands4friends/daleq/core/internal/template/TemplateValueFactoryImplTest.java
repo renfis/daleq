@@ -19,6 +19,12 @@ package de.brands4friends.daleq.core.internal.template;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.math.BigInteger;
+
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -74,7 +80,7 @@ public class TemplateValueFactoryImplTest {
     }
 
     private void assertNumericFieldRendering(final DataType dataType) {
-        assertRendering(dataType, "13");
+        assertBigIntegerTransforming(dataType, 13L);
     }
 
     @Test
@@ -84,12 +90,12 @@ public class TemplateValueFactoryImplTest {
 
     @Test
     public void defaultTemplate_of_BOOLEAN() {
-        assertRendering(DataType.BOOLEAN, "1");
+        assertBigIntegerTransforming(DataType.BOOLEAN, 1);
     }
 
     @Test
     public void defaultTemplate_of_BIT() {
-        assertRendering(DataType.BIT, "1");
+        assertBigIntegerTransforming(DataType.BIT, 1);
     }
 
     @Test
@@ -129,17 +135,17 @@ public class TemplateValueFactoryImplTest {
 
     @Test
     public void defaultTemplate_of_DATE() {
-        assertRendering(DataType.DATE, "1970-01-14");
+        assertTransforming(DataType.DATE, new LocalDate(1970, 1, 14));
     }
 
     @Test
     public void defaultTemplate_of_TIME() {
-        assertRendering(DataType.TIME, "00:00:13");
+        assertTransforming(DataType.TIME, new LocalTime(0, 0, 13));
     }
 
     @Test
     public void defaultTemplate_of_TIMESTAMP() {
-        assertRendering(DataType.TIMESTAMP, "1970-01-01 01:00:14.000");
+        assertTransforming(DataType.TIMESTAMP, new DateTime(1970, 1, 1, 1, 0, 14, DateTimeZone.UTC));
     }
 
     @Test
@@ -168,19 +174,23 @@ public class TemplateValueFactoryImplTest {
     }
 
     private void assertStringFieldRendering(final DataType dataType) {
-        assertRendering(dataType, "theField-13");
+        assertTransforming(dataType, "theField-13");
     }
 
-    private void assertRendering(final DataType dataType, final String expected) {
-        assertThat(factory.create(dataType, "theField").render(13L), is(expected));
+    private void assertBigIntegerTransforming(final DataType dataType, final long expected) {
+        assertTransforming(dataType, BigInteger.valueOf(expected));
+    }
+
+    private void assertTransforming(final DataType dataType, final Object expected) {
+        assertThat(factory.create(dataType, "theField").transform(13L), is(expected));
     }
 
     private void assertBase64FieldRendering() {
-        assertRendering(DataType.VARBINARY, "AAAAAAAAAA0=");
+        assertTransforming(DataType.VARBINARY, "AAAAAAAAAA0=");
     }
 
     private void assertCharFieldRendering() {
-        assertRendering(DataType.CHAR, "N");
+        assertTransforming(DataType.CHAR, "N");
     }
 
 }

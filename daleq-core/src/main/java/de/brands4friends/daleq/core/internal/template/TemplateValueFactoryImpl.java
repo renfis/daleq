@@ -27,7 +27,9 @@ import com.google.common.collect.Maps;
 
 import de.brands4friends.daleq.core.DaleqBuildException;
 import de.brands4friends.daleq.core.DataType;
+import de.brands4friends.daleq.core.StringTemplateValue;
 import de.brands4friends.daleq.core.TemplateValue;
+import de.brands4friends.daleq.core.TemplateValues;
 
 public final class TemplateValueFactoryImpl implements TemplateValueFactory {
 
@@ -67,7 +69,7 @@ public final class TemplateValueFactoryImpl implements TemplateValueFactory {
 
         @Override
         public TemplateValue map(final String fieldName, final String variable) {
-            return new StringTemplateValue(fieldName + "-" + variable);
+            return TemplateValues.string(fieldName + "-" + variable);
         }
     };
 
@@ -80,26 +82,26 @@ public final class TemplateValueFactoryImpl implements TemplateValueFactory {
 
         @Override
         public TemplateValue map(final String fieldName, final String variable) {
-            return new StringTemplateValue(variable);
+            return TemplateValues.modulo(Long.MAX_VALUE);
         }
     };
 
     private static final Collection<ToTemplate> TO_TEMPLATES = ImmutableList.of(
             NUMBER_TO_TEMPLATE,
-            new DelegatingToTemplate(of(DataType.NUMERIC), new ModuloTemplateValue(10000000000L)),
-            new DelegatingToTemplate(of(DataType.DECIMAL), new ModuloTemplateValue(10000000000L)),
-            new DelegatingToTemplate(of(DataType.TINYINT), new ModuloTemplateValue(128)),
-            new DelegatingToTemplate(of(DataType.SMALLINT), new ModuloTemplateValue(32768)),
+            new DelegatingToTemplate(of(DataType.NUMERIC), TemplateValues.modulo(10000000000L)),
+            new DelegatingToTemplate(of(DataType.DECIMAL), TemplateValues.modulo(10000000000L)),
+            new DelegatingToTemplate(of(DataType.TINYINT), TemplateValues.modulo(128)),
+            new DelegatingToTemplate(of(DataType.SMALLINT), TemplateValues.modulo(32768)),
             STRING_TO_TEMPLATE,
-            new DelegatingToTemplate(of(DataType.DATE), new DateTemplateValue()),
-            new DelegatingToTemplate(of(DataType.TIMESTAMP), new TimestampTemplateValue(Integer.MAX_VALUE / 2)),
-            new DelegatingToTemplate(of(DataType.TIME), new TimeTemplateValue()),
+            new DelegatingToTemplate(of(DataType.DATE), TemplateValues.date()),
+            new DelegatingToTemplate(of(DataType.TIMESTAMP), TemplateValues.timestamp()),
+            new DelegatingToTemplate(of(DataType.TIME), TemplateValues.time()),
 
-            new DelegatingToTemplate(of(DataType.BOOLEAN, DataType.BIT), new ModuloTemplateValue(2)),
-            new DelegatingToTemplate(of(DataType.CHAR, DataType.NCHAR), new CharTemplateValue()),
+            new DelegatingToTemplate(of(DataType.BOOLEAN, DataType.BIT), TemplateValues.modulo(2)),
+            new DelegatingToTemplate(of(DataType.CHAR, DataType.NCHAR), TemplateValues.character()),
             new DelegatingToTemplate(
                     of(DataType.VARBINARY, DataType.BINARY, DataType.LONGVARBINARY, DataType.BLOB),
-                    new Base64TemplateValue())
+                    TemplateValues.base64())
     );
 
     private final Map<DataType, ToTemplate> mapping;

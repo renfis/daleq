@@ -14,30 +14,28 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.template;
+package de.brands4friends.daleq.core;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import java.math.BigInteger;
+import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import com.google.common.collect.ImmutableList;
 
-public class Base64TemplateValueTest {
+public class EnumeratingTemplateValue<T> implements TemplateValue {
 
-    private Base64TemplateValue templateValue;
+    private final List<T> values;
 
-    @Before
-    public void setUp() throws Exception {
-        templateValue = new Base64TemplateValue();
+    public EnumeratingTemplateValue(final List<T> values) {
+        this.values = ImmutableList.copyOf(values);
     }
 
-    @Test
-    public void render() {
-        assertThat(templateValue.render(2384768273462873264L), is("IRhmHBNgTLA="));
-    }
-
-    @Test
-    public void render_zero() {
-        assertThat(templateValue.render(0L), is("AAAAAAAAAAA="));
+    @Override
+    public Object transform(final long value) {
+        final int idx = BigInteger
+                .valueOf(value)
+                .abs()
+                .mod(BigInteger.valueOf(values.size()))
+                .intValue();
+        return values.get(idx);
     }
 }

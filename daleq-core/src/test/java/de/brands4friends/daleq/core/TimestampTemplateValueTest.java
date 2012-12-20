@@ -14,31 +14,37 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.template;
+package de.brands4friends.daleq.core;
 
-import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+import org.hamcrest.Matchers;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TimeTemplateValueTest {
+public class TimestampTemplateValueTest {
 
-    private TimeTemplateValue templateValue;
+    private TimestampTemplateValue templateValue;
 
     @Before
     public void setUp() throws Exception {
-        templateValue = new TimeTemplateValue();
+        templateValue = new TimestampTemplateValue();
     }
 
     @Test
-    public void testValue() {
-        assertThat(templateValue.render(0), is("00:00:00"));
-        assertThat(templateValue.render(1), is("00:00:01"));
-        assertThat(templateValue.render(60), is("00:01:00"));
-        assertThat(templateValue.render(3600), is("01:00:00"));
-        assertThat(templateValue.render(86399999L), is("23:59:59"));
-        assertThat(templateValue.render(86400000L), is("00:00:00"));
-        assertThat(templateValue.render(86400001L), is("00:00:01"));
+    public void should_render_a_datetime() {
+        assertTransforming(0, new DateTime(1970, 1, 1, 1, 0, 1, DateTimeZone.UTC));
+    }
+
+    @Test
+    public void should_render_increment_time() {
+        assertTransforming(100, new DateTime(1970, 1, 1, 1, 1, 41, DateTimeZone.UTC));
+    }
+
+    private void assertTransforming(final int value, final DateTime expected) {
+        final DateTime transform = (DateTime) templateValue.transform(value);
+        assertThat(transform, Matchers.is(expected));
     }
 }

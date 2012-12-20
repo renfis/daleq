@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.template;
+package de.brands4friends.daleq.core;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -33,26 +33,26 @@ public class CharTemplateValueTest {
 
     @Test
     public void shouldBeA() {
-        assertThat(templateValue.render(0), is("A"));
+        assertThat((String) templateValue.transform(0), is("A"));
     }
 
     @Test
     public void shouldBeB() {
-        assertThat(templateValue.render(1), is("B"));
+        assertThat((String) templateValue.transform(1), is("B"));
     }
 
     @Test
     public void shouldBe_z() {
-        assertThat(templateValue.render(57), is("z"));
+        assertThat((String) templateValue.transform(57), is("z"));
     }
 
     @Test
     public void shouldBe_A_again() {
-        assertThat(templateValue.render(58), is("A"));
+        assertThat((String) templateValue.transform(58), is("A"));
     }
 
     @Test
     public void a141_shouldBe_Z() {
-        assertThat(templateValue.render(141), is("Z"));
+        assertThat((String) templateValue.transform(141), is("Z"));
     }
 }

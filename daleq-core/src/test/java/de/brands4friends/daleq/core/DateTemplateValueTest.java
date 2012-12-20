@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.template;
+package de.brands4friends.daleq.core;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,31 +34,35 @@ public class DateTemplateValueTest {
 
     @Test
     public void should_render_a_date() {
-        assertThat(templateValue.render(0), is("1970-01-01"));
+        assertTransform(0, new LocalDate(1970, 1, 1));
     }
 
     @Test
     public void render_should_increment_the_day() {
-        assertThat(templateValue.render(10), is("1970-01-11"));
+        assertTransform(10, new LocalDate(1970, 1, 11));
     }
 
     @Test
     public void renderMAX_VALUE_should_beMaximumDate() {
-        assertThat(templateValue.render(DateTemplateValue.MAX_VALUE), is("9999-12-31"));
+        assertTransform(DateTemplateValue.MAX_VALUE, new LocalDate(9999, 12, 31));
     }
 
     @Test
     public void renderOnePlusMAX_VALUE_should_beUnixStart() {
-        assertThat(templateValue.render(DateTemplateValue.MAX_VALUE + 1), is("1970-01-01"));
+        assertTransform(DateTemplateValue.MAX_VALUE + 1, new LocalDate(1970, 1, 1));
     }
 
     @Test
     public void renderNegativeMAX_VALUE_should_valid() {
-        assertThat(templateValue.render(-DateTemplateValue.MAX_VALUE), is("1970-01-02"));
+        assertTransform(-DateTemplateValue.MAX_VALUE, new LocalDate(1970, 1, 2));
     }
 
     @Test
     public void renderNegativeLong_should_renderValidDate() {
-        assertThat(templateValue.render(-9223372036854775808L), is("7616-04-12"));
+        assertTransform(-9223372036854775808L, new LocalDate(7616, 4, 12));
+    }
+
+    private void assertTransform(final long value, final LocalDate expected) {
+        assertThat((LocalDate) templateValue.transform(value), is(expected));
     }
 }

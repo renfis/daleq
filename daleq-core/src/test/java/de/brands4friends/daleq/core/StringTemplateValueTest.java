@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.template;
+package de.brands4friends.daleq.core;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import de.brands4friends.daleq.core.TemplateValue;
 import de.brands4friends.daleq.core.test.EqualsAssert;
 
 public class StringTemplateValueTest {
@@ -56,8 +55,8 @@ public class StringTemplateValueTest {
         assertRendering(null, 34, null);
     }
 
-    private void assertRendering(final String template, final long binding, final String expectedStr) {
+    private void assertRendering(final String template, final long binding, final Object expectedStr) {
         final TemplateValue templateValue = new StringTemplateValue(template);
-        assertThat(templateValue.render(binding), is(expectedStr));
+        assertThat(templateValue.transform(binding), is(expectedStr));
     }
 }

@@ -14,30 +14,38 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.template;
+package de.brands4friends.daleq.core;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+import org.joda.time.LocalTime;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TimestampTemplateValueTest {
+public class TimeTemplateValueTest {
 
-    private TimestampTemplateValue templateValue;
+    private TimeTemplateValue templateValue;
 
     @Before
     public void setUp() throws Exception {
-        templateValue = new TimestampTemplateValue();
+        templateValue = new TimeTemplateValue();
     }
 
     @Test
-    public void should_render_a_datetime() {
-        assertThat(templateValue.render(0), is("1970-01-01 01:00:01.000"));
+    public void testValue() {
+        assertTransforming(0, new LocalTime(0, 0, 0));
+        assertTransforming(1, new LocalTime(0, 0, 1));
+
+        assertTransforming(60, new LocalTime(0, 1, 0));
+        assertTransforming(3600, new LocalTime(1, 0, 0));
+
+        assertTransforming(86399999L, new LocalTime(23, 59, 59));
+        assertTransforming(86400000L, new LocalTime(0, 0, 0));
+        assertTransforming(86400001L, new LocalTime(0, 0, 1));
     }
 
-    @Test
-    public void should_render_increment_time() {
-        assertThat(templateValue.render(100), is("1970-01-01 01:01:41.000"));
+    private void assertTransforming(final long value, final LocalTime expected) {
+        assertThat((LocalTime) templateValue.transform(value), is(expected));
     }
 }
