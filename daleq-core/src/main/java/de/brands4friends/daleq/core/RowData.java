@@ -16,16 +16,27 @@
 
 package de.brands4friends.daleq.core;
 
-import java.util.List;
-
+/**
+ * A data holding entity which represents a table row according to Daleq's data model.
+ * This class is used internally by Daleq and should not be accessed directly by clients.
+ *
+ * @see TableData
+ * @see FieldData
+ */
 public interface RowData {
-    List<FieldData> getFields();
 
     /**
-     * @param fieldName
+     * If the row contains a Field with the given <code>fieldName</code>, the respective {@link FieldData} is returned.
+     *
+     * @param fieldName the name of a field, which should exist in the respective row.
      * @throws NoSuchDaleqFieldException if such a field does not exist in the RowData
      */
     FieldData getFieldBy(final String fieldName);
 
+    /**
+     * Returns true, if such a field exists, otherwise false.
+     *
+     * @param fieldName the name of a field, which should exist in the respective row.
+     */
     boolean containsField(final String fieldName);
 }

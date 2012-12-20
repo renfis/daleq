@@ -16,6 +16,7 @@
 
 package de.brands4friends.daleq.core.internal.dbunit.dataset;
 
+import static de.brands4friends.daleq.core.internal.dbunit.ContextFactory.context;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -28,7 +29,6 @@ import org.junit.Test;
 
 import de.brands4friends.daleq.core.Daleq;
 import de.brands4friends.daleq.core.TableData;
-import de.brands4friends.daleq.core.internal.builder.SimpleContext;
 
 public class TableAdapterTest {
 
@@ -38,7 +38,7 @@ public class TableAdapterTest {
 
     @Before
     public void setUp() {
-        tableData = Daleq.aTable(SomeTable.class).withRowsUntil(10).build(new SimpleContext());
+        tableData = Daleq.aTable(SomeTable.class).withRowsBetween(0, 9).build(context());
         tableAdapter = new TableAdapter(tableData);
     }
 

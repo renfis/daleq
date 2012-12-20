@@ -14,15 +14,24 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.builder;
+package de.brands4friends.daleq.core;
 
-import de.brands4friends.daleq.core.Daleq;
-import de.brands4friends.daleq.core.DataType;
-import de.brands4friends.daleq.core.FieldDef;
-import de.brands4friends.daleq.core.TableDef;
+import static nl.jqno.equalsverifier.EqualsVerifier.forClass;
 
-@TableDef("FOO")
-public final class ExampleTable {
-    public static final FieldDef PROP_A = Daleq.fd(DataType.INTEGER);
-    public static final FieldDef PROP_B = Daleq.fd(DataType.INTEGER);
+import org.junit.Test;
+
+import com.google.common.base.Optional;
+
+import nl.jqno.equalsverifier.Warning;
+
+public class FieldHolderTest {
+
+    @Test
+    public void testHashCodeAndEquals() {
+        forClass(FieldHolder.class)
+                .withPrefabValues(Optional.class, Optional.of(new Object()), Optional.of(new Object()))
+                .suppress(Warning.STRICT_INHERITANCE)
+                .verify();
+
+    }
 }

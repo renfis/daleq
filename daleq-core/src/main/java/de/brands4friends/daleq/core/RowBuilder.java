@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.builder;
+package de.brands4friends.daleq.core;
 
 import java.util.List;
 import java.util.Map;
@@ -22,33 +22,26 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 import com.google.common.base.Function;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import de.brands4friends.daleq.core.Context;
-import de.brands4friends.daleq.core.DaleqBuildException;
-import de.brands4friends.daleq.core.FieldData;
-import de.brands4friends.daleq.core.FieldType;
-import de.brands4friends.daleq.core.FieldTypeReference;
-import de.brands4friends.daleq.core.Row;
-import de.brands4friends.daleq.core.RowData;
-import de.brands4friends.daleq.core.TableType;
-import de.brands4friends.daleq.core.TemplateValue;
 import de.brands4friends.daleq.core.internal.conversion.TypeConversion;
 import de.brands4friends.daleq.core.internal.template.TemplateValueFactory;
 
-public class RowBuilder implements Row {
+class RowBuilder implements Row {
 
     private final long binding;
     private final Map<FieldTypeReference, FieldHolder> fields;
 
-    public RowBuilder(final long binding) {
+    RowBuilder(final long binding) {
         this.binding = binding;
         this.fields = Maps.newHashMap();
     }
 
     @Override
     public Row f(final FieldTypeReference fieldTypeReference, @Nullable final Object value) {
+        Preconditions.checkNotNull(fieldTypeReference);
         fields.put(fieldTypeReference, new FieldHolder(fieldTypeReference, value));
         return this;
     }
@@ -70,7 +63,7 @@ public class RowBuilder implements Row {
 
         return Lists.transform(tableType.getFields(), new Function<FieldType, FieldData>() {
             @Override
-            public FieldData apply(final FieldType fieldType) {
+            public FieldData apply(@Nullable final FieldType fieldType) {
                 final FieldHolder actualField = typeToHolder.get(fieldType);
                 if (actualField == null) {
                     return convertDefaultField(fieldType, context);
@@ -112,28 +105,28 @@ public class RowBuilder implements Row {
     private Map<FieldType, FieldHolder> createTypeToHolderIndex(final TableType tableType) {
         return Maps.uniqueIndex(fields.values(), new Function<FieldHolder, FieldType>() {
             @Override
-            public FieldType apply(final FieldHolder fieldHolder) {
+            public FieldType apply(@Nullable final FieldHolder fieldHolder) {
+                if (fieldHolder == null) {
+                    throw new IllegalArgumentException("fieldHolder");
+                }
                 final FieldTypeReference fieldTypeReference = fieldHolder.getFieldTypeRef();
                 final FieldType fieldType = fieldTypeReference.resolve(tableType);
                 if (fieldType == null) {
-                    return throwUnknownFieldException(fieldHolder, tableType);
+                    return throwNoSuchDaleqFieldException(fieldHolder, tableType);
                 }
                 return fieldType;
             }
         });
     }
 
-    private FieldType throwUnknownFieldException(final FieldHolder fieldHolder, final TableType tableType) {
+    private FieldType throwNoSuchDaleqFieldException(final FieldHolder fieldHolder, final TableType tableType) {
         final String msg = String.format(
                 "The row contains a field '%s', " +
                         "but the table '%s' does not contain such a field definition.",
                 fieldHolder.getFieldTypeRef(),
                 tableType.getName()
         );
-        throw new DaleqBuildException(msg);
+        throw new NoSuchDaleqFieldException(msg);
     }
 
-    public static RowBuilder aRow(final long binding) {
-        return new RowBuilder(binding);
-    }
 }

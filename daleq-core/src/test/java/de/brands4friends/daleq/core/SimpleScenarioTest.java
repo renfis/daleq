@@ -14,18 +14,14 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.builder;
+package de.brands4friends.daleq.core;
 
 import static de.brands4friends.daleq.core.Daleq.aRow;
 import static de.brands4friends.daleq.core.Daleq.aTable;
-import static de.brands4friends.daleq.core.internal.builder.SimpleScenarioTest.MyTable.NAME;
-import static de.brands4friends.daleq.core.internal.builder.SimpleScenarioTest.MyTable.VALUE;
+import static de.brands4friends.daleq.core.SimpleScenarioTest.MyTable.NAME;
+import static de.brands4friends.daleq.core.SimpleScenarioTest.MyTable.VALUE;
 
 import org.junit.Test;
-
-import de.brands4friends.daleq.core.Daleq;
-import de.brands4friends.daleq.core.DataType;
-import de.brands4friends.daleq.core.FieldDef;
 
 public class SimpleScenarioTest {
 

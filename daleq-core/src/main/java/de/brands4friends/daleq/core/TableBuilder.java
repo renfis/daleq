@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.builder;
+package de.brands4friends.daleq.core;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -27,36 +27,33 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Longs;
 
-import de.brands4friends.daleq.core.Context;
-import de.brands4friends.daleq.core.Daleq;
-import de.brands4friends.daleq.core.FieldTypeReference;
-import de.brands4friends.daleq.core.Row;
-import de.brands4friends.daleq.core.RowData;
-import de.brands4friends.daleq.core.Table;
-import de.brands4friends.daleq.core.TableData;
-import de.brands4friends.daleq.core.TableType;
-import de.brands4friends.daleq.core.TableTypeReference;
 import de.brands4friends.daleq.core.internal.types.TableTypeRepository;
 
-public final class TableBuilder implements Table {
+final class TableBuilder implements Table {
 
     private final TableTypeReference tableRef;
     private final List<Row> rows;
 
-    private TableBuilder(final TableTypeReference tableRef) {
+    TableBuilder(final TableTypeReference tableRef) {
         this.tableRef = Preconditions.checkNotNull(tableRef);
         this.rows = Lists.newArrayList();
     }
 
     @Override
     public Table with(final Row... rows) {
-        this.rows.addAll(Arrays.asList(rows));
+        Preconditions.checkNotNull(rows, "rows should not be null");
+        for (final Row row : rows) {
+            Preconditions.checkNotNull(row, "each row should not be null");
+            this.rows.add(row);
+        }
         return this;
     }
 
     @Override
     public Table withSomeRows(final Iterable<Long> ids) {
-        for (long id : ids) {
+        Preconditions.checkNotNull(ids);
+        for (Long id : ids) {
+            Preconditions.checkNotNull(id, "each id should not be null");
             this.rows.add(Daleq.aRow(id));
         }
         return this;
@@ -68,18 +65,11 @@ public final class TableBuilder implements Table {
     }
 
     @Override
-    public Table withRowsUntil(final long maxId) {
-        // TODO check parameter!
-        for (long i = 0; i < maxId; i++) {
-            this.rows.add(Daleq.aRow(i));
-        }
-        return this;
-    }
-
-    @Override
     public Table withRowsBetween(final long from, final long to) {
-        Preconditions.checkArgument(from < to,
-                "Parameter from should be less than parameter to, but %s<%s is not true.", from, to);
+        Preconditions.checkArgument(from >= 0, "Parameter from should be >= 0");
+        Preconditions.checkArgument(to >= 0, "Parameter to should be >= 0");
+        Preconditions.checkArgument(from <= to,
+                "Parameter 'from' should be less than or equal to parameter 'to', but %s<=%s is not true.", from, to);
         for (long i = from; i <= to; i++) {
             this.rows.add(Daleq.aRow(i));
         }
@@ -87,37 +77,48 @@ public final class TableBuilder implements Table {
     }
 
     @Override
-    public Table allHaving(final FieldTypeReference fieldDef, @Nullable final Object value) {
+    public Table allHaving(final FieldTypeReference field, @Nullable final Object value) {
+        Preconditions.checkNotNull(field, "field should not be null");
         for (Row row : rows) {
-            row.f(fieldDef, value);
+            row.f(field, value);
         }
         return this;
     }
 
     @Override
-    public Table having(final FieldTypeReference fieldDef, final Object... values) {
-        return havingIterable(fieldDef, Arrays.asList(values));
+    public Table having(final FieldTypeReference field, final Object... values) {
+        return havingIterable(field, Arrays.asList(values));
     }
 
     @Override
-    public Table havingIterable(final FieldTypeReference fieldDef, final Iterable<Object> values) {
+    public <T> Table havingFrom(final FieldTypeReference field, final Iterable<T> values) {
+        Preconditions.checkNotNull(field);
         Preconditions.checkNotNull(values);
-        final Iterator<Object> iter = values.iterator();
+        final Iterator<T> iter = values.iterator();
         for (Row row : rows) {
             if (!iter.hasNext()) {
                 return this;
             }
-            row.f(fieldDef, iter.next());
+            row.f(field, iter.next());
         }
         return this;
     }
 
     @Override
+    public <T> Table havingIterable(final FieldTypeReference field, final Iterable<Object> values) {
+        return havingFrom(field, values);
+    }
+
+    @Override
     public TableData build(final Context context) {
+        Preconditions.checkNotNull(context, "context should not be null.");
         final TableType tableType = toTableType(context);
         final List<RowData> rows = Lists.transform(this.rows, new Function<Row, RowData>() {
             @Override
-            public RowData apply(final Row row) {
+            public RowData apply(@Nullable final Row row) {
+                if (row == null) {
+                    throw new IllegalArgumentException("row");
+                }
                 return row.build(context, tableType);
             }
         });
@@ -129,7 +130,4 @@ public final class TableBuilder implements Table {
         return repository.get(tableRef);
     }
 
-    public static Table aTable(final TableTypeReference tableReference) {
-        return new TableBuilder(tableReference);
-    }
 }

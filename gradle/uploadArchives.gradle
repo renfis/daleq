@@ -14,38 +14,52 @@
  * limitations under the License.
  */
 
-
-
-
-
 apply plugin: 'maven'
+apply plugin: 'signing'
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
     from sourceSets.main.allSource
 }
 
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
 artifacts {
+    archives jar
+
     archives sourcesJar
+    archives javadocJar
+}
+
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
+
+signing {
+    required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
 }
 
 uploadArchives {
     repositories.mavenDeployer {
         configuration = configurations.archives
 
-        repository(url: propertyOr('nexus.url',null) ) {
+        beforeDeployment { deployment -> signing.signPom(deployment) }
+
+
+        repository(url: propertyOr('nexus.url', null)) {
             authentication(
-				userName: propertyOr('nexus.user',null),
-				password: propertyOr('nexus.password',null)
-			)
+                    userName: propertyOr('nexus.user', null),
+                    password: propertyOr('nexus.password', null)
+            )
         }
 
         pom.project {
             name project.displayName
-			description project.description
-            packaging 'jar'            
+            description project.description
+            packaging 'jar'
             url 'https://github.com/brands4friends/daleq'
-            inceptionYear '2012'
 
             scm {
                 url 'https://github.com/brands4friends/daleq'
@@ -55,7 +69,7 @@ uploadArchives {
             licenses {
                 license {
                     name 'The Apache License, Version 2.0'
-					url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
                     distribution 'repo'
                 }
             }

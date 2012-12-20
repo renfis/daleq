@@ -22,7 +22,7 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 import de.brands4friends.daleq.core.TemplateValue;
-import de.brands4friends.daleq.core.internal.conversion.DateTimeTypeConverter;
+import de.brands4friends.daleq.core.internal.formatting.DateFormatter;
 
 final class TimestampTemplateValue implements TemplateValue {
 
@@ -48,6 +48,6 @@ final class TimestampTemplateValue implements TemplateValue {
                 .plusHours(1)
                 .plusSeconds(1)
                 .plusSeconds(secondsToAdd);
-        return DateTimeTypeConverter.createXMLDateTime(dateTime);
+        return DateFormatter.print(dateTime);
     }
 }

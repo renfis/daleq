@@ -17,16 +17,38 @@
 
 
 
+
+
+
 description = 'Daleq Framework'
 
 // Define Dependencies
 apply from: script('dependencies')
 
-allprojects {	
-    apply plugin: 'idea'	
-	
+apply plugin: "sonar"
+
+sonar {
+    server {
+        url = propertyOr('sonar.host.url', null)
+    }
+    database {
+        url = propertyOr('sonar.jdbc.url', null)
+        driverClassName = propertyOr('sonar.jdbc.driver', null)
+        username = propertyOr('sonar.jdbc.username', null)
+        password = propertyOr('sonar.jdbc.password', null)
+    }
+}
+
+allprojects {
+    apply plugin: 'idea'
+    apply plugin: 'project-report'
+
     group = 'de.brands4friends.daleq'
-    version = '0.3.0-SNAPSHOT'
+    version = '1.0.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
 }
 
 subprojects {
@@ -49,7 +71,8 @@ subprojects {
         testCompile deps.junit
         testCompile deps.hamcrest
         testCompile deps.easymock
-        testCompile deps.sl4jSimple
+        // We do not expose slf4j on our own, only tests will require it, since DbUnit uses it.
+        testRuntime deps.slf4jSimple
     }
 
     test {
@@ -77,20 +100,27 @@ subprojects {
         ]
         ruleSetFiles = fileTree(dir: "${rootProject.projectDir}/config/pmd", include: '*.xml')
     }
+
+    sonar {
+        project {
+            sourceEncoding = "UTF-8"
+        }
+    }
 }
+
+apply from: script('clover')
 
 File script(String name) {
-  project.file("${rootProject.projectDir}/gradle/${name}.gradle")
+    project.file("${rootProject.projectDir}/gradle/${name}.gradle")
 }
 
-String propertyOr(propName,defaultProp) {
-	if( !project.hasProperty(propName) ) {
-		return defaultProp
-	}
-	return project.getProperty(propName)
+String propertyOr(propName, defaultProp) {
+    if (!project.hasProperty(propName)) {
+        return defaultProp
+    }
+    return project.getProperty(propName)
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.1'
+    gradleVersion = '1.2'
 }
-

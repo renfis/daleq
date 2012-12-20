@@ -14,27 +14,24 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.builder;
+package de.brands4friends.daleq.core;
 
 import static de.brands4friends.daleq.core.Daleq.aRow;
 import static de.brands4friends.daleq.core.Daleq.aTable;
-import static de.brands4friends.daleq.core.internal.builder.ExampleTable.PROP_A;
-import static de.brands4friends.daleq.core.internal.builder.ExampleTable.PROP_B;
+import static de.brands4friends.daleq.core.ExampleTable.PROP_A;
+import static de.brands4friends.daleq.core.ExampleTable.PROP_B;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
-import de.brands4friends.daleq.core.Context;
-import de.brands4friends.daleq.core.Daleq;
-import de.brands4friends.daleq.core.DaleqBuildException;
-import de.brands4friends.daleq.core.DataType;
-import de.brands4friends.daleq.core.FieldDef;
-import de.brands4friends.daleq.core.TableDef;
-import de.brands4friends.daleq.core.TableType;
+import de.brands4friends.daleq.core.internal.dbunit.ContextFactory;
 import de.brands4friends.daleq.core.internal.types.TableTypeFactory;
 
 public class TableBuilderTest {
@@ -44,7 +41,7 @@ public class TableBuilderTest {
 
     @Before
     public void setUp() throws Exception {
-        context = new SimpleContext();
+        context = ContextFactory.context();
         final TableType tableType = new TableTypeFactory().create(ExampleTable.class);
         sb = new StructureBuilder(tableType);
     }
@@ -60,6 +57,17 @@ public class TableBuilderTest {
                         )
                 ))
         );
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void aTableWithArrayIsNull_should_fail() {
+        final Row[] nullRows = null;
+        aTable(ExampleTable.class).with(nullRows);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void aTableWithNullRow_should_fail() {
+        aTable(ExampleTable.class).with(aRow(42), null);
     }
 
     @Test
@@ -101,18 +109,15 @@ public class TableBuilderTest {
         );
     }
 
-    @Test
-    public void aTableWithRowsUntil_should_beBuilt() {
-        assertThat(
-                aTable(ExampleTable.class).withRowsUntil(4).build(context),
-                is(
-                        sb.table(
-                                sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "0")),
-                                sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "1")),
-                                sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "2")),
-                                sb.row(sb.field(PROP_A, "3"), sb.field(PROP_B, "3"))
-                        ))
-        );
+    @Test(expected = NullPointerException.class)
+    public void aTableWithSomeNull_should_throw() {
+        final long[] nullArray = null;
+        aTable(ExampleTable.class).withSomeRows(nullArray);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void aTableWithSomeRowsAndOneIsNull_should_throw() {
+        aTable(ExampleTable.class).withSomeRows(1L, 2L, (Long) null);
     }
 
     @Test
@@ -130,14 +135,50 @@ public class TableBuilderTest {
         );
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void aTableWithRowsBetween_butFromEqualsTo_should_fail() {
-        aTable(ExampleTable.class).withRowsBetween(10, 10);
+    @Test
+    public void aTableWithRowsBetween_andFromEqualsTo_should_beCorrect() {
+        assertThat(
+                aTable(ExampleTable.class).withRowsBetween(10, 10).build(context),
+                is(sb.table(
+                        sb.row(sb.field(PROP_A, "10"), sb.field(PROP_B, "10"))
+                ))
+        );
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void aTableWithRowsBetween_butFromLessThanTo_should_fail() {
         aTable(ExampleTable.class).withRowsBetween(10, 9);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void aTableWithRowsBetween_butFromIsLessZero_should_fail() {
+        aTable(ExampleTable.class).withRowsBetween(-1, 10);
+    }
+
+    @Test
+    public void aTableWithRowsBetween_startingAtZero_should_beCorrect() {
+        assertThat(
+                aTable(ExampleTable.class).withRowsBetween(0, 1).build(context),
+                is(sb.table(
+                        sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "0")),
+                        sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "1"))
+                ))
+        );
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void aTableWithRowsBetween_butToIsLessZero_should_fail() {
+        aTable(ExampleTable.class).withRowsBetween(0, -1);
+    }
+
+    @Test
+    public void aTableWithRowsBetween_toIsZero_should_beCorrect() {
+        assertThat(
+                aTable(ExampleTable.class).withRowsBetween(0, 0).build(context),
+                is(sb.table(
+                        sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "0"))
+                ))
+        );
     }
 
     @Test
@@ -179,10 +220,15 @@ public class TableBuilderTest {
         );
     }
 
+    @Test(expected = NullPointerException.class)
+    public void allHaving_withFieldNull_should_fail() {
+        aTable(ExampleTable.class).withRowsBetween(1, 1).allHaving(null, "some value");
+    }
+
     @Test(expected = DaleqBuildException.class)
     public void allHaving_withFieldDefNotInTable_should_fail() {
         aTable(ExampleTable.class)
-                .withRowsUntil(1)
+                .withRowsBetween(0, 1)
                 .allHaving(Daleq.fd(DataType.CHAR).name("foo"), "bar")
                 .build(context);
     }
@@ -195,7 +241,7 @@ public class TableBuilderTest {
     @Test
     public void having_withEmptyValues_should_leaveTheFieldsAsTheyAre() {
         assertThat(
-                aTable(ExampleTable.class).withRowsUntil(3).having(PROP_B).build(context),
+                aTable(ExampleTable.class).withRowsBetween(0, 2).having(PROP_B).build(context),
                 is(
                         sb.table(
                                 sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "0")),
@@ -210,7 +256,7 @@ public class TableBuilderTest {
     public void having_withValuesAsMuchElementsAsTable_should_fillTheTableCompletely() {
         assertThat(
                 aTable(ExampleTable.class)
-                        .withRowsUntil(3)
+                        .withRowsBetween(0, 2)
                         .having(PROP_B, "A", "B", "C")
                         .build(context),
                 is(
@@ -227,7 +273,7 @@ public class TableBuilderTest {
     public void having_withValuesLessElementsThanTheTable_should_fillUpToThatValues() {
         assertThat(
                 aTable(ExampleTable.class)
-                        .withRowsUntil(3)
+                        .withRowsBetween(0, 2)
                         .having(PROP_B, "A", "B")
                         .build(context),
                 is(
@@ -244,7 +290,7 @@ public class TableBuilderTest {
     public void having_withNullInValues_should_setThatRowToNull() {
         assertThat(
                 aTable(ExampleTable.class)
-                        .withRowsUntil(1)
+                        .withRowsBetween(0, 0)
                         .having(PROP_B, (Object) null)
                         .build(context),
                 is(
@@ -258,34 +304,81 @@ public class TableBuilderTest {
     @Test(expected = NullPointerException.class)
     public void havingIterable_withNullAsValues_should_fail() {
         aTable(ExampleTable.class)
-                .withRowsUntil(3)
-                .havingIterable(PROP_B, null)
+                .withRowsBetween(0, 3)
+                .havingFrom(PROP_B, null)
                 .build(context);
+    }
+
+    @Test
+    public void havingFrom_withObjectList_should_compile() {
+        final List<Object> objs = new ArrayList<Object>();
+        objs.add("string 1");
+        objs.add("string 2");
+        objs.add("string 3");
+        aTable(ExampleTable.class).withRowsBetween(1, 3).havingFrom(PROP_B, objs).build(context);
+    }
+
+    @Test
+    public void havingFrom_withStringList_should_compile() {
+        final List<String> strings = new ArrayList<String>();
+        strings.add("string 1");
+        strings.add("string 2");
+        strings.add("string 3");
+        assertThat(
+                aTable(ExampleTable.class).withRowsBetween(1, 3).havingFrom(PROP_B, strings).build(context),
+                is(
+                        sb.table(
+                                sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "string 1")),
+                                sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "string 2")),
+                                sb.row(sb.field(PROP_A, "3"), sb.field(PROP_B, "string 3")))
+                )
+        );
+    }
+
+    @Test
+    public void havingFrom_and_havingIterable_should_doTheSame() {
+        final List<Object> strings = Lists.<Object>newArrayList("a1", "a2", "a3");
+        assertThat(
+                aTable(ExampleTable.class).withRowsBetween(1, 3).havingFrom(PROP_B, strings).build(context),
+                is(aTable(ExampleTable.class).withRowsBetween(1, 3).havingIterable(PROP_B, strings).build(context))
+        );
     }
 
     @Test
     public void having_withValuesMoreElementsThanTheTable_should_fillTheTable() {
         assertThat(
                 aTable(ExampleTable.class)
-                        .withRowsUntil(3)
-                        .having(PROP_B, "A", "B", "C", "D", "E")
+                        .withRowsBetween(0, 2)
+                        .having(PROP_B, "AA", "BB", "CC", "DD", "EE")
                         .build(context),
                 is(
                         sb.table(
-                                sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "A")),
-                                sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "B")),
-                                sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "C"))
+                                sb.row(sb.field(PROP_A, "0"), sb.field(PROP_B, "AA")),
+                                sb.row(sb.field(PROP_A, "1"), sb.field(PROP_B, "BB")),
+                                sb.row(sb.field(PROP_A, "2"), sb.field(PROP_B, "CC"))
                         )
                 )
         );
     }
 
-    @Test(expected = DaleqBuildException.class)
-    public void having_withFieldDefNotInTable_should_fail() {
+    @Test
+    public void having_withFieldDefNotInTable_should_notFailWhenSet() {
         aTable(ExampleTable.class)
-                .withRowsUntil(1)
+                .withRowsBetween(0, 1)
+                .having(Daleq.fd(DataType.CHAR).name("foo"), "bar");
+    }
+
+    @Test(expected = DaleqBuildException.class)
+    public void having_withFieldDefNotInTable_should_failWhenBuilt() {
+        aTable(ExampleTable.class)
+                .withRowsBetween(0, 1)
                 .having(Daleq.fd(DataType.CHAR).name("foo"), "bar")
                 .build(context);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void having_withNullField_should_fail() {
+        aTable(ExampleTable.class).withRowsBetween(1, 1).having(null);
     }
 
     @TableDef("ANOTHER_TABLE")
@@ -296,5 +389,10 @@ public class TableBuilderTest {
     @Test(expected = DaleqBuildException.class)
     public void aTableWithFieldsFromAnotherTable_should_fail() {
         aTable(ExampleTable.class).with(aRow(1).f(AnotherTable.ANOTHER_FIELD, 123)).build(context);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void build_with_null_should_fail() {
+        aTable(ExampleTable.class).with(aRow(1)).build(null);
     }
 }

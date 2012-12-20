@@ -21,7 +21,7 @@ import java.math.BigInteger;
 import org.joda.time.LocalDate;
 
 import de.brands4friends.daleq.core.TemplateValue;
-import de.brands4friends.daleq.core.internal.conversion.LocalDateConverter;
+import de.brands4friends.daleq.core.internal.formatting.DateFormatter;
 
 final class DateTemplateValue implements TemplateValue {
 
@@ -33,6 +33,6 @@ final class DateTemplateValue implements TemplateValue {
         final BigInteger bd = BigInteger.valueOf(value);
         final int remainder = bd.mod(MODULUS).intValue();
         final LocalDate localDate = new LocalDate(0).plusDays(remainder);
-        return LocalDateConverter.createXMLDateTime(localDate);
+        return DateFormatter.print(localDate);
     }
 }

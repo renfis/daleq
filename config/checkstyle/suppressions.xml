@@ -35,6 +35,6 @@
     <!-- It is actually the idea of this class to hide the rest of the implementation, hence it has to fan out.
          There is no better idea how to satisfy both requirements by now.
       -->
-    <suppress files=".*de/brands4friends/daleq/internal/dbunit/DbUnitDaleqSupport\.java"
+    <suppress files=".*de/brands4friends/daleq/core/internal/dbunit/DbUnitDaleqSupport\.java"
               checks="ClassFanOutComplexity"/>
 </suppressions>

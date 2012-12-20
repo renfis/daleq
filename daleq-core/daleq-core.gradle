@@ -16,17 +16,16 @@
 
 
 
-
-
-apply from: script('uploadArchives')
-
 displayName = "Daleq Framework - Core Module"
 description = 'Daleq is a DSL to define the content of a relational database in \
  a concise and neat manner. It is actually very simple.'
 
+apply from: script('uploadArchives')
+
 dependencies {
     compile deps.jodaTime
     compile deps.guava
+    compile deps.jsr305
     compile deps.commonsLang
     compile deps.commonsCodec
     compile deps.dbUnit

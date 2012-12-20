@@ -14,23 +14,19 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.builder;
+package de.brands4friends.daleq.integration.rules;
 
-import static nl.jqno.equalsverifier.EqualsVerifier.forClass;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import org.junit.Test;
+import de.brands4friends.daleq.integration.config.SupportedDb;
 
-import com.google.common.base.Optional;
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface Restrict {
+    SupportedDb[] not();
 
-import nl.jqno.equalsverifier.Warning;
-
-public class ImmutableFieldDataTest {
-
-    @Test
-    public void testHashcodeAndEquals() {
-        forClass(ImmutableFieldData.class)
-                .suppress(Warning.NULL_FIELDS)
-                .withPrefabValues(Optional.class, Optional.of("A"), Optional.of("B"))
-                .verify();
-    }
+    String reason();
 }

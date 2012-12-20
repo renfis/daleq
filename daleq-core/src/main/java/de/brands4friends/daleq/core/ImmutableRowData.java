@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.builder;
+package de.brands4friends.daleq.core;
 
 import java.util.List;
 import java.util.Map;
@@ -27,10 +27,6 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
-
-import de.brands4friends.daleq.core.FieldData;
-import de.brands4friends.daleq.core.NoSuchDaleqFieldException;
-import de.brands4friends.daleq.core.RowData;
 
 final class ImmutableRowData implements RowData {
 
@@ -48,11 +44,6 @@ final class ImmutableRowData implements RowData {
                 return field.getName();
             }
         });
-    }
-
-    @Override
-    public List<FieldData> getFields() {
-        return fields;
     }
 
     public FieldData getFieldBy(final String fieldName) {

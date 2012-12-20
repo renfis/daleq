@@ -20,6 +20,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
@@ -39,7 +41,10 @@ final class TableTypeImpl implements TableType {
         this.fields = fields;
         this.lookupByDef = Maps.uniqueIndex(fields, new Function<FieldType, FieldTypeReference>() {
             @Override
-            public FieldTypeReference apply(final FieldType input) {
+            public FieldTypeReference apply(@Nullable final FieldType input) {
+                if (input == null) {
+                    throw new IllegalArgumentException("input");
+                }
                 return input.getOrigin();
             }
         });

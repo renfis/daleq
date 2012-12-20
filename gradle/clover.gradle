@@ -1,0 +1,171 @@
+/*
+ * Copyright 2012 brands4friends, Private Sale GmbH
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+
+
+if (!project.hasProperty("withClover")) {
+    logger.info("No clover coverage is created. If you want to create coverage use the -PwithClover switch.")
+    return
+}
+
+allprojects {
+    configurations {
+        clover
+    }
+
+    dependencies {
+        clover deps.clover
+    }
+
+    ant.taskdef(resource: "cloverlib.xml", classpath: configurations.clover.asPath)
+    ant.property(name: "clover.license.path", value: project.getProperty('clover.license'))
+
+    project.convention.plugins.clover = new CloverPluginConvention(project)
+}
+
+project(':') {
+    task aggregate() << {
+
+        def cloverDb = new File(project.projectDir, '.clover/clover2_6_2.db')
+        cloverDb.parentFile.mkdirs()
+
+        ant.'clover-merge'(initString: cloverDb) {
+            cloverdbset(dir: project.projectDir, includes: '**/clover*.db')
+        }
+
+        def cloverConvention = project.convention.plugins.clover
+        cloverConvention.makeReports(ant)
+    }
+}
+
+subprojects {
+
+    def cloverConvention = project.convention.plugins.clover
+
+    def cloverEnabled = false
+
+    dependencies {
+        configurations.clover.each {
+            testRuntime files(it)
+        }
+    }
+
+    test.doFirst {
+        if (sourceSets.main.output.classesDir.exists()) {
+
+            // Before running clover, ensure that test sources exist. If test sources don't exist, coverage will fail.
+            sourceSets.test.java.srcDirs.each {
+                if (it.exists()) {
+                    cloverEnabled = true
+                }
+            }
+
+            if (!cloverEnabled) {
+                logger.info("Could not find test sources, skipping coverage.")
+            }
+            else {
+                logger.info("Running clover coverage generation.")
+                ant."clover-clean"()
+
+                //instrument the source
+                new File(cloverConvention.instrSrcDir).mkdirs()
+                sourceSets.main.java.srcDirs.each {
+                    if (it.exists()) {
+                        ant."clover-instr"(srcdir: it, destdir: cloverConvention.instrSrcDir)
+                    }
+                }
+
+                //move original classes
+                ant.move(file: sourceSets.main.output.classesDir, tofile: cloverConvention.classesBackupDir)
+
+                //compile instrumented classes
+                sourceSets.main.output.classesDir.mkdirs()
+
+                ant.javac(
+                        srcdir: cloverConvention.instrSrcDir,
+                        destdir: sourceSets.main.output.classesDir,
+                        source: sourceCompatibility,
+                        target: targetCompatibility,
+                        includeAntRuntime: false) {
+                    classpath {
+                        pathElement path: configurations.testRuntime.asPath + ":" + configurations.clover.asPath
+                    }
+                }
+
+                //copy resources
+                ant.copy(todir: sourceSets.main.output.classesDir) {
+                    fileset(dir: cloverConvention.classesBackupDir, excludes: "**/*.class")
+                }
+            }
+        }
+    }
+
+    test.doLast {
+        if (new File(cloverConvention.classesBackupDir).exists() && cloverEnabled) {
+
+            // restore original classes
+            ant.delete(file: sourceSets.main.output.classesDir)
+            ant.move(file: cloverConvention.classesBackupDir, tofile: sourceSets.main.output.classesDir)
+
+            cloverConvention.makeReports(ant)
+        }
+    }
+
+    sonar {
+        project {
+            cloverReportPath cloverConvention.xmlReport
+        }
+    }
+}
+
+class CloverPluginConvention {
+    def instrSrcDir
+    def classesBackupDir
+    def licenseFile
+    def historyDir
+    def reportDir
+    def xmlReport
+
+    // historyDir is set to a location outside of buildDir so that the clean task does not remove it.
+    CloverPluginConvention(Project project) {
+        instrSrcDir = "${project.buildDir}/instrSrc"
+
+        if (project.hasProperty('sourceSets')) {
+            classesBackupDir = "${project.sourceSets.main.output.classesDir}-bak"
+        }
+
+        licenseFile = project.getProperty('clover.license')
+        historyDir = "${project.projectDir}/clover-history"
+
+        reportDir = new File(project.reporting.baseDir, 'clover')
+        xmlReport = new File('clover.xml', reportDir)
+    }
+
+    def clover(Closure close) {
+        close.delegate = this
+        close.run()
+    }
+
+    def makeReports(ant) {
+        reportDir.mkdirs()
+
+        ant."clover-report" {
+            current(outfile: xmlReport.absolutePath)
+        }
+        ant."clover-html-report"(outdir: "${reportDir.absolutePath}/html");
+    }
+}

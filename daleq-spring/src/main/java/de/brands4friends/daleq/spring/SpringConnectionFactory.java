@@ -17,47 +17,18 @@
 package de.brands4friends.daleq.spring;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import org.dbunit.DatabaseUnitException;
-import org.dbunit.database.DatabaseConnection;
-import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.dataset.datatype.IDataTypeFactory;
-import org.dbunit.ext.hsqldb.HsqldbDataTypeFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
-import com.google.common.base.Preconditions;
+import de.brands4friends.daleq.core.internal.dbunit.AbstractConnectionFactory;
 
-import de.brands4friends.daleq.core.DaleqException;
-import de.brands4friends.daleq.core.internal.dbunit.ConnectionFactory;
+public class SpringConnectionFactory extends AbstractConnectionFactory {
 
-public class SpringConnectionFactory implements ConnectionFactory {
-
-    private DataSource dataSource;
-
-    private IDataTypeFactory dataTypeFactory = new HsqldbDataTypeFactory();
-
-    public void setDataSource(final DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-
-    public void setDataTypeFactory(final IDataTypeFactory dataTypeFactory) {
-        this.dataTypeFactory = dataTypeFactory;
-    }
-
-    @Override
-    @SuppressWarnings("PMD.CloseResource") // this is a factory. it will not close the resource for sure!
-    public IDatabaseConnection createConnection() {
-        Preconditions.checkNotNull(dataSource, "dataSource is null.");
-        try {
-            final Connection conn = DataSourceUtils.getConnection(dataSource);
-            final DatabaseConnection databaseConnection = new DatabaseConnection(conn);
-            databaseConnection.getConfig().setProperty(
-                    "http://www.dbunit.org/properties/datatypeFactory", dataTypeFactory);
-            return databaseConnection;
-        } catch (DatabaseUnitException e) {
-            throw new DaleqException(e);
-        }
+    @Override @SuppressWarnings("PMD.CloseResource") // this is a factory. it will not close the resource for sure!
+    protected Connection getConnection(final DataSource dataSource) throws SQLException {
+        return DataSourceUtils.getConnection(dataSource);
     }
 }

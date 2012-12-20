@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.builder;
+package de.brands4friends.daleq.core;
 
 import java.util.List;
 
@@ -28,9 +28,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 
-import de.brands4friends.daleq.core.RowData;
-import de.brands4friends.daleq.core.TableData;
-import de.brands4friends.daleq.core.TableType;
+import de.brands4friends.daleq.core.internal.types.NamedFieldTypeReference;
 
 final class ImmutableTableData implements TableData {
 
@@ -59,6 +57,12 @@ final class ImmutableTableData implements TableData {
 
     @Override
     public Iterable<Optional<String>> getValuesOfField(final String fieldName) {
+        final FieldType fieldType = new NamedFieldTypeReference(fieldName).resolve(tableType);
+        if (fieldType == null) {
+            throw new NoSuchDaleqFieldException(
+                    "Table " + tableType.getName() + " does not contain the Field " + fieldName);
+        }
+
         return Iterables.transform(rows, new Function<RowData, Optional<String>>() {
             @Override
             public Optional<String> apply(@Nullable final RowData row) {

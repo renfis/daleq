@@ -19,8 +19,9 @@ package de.brands4friends.daleq.core.internal.conversion;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.hamcrest.core.Is;
+import org.hamcrest.Matchers;
 import org.joda.time.LocalDate;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -45,7 +46,7 @@ public class LocalDateConverterTest {
 
     @Test
     public void converter_should_beResponsibleForLocalDate() {
-        assertThat(converter.getResponsibleFor(), Is.is(LocalDate.class.getClass()));
+        Assert.assertThat(converter.getResponsibleFor(), Matchers.typeCompatibleWith(LocalDate.class));
     }
 
 }

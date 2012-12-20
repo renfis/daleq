@@ -16,27 +16,19 @@
 
 package de.brands4friends.daleq.core.internal.conversion;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
-public class DateTypeConverter implements TypeConverter {
+import de.brands4friends.daleq.core.internal.formatting.DateFormatter;
 
-    public String convert(final Object valueToConvert) {
-        if (!(valueToConvert instanceof Date)) {
-            final String targetType = valueToConvert == null ? "null" : valueToConvert.getClass().getCanonicalName();
-            final String msg = "DateTypeConverter tried to convert value [";
-            throw new IllegalArgumentException(msg + valueToConvert + "] of type: [" + targetType + "]");
-        }
+final class DateTypeConverter extends AbstractTypeConverter<Date> {
 
-        return createXMLDateTime((Date) valueToConvert);
+    public DateTypeConverter() {
+        super(Date.class);
     }
 
-    public Class<?> getResponsibleFor() {
-        return Date.class;
+    @Override
+    protected String doConvert(final Date date) {
+        return DateFormatter.print(date);
     }
 
-    public static String createXMLDateTime(final Date date) {
-        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault()).format(date);
-    }
 }

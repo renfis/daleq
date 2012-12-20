@@ -17,12 +17,13 @@
 package de.brands4friends.daleq.core.internal.conversion;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertThat;
 
 import java.util.Date;
 
+import org.hamcrest.Matchers;
 import org.joda.time.DateTime;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,6 +44,13 @@ public class DateTimeTypeConverterTest {
         assertThat(result, is("2000-12-24 01:02:03.004"));
     }
 
+    @Test
+    public void testConvert2() {
+        final DateTime date = new DateTime(2012, 10, 2, 16, 0, 0, 530);
+        final String result = dateTimeTypeConverter.convert(date);
+        assertThat(result, is("2012-10-02 16:00:00.530"));
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testConvertForNullFails() {
         dateTimeTypeConverter.convert(null);
@@ -55,7 +63,7 @@ public class DateTimeTypeConverterTest {
 
     @Test
     public void testGetResponsibleFor() {
-        assertThat(dateTimeTypeConverter.getResponsibleFor(), is(DateTime.class.getClass()));
-        assertNotSame(dateTimeTypeConverter.getResponsibleFor(), Date.class.getClass());
+        Assert.assertThat(dateTimeTypeConverter.getResponsibleFor(), Matchers.typeCompatibleWith(DateTime.class));
+        Assert.assertNotSame(dateTimeTypeConverter.getResponsibleFor(), Date.class.getClass());
     }
 }

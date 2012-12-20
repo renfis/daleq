@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.builder;
+package de.brands4friends.daleq.core;
 
 import static nl.jqno.equalsverifier.EqualsVerifier.forClass;
 import static org.hamcrest.Matchers.is;
@@ -26,8 +26,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import de.brands4friends.daleq.core.FieldData;
-import de.brands4friends.daleq.core.NoSuchDaleqFieldException;
 import nl.jqno.equalsverifier.Warning;
 
 @SuppressWarnings("PMD.AvoidDuplicateLiterals") // fuck you pmd

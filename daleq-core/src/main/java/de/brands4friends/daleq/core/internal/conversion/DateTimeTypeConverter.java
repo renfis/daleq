@@ -17,33 +17,22 @@
 package de.brands4friends.daleq.core.internal.conversion;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.DateTimeFormatterBuilder;
+
+import de.brands4friends.daleq.core.internal.formatting.DateFormatter;
 
 /**
  * Converts a DateTime instance to a string representation that can
  * be handled by Daleq/DBUnit.
  */
-public class DateTimeTypeConverter implements TypeConverter {
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = new DateTimeFormatterBuilder()
-            .appendPattern("yyyy-MM-dd HH:mm:ss.SSS")
-            .toFormatter();
+final class DateTimeTypeConverter extends AbstractTypeConverter<DateTime> {
 
-    public String convert(final Object valueToConvert) {
-        if (!(valueToConvert instanceof DateTime)) {
-            final String targetType = (valueToConvert == null) ? "null" : valueToConvert.getClass().getCanonicalName();
-            final String msg = "DateTimeTypeConverter tried to convert value [";
-            throw new IllegalArgumentException(msg + valueToConvert + "] of type: [" + targetType + "]");
-        }
-
-        return createXMLDateTime((DateTime) valueToConvert);
+    public DateTimeTypeConverter() {
+        super(DateTime.class);
     }
 
-    public Class<?> getResponsibleFor() {
-        return DateTime.class;
+    @Override
+    protected String doConvert(final DateTime dateTime) {
+        return DateFormatter.print(dateTime);
     }
 
-    public static String createXMLDateTime(final DateTime date) {
-        return DATE_TIME_FORMATTER.print(date);
-    }
 }

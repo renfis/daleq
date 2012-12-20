@@ -18,6 +18,7 @@ package de.brands4friends.daleq.core.internal.dbunit;
 
 import static de.brands4friends.daleq.core.Daleq.aRow;
 import static de.brands4friends.daleq.core.Daleq.aTable;
+import static de.brands4friends.daleq.core.internal.dbunit.ContextFactory.context;
 import static org.easymock.EasyMock.expect;
 
 import java.sql.SQLException;
@@ -39,7 +40,6 @@ import de.brands4friends.daleq.core.FieldDef;
 import de.brands4friends.daleq.core.Table;
 import de.brands4friends.daleq.core.TableData;
 import de.brands4friends.daleq.core.TableDef;
-import de.brands4friends.daleq.core.internal.builder.SimpleContext;
 import de.brands4friends.daleq.core.internal.dbunit.dataset.InMemoryDataSetFactory;
 import junit.framework.ComparisonFailure;
 
@@ -97,14 +97,14 @@ public class AsserterTest extends EasyMockSupport {
 
     @Test(expected = DaleqException.class)
     public void ignoredColumnDoesNoBelongToTable_should_fail() throws SQLException, DataSetException {
-        final Table table = aTable(MyTable.class).withRowsUntil(10);
+        final Table table = aTable(MyTable.class).withRowsBetween(0, 10);
         expectDataSetFromDb(table);
         doAssert(table, Daleq.fd(DataType.BIGINT).name("something else"));
     }
 
     @Test(expected = DaleqException.class)
     public void ignoredColumContainsNull_should_fail() throws SQLException, DataSetException {
-        final Table table = aTable(MyTable.class).withRowsUntil(10);
+        final Table table = aTable(MyTable.class).withRowsBetween(0, 10);
         expectDataSetFromDb(table);
         doAssert(table, MyTable.ID, null, MyTable.VALUE);
     }
@@ -115,7 +115,7 @@ public class AsserterTest extends EasyMockSupport {
     }
 
     private void dataSetFactoryFailsWith(final Exception expected) throws SQLException {
-        final Table table = aTable(MyTable.class).withRowsUntil(10);
+        final Table table = aTable(MyTable.class).withRowsBetween(0, 10);
         expectConnection();
         expect(connection.createDataSet()).andThrow(expected);
         doAssert(table);
@@ -139,6 +139,6 @@ public class AsserterTest extends EasyMockSupport {
     }
 
     private List<TableData> toTableData(final Table table) {
-        return Lists.newArrayList(table.build(new SimpleContext()));
+        return Lists.newArrayList(table.build(context()));
     }
 }

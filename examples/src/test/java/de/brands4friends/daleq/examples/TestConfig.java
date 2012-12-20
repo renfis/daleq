@@ -19,16 +19,14 @@ package de.brands4friends.daleq.examples;
 
 import javax.sql.DataSource;
 
+import org.dbunit.ext.hsqldb.HsqldbDataTypeFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import de.brands4friends.daleq.core.DaleqSupport;
-import de.brands4friends.daleq.core.internal.dbunit.ConnectionFactory;
-import de.brands4friends.daleq.core.internal.dbunit.DbUnitDaleqSupport;
-import de.brands4friends.daleq.spring.SpringConnectionFactory;
+import de.brands4friends.daleq.spring.DaleqSupportBean;
 
 @Configuration
 public class TestConfig {
@@ -39,19 +37,15 @@ public class TestConfig {
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager(final DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
+    public PlatformTransactionManager transactionManager() {
+        return new DataSourceTransactionManager(dataSource());
     }
 
     @Bean
-    public DaleqSupport daleqSupport(final ConnectionFactory connectionFactory) {
-        return DbUnitDaleqSupport.createInstance(connectionFactory);
-    }
-
-    @Bean
-    public ConnectionFactory connectionFactory(final DataSource dataSource) {
-        final SpringConnectionFactory connectionFactory = new SpringConnectionFactory();
-        connectionFactory.setDataSource(dataSource);
-        return connectionFactory;
+    public DaleqSupportBean daleqSupport() {
+        final DaleqSupportBean daleqSupport = new DaleqSupportBean();
+        daleqSupport.setDataSource(dataSource());
+        daleqSupport.setDataTypeFactory(new HsqldbDataTypeFactory());
+        return daleqSupport;
     }
 }

@@ -28,4 +28,6 @@ public interface DbConfig {
     IDataTypeFactory dataTypeFactory();
 
     TableProvider allTypesProvider();
+
+    SupportedDb currentDb();
 }

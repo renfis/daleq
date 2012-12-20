@@ -14,24 +14,26 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.builder;
+package de.brands4friends.daleq.examples;
 
-import static nl.jqno.equalsverifier.EqualsVerifier.forClass;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
 
-import com.google.common.base.Optional;
-
-import nl.jqno.equalsverifier.Warning;
-
-public class FieldHolderTest {
+public class OrderTest {
 
     @Test
-    public void testHashCodeAndEquals() {
-        forClass(FieldHolder.class)
-                .withPrefabValues(Optional.class, Optional.of(new Object()), Optional.of(new Object()))
-                .suppress(Warning.STRICT_INHERITANCE)
-                .verify();
+    public void accessors_should_beCorrect() {
+        final long id = 342L;
+        final long customerId = 2348L;
+        final DateTime creation = new DateTime(234786823746L);
 
+        final Order order = new Order(id, customerId, creation);
+
+        assertThat(order.getId(), is(id));
+        assertThat(order.getCustomerId(), is(customerId));
+        assertThat(order.getCreation(), is(creation));
     }
 }

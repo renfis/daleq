@@ -14,19 +14,14 @@
  * limitations under the License.
  */
 
-package de.brands4friends.daleq.core.internal.builder;
+package de.brands4friends.daleq.core;
 
 import java.util.Arrays;
 
+import javax.annotation.Nullable;
+
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
-
-import de.brands4friends.daleq.core.FieldData;
-import de.brands4friends.daleq.core.FieldDef;
-import de.brands4friends.daleq.core.FieldType;
-import de.brands4friends.daleq.core.RowData;
-import de.brands4friends.daleq.core.TableData;
-import de.brands4friends.daleq.core.TableType;
 
 public class StructureBuilder {
 
@@ -57,7 +52,10 @@ public class StructureBuilder {
                 Arrays.asList(props),
                 new Function<PropertyContainerBean, FieldData>() {
                     @Override
-                    public FieldData apply(final PropertyContainerBean input) {
+                    public FieldData apply(@Nullable final PropertyContainerBean input) {
+                        if (input == null) {
+                            throw new IllegalArgumentException("input");
+                        }
                         final FieldType fieldType = tableType.findFieldBy(input.fieldDef);
                         return new ImmutableFieldData(fieldType.getName(), input.value);
                     }

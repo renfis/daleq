@@ -20,11 +20,32 @@ import java.util.List;
 
 import com.google.common.base.Optional;
 
+/**
+ * A data holding entity which represents a table according to Daleq's data model.
+ * This class is used internally by Daleq and should not be accessed directly by clients.
+ *
+ * @see RowData
+ * @see FieldData
+ */
 public interface TableData {
+    /**
+     * Returns the table's name.
+     */
     String getName();
 
+    /**
+     * Returns an ordered list of all rows in the table.
+     */
     List<RowData> getRows();
 
+    /**
+     * Maps rows to the value of the given <code>fieldName</code>.
+     *
+     * @param fieldName the name of the field in the rows of the table.
+     * @return an iteration on all field values. If the field contains a <code>null</code> value,
+     *         then an <code>Optional.absend()</code> is returned, otherwise the string representation of this value.
+     * @throws NoSuchDaleqFieldException if such a field does not exist.
+     */
     Iterable<Optional<String>> getValuesOfField(final String fieldName);
 
     TableType getTableType();

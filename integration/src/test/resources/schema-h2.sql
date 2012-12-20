@@ -16,7 +16,7 @@ CREATE TABLE ALL_TYPES (
     A_DOUBLE          DOUBLE         ,
     A_FLOAT           FLOAT          ,
     A_DATE            DATE           ,
---     A_TIME            TIME           ,
+    A_TIME            TIME           ,
     A_TIMESTAMP       TIMESTAMP      ,
     A_VARBINARY       VARBINARY(250) ,
     A_BINARY          BINARY         ,
@@ -28,4 +28,8 @@ CREATE TABLE ASSERT_TABLE (
   ID INTEGER,
   NAME VARCHAR(250),
   AMOUNT DECIMAL(10,2)
+);
+
+CREATE TABLE TIMESTAMP_TYPE (
+    A_TIMESTAMP TIMESTAMP
 );

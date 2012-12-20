@@ -33,8 +33,11 @@ import de.brands4friends.daleq.core.DaleqException;
 import de.brands4friends.daleq.core.FieldType;
 import de.brands4friends.daleq.core.Table;
 import de.brands4friends.daleq.core.TableType;
-import de.brands4friends.daleq.core.internal.builder.SimpleContext;
 import de.brands4friends.daleq.core.internal.template.TemplateValueFactory;
+import de.brands4friends.daleq.core.internal.template.TemplateValueFactoryImpl;
+import de.brands4friends.daleq.core.internal.types.ClassBasedTableTypeReference;
+import de.brands4friends.daleq.core.internal.types.ClassBasedTableTypeResolver;
+import de.brands4friends.daleq.core.internal.types.TableTypeResolver;
 import de.brands4friends.daleq.integration.beans.TableProvider;
 
 
@@ -50,9 +53,9 @@ public class FieldTypeTest extends BaseTest {
 
     @Before
     public void setUp() {
-        final SimpleContext context = new SimpleContext();
-        templateValueFactory = context.getService(TemplateValueFactory.class);
-        tableType = aTable(tableProvider.allTypesTable()).build(context).getTableType();
+        templateValueFactory = TemplateValueFactoryImpl.getInstance();
+        final TableTypeResolver tableTypeResolver = new ClassBasedTableTypeResolver();
+        tableType = tableTypeResolver.resolve(ClassBasedTableTypeReference.of(tableProvider.allTypesTable()));
     }
 
     @Test
