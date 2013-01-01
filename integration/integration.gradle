@@ -20,24 +20,53 @@ displayName = "Daleq Framework - Integration Tests"
 description = 'Daleq integration tests that may take long and should not be \
  called each development iteration.'
 
+def integrationTestName = 'integrationTest'
+def INTEGRATION_DBS = ['HSQLDB', 'H2', 'Mysql']
+def INTEGRATION_PROPERTY_NAMES = ['mysql.url', 'mysql.user', 'mysql.password']
+
+sourceSets {
+    integrationTest {
+    }
+}
+
+configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+}
+
 dependencies {
-    compile project(':daleq-core')
-    compile project(':daleq-spring')
-    compile deps.springJdbc
+    integrationTestCompile project(':daleq-core')
+    integrationTestCompile project(':daleq-spring')
+    integrationTestCompile deps.springJdbc
 
-    testCompile deps.springTest
-    testCompile deps.hsqldb
-    testCompile deps.h2
-    testCompile deps.mysql
+    integrationTestCompile deps.springTest
+    integrationTestCompile deps.hsqldb
+    integrationTestCompile deps.h2
+    integrationTestCompile deps.mysql
 }
 
-test {
-//    testLogging.showStandardStreams = true
-    systemProperties(
-            'spring.profiles.active': propertyOr('integration.db', 'HSQLDB'),
-            'integration.mysql.url': propertyOr('integration.mysql.url', null),
-            'integration.mysql.user': propertyOr('integration.mysql.user', null),
-            'integration.mysql.password': propertyOr('integration.mysql.password', null)
-    )
-    maxParallelForks 1
+INTEGRATION_DBS.each { dbType ->
+    def taskName = integrationTestName + dbType
+    task(taskName, type: Test) {
+        testClassesDir = sourceSets.integrationTest.output.classesDir
+        classpath = sourceSets.integrationTest.runtimeClasspath
+        testReportDir = new File("${reporting.baseDir}/${testReportDirName}/${name}")
+        testResultsDir = new File("${buildDir}/${testResultsDirName}/${name}")
+
+        doFirst {
+            systemProperties('spring.profiles.active': dbType)
+
+            INTEGRATION_PROPERTY_NAMES.each {
+                String propertyName = 'integration.' + it
+                systemProperties(propertyName: propertyOr(propertyName, null))
+            }
+        }
+    }
 }
+
+task integrationTest {
+    String whichDBs = propertyOr('integration.db', 'HSQLDB')
+    dependsOn whichDBs.split(',').collect { integrationTestName + it }
+}
+
+check.dependsOn integrationTest
