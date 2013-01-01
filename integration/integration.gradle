@@ -35,14 +35,14 @@ configurations {
 }
 
 dependencies {
-    integrationTestCompile project(':daleq-core')
-    integrationTestCompile project(':daleq-spring')
-    integrationTestCompile deps.springJdbc
+    compile project(':daleq-core')
+    compile project(':daleq-spring')
+    compile deps.springJdbc
 
-    integrationTestCompile deps.springTest
-    integrationTestCompile deps.hsqldb
-    integrationTestCompile deps.h2
-    integrationTestCompile deps.mysql
+    testCompile deps.springTest
+    testCompile deps.hsqldb
+    testCompile deps.h2
+    testCompile deps.mysql
 }
 
 INTEGRATION_DBS.each { dbType ->
@@ -71,3 +71,9 @@ task integrationTest {
 }
 
 check.dependsOn integrationTest
+
+idea {
+    module {
+        testSourceDirs = [file('src/integrationTest/java'), file('src/integrationTest/resources')]
+    }
+}
