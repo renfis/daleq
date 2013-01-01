@@ -14,34 +14,36 @@
  * limitations under the License.
  */
 
+
+
 task issues() << {
 
     def foundIssues = 0
 
     reportXmlErrors(
-        fileTree("${project.testResultsDir}") {}) {xml ->
-            xml.testcase.failure.each { failure ->
-                def testcase = failure.parent()
-                println "${testcase['@classname']}#${testcase['@name']}(): ${failure['@message']}"
-                println failure.text()
+            fileTree("${project.testResultsDir}") {}) { xml ->
+        xml.testcase.failure.each { failure ->
+            def testcase = failure.parent()
+            println "${testcase['@classname']}#${testcase['@name']}(): ${failure['@message']}"
+            println failure.text()
 
-                foundIssues++
-            }
+            foundIssues++
+        }
     }
 
     reportXmlErrors(reportFiles("checkstyle")) { xml ->
-            xml.file.error.each { error ->
-                def file = error.parent()
-                def name = file['@name']
-                def line = error['@line']
-                def column = error['@column']
-                def message = error['@message']
+        xml.file.error.each { error ->
+            def file = error.parent()
+            def name = file['@name']
+            def line = error['@line']
+            def column = error['@column']
+            def message = error['@message']
 
-                println "${name}:${line}:${column}"
-                println "    ${message}"
+            println "${name}:${line}:${column}"
+            println "    ${message}"
 
-                foundIssues++
-            }
+            foundIssues++
+        }
     }
 
     reportXmlErrors(reportFiles("pmd")) { xml ->
@@ -59,19 +61,21 @@ task issues() << {
         }
     }
 
-    if(!foundIssues) {
+    if (!foundIssues) {
         println "   No issues found."
     }
 }
 
 def reportFiles(module) {
-    fileTree("${project.reporting.baseDir}/${module}") {include "*.xml" }
+    fileTree("${project.reporting.baseDir}/${module}") { include "*.xml" }
 }
 
-def reportXmlErrors(fileTree,closure) {
+def reportXmlErrors(fileTree, closure) {
     fileTree.visit {
         File xmlFile = it.file
-        def xml = new XmlParser().parse(xmlFile)
-        closure(xml)
+        if (!xmlFile.isDirectory()) {
+            def xml = new XmlParser().parse(xmlFile)
+            closure(xml)
+        }
     }
 }

@@ -16,8 +16,6 @@
 
 
 
-
-
 displayName = "Daleq Framework - Integration Tests"
 description = 'Daleq integration tests that may take long and should not be \
  called each development iteration.'
@@ -60,7 +58,6 @@ INTEGRATION_DBS.each { dbType ->
             INTEGRATION_PROPERTY_NAMES.each {
                 String propertyName = 'integration.' + it
                 String propertyValue = propertyOr(propertyName, null)
-                println "${propertyName} -> ${propertyValue}"
                 newProperties[propertyName] = propertyValue
             }
             systemProperties(newProperties)
