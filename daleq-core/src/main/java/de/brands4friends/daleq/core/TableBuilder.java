@@ -87,7 +87,7 @@ final class TableBuilder implements Table {
 
     @Override
     public Table having(final FieldTypeReference field, final Object... values) {
-        return havingIterable(field, Arrays.asList(values));
+        return havingFrom(field, Arrays.asList(values));
     }
 
     @Override
@@ -102,11 +102,6 @@ final class TableBuilder implements Table {
             row.f(field, iter.next());
         }
         return this;
-    }
-
-    @Override
-    public <T> Table havingIterable(final FieldTypeReference field, final Iterable<Object> values) {
-        return havingFrom(field, values);
     }
 
     @Override

@@ -336,15 +336,6 @@ public class TableBuilderTest {
     }
 
     @Test
-    public void havingFrom_and_havingIterable_should_doTheSame() {
-        final List<Object> strings = Lists.<Object>newArrayList("a1", "a2", "a3");
-        assertThat(
-                aTable(ExampleTable.class).withRowsBetween(1, 3).havingFrom(PROP_B, strings).build(context),
-                is(aTable(ExampleTable.class).withRowsBetween(1, 3).havingIterable(PROP_B, strings).build(context))
-        );
-    }
-
-    @Test
     public void having_withValuesMoreElementsThanTheTable_should_fillTheTable() {
         assertThat(
                 aTable(ExampleTable.class)
