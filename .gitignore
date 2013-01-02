@@ -4,6 +4,7 @@ build
 *.iml
 *.ipr
 *.iws
+*.ids
 gradle.properties
 atlassian-ide-plugin.xml
 .clover
