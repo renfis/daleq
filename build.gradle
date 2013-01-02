@@ -14,18 +14,21 @@
  * limitations under the License.
  */
 
-
-
-
-
-
-
 description = 'Daleq Framework'
 
-// Define Dependencies
 apply from: script('dependencies')
-
 apply plugin: "sonar"
+apply plugin: 'versions'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.3'
+    }
+}
 
 sonar {
     server {
