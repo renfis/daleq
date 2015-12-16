@@ -16,10 +16,6 @@
 
 
 
-displayName = "Daleq Framework - Core Module"
-description = 'Daleq is a DSL to define the content of a relational database in \
- a concise and neat manner. It is actually very simple.'
-
 apply from: script('uploadArchives')
 
 dependencies {

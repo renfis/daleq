@@ -16,9 +16,6 @@
 
 
 
-displayName = "Daleq Framework - Examples"
-description = 'Daleq examples to illustrate the usage.'
-
 dependencies {
     compile project(':daleq-core')
     compile project(':daleq-spring')

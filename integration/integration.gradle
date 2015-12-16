@@ -16,10 +16,6 @@
 
 
 
-displayName = "Daleq Framework - Integration Tests"
-description = 'Daleq integration tests that may take long and should not be \
- called each development iteration.'
-
 def integrationTestName = 'integrationTest'
 def INTEGRATION_DBS = ['HSQLDB', 'H2', 'Mysql']
 def INTEGRATION_PROPERTY_NAMES = ['mysql.url', 'mysql.user', 'mysql.password']

@@ -16,9 +16,6 @@
 
 
 
-displayName = "Daleq Framework - Spring Module"
-description = 'Integrate Daleq tests with spring-jdbc.'
-
 apply from: script('uploadArchives')
 
 dependencies {
