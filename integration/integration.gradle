@@ -18,6 +18,8 @@
 
 
 
+
+
 def integrationTestName = 'integrationTest'
 def INTEGRATION_DBS = ['HSQLDB', 'H2', 'Mysql']
 def INTEGRATION_PROPERTY_NAMES = ['mysql.url', 'mysql.user', 'mysql.password']
@@ -60,7 +62,6 @@ INTEGRATION_DBS.each { dbType ->
                 newProperties[propertyName] = propertyValue
             }
             systemProperties(newProperties)
-            println "Running db type " + dbType
         }
     }
 }
