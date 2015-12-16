@@ -21,7 +21,6 @@ import static org.junit.Assert.assertThat;
 
 import org.hamcrest.Matchers;
 import org.joda.time.LocalDate;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,7 +45,7 @@ public class LocalDateConverterTest {
 
     @Test
     public void converter_should_beResponsibleForLocalDate() {
-        Assert.assertThat(converter.getResponsibleFor(), Matchers.typeCompatibleWith(LocalDate.class));
+        assertThat(converter.getResponsibleFor(), Matchers.typeCompatibleWith(LocalDate.class));
     }
 
 }

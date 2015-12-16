@@ -16,6 +16,7 @@
 
 package de.brands4friends.daleq.core.internal.dbunit.dataset;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -61,7 +62,7 @@ class TableMetaDataAdapter implements ITableMetaData {
 
     @Override
     public Column[] getColumns() throws DataSetException {
-        return columnsCache;
+        return Arrays.copyOf(columnsCache, columnsCache.length);
     }
 
     @Override

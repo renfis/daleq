@@ -33,7 +33,7 @@ import de.brands4friends.daleq.core.TemplateValues;
 
 public final class TemplateValueFactoryImpl implements TemplateValueFactory {
 
-    public static interface ToTemplate {
+    public interface ToTemplate {
         Set<DataType> mapsTypes();
 
         TemplateValue map(String fieldName, String variable);

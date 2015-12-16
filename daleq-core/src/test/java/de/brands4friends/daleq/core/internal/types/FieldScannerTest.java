@@ -29,7 +29,6 @@ import org.junit.Test;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 
-import de.brands4friends.daleq.core.Daleq;
 import de.brands4friends.daleq.core.DataType;
 import de.brands4friends.daleq.core.FieldDef;
 import de.brands4friends.daleq.core.FieldType;
@@ -56,7 +55,7 @@ public class FieldScannerTest {
     }
 
     static class WithNonStatic {
-        public final FieldDef xID = Daleq.fd(DataType.INTEGER);
+        public final FieldDef xID = fd(DataType.INTEGER);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -65,7 +64,7 @@ public class FieldScannerTest {
     }
 
     static class WithNonFinal {
-        public static FieldDef xID = Daleq.fd(DataType.INTEGER);
+        public static FieldDef xID = fd(DataType.INTEGER);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -74,8 +73,8 @@ public class FieldScannerTest {
     }
 
     static class WithPropertyDefs {
-        public static final FieldDef ID = Daleq.fd(DataType.INTEGER);
-        public static final FieldDef NAME = Daleq.fd(DataType.VARCHAR);
+        public static final FieldDef ID = fd(DataType.INTEGER);
+        public static final FieldDef NAME = fd(DataType.VARCHAR);
     }
 
     @Test

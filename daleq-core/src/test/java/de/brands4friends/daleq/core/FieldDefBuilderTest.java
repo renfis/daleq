@@ -20,7 +20,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -92,14 +91,14 @@ public class FieldDefBuilderTest {
     public void nameWithNull_should_fail() {
         final FieldDef fd = someFd().name(null);
         // should already have failed!
-        assertThat(fd, Matchers.is(nullValue()));
+        assertThat(fd, is(nullValue()));
     }
 
     @Test(expected = NullPointerException.class)
     public void templateWithNull_should_fail() {
         final FieldDef fd = someFd().template((String) null);
         // should already have failed!
-        assertThat(fd, Matchers.is(nullValue()));
+        assertThat(fd, is(nullValue()));
     }
 
     @Test
@@ -112,7 +111,7 @@ public class FieldDefBuilderTest {
     public void withTemplateValueWithNull_should_fail() {
         final FieldDef fd = someFd().template((TemplateValue) null);
         // should already have failed!
-        assertThat(fd, Matchers.is(nullValue()));
+        assertThat(fd, is(nullValue()));
     }
 
     @Before

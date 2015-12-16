@@ -20,7 +20,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -70,6 +69,6 @@ public class NamedFieldTypeReferenceTest {
         final NamedFieldTypeReference reference = new NamedFieldTypeReference(NAMED_FIELD_STR);
         final FieldType fieldType = reference.resolve(null);
         // should have already failed
-        Assert.assertThat(fieldType, nullValue());
+        assertThat(fieldType, nullValue());
     }
 }

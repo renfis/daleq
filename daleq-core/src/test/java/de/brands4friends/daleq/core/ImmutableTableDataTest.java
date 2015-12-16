@@ -31,7 +31,6 @@ import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 
-import de.brands4friends.daleq.core.internal.dbunit.ContextFactory;
 import nl.jqno.equalsverifier.Warning;
 
 public class ImmutableTableDataTest {
@@ -66,7 +65,7 @@ public class ImmutableTableDataTest {
 
     @Test(expected = NoSuchDaleqFieldException.class)
     public void getValuesOfField_ifFieldDoesNotExist_should_fail() {
-        final TableData table = Daleq.aTable(TheTable.class).withRowsBetween(0, 5).build(ContextFactory.context());
+        final TableData table = Daleq.aTable(TheTable.class).withRowsBetween(0, 5).build(context());
         final Iterable<Optional<String>> result = table.getValuesOfField("DOES_NOT_EXIST");
         // should have failed
         assertThat(result, Matchers.nullValue());

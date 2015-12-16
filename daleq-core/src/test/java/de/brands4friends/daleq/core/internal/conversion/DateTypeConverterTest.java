@@ -17,6 +17,7 @@
 package de.brands4friends.daleq.core.internal.conversion;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertThat;
 
 import java.text.ParseException;
@@ -26,7 +27,6 @@ import java.util.Locale;
 
 import org.hamcrest.Matchers;
 import org.joda.time.DateTime;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -61,7 +61,7 @@ public class DateTypeConverterTest {
     @Test
     public void testGetResponsibleFor() {
         final DateTypeConverter dateTypeConverter = new DateTypeConverter();
-        Assert.assertThat(dateTypeConverter.getResponsibleFor(), Matchers.typeCompatibleWith(Date.class));
-        Assert.assertNotSame(dateTypeConverter.getResponsibleFor(), DateTime.class.getClass());
+        assertThat(dateTypeConverter.getResponsibleFor(), Matchers.typeCompatibleWith(Date.class));
+        assertNotSame(dateTypeConverter.getResponsibleFor(), DateTime.class.getClass());
     }
 }

@@ -92,21 +92,8 @@ subprojects {
     }
 
     pmd {
-        ruleSets = [
-                'java-basic',
-                'java-design',
-                'java-braces',
-                'java-clone',
-                'java-strings',
-                'java-optimizations',
-                'java-strictexception',
-                'java-typeresolution',
-                'java-unusedcode',
-                'java-coupling'
-        ]
+        ruleSets = []
         ruleSetFiles = fileTree(dir: "${rootProject.projectDir}/config/pmd", include: '*.xml')
-        // TODO
-        ignoreFailures = true
     }
 
     sonar {

@@ -111,7 +111,7 @@ public final class DbUnitDaleqSupport implements DaleqSupport {
     }
 
 
-    private void executeOnDatabase(final DatabaseOperation insertOperation1, final Table[] tables) {
+    private void executeOnDatabase(final DatabaseOperation insertOperation1, final Table... tables) {
         try {
             final List<TableData> tableDatas = toTables(tables);
             doExecuteOnDatabase(insertOperation1, tableDatas);
