@@ -35,6 +35,7 @@ dependencies {
     compile project(':daleq-spring')
     compile deps.springJdbc
 
+    compile deps.springContext
     testCompile deps.springTest
     testCompile deps.hsqldb
     testCompile deps.h2
@@ -46,8 +47,10 @@ INTEGRATION_DBS.each { dbType ->
     task(taskName, type: Test) {
         testClassesDir = sourceSets.integrationTest.output.classesDir
         classpath = sourceSets.integrationTest.runtimeClasspath
-        testReportDir = new File("${reporting.baseDir}/${testReportDirName}/${name}")
-        testResultsDir = new File("${buildDir}/${testResultsDirName}/${name}")
+
+        // TODO
+        // testReportDir = new File("${reporting.baseDir}/${testReportDirName}/${name}")
+        // testResultsDir = new File("${buildDir}/${testResultsDirName}/${name}")
 
         doFirst {
             def newProperties = ['spring.profiles.active': dbType]

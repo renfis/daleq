@@ -21,6 +21,7 @@ dependencies {
     compile project(':daleq-spring')
     compile deps.springJdbc
 
+    compile deps.springContext
     testCompile deps.springTest
     testCompile deps.hsqldb
 }
