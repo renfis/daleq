@@ -18,7 +18,7 @@ package de.brands4friends.daleq.core;
 
 /**
  * Maps a {@link Row}'s id to a field value.
- * <p/>
+ * <p>
  * Daleq's core feature is making up a field's value, if a {@link Row} does not explicitly set its
  * field. A <code>TemplateValue</code> is the mechanism to map the <code>Row</code>'s id to
  * a particular value. Each {@link FieldDef} defines implicitly or explicitly a <code>TemplateValue</code>
@@ -29,7 +29,7 @@ public interface TemplateValue {
 
     /**
      * Maps a <code>Row</code>'s id to a field value.
-     * <p/>
+     * <p>
      * A field value may be of any type. It will be marshaled to a String by
      * {@link de.brands4friends.daleq.core.internal.conversion.TypeConversion}.
      *

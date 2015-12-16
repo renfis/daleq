@@ -20,11 +20,11 @@ import javax.annotation.Nullable;
 
 /**
  * Used to build a <code>Row</code> in a relational database table.
- * <p/>
+ * <p>
  * Logically, <code>Row</code> represents a row in a table. It has an id and consists of a list of fields. Fields
  * are not modelled explicitly, which means there is no class representing fields, but only through
  * <code>Row</code>'s capability to specify the content of a field. A row always belongs to {@link Table}.
- * <p/>
+ * <p>
  * A row is always created and associated with an id.
  * This id is used to either define the value of the primary key and to be used as a source for Daleq to
  * deterministically choose the value of an non explicitly specified field. It is Daleq's basic idea to just
@@ -33,10 +33,10 @@ import javax.annotation.Nullable;
  * with {@link #f}, which value is set to the field. Generally this depends on the field's particular type and sometimes
  * even on the respective database, the table is written to. Daleq takes care, that each value is created in a
  * deterministic fashion, hence each run of a test is faced with exactly the same data.
- * <p/>
+ * <p>
  * Technically, <code>Row</code> is a builder. It will collect the <code>Row</code>'s id and all explicitly set
  * fields to build the data holding entity {@link RowData}.
- * <p/>
+ * <p>
  * Use {@link Daleq#aRow} to create an instance of <code>Row</code>. We encourage to static import this method to
  * benefit from Daleq's embedded DSL.
  *
@@ -48,7 +48,7 @@ public interface Row {
 
     /**
      * Defines the value of a field.
-     * <p/>
+     * <p>
      * If a field is defined multiple times, the last definition is used.
      *
      * @param fieldTypeReference References the field, which should be set. Since the row will finally
@@ -70,7 +70,7 @@ public interface Row {
 
     /**
      * Constructs the actual data holding entity.
-     * <p/>
+     * <p>
      * Since <code>Row</code> is just a builder, at some point Daleq has to construct the entities, holding
      * the database table content. In general this method is not expected to be called by client code, but only
      * by Daleq's internal code.

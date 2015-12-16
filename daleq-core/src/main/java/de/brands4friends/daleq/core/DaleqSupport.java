@@ -21,7 +21,7 @@ import java.io.PrintStream;
 
 /**
  * Provides the Daleq infrastructure to a Unit Test.
- * <p/>
+ * <p>
  * This class is intended to be used in a unit test. If Java would support Mixins, this would be a candidate. But
  * it ain't. Hence a Unit Test can only delegate to this class. Nonetheless, this class is designed to make
  * such a delegation as painless as possible.
@@ -30,7 +30,7 @@ public interface DaleqSupport {
 
     /**
      * Inserts the <code>Table</code>s into the database.
-     * <p/>
+     * <p>
      * Once the table content has been defined, the respective {@link TableData} is created and inserted
      * into a configured database. The tables are inserted in the order they are given to the method. This
      * has to be considered especially if foreign key constraints must be fulfilled.
@@ -52,7 +52,7 @@ public interface DaleqSupport {
 
     /**
      * Checks whether the actual table in the database has the same content as the given <code>table</code>.
-     * <p/>
+     * <p>
      * Compares the given <code>table</code> to the content of the table with the same name in the database.
      * Details of the comparison depend on the actual implementation.
      *
@@ -67,7 +67,7 @@ public interface DaleqSupport {
 
     /**
      * Prints the <code>table</code> content to the given <code>printer</code>.
-     * <p/>
+     * <p>
      * This method is intended for debug purposes, if you really need to see, what Daleq has created for you.
      *
      * @param table   the <code>Table</code> that should be printed to the <code>printer</code>.

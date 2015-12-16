@@ -20,16 +20,16 @@ import javax.annotation.Nullable;
 
 /**
  * Used to build the content of a relational database table.
- * <p/>
+ * <p>
  * Logically a <code>Table</code> is a container which holds a list of {@link Row}s. Technically this is a Builder
  * to declarative describe the content of the database table. Therefore it provides a set of builder methods
  * to construct the rows. Besides the obvious #with, which accepts a list of rows, there are several methods
  * which add rows just from a set of given ids, to be provide a concise mechanism to fill the database table.
  * Together with {@link Row} it defines Daleq's model to describe the content of a database
  * table.
- * <p/>
+ * <p>
  * TODO describe the table's meta model.
- * <p/>
+ * <p>
  * Use {@link Daleq#aTable} to create a <code>Table</code>. We encourage to static import this method to benefit from
  * Daleq's embedded DSL.
  *
@@ -40,7 +40,7 @@ public interface Table {
 
     /**
      * Adds <code>rows</code> to the table.
-     * <p/>
+     * <p>
      * For instance
      * <pre class="code">{@code
      * aTable(ProductTable.class)
@@ -64,10 +64,10 @@ public interface Table {
 
     /**
      * Adds rows with the given <code>ids</code> to the table.
-     * <p/>
+     * <p>
      * A convenience method, which transforms each id in <code>ids</code> to a row, like <code>aRow(id)</code> would do,
      * and adds it to the already existing rows in the table.
-     * <p/>
+     * <p>
      * For instance
      * <pre class="code">{@code
      * final List<Long> ids = Lists.newArrayList(1L,2L);
@@ -88,10 +88,10 @@ public interface Table {
 
     /**
      * Adds rows with the given <code>ids</code> to the table.
-     * <p/>
+     * <p>
      * A convenience method, which transforms each id in <code>ids</code> to a row, like <code>aRow(id)</code> would do,
      * and adds it to the already existing rows in the table.
-     * <p/>
+     * <p>
      * For instance
      * <pre class="code">{@code
      * aTable(ProductTable.class).withSomeRows(1L, 2L);
@@ -111,11 +111,11 @@ public interface Table {
 
     /**
      * Adds rows with all ids in the interval <code>[from,to]</code> to the table.
-     * <p/>
+     * <p>
      * A convience method, which assumes an interval starting at <code>from</code> up to and including <code>to</code>
      * and consisting of all ids in between. Each id in this interval will be transformed to a row, like
      * <code>aRow(id)</code> would do it and add it to the table.
-     * <p/>
+     * <p>
      * For instance
      * <pre class="code">{@code
      * aTable(ProductTable.class).withRowsBetween(1L, 4L);
@@ -143,17 +143,17 @@ public interface Table {
 
     /**
      * Sets the <code>field</code> in all already existing rows to the given <code>values</code>.
-     * <p/>
+     * <p>
      * A convenience method to batch change all already existing rows in the table. It is expected that
      * <code>field</code> belongs to this <code>Table</code>'s {@link TableDef}. However, this is not checked
      * while being added to the table, but only when <code>build()</code> is called.
-     * <p/>
+     * <p>
      * The already existing rows are expected to have the order in which they were added. The values are applied
      * to all those rows in that order. Hence the respective field in the <code>i</code>-th row will get
      * the <code>i</code>-th value from <code>values</code>. If there are more rows than values, than only the
      * first rows get their fields set, the other rows will not have their field changed. On the other hand, i
      * there are more values than rows, only the first values are used to be assigned to the rows.
-     * <p/>
+     * <p>
      * Note that rows added to the table after this method has been called, will not be affected by it.
      *
      * @param field  References the field, which is expected to be contained in code>Table</code>'s {@link TableDef}.
@@ -167,7 +167,7 @@ public interface Table {
 
     /**
      * Sets the <code>field</code> in all already existing rows to the given <code>values</code>.
-     * <p/>
+     * <p>
      * A convenience method to batch change all already existing rows in the table.
      *
      * @param field  References the field, which is expected to be contained in code>Table</code>'s {@link TableDef}.
@@ -182,13 +182,13 @@ public interface Table {
 
     /**
      * Sets the <code>field</code> in all already existing rows the same given <code>value</code>.
-     * <p/>
+     * <p>
      * A convenience method to batch change all already existing rows in the table. It is expected that
      * <code>field</code> belongs to this <code>Table</code>'s {@link TableDef}. However, this is not checked
      * while being added to the table, but only when <code>build()</code> is called.
-     * <p/>
+     * <p>
      * All rows in the table get their <code>field</code> updated with the given <code>value</code>
-     * <p/>
+     * <p>
      * Note that rows added to the table after this method has been called, will not be affected by it.
      *
      * @param field References the field, which is expected to be contained in code>Table</code>'s {@link TableDef}.
@@ -202,7 +202,7 @@ public interface Table {
 
     /**
      * Constructs the actual data holding entities.
-     * <p/>
+     * <p>
      * Since <code>Table</code> is actually a builder, at some point it has to construct the entities, holding
      * the database table content. In general this method is not expected to be called by client code, but only
      * by Daleq's internal code.

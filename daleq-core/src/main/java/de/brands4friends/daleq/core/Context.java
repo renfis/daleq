@@ -22,7 +22,7 @@ package de.brands4friends.daleq.core;
 public interface Context {
     /**
      * A service lookup.
-     * <p/>
+     * <p>
      * The <code>Context</code> holds a service registry. Building a table requires access all of these services.
      * This method decouples the public API from exposing the actual services. Which services are registered
      * is implementation depending and my change.

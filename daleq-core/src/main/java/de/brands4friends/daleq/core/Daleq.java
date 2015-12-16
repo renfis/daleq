@@ -20,15 +20,15 @@ import de.brands4friends.daleq.core.internal.types.ClassBasedTableTypeReference;
 
 /**
  * Daleq's Embedded DSL.
- * <p/>
+ * <p>
  * The static methods in this class are the foundation of Daleq's embedded DSL.They are
  * intended for static import
  * <pre class="code">{@code
  * import static de.brands4friends.daleq.core.Daleq.*;
  * }</pre>
- * <p/>
+ * <p>
  * and then to be used as
- * <p/>
+ * <p>
  * <pre class="code">{@code
  * final Table products = aTable(ProductTable.class).with(
  * aRow(PRODUCT_1).f(PRICE, "1.00"),
@@ -46,7 +46,7 @@ public final class Daleq {
 
     /**
      * Builds a {@link Table} of the type defined by <code>fromClass</code>.
-     * <p/>
+     * <p>
      * Daleq needs to know about a table's meta model. One option to define a meta model is Daleq's
      * class based table definition approach, as done with {@link TableDef}. This method builds
      * a table which assumes that <code>fromClass</code> holds such a meta model.
@@ -62,7 +62,7 @@ public final class Daleq {
 
     /**
      * Builds a {@link Row} with the given <code>id</code>.
-     * <p/>
+     * <p>
      *
      * @param id the <code>Row</code>'s id, as defined by {@link Row}.
      * @return a <code>Row</code>, which should ultimately be added to a <code>Table</code>.
