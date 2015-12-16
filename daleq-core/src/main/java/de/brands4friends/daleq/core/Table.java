@@ -156,7 +156,7 @@ public interface Table {
      * <p>
      * Note that rows added to the table after this method has been called, will not be affected by it.
      *
-     * @param field  References the field, which is expected to be contained in code>Table</code>'s {@link TableDef}.
+     * @param field  References the field, which is expected to be contained in <code>Table</code>'s {@link TableDef}.
      *               The respective fields in all rows in the table, will be changed.
      * @param values the values will be assigned to the respective field in all rows, already existing in the table.
      *               The value could be of any type Daleq is able to convert. See {@link Row} for further details.
@@ -170,7 +170,7 @@ public interface Table {
      * <p>
      * A convenience method to batch change all already existing rows in the table.
      *
-     * @param field  References the field, which is expected to be contained in code>Table</code>'s {@link TableDef}.
+     * @param field  References the field, which is expected to be contained in <code>Table</code>'s {@link TableDef}.
      *               The respective fields in all rows in the table, will be changed.
      * @param values the values will be assigned to the respective field in all rows, already existing in the table.
      *               The value could be of any type Daleq is able to convert. See {@link Row} for further details.
@@ -191,7 +191,7 @@ public interface Table {
      * <p>
      * Note that rows added to the table after this method has been called, will not be affected by it.
      *
-     * @param field References the field, which is expected to be contained in code>Table</code>'s {@link TableDef}.
+     * @param field References the field, which is expected to be contained in <code>Table</code>'s {@link TableDef}.
      *              The respective fields in all rows in the table, will be changed.
      * @param value the value will be assigned to the respective field in all rows, already existing in the table.
      *              The value could be of any type Daleq is able to convert. See {@link Row} for further details.
