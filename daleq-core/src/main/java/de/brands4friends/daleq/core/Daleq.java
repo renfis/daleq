@@ -28,7 +28,6 @@ import de.brands4friends.daleq.core.internal.types.ClassBasedTableTypeReference;
  * }</pre>
  * <p>
  * and then to be used as
- * <p>
  * <pre class="code">{@code
  * final Table products = aTable(ProductTable.class).with(
  * aRow(PRODUCT_1).f(PRICE, "1.00"),
@@ -51,6 +50,7 @@ public final class Daleq {
      * class based table definition approach, as done with {@link TableDef}. This method builds
      * a table which assumes that <code>fromClass</code> holds such a meta model.
      *
+     * @param <T> see fromClass
      * @param fromClass a class annotated with {@link TableDef} that defines a class based table definition.
      * @return a <code>Table</code> which is ready to receive some rows.
      * @see TableDef

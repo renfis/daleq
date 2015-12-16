@@ -170,6 +170,7 @@ public interface Table {
      * <p>
      * A convenience method to batch change all already existing rows in the table.
      *
+     * @param <T> the type of values, which should be filled
      * @param field  References the field, which is expected to be contained in <code>Table</code>'s {@link TableDef}.
      *               The respective fields in all rows in the table, will be changed.
      * @param values the values will be assigned to the respective field in all rows, already existing in the table.

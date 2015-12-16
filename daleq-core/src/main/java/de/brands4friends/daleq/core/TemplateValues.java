@@ -47,6 +47,7 @@ public final class TemplateValues {
      * Returns a TemplateValue which maps the row id to values within the range [0,modulus).
      *
      * @param modulus a modulus &gt; 0.
+     * @return Returns a TemplateValue which maps the row id to values within the range [0,modulus).
      * @throws IllegalArgumentException if modulus &lt;= 0
      */
     public static TemplateValue modulo(final long modulus) {

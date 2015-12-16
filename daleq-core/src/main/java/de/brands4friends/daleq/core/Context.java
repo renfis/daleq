@@ -27,6 +27,7 @@ public interface Context {
      * This method decouples the public API from exposing the actual services. Which services are registered
      * is implementation depending and my change.
      *
+     * @param <T> The type of service, that should be looked up
      * @param service the class of a requested service.
      * @return If the <code>Context</code> has a registered implementation for requested <code>servive</code>, the
      *         implementation is returned, otherwise an exception is thrown.

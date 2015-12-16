@@ -30,11 +30,13 @@ import com.google.common.base.Optional;
 public interface TableData {
     /**
      * Returns the table's name.
+     * @return the table's name.
      */
     String getName();
 
     /**
      * Returns an ordered list of all rows in the table.
+     * @return an ordered list of all rows in the table.
      */
     List<RowData> getRows();
 

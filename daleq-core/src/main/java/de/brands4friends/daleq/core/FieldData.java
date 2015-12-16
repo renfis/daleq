@@ -28,6 +28,8 @@ import com.google.common.base.Optional;
 public interface FieldData {
     /**
      * The field's name
+     *
+     * @return The name
      */
     String getName();
 
