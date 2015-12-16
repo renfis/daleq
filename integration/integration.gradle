@@ -16,6 +16,8 @@
 
 
 
+
+
 def integrationTestName = 'integrationTest'
 def INTEGRATION_DBS = ['HSQLDB', 'H2', 'Mysql']
 def INTEGRATION_PROPERTY_NAMES = ['mysql.url', 'mysql.user', 'mysql.password']
@@ -48,9 +50,7 @@ INTEGRATION_DBS.each { dbType ->
         testClassesDir = sourceSets.integrationTest.output.classesDir
         classpath = sourceSets.integrationTest.runtimeClasspath
 
-        // TODO
-        // testReportDir = new File("${reporting.baseDir}/${testReportDirName}/${name}")
-        // testResultsDir = new File("${buildDir}/${testResultsDirName}/${name}")
+        reports.html.destination = file("${reports.html.destination}_${dbType}")
 
         doFirst {
             def newProperties = ['spring.profiles.active': dbType]
@@ -60,6 +60,7 @@ INTEGRATION_DBS.each { dbType ->
                 newProperties[propertyName] = propertyValue
             }
             systemProperties(newProperties)
+            println "Running db type " + dbType
         }
     }
 }
