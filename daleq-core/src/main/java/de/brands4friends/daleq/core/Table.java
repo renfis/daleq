@@ -50,7 +50,7 @@ public interface Table {
      * )
      * }</pre>
      * will yield a table containing
-     * <table>
+     * <table summary="">
      * <tr><th>ID</th><th>NAME</th><th>SIZE</th><th>PRICE</th></tr>
      * <tr><td>1</td><td>?</td><td>XL</td><td>?</td></tr>
      * <tr><td>2</td><td>?</td><td>?</td><td>?</td></tr>
@@ -74,7 +74,7 @@ public interface Table {
      * aTable(ProductTable.class).withSomeRows(ids);
      * }</pre>
      * will yield a table
-     * <table>
+     * <table summary="">
      * <tr><th>ID</th><th>NAME</th><th>SIZE</th><th>PRICE</th></tr>
      * <tr><td>1</td><td>?</td><td>?</td><td>?</td></tr>
      * <tr><td>2</td><td>?</td><td>?</td><td>?</td></tr>
@@ -97,7 +97,7 @@ public interface Table {
      * aTable(ProductTable.class).withSomeRows(1L, 2L);
      * }</pre>
      * will yield a table
-     * <table>
+     * <table summary="">
      * <tr><th>ID</th><th>NAME</th><th>SIZE</th><th>PRICE</th></tr>
      * <tr><td>1</td><td>?</td><td>?</td><td>?</td></tr>
      * <tr><td>2</td><td>?</td><td>?</td><td>?</td></tr>
@@ -121,7 +121,7 @@ public interface Table {
      * aTable(ProductTable.class).withRowsBetween(1L, 4L);
      * }</pre>
      * will yield a table
-     * <table>
+     * <table summary="">
      * <tr><th>ID</th><th>NAME</th><th>SIZE</th><th>PRICE</th></tr>
      * <tr><td>1</td><td>?</td><td>?</td><td>?</td></tr>
      * <tr><td>2</td><td>?</td><td>?</td><td>?</td></tr>
