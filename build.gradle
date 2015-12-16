@@ -18,15 +18,18 @@ description = 'Daleq Framework'
 
 apply from: script('dependencies')
 apply plugin: "sonar"
-apply plugin: 'versions'
+apply plugin: 'com.github.ben-manes.versions'
 
 buildscript {
     repositories {
         mavenCentral()
+        maven {
+            url 'http://jcenter.bintray.com/'
+        }
     }
 
     dependencies {
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.3'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
     }
 }
 
