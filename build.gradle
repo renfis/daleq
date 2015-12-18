@@ -94,11 +94,9 @@ subprojects {
         ruleSetFiles = fileTree(dir: "${rootProject.projectDir}/config/pmd", include: '*.xml')
     }
 
-//    sonarqube {
-//        project {
-//            sourceEncoding = "UTF-8"
-//        }
-//    }
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:deprecation" << "-Xlint:unchecked"
+    }
 }
 
 apply from: script('clover')
