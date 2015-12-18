@@ -23,6 +23,7 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 import com.google.common.base.Function;
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 
@@ -88,7 +89,7 @@ final class TableTypeImpl implements TableType {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this)
+        return MoreObjects.toStringHelper(this)
                 .add("name", name)
                 .add("properties", fields).toString();
     }

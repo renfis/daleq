@@ -66,6 +66,7 @@ public final class TemplateValues {
         return TIME_TEMPLATE_VALUE;
     }
 
+    @SafeVarargs
     public static <T> TemplateValue enumeration(final T... options) {
         return new EnumeratingTemplateValue<T>(Lists.newArrayList(options));
     }

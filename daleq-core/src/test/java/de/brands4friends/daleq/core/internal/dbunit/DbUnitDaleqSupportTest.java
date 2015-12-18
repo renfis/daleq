@@ -22,6 +22,7 @@ import static de.brands4friends.daleq.core.internal.dbunit.ContextFactory.contex
 import static org.easymock.EasyMock.capture;
 import static org.easymock.EasyMock.eq;
 import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.newCapture;
 import static org.hamcrest.Matchers.arrayContaining;
 import static org.junit.Assert.assertThat;
 
@@ -100,7 +101,7 @@ public class DbUnitDaleqSupportTest extends EasyMockSupport {
     @Test
     public void insertIntoDatabase_should_insertAnIDataSetWithDbUnit() throws SQLException, DatabaseUnitException {
         expectConnection();
-        final Capture<IDataSet> capturedDataset = new Capture<IDataSet>();
+        final Capture<IDataSet> capturedDataset = newCapture();
         insertOperation.execute(eq(connection), capture(capturedDataset));
 
         replayAll();

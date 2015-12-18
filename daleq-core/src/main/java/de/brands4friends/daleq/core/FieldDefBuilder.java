@@ -16,7 +16,7 @@
 
 package de.brands4friends.daleq.core;
 
-import com.google.common.base.Objects;
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
@@ -78,7 +78,7 @@ final class FieldDefBuilder implements FieldDef {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("name", name).add("dataType", dataType).toString();
+        return MoreObjects.toStringHelper(this).add("name", name).add("dataType", dataType).toString();
     }
 
     public static FieldDef fd(final DataType dataType) {

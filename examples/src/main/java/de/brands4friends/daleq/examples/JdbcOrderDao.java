@@ -44,7 +44,7 @@ public class JdbcOrderDao extends JdbcDaoSupport implements OrderDao {
             final long customerId,
             final LocalDate boughtAt,
             final BigDecimal minimumAmount) {
-        final DateTime dateLower = boughtAt.toDateMidnight().toDateTime();
+        final DateTime dateLower = boughtAt.toDateTimeAtStartOfDay().toDateTime();
         final DateTime dateUpper = dateLower.plusDays(1);
         return getJdbcTemplate().query(
                 "select o.* from CUSTOMER_ORDER o " +

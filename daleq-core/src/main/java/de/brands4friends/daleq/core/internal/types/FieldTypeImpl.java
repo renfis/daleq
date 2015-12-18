@@ -16,8 +16,7 @@
 
 package de.brands4friends.daleq.core.internal.types;
 
-import static com.google.common.base.Objects.toStringHelper;
-
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -85,7 +84,7 @@ final class FieldTypeImpl implements FieldType {
 
     @Override
     public String toString() {
-        return toStringHelper(this)
+        return MoreObjects.toStringHelper(this)
                 .add("name", name)
                 .add("dataType", dataType)
                 .add("templateValue", templateValue)

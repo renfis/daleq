@@ -17,6 +17,7 @@
 package de.brands4friends.daleq.integration.beans;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
@@ -24,8 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.jdbc.JdbcTestUtils;
+import org.springframework.jdbc.datasource.init.ScriptUtils;
 
 public class PrepareMysqlSchema implements InitializingBean {
 
@@ -38,12 +38,9 @@ public class PrepareMysqlSchema implements InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() throws IOException {
+    public void afterPropertiesSet() throws IOException, SQLException {
         final ClassPathResource script = new ClassPathResource("schema-mysql.sql");
         logger.info("Preparing Schema with file {}", script.getFile().getAbsolutePath());
-        JdbcTestUtils.executeSqlScript(
-                new JdbcTemplate(dataSource),
-                script,
-                false);
+        ScriptUtils.executeSqlScript(dataSource.getConnection(), script);
     }
 }

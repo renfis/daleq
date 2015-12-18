@@ -18,6 +18,7 @@ package de.brands4friends.daleq.core;
 
 import org.apache.commons.lang.text.StrSubstitutor;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 
@@ -55,6 +56,6 @@ public final class StringTemplateValue implements TemplateValue {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("template", template).toString();
+        return MoreObjects.toStringHelper(this).add("template", template).toString();
     }
 }

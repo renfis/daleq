@@ -18,7 +18,7 @@ package de.brands4friends.daleq.examples;
 
 import org.joda.time.DateTime;
 
-import com.google.common.base.Objects;
+import com.google.common.base.MoreObjects;
 
 public class Order {
 
@@ -46,7 +46,7 @@ public class Order {
 
     @Override
     public final String toString() {
-        return Objects.toStringHelper(this)
+        return MoreObjects.toStringHelper(this)
                 .add("id", id)
                 .add("customerId", customerId)
                 .add("creation", creation)
