@@ -4,10 +4,10 @@ jdk:
 before_install:
   - "./gradlew --version"
   - mysql -e 'create database daleq_test;'
-install: "./gradlew --stacktrace --quiet --no-color assemble"
+install: "./gradlew --stacktrace --quiet assemble"
 script: "./travis_build.sh"
 after_script:
-  - "./gradlew --stacktrace --quiet --continue --no-color issues"
+  - "./gradlew --stacktrace --quiet --continue issues"
 notifications:
   email:
     recipients:
