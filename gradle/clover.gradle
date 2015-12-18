@@ -124,12 +124,6 @@ subprojects {
             cloverConvention.makeReports(ant)
         }
     }
-
-    sonar {
-        project {
-            cloverReportPath cloverConvention.xmlReport
-        }
-    }
 }
 
 class CloverPluginConvention {

@@ -26,8 +26,6 @@ dependencies {
     testCompile deps.hsqldb
 }
 
-sonar {
-    project {
-        skip = true
-    }
+sonarqube {
+    skipProject = true
 }

@@ -17,7 +17,7 @@
 description = 'Daleq Framework'
 
 apply from: script('dependencies')
-apply plugin: "sonar"
+apply plugin: "org.sonarqube"
 apply plugin: 'com.github.ben-manes.versions'
 
 buildscript {
@@ -26,22 +26,20 @@ buildscript {
         maven {
             url 'http://jcenter.bintray.com/'
         }
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
     }
 
     dependencies {
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
+        classpath 'org.sonarqube.gradle:gradle-sonarqube-plugin:1.1'
     }
 }
 
-sonar {
-    server {
-        url = propertyOr('sonar.host.url', null)
-    }
-    database {
-        url = propertyOr('sonar.jdbc.url', null)
-        driverClassName = propertyOr('sonar.jdbc.driver', null)
-        username = propertyOr('sonar.jdbc.username', null)
-        password = propertyOr('sonar.jdbc.password', null)
+sonarqube {
+    properties {
+        property "sonar.sourceEncoding", "UTF-8"
     }
 }
 
@@ -96,11 +94,11 @@ subprojects {
         ruleSetFiles = fileTree(dir: "${rootProject.projectDir}/config/pmd", include: '*.xml')
     }
 
-    sonar {
-        project {
-            sourceEncoding = "UTF-8"
-        }
-    }
+//    sonarqube {
+//        project {
+//            sourceEncoding = "UTF-8"
+//        }
+//    }
 }
 
 apply from: script('clover')
