@@ -21,7 +21,7 @@ task issues() << {
     def foundIssues = 0
 
     reportXmlErrors(
-            fileTree("${project.testResultsDir}") {}) { xml ->
+            fileTree("${project.testResultsDir}") { include '**/*.xml'}) { xml ->
         xml.testcase.failure.each { failure ->
             def testcase = failure.parent()
             println "${testcase['@classname']}#${testcase['@name']}(): ${failure['@message']}"
